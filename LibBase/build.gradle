@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    compileSdkVersion build_version.compile_sdk
+    buildToolsVersion build_version.build_tools
+
+    defaultConfig {
+        minSdkVersion build_version.min_sdk
+        targetSdkVersion build_version.target_sdk
+        consumerProguardFiles "consumer-rules.pro"
+        //版本名后面添加一句话，意思就是flavor dimension 它的维度就是该版本号，这样维度就是都是统一的了
+        flavorDimensions "versionCode"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility build_version.version_java
+        targetCompatibility build_version.version_java
+    }
+
+    productFlavors {
+        pro {
+            buildConfigField "String", "TEST_URL", config.server.testUrl
+            buildConfigField "String", "RELEASE_URL", config.server.releaseUrl
+            buildConfigField "boolean", "VAR_BOOLEAN", 'false'
+            buildConfigField "String", "VAR_STRING", '"我是String"'
+        }
+    }
+
+    //启动dataBinding
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation target.appcompat
+    api target.status_bar_compat
+    api target.rxjava
+    api target.rxandroid
+    api target.converter_gson
+    api target.logger
+    api target.adapter_rxjava2
+    api project(':LibCommon')
+}

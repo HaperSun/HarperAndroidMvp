@@ -1,0 +1,25 @@
+ext.config = [:]
+
+def config = [:]
+
+def app = [:]
+app.versionCode = 20211112
+app.versionName = "v0.0.1"
+//友盟的 app_key
+app.umeng_app_key = "6193821ce014255fcb7d1395"
+config.app = app
+
+//关于服务端的地址配置
+def server = [:]
+//测试环境
+server.testUrl = "\"https://测试环境地址前缀\""
+//准现网环境
+server.devUrl = "\"https://准现网环境地址前缀\""
+//现网环境
+server.releaseUrl = "\"https://现网环境地址前缀\""
+config.server = server
+
+//GreenDao版本
+config.dao_version = 1
+
+ext.config = config

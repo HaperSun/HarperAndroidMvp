@@ -1,0 +1,59 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion build_version.compile_sdk
+    buildToolsVersion build_version.build_tools
+    defaultConfig {
+        applicationId "com.sun.demo"
+        minSdkVersion build_version.min_sdk
+        targetSdkVersion build_version.target_sdk
+        versionCode config.app.versionCode
+        versionName config.app.versionName
+
+        manifestPlaceholders = [
+                //友盟
+                UMENG_APP_KEY: config.app.umeng_app_key
+        ]
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('../key/Harper_demo2.jks')
+            storePassword '654321'
+            keyAlias 'Harper_demo2'
+            keyPassword '654321'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility build_version.version_java
+        targetCompatibility build_version.version_java
+    }
+
+    //启动dataBinding
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation target.appcompat
+    implementation target.material
+    implementation target.constraintlayout
+    api project(':LibBase')
+    api project(':LibDb')
+    api project(':LibCommon')
+    api project(':LibChart')
+}

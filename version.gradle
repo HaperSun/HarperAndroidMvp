@@ -1,0 +1,45 @@
+ext.target = [:]
+
+def version = [:]
+version.appcompat = "1.2.0"
+version.material = "1.2.1"
+version.constraintlayout = "2.0.1"
+version.greendao = "3.3.0"
+version.generator = "3.3.0"
+version.recyclerview = "1.2.0-alpha05"
+version.annotation = "1.1.0"
+version.multitype = "3.4.4"
+version.rxjava = "2.1.7"
+version.rxandroid = "2.0.2"
+version.converter_gson = "2.9.0"
+version.logger = "2.2.0"
+version.adapter_rxjava2 = "2.9.0"
+version.status_bar_compat = "0.7"
+
+
+def target =[:]
+target.appcompat = "androidx.appcompat:appcompat:$version.appcompat"
+target.material = "com.google.android.material:material:$version.material"
+target.constraintlayout = "androidx.constraintlayout:constraintlayout:$version.constraintlayout"
+target.greendao = "org.greenrobot:greendao:$version.greendao"
+target.generator = "org.greenrobot:greendao-generator:$version.generator"
+target.recyclerview = "androidx.recyclerview:recyclerview:$version.recyclerview"
+target.annotation = "androidx.annotation:annotation:$version.annotation"
+target.multitype = "me.drakeet.multitype:multitype:$version.multitype"
+target.status_bar_compat = "com.githang:status-bar-compat:$version.status_bar_compat"
+
+target.rxjava = "io.reactivex.rxjava2:rxjava:$version.rxjava"
+target.rxandroid = "io.reactivex.rxjava2:rxandroid:$version.rxandroid"
+target.converter_gson = "com.squareup.retrofit2:converter-gson:$version.converter_gson"
+target.logger = "com.orhanobut:logger:$version.logger"
+target.adapter_rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$version.adapter_rxjava2"
+
+ext.target = target
+
+def build_version = [:]
+build_version.compile_sdk = 30
+build_version.build_tools = "30.0.3"
+build_version.min_sdk = 16
+build_version.target_sdk = 30
+build_version.version_java = JavaVersion.VERSION_1_8
+ext.build_version = build_version

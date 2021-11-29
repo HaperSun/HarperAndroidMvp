@@ -1,0 +1,38 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    compileSdkVersion build_version.compile_sdk
+    buildToolsVersion build_version.build_tools
+
+    defaultConfig {
+        minSdkVersion build_version.min_sdk
+        targetSdkVersion build_version.target_sdk
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    /*读取config.gradle中的配置文件，在build后生成xml的资源文件*/
+    buildTypes.all { buildType ->
+        resValue("string", "version_name", config.app.versionName)
+        //友盟appKey
+        resValue("string", "um_app_key", config.app.umeng_app_key)
+    }
+
+    compileOptions {
+        sourceCompatibility build_version.version_java
+        targetCompatibility build_version.version_java
+    }
+}
+
+dependencies {
+    api target.annotation
+    api "org.greenrobot:eventbus:3.1.1"
+}

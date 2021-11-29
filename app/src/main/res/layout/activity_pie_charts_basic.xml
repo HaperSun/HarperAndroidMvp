@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        tools:context=".activity.PieChartsBasicActivity">
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/basic_pie_chart"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_600" />
+
+        <ImageView
+            android:id="@+id/img_view"
+            android:layout_width="@dimen/dimen_12"
+            android:layout_height="@dimen/dimen_12"
+            android:layout_marginTop="@dimen/dimen_12" />
+    </LinearLayout>
+
+</layout>
