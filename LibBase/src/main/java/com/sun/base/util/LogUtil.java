@@ -182,7 +182,7 @@ public final class LogUtil {
      */
     public static void e(String tag, String msg) {
         try {
-            if (mEnableLog && mLogLevel <= E) {
+            if (mEnableLog && E <= mLogLevel) {
                 Logger.t(tag).e(msg);
             }
         } catch (Exception e) {

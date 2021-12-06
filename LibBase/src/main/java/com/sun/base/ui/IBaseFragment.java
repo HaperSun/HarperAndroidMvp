@@ -6,11 +6,10 @@ package com.sun.base.ui;
  * @note:
  */
 public interface IBaseFragment {
+
     int layoutId();
 
     void initData();
 
     void initView();
-
-    void initEvent();
 }

@@ -16,7 +16,7 @@ public interface IBaseActivity {
 
     void initView();
 
-    void initData();
+    void requestData();
 
-    void initEvent();
+    void initPage();
 }

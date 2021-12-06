@@ -16,6 +16,9 @@ android {
                 //友盟
                 UMENG_APP_KEY: config.app.umeng_app_key
         ]
+        //版本名后面添加一句话，意思就是flavor dimension 它的维度就是该版本号，这样维度就是都是统一的了
+        //用来解决All flavors must now belong to a named flavor dimension问题
+        flavorDimensions "versionCode"
     }
 
     signingConfigs {
@@ -24,6 +27,16 @@ android {
             storePassword '654321'
             keyAlias 'Harper_demo2'
             keyPassword '654321'
+        }
+    }
+
+    productFlavors {
+        //多渠道打包
+        pro {
+            buildConfigField "String", "TEST_URL", config.server.testUrl
+            buildConfigField "String", "RELEASE_URL", config.server.releaseUrl
+            buildConfigField "boolean", "VAR_BOOLEAN", 'false'
+            buildConfigField "String", "VAR_STRING", '"我是String"'
         }
     }
 
@@ -37,6 +50,7 @@ android {
             signingConfig signingConfigs.release
         }
     }
+
     compileOptions {
         sourceCompatibility build_version.version_java
         targetCompatibility build_version.version_java

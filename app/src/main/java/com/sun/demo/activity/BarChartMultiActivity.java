@@ -23,7 +23,11 @@ import com.sun.demo.custom.MyMarkerView;
 import com.sun.demo.databinding.ActivityBarChartMultiBinding;
 
 import java.util.ArrayList;
-
+/**
+ * @author: Harper
+ * @date:   2021/12/6
+ * @note: 
+ */
 public class BarChartMultiActivity extends BaseMvpActivity {
 
     private BarChart chart;
@@ -41,16 +45,13 @@ public class BarChartMultiActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        ViewDataBinding viewDataBinding = getDataBinding();
-        if (viewDataBinding != null) {
-            ActivityBarChartMultiBinding binding = (ActivityBarChartMultiBinding) viewDataBinding;
-            chart = binding.multiBarChart;
-            tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
-        }
+        ActivityBarChartMultiBinding binding = (ActivityBarChartMultiBinding) mViewDataBinding;
+        chart = binding.multiBarChart;
+        tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
     }
 
     @Override
-    public void initData() {
+    public void requestData() {
         chart.getDescription().setEnabled(false);
         chart.setPinchZoom(false);
         chart.setDrawBarShadow(false);

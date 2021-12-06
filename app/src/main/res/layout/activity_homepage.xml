@@ -9,13 +9,6 @@
         android:orientation="vertical"
         tools:context=".activity.HomepageActivity">
 
-        <TextView
-            android:id="@+id/net"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/dimen_10"
-            android:text="Hello World!" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"

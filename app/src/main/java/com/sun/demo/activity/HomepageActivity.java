@@ -18,6 +18,11 @@ import com.sun.demo.databinding.ActivityHomepageBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author: Harper
+ * @date: 2021/12/6
+ * @note:
+ */
 public class HomepageActivity extends BaseMvpActivity {
 
     private Context mContext;
@@ -31,16 +36,12 @@ public class HomepageActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        ViewDataBinding viewDataBinding = getDataBinding();
-        if (viewDataBinding != null){
-            ActivityHomepageBinding binding = (ActivityHomepageBinding) viewDataBinding;
-            binding.net.setText(BaseUtil.getServerUrl());
-            mRecyclerView = binding.recyclerView;
-        }
+        ActivityHomepageBinding binding = (ActivityHomepageBinding) mViewDataBinding;
+        mRecyclerView = binding.recyclerView;
     }
 
     @Override
-    public void initData() {
+    public void requestData() {
         mContext = HomepageActivity.this;
         mTitles = getTitles();
         Adapter adapter = new Adapter();
@@ -49,6 +50,7 @@ public class HomepageActivity extends BaseMvpActivity {
 
     private List<String> getTitles() {
         List<String> titles = new ArrayList<>();
+        titles.add("GreenDao在登录成功后，的一个使用实例");
         titles.add("Bar Charts 单柱状图");
         titles.add("Bar Charts 双柱状图");
         titles.add("Pie Charts 饼状图");
@@ -76,12 +78,15 @@ public class HomepageActivity extends BaseMvpActivity {
         private void doClick(int position) {
             switch (position) {
                 case 0:
-                    BarChartBasicActivity.startActivity(mContext);
+                    LoginActivity.startActivity(mContext);
                     break;
                 case 1:
-                    BarChartMultiActivity.startActivity(mContext);
+                    BarChartBasicActivity.startActivity(mContext);
                     break;
                 case 2:
+                    BarChartMultiActivity.startActivity(mContext);
+                    break;
+                case 3:
                     PieChartsBasicActivity.startActivity(mContext);
                     break;
                 default:

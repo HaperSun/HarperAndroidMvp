@@ -1,5 +1,6 @@
 package com.sun.base.ui.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -8,13 +9,10 @@ import androidx.annotation.ColorInt;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.githang.statusbar.StatusBarCompat;
-import com.sun.base.R;
 import com.sun.base.presenter.BasePresenter;
 import com.sun.base.ui.IAddPresenterView;
 import com.sun.base.ui.widget.BaseHeader;
 import com.sun.base.util.CommonUtils;
-import com.sun.base.util.StatusBarUtil;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,14 +25,8 @@ import java.util.Set;
 
 public abstract class BaseMvpActivity extends BaseActivity implements IAddPresenterView {
 
-    protected BaseHeader mHeader;
-    protected @ColorInt
-    //状态栏背景色
-    int mStatusBarColor;
     private Set<BasePresenter> mPresenters;
-    //默认状态栏背景色
-    private int mDefaultStatusBarColor;
-    private ViewDataBinding binding;
+    public ViewDataBinding mViewDataBinding;
 
     /**
      * 子类每次new一个presenter的时候，请调用此方法
@@ -54,18 +46,37 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //让屏幕保持不暗不关闭
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         beforeSetContentView(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, layoutId());
-        if (needSetStatusBar()) {
-            initStatusBarColor();
-            StatusBarCompat.setStatusBarColor(this, mStatusBarColor);
-        }
+        //android6.0以后可以对状态栏文字颜色和图标进行修改
+        changeStatusBarTxtAndImgColor();
+        mViewDataBinding = DataBindingUtil.setContentView(this, layoutId());
         initView();
-        initData();
-        initEvent();
+        requestData();
+        initPage();
+        //设置不可以多点点击
+        initMultiClick();
+    }
+
+    private void changeStatusBarTxtAndImgColor() {
+        if (!statusBarTxtIsDark() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+    }
+
+    /**
+     * 我们在theme中配置statusBar颜色后，如果配置的颜色黑暗的则在子类中复写该方法，并返回true
+     *
+     * @return boolean
+     */
+    public boolean statusBarTxtIsDark() {
+        return false;
+    }
+
+    private void initMultiClick() {
         if (!setMotionEventSplittingEnabled()) {
-            //设置不可以多点点击
             CommonUtils.setMotionEventSplittingEnabled(findViewById(android.R.id.content), false);
         }
     }
@@ -76,44 +87,15 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
      * @return null 或者binding对象
      */
     public ViewDataBinding getDataBinding() {
-        return binding;
+        return mViewDataBinding;
     }
 
-    public void initStatusBarColor() {
-        boolean isLightStatusBarSupported = StatusBarUtil.isLightStatusBarSupported();
-        if (isLightStatusBarSupported) {
-            mDefaultStatusBarColor = getResources().getColor(R.color.white);
-            mStatusBarColor = setStatusBarColorIfSupport();
-        } else {
-            mStatusBarColor = getResources().getColor(R.color.color_app_status_bar);
-        }
-    }
 
     @Override
-    public void initEvent() {
-        if (mHeader != null && mHeader.getOnTitleClickListener() == null) {
-            mHeader.setOnTitleClickListener(new BaseHeader.OnTitleClickListener() {
-                @Override
-                public void onLeftClick(View view) {
-                    finish();
-                }
+    public void initPage() {
 
-                @Override
-                public void onRightClick(View view) {
-                    finish();
-                }
-            });
-        }
     }
 
-    @Override
-    public void setTitle(CharSequence title) {
-        if (mHeader != null) {
-            mHeader.setTitle(title);
-        } else {
-            super.setTitle(title);
-        }
-    }
 
     @Override
     protected void onDestroy() {
@@ -126,37 +108,11 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
         super.onDestroy();
     }
 
-    /**
-     * 子类如果需要布局延伸到状态栏，请复写改方法返回false
-     *
-     * @return
-     */
-    protected boolean needSetStatusBar() {
-        //状态栏不在屏幕顶部
-        if (StatusBarUtil.isStatusBarPositionNotOnTop()) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * 子类需要修改状态栏背景色的话，请复写改方法返回对应的颜色
-     *
-     * @return
-     */
-    public @ColorInt
-    int setStatusBarColorIfSupport() {
-        return mDefaultStatusBarColor;
-    }
-
-    public int getStatusBarColor() {
-        return mStatusBarColor;
-    }
 
     /**
      * 是否可以多点点击 子类可以复写该方法 默认不可多点点击
      *
-     * @return
+     * @return boolean
      */
     protected boolean setMotionEventSplittingEnabled() {
         return false;

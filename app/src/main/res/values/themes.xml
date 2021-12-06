@@ -13,4 +13,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryVariant">@color/white</item>
+        <!--避免设置StatusBar文本和图标颜色后，StatusBar失去高度-->
+        <item name="android:fitsSystemWindows">true</item>
+        <!-- 设置StatusBar颜色. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
 </resources>

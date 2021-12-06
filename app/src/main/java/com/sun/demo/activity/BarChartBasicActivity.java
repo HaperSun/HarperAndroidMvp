@@ -59,15 +59,12 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
 
     @Override
     public void initView() {
-        ViewDataBinding viewDataBinding = getDataBinding();
-        if (viewDataBinding != null) {
-            ActivityBarChartBasicBinding binding = (ActivityBarChartBasicBinding) viewDataBinding;
-            chart = binding.chart;
-        }
+        ActivityBarChartBasicBinding binding = (ActivityBarChartBasicBinding) mViewDataBinding;
+        chart = binding.chart;
     }
 
     @Override
-    public void initData() {
+    public void requestData() {
         chart.setOnChartValueSelectedListener(this);
         chart.setDrawBarShadow(false);
         chart.setDrawValueAboveBar(true);

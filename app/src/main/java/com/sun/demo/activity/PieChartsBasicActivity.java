@@ -51,19 +51,16 @@ public class PieChartsBasicActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        ViewDataBinding viewDataBinding = getDataBinding();
-        if (viewDataBinding != null) {
-            ActivityPieChartsBasicBinding binding = (ActivityPieChartsBasicBinding) viewDataBinding;
-            chart = binding.basicPieChart;
-            tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
-            tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
-            ImageView iv = binding.imgView;
-            iv.setBackgroundColor(Color.rgb(217, 80, 138));
-        }
+        ActivityPieChartsBasicBinding binding = (ActivityPieChartsBasicBinding) mViewDataBinding;
+        chart = binding.basicPieChart;
+        tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
+        tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
+        ImageView iv = binding.imgView;
+        iv.setBackgroundColor(Color.rgb(217, 80, 138));
     }
 
     @Override
-    public void initData() {
+    public void requestData() {
         chart.setUsePercentValues(true);
         chart.getDescription().setEnabled(false);
         chart.setExtraOffsets(0, 10, 80, 5);
