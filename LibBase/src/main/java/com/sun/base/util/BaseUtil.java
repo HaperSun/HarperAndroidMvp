@@ -17,9 +17,10 @@ public abstract class BaseUtil {
 
     private static BaseConfig mBaseConfig;
 
-    public static void init(BaseConfig baseConfig){
+    public static void init(BaseConfig baseConfig) {
         mBaseConfig = baseConfig;
     }
+
     /**
      * 获取服务端地址
      *
@@ -42,29 +43,25 @@ public abstract class BaseUtil {
     /**
      * [获取应用程序版本名称信息]
      *
-     * @param context context
-     * @return 当前应用的版本名称
+     * @return 当前应用的版本号
      */
-    public static synchronized String getVersionName(Context context) {
-//        return context.getResources().getString(R.string.version_name);
-        return mBaseConfig.versionName;
+    public static int getVersionCode() {
+        return mBaseConfig.versionCode;
     }
 
     /**
      * [获取应用程序版本名称信息]
      *
-     * @param context context
      * @return 当前应用的版本名称
      */
-    public static synchronized String getPackageName(Context context) {
-//        try {
-//            PackageManager packageManager = context.getPackageManager();
-//            PackageInfo packageInfo = packageManager.getPackageInfo(
-//                    context.getPackageName(), 0);
-//            return packageInfo.packageName;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+    public static String getVersionName() {
+        return mBaseConfig.versionName;
+    }
+
+    /**
+     * @return 当前应用的包名
+     */
+    public static String getPackageName() {
         return mBaseConfig.packageName;
     }
 }

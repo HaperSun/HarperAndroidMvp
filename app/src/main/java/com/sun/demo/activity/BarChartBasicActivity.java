@@ -10,7 +10,6 @@ import android.util.Log;
 
 
 import androidx.core.content.ContextCompat;
-import androidx.databinding.ViewDataBinding;
 
 
 import com.github.mikephil.charting.charts.BarChart;

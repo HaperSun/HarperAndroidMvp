@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 
-import androidx.databinding.ViewDataBinding;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 
@@ -19,7 +17,6 @@ import com.github.mikephil.charting.formatter.LargeValueFormatter;
 
 import com.sun.base.ui.activity.BaseMvpActivity;
 import com.sun.demo.R;
-import com.sun.demo.custom.MyMarkerView;
 import com.sun.demo.databinding.ActivityBarChartMultiBinding;
 
 import java.util.ArrayList;

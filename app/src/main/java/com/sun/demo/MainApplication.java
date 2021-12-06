@@ -35,8 +35,8 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
     }
 
     private BaseConfig getBaseConfig() {
-        return new BaseConfig(BuildConfig.APPLICATION_ID, BuildConfig.VERSION_NAME,
-                BuildConfig.TEST_URL, BuildConfig.RELEASE_URL);
+        return new BaseConfig(BuildConfig.APPLICATION_ID, BuildConfig.VERSION_CODE,
+                BuildConfig.VERSION_NAME, BuildConfig.TEST_URL, BuildConfig.RELEASE_URL);
     }
 
     @Override

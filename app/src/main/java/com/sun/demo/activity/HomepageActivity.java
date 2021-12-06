@@ -7,11 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.base.ui.activity.BaseMvpActivity;
-import com.sun.base.util.BaseUtil;
 import com.sun.demo.R;
 import com.sun.demo.databinding.ActivityHomepageBinding;
 
