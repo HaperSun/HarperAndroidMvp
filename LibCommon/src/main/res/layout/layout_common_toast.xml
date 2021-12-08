@@ -5,8 +5,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_toast"
-    android:padding="@dimen/dimen_10"
+    android:padding="@dimen/dp5"
     android:gravity="center"
     android:textColor="@android:color/white"
-    android:textSize="@dimen/font_24"
+    android:textSize="@dimen/sp12"
     tools:text="的点点滴滴" />

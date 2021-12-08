@@ -12,13 +12,13 @@
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/basic_pie_chart"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_600" />
+            android:layout_height="@dimen/dp300" />
 
         <ImageView
             android:id="@+id/img_view"
-            android:layout_width="@dimen/dimen_12"
-            android:layout_height="@dimen/dimen_12"
-            android:layout_marginTop="@dimen/dimen_12" />
+            android:layout_width="@dimen/dp6"
+            android:layout_height="@dimen/dp6"
+            android:layout_marginTop="@dimen/dp6" />
     </LinearLayout>
 
 </layout>

@@ -2,35 +2,34 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dimen_88"
+    android:layout_height="@dimen/dp44"
     android:background="@color/white"
     tools:parentTag="android.widget.RelativeLayout">
 
     <FrameLayout
         android:id="@+id/v_left"
-        android:layout_width="@dimen/dimen_60"
-        android:layout_height="@dimen/dimen_36"
+        android:layout_width="@dimen/dp30"
+        android:layout_height="@dimen/dp18"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dimen_42">
+        android:layout_marginLeft="@dimen/dp21">
 
         <ImageView
-            android:layout_width="@dimen/dimen_21"
-            android:layout_height="@dimen/dimen_36"
+            android:layout_width="@dimen/dp11"
+            android:layout_height="@dimen/dp18"
             android:src="@mipmap/icon_back" />
     </FrameLayout>
 
     <com.sun.base.ui.widget.MarqueeTextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dimen_88"
+        android:layout_height="@dimen/dp44"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="@dimen/dimen_180"
-        android:layout_marginRight="@dimen/dimen_30"
+        android:layout_marginLeft="@dimen/dp90"
+        android:layout_marginRight="@dimen/dp15"
         android:gravity="center"
         android:textColor="@color/color_1d1b1b"
-        android:textSize="@dimen/font_32"
+        android:textSize="@dimen/sp16"
         android:textStyle="bold"
         tools:text="测试头部布局" />
-
 </merge>

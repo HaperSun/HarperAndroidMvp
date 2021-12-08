@@ -2,36 +2,36 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dimen_88"
+    android:layout_height="@dimen/dp44"
     tools:parentTag="android.widget.RelativeLayout">
 
     <RelativeLayout
         android:id="@+id/v_left"
-        android:layout_width="@dimen/dimen_72"
-        android:paddingLeft="@dimen/dimen_20"
-        android:paddingRight="@dimen/dimen_30"
+        android:layout_width="@dimen/dp36"
+        android:paddingLeft="@dimen/dp10"
+        android:paddingRight="@dimen/dp15"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dimen_22">
+        android:layout_marginLeft="@dimen/dp11">
 
         <ImageView
             android:layout_centerVertical="true"
-            android:layout_width="@dimen/dimen_21"
-            android:layout_height="@dimen/dimen_36"
+            android:layout_width="@dimen/dp11"
+            android:layout_height="@dimen/dp18"
             android:src="@mipmap/icon_back" />
     </RelativeLayout>
 
     <com.sun.base.ui.widget.MarqueeTextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dimen_88"
+        android:layout_height="@dimen/dp44"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="@dimen/dimen_180"
-        android:layout_marginRight="@dimen/dimen_180"
+        android:layout_marginLeft="@dimen/dp90"
+        android:layout_marginRight="@dimen/dp90"
         android:gravity="center"
         android:textColor="@color/color_1d1b1b"
-        android:textSize="@dimen/font_36"
+        android:textSize="@dimen/sp18"
         tools:text="测试头部布局" />
 
     <TextView
@@ -40,15 +40,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/dimen_42"
+        android:layout_marginRight="@dimen/dp21"
         android:background="@drawable/shape_orange_rec_corner_dp5"
         android:gravity="center"
-        android:minWidth="@dimen/dimen_110"
-        android:paddingTop="@dimen/dimen_10"
-        android:paddingBottom="@dimen/dimen_10"
+        android:minWidth="@dimen/dp55"
+        android:paddingTop="@dimen/dp5"
+        android:paddingBottom="@dimen/dp5"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_26"
+        android:textSize="@dimen/sp13"
         android:text="保存" />
-
-
 </merge>

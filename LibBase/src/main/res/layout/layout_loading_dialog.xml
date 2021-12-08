@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/dimen_270"
-    android:layout_height="@dimen/dimen_222"
+    android:layout_width="@dimen/dp135"
+    android:layout_height="@dimen/dp111"
     android:background="@drawable/dialog_loading_bg"
     android:gravity="center"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_loading"
-        android:layout_width="@dimen/dimen_66"
-        android:layout_height="@dimen/dimen_66"
+        android:layout_width="@dimen/dp33"
+        android:layout_height="@dimen/dp33"
         android:src="@mipmap/dialog_loading_img" />
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10"
-        android:layout_marginTop="@dimen/dimen_31"
-        android:layout_marginEnd="@dimen/dimen_10"
+        android:layout_marginStart="@dimen/dp5"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_marginEnd="@dimen/dp5"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_28"
+        android:textSize="@dimen/sp14"
         tools:text="hh" />
 </LinearLayout>

@@ -14,38 +14,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/purple_200"
-            android:layout_marginTop="@dimen/dimen_20"
-            android:padding="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dp10"
+            android:padding="@dimen/dp10"
             android:text="模拟登陆"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_32" />
+            android:textSize="@dimen/sp16" />
 
         <TextView
             android:id="@+id/custom_toast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dp10"
             android:background="@color/purple_200"
-            android:padding="@dimen/dimen_20"
+            android:padding="@dimen/dp10"
             android:text="自定义Toast"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_32" />
+            android:textSize="@dimen/sp16" />
 
         <TextView
             android:id="@+id/common_toast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dp10"
             android:background="@color/purple_200"
-            android:padding="@dimen/dimen_20"
+            android:padding="@dimen/dp10"
             android:text="普通的Toast"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_32" />
+            android:textSize="@dimen/sp16" />
 
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dimen_20" />
+            android:layout_marginTop="@dimen/dp10" />
     </LinearLayout>
 </layout>

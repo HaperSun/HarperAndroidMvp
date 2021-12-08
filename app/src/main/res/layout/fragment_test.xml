@@ -10,11 +10,10 @@
         <TextView
             android:id="@+id/handle_text"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_120"
+            android:layout_height="@dimen/dp60"
             android:gravity="center_vertical"
-            android:padding="@dimen/dimen_10"
+            android:padding="@dimen/dp5"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_32" />
+            android:textSize="@dimen/sp16" />
     </LinearLayout>
-
 </layout>
