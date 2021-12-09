@@ -3,6 +3,7 @@ ext.config = [:]
 def config = [:]
 
 def app = [:]
+app.package = "com.sun.demo2"
 app.versionCode = 20211112
 app.versionName = "v0.0.1"
 //友盟的 app_key
