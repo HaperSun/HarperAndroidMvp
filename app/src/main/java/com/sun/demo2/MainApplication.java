@@ -5,13 +5,13 @@ import android.content.Context;
 
 import com.sun.base.bean.BaseConfig;
 import com.sun.base.bean.TDevice;
-import com.sun.base.img.ImageLoader;
 import com.sun.base.net.NetWork;
 import com.sun.base.util.BaseUtil;
 import com.sun.base.util.LogUtil;
 import com.sun.base.util.RetrofitUtils;
 import com.sun.db.entity.UserInfo;
 import com.sun.db.table.manager.UserInfoManager;
+import com.sun.img.load.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;

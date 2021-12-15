@@ -1,4 +1,4 @@
-package com.sun.base.bean;
+package com.sun.img.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;

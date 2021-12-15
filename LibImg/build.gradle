@@ -32,17 +32,8 @@ android {
 
 dependencies {
     implementation target.appcompat
-    api target.status_bar_compat
-    api target.rxjava
-    api target.rxandroid
-    api target.converter_gson
-    api target.logger
-    api target.adapter_rxjava2
-
-    api('com.alibaba.android:vlayout:1.0.4@aar') {
-        transitive = true
-        exclude group: 'com.android.support'
-    }
-
-    api project(':LibCommon')
+    api target.glide
+    api target.photoView
+    api target.andpermission
+    api project(':LibBase')
 }

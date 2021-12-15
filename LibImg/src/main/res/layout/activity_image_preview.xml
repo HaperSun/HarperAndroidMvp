@@ -27,7 +27,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/dp20"
-            android:background="@drawable/bg_indicator"
+            android:background="@drawable/shape_rec_solid_black_corners_dp14"
             android:gravity="center"
             android:paddingLeft="@dimen/dp22"
             android:paddingTop="@dimen/dp5"

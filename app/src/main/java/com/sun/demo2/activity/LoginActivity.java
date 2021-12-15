@@ -3,10 +3,9 @@ package com.sun.demo2.activity;
 import android.content.Context;
 import android.content.Intent;
 
-import com.sun.base.img.ImageLoader;
-import com.sun.base.img.preview.ImagePreviewActivity;
-import com.sun.base.net.exception.ApiException;
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.img.preview.ImagePreviewActivity;
+import com.sun.base.net.exception.ApiException;
 import com.sun.common.toast.CustomToast;
 import com.sun.common.toast.ToastHelper;
 import com.sun.db.entity.UserInfo;
@@ -17,6 +16,7 @@ import com.sun.demo2.fragment.TestFragment;
 import com.sun.demo2.iview.LoginView;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.present.LoginPresenter;
+import com.sun.img.load.ImageLoader;
 
 /**
  * @author: Harper

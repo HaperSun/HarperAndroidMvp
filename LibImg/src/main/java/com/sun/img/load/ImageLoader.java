@@ -1,4 +1,4 @@
-package com.sun.base.img;
+package com.sun.img.load;
 
 import android.content.Context;
 import android.widget.ImageView;

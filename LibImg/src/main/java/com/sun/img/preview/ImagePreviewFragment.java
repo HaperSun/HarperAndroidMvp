@@ -1,4 +1,4 @@
-package com.sun.base.img.preview;
+package com.sun.img.preview;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,20 +12,20 @@ import android.widget.ProgressBar;
 import androidx.fragment.app.FragmentActivity;
 
 import com.github.chrisbanes.photoview.PhotoView;
-import com.sun.base.R;
 import com.sun.base.base.fragment.BaseMvpFragment;
-import com.sun.base.bean.ImageItem;
-import com.sun.base.databinding.FragmentImagePreviewBinding;
 import com.sun.base.dialog.BottomDialogFragment;
 import com.sun.base.dialog.CommonAlertDialog;
-import com.sun.base.img.ImageLoadListener;
-import com.sun.base.img.ImageLoader;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogUtil;
 import com.sun.base.util.MD5;
 import com.sun.base.util.StringUtils;
 import com.sun.common.toast.CustomToast;
 import com.sun.common.toast.ToastHelper;
+import com.sun.img.R;
+import com.sun.img.bean.ImageItem;
+import com.sun.img.databinding.FragmentImagePreviewBinding;
+import com.sun.img.load.ImageLoadListener;
+import com.sun.img.load.ImageLoader;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 

@@ -1,4 +1,4 @@
-package com.sun.base.img.preview;
+package com.sun.img.preview;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,10 +13,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.sun.base.R;
-import com.sun.base.bean.ImageItem;
-import com.sun.base.databinding.ActivityImagePreviewBinding;
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.img.R;
+import com.sun.img.bean.ImageItem;
+import com.sun.img.databinding.ActivityImagePreviewBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -174,7 +174,8 @@ public class ImagePreviewActivity extends BaseMvpActivity {
         context.startActivity(intent);
         if (context instanceof Activity && needAnim) {
             // 第一个参数描述的是将要跳转到的activity的进入方式,第二个参数描述的是本界面退出的方式
-            ((Activity) context).overridePendingTransition(R.anim.scale_in, 0);//“中心放大出现”
+            //“中心放大出现”
+            ((Activity) context).overridePendingTransition(R.anim.scale_in, 0);
         }
     }
 

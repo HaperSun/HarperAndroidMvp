@@ -1,4 +1,4 @@
-package com.sun.base.img;
+package com.sun.img.load;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,16 +20,17 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.sun.base.util.FileUtil;
-import com.sun.base.util.ImgLoaderUtils;
+import com.sun.img.util.ImgLoaderUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 /**
  * @author: Harper
- * @date:   2021/12/10
+ * @date: 2021/12/10
  * @note: 使用Glide的图片加载策略
  */
 public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
@@ -37,7 +38,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
     @Override
     public void loadImage(String url, ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions()
-              .dontAnimate();
+                .dontAnimate();
         Glide.with(imageView.getContext())
                 .load(url)
                 .apply(requestOptions)
@@ -56,12 +57,13 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        if(resource==null){
+                        if (resource == null) {
                             loadListener.onLoadingFailed(new NullPointerException());
-                        }else {
+                        } else {
                             loadListener.onLoadingComplete(resource);
                         }
                     }
+
                     @Override
                     public void onLoadFailed(Drawable errorDrawable) {
                         super.onLoadFailed(errorDrawable);
@@ -71,7 +73,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
     }
 
     @Override
-    public void loadImage(String url, int width, int height, ImageView imageView,final ImageLoadListener loadListener) {
+    public void loadImage(String url, int width, int height, ImageView imageView, final ImageLoadListener loadListener) {
         loadListener.onLoadingStarted();
         RequestOptions requestOptions = new RequestOptions()
                 .dontAnimate();
@@ -79,15 +81,16 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
                 .load(url)
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
                 .apply(requestOptions)
-                .into(new SimpleTarget<Bitmap>(width,height) {
+                .into(new SimpleTarget<Bitmap>(width, height) {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        if(resource==null){
+                        if (resource == null) {
                             loadListener.onLoadingFailed(new NullPointerException());
-                        }else {
+                        } else {
                             loadListener.onLoadingComplete(resource);
                         }
                     }
+
                     @Override
                     public void onLoadFailed(Drawable errorDrawable) {
                         super.onLoadFailed(errorDrawable);
@@ -130,7 +133,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
     public void loadImageAutoFit(String url, int placeholder, int errorResource, ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions()
                 .placeholder(placeholder)
-                .error(errorResource) .dontAnimate();
+                .error(errorResource).dontAnimate();
         Glide.with(imageView.getContext())
                 .load(url)
                 .apply(requestOptions)

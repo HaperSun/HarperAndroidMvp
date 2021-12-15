@@ -1,4 +1,4 @@
-package com.sun.base.img;
+package com.sun.img.load;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
-import com.sun.base.util.ImgLoaderUtils;
+import com.sun.img.util.ImgLoaderUtils;
 
 import java.security.MessageDigest;
 

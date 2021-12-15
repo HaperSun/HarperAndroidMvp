@@ -13,12 +13,4 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
-
-    <application>
-        <activity
-            android:name="com.sun.base.img.preview.ImagePreviewActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Fullscreen"
-            tools:ignore="LockedOrientationActivity" />
-    </application>
 </manifest>

@@ -1,10 +1,10 @@
-package com.sun.base.img;
+package com.sun.img.load;
 
 import android.graphics.Bitmap;
 
 /**
  * @author: Harper
- * @date:   2021/12/10
+ * @date: 2021/12/10
  * @note: 图片加载回调监听
  */
 public interface ImageLoadListener {

@@ -1,10 +1,11 @@
-package com.sun.base.img;
+package com.sun.img.load;
 
 import android.content.Context;
 import android.widget.ImageView;
+
 /**
  * @author: Harper
- * @date:   2021/12/10
+ * @date: 2021/12/10
  * @note: 图片加载策略接口
  */
 public interface IImageLoaderStrategy {
@@ -16,7 +17,7 @@ public interface IImageLoaderStrategy {
 
     void loadImage(String url, ImageView imageView, ImageLoadListener loadListener);
 
-    void loadImage(String url, int width,int height,ImageView imageView, ImageLoadListener loadListener);
+    void loadImage(String url, int width, int height, ImageView imageView, ImageLoadListener loadListener);
 
     void loadImage(String url, int placeholder, ImageView imageView);
 

@@ -1,4 +1,4 @@
-package com.sun.base.util;
+package com.sun.img.util;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;

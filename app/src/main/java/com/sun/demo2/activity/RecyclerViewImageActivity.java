@@ -11,11 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.base.base.activity.BaseMvpActivity;
-import com.sun.base.img.ImageLoader;
-import com.sun.base.img.preview.ImagePreviewActivity;
+import com.sun.img.preview.ImagePreviewActivity;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityRecyclerViewImageBinding;
 import com.sun.demo2.model.ImgItemBean;
+import com.sun.img.load.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;

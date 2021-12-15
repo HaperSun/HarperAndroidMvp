@@ -99,5 +99,6 @@ dependencies {
     api project(':LibDb')
     api project(':LibCommon')
     api project(':LibChart')
+    api project(':LibImg')
     implementation 'androidx.palette:palette:1.0.0'
 }

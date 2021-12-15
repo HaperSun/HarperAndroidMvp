@@ -1,4 +1,4 @@
-package com.sun.base.img;
+package com.sun.img.load;
 
 import android.util.Log;
 
@@ -6,7 +6,7 @@ import androidx.annotation.IntDef;
 
 /**
  * @author: Harper
- * @date:   2021/12/10
+ * @date: 2021/12/10
  * @note: ImgLoader配置文件
  */
 public class ImgLoaderManager {
@@ -19,10 +19,12 @@ public class ImgLoaderManager {
     public final static int STRATEGY_DEFAULT = STRATEGY_GLIDE;
 
     @IntDef({STRATEGY_GLIDE, STRATEGY_IMAGE_LOADER})
-    public @interface StrategyType {}
+    public @interface StrategyType {
+    }
 
     /**
      * 根据参数选择策略模式
+     *
      * @param strategyType 具体策略类型
      */
     public static IImageLoaderStrategy getImgLoaderStrategy(@StrategyType int strategyType) {

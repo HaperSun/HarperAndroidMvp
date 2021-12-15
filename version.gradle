@@ -41,7 +41,6 @@ target.status_bar_compat = "com.githang:status-bar-compat:$version.status_bar_co
 target.glide = "com.github.bumptech.glide:glide:$version.glide"
 target.multidex = "androidx.multidex:multidex:$version.multidex"
 target.photoView = "com.github.chrisbanes:PhotoView:$version.photoView"
-target.photoView = "com.github.chrisbanes:PhotoView:$version.photoView"
 target.andpermission = "com.yanzhenjie.permission:support:$version.andpermission"
 
 //友盟
