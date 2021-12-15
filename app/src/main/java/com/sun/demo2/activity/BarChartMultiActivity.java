@@ -15,7 +15,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
 
-import com.sun.base.ui.activity.BaseMvpActivity;
+import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityBarChartMultiBinding;
 
@@ -48,7 +48,7 @@ public class BarChartMultiActivity extends BaseMvpActivity {
     }
 
     @Override
-    public void requestData() {
+    public void initData() {
         chart.getDescription().setEnabled(false);
         chart.setPinchZoom(false);
         chart.setDrawBarShadow(false);

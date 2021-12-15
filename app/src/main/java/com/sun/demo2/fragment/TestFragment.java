@@ -2,7 +2,7 @@ package com.sun.demo2.fragment;
 
 import android.os.Bundle;
 
-import com.sun.base.ui.fragment.BaseMvpFragment;
+import com.sun.base.base.fragment.BaseMvpFragment;
 import com.sun.base.util.BaseUtil;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.FragmentTestBinding;

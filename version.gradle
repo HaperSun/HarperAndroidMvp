@@ -8,16 +8,27 @@ version.greendao = "3.3.0"
 version.generator = "3.3.0"
 version.recyclerview = "1.2.0-alpha05"
 version.annotation = "1.1.0"
-version.multitype = "3.4.4"
+version.multitype = "3.4.4" // me.drakeet.multitype:multitype 复杂列表实现，对RecyclerView的在封装
 version.rxjava = "2.1.7"
 version.rxandroid = "2.0.2"
 version.converter_gson = "2.9.0"
 version.logger = "2.2.0"
 version.adapter_rxjava2 = "2.9.0"
 version.status_bar_compat = "0.7"
+version.glide = "4.9.0"
+version.multidex = "2.0.1"
+version.photoView = "2.1.4" //com.github.chrisbanes:PhotoView   支持缩放的ImageView库
+version.andpermission = "2.0.1" //com.yanzhenjie.permission:support AndPermission运行时权限处理库
+//友盟
+version.umsdk_common = "9.4.4"  //必选
+version.umsdk_asms = "1.4.1"   //必选
+version.umsdk_link = "1.1.0"    //集成U-Link，可选，如要统计分享回流次数和分享新增用户指标则必选
+version.umsdk_share_core = "7.1.6"  //分享核心库，必选
+version.umsdk_share_board = "7.1.6" //分享面板功能，可选
+version.umsdk_share_wx = "7.1.6"    //微信完整版
+version.wechat_opensdk = "6.8.0"    //微信官方依赖库，必选
 
-
-def target =[:]
+def target = [:]
 target.appcompat = "androidx.appcompat:appcompat:$version.appcompat"
 target.material = "com.google.android.material:material:$version.material"
 target.constraintlayout = "androidx.constraintlayout:constraintlayout:$version.constraintlayout"
@@ -27,6 +38,20 @@ target.recyclerview = "androidx.recyclerview:recyclerview:$version.recyclerview"
 target.annotation = "androidx.annotation:annotation:$version.annotation"
 target.multitype = "me.drakeet.multitype:multitype:$version.multitype"
 target.status_bar_compat = "com.githang:status-bar-compat:$version.status_bar_compat"
+target.glide = "com.github.bumptech.glide:glide:$version.glide"
+target.multidex = "androidx.multidex:multidex:$version.multidex"
+target.photoView = "com.github.chrisbanes:PhotoView:$version.photoView"
+target.photoView = "com.github.chrisbanes:PhotoView:$version.photoView"
+target.andpermission = "com.yanzhenjie.permission:support:$version.andpermission"
+
+//友盟
+target.umsdk_common = "com.umeng.umsdk:common:$version.umsdk_common"
+target.umsdk_asms = "com.umeng.umsdk:asms:$version.umsdk_asms"
+target.umsdk_link = "com.umeng.umsdk:link:$version.umsdk_link"
+target.umsdk_share_core = "com.umeng.umsdk:share-core:$version.umsdk_share_core"
+target.umsdk_share_board = "com.umeng.umsdk:share-board:$version.umsdk_share_board"
+target.umsdk_share_wx = "com.umeng.umsdk:share-wx:$version.umsdk_share_wx"
+target.wechat_opensdk = "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:$version.wechat_opensdk"
 
 target.rxjava = "io.reactivex.rxjava2:rxjava:$version.rxjava"
 target.rxandroid = "io.reactivex.rxjava2:rxandroid:$version.rxandroid"

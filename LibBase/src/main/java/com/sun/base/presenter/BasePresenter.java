@@ -1,7 +1,7 @@
 package com.sun.base.presenter;
 
 import com.sun.base.bean.StrongReference;
-import com.sun.base.ui.IAddPresenterView;
+import com.sun.base.base.IAddPresenterView;
 /**
  * @author: Harper
  * @date: 2021/11/12

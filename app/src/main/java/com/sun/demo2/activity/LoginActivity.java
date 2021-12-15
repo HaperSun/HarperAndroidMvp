@@ -3,13 +3,14 @@ package com.sun.demo2.activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.sun.base.img.ImageLoader;
+import com.sun.base.img.preview.ImagePreviewActivity;
 import com.sun.base.net.exception.ApiException;
-import com.sun.base.ui.activity.BaseMvpActivity;
+import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.common.toast.CustomToast;
 import com.sun.common.toast.ToastHelper;
 import com.sun.db.entity.UserInfo;
 import com.sun.db.table.manager.UserInfoManager;
-import com.sun.demo2.BuildConfig;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityLoginBinding;
 import com.sun.demo2.fragment.TestFragment;
@@ -40,15 +41,20 @@ public class LoginActivity extends BaseMvpActivity implements LoginView {
     public void initView() {
         ActivityLoginBinding binding = (ActivityLoginBinding) mViewDataBinding;
         binding.login.setOnClickListener(v -> doLogin());
-        binding.commonToast.setOnClickListener(v -> ToastHelper.showCommonToast(this, R.string.copy_success));
-        binding.customToast.setOnClickListener(v -> ToastHelper.showCustomToast(this, R.string.copy_success));
-
+        binding.commonToast.setOnClickListener(v -> ToastHelper.showCommonToast(this, R.string.copied_to_pasteboard));
+        binding.customToast.setOnClickListener(v -> ToastHelper.showCustomToast(this, R.string.copied_to_pasteboard));
+        String img1 = "https://qiniu.fxgkpt.com/hycg/1639356784663.jpg";
+        String img2 = "http://pic.ntimg.cn/file/20180211/7259105_125622777789_2.jpg";
+        ImageLoader.getInstance().loadImage(img2, binding.imgView);
+        binding.imgView.setOnClickListener(v -> {
+            ImagePreviewActivity.actionStart(this, img2);
+        });
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, TestFragment.newInstance())
                 .commitAllowingStateLoss();
     }
 
     @Override
-    public void requestData() {
+    public void initData() {
         if (mLoginPresenter == null) {
             mLoginPresenter = new LoginPresenter(this);
         }
@@ -69,7 +75,8 @@ public class LoginActivity extends BaseMvpActivity implements LoginView {
             LoginResponse.Object object = response.object;
             if (object != null) {
                 //陆成功后保存数据到历史记录中去
-                UserInfo userInfo = new UserInfo(object.userName, object.password, object.token, object.id, UserInfo.LoginState.LOGIN);
+                UserInfo userInfo = new UserInfo(object.userName, object.password, object.token,
+                        object.id, UserInfo.LoginState.LOGIN);
                 UserInfoManager.getInstance(this).loginAndSaveUserInfo(userInfo);
                 ToastHelper.showCustomToast(this, "登陆成功", CustomToast.CORRECT);
             }

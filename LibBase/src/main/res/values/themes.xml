@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--            android:theme="@android:style/Theme.App.Translucent.NoTitleBar.Fullscreen"-->
+    <style name="Fullscreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+</resources>

@@ -42,6 +42,12 @@
             android:textColor="@color/black"
             android:textSize="@dimen/sp16" />
 
+        <ImageView
+            android:id="@+id/img_view"
+            android:layout_width="@dimen/dp300"
+            android:layout_height="@dimen/dp200"
+            android:layout_marginTop="@dimen/dp10"/>
+
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"

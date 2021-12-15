@@ -6,7 +6,7 @@ import android.content.Intent;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sun.base.ui.activity.BaseMvpActivity;
+import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.demo2.R;
 import com.sun.demo2.adapter.EditTextInRecyclerViewAdapter;
 import com.sun.demo2.databinding.ActivityEditTextInRecyclerViewBinding;
@@ -47,7 +47,7 @@ public class EditTextInRecyclerViewActivity extends BaseMvpActivity implements E
     }
 
     @Override
-    public void requestData() {
+    public void initData() {
         mDataBeans = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             mDataBeans.add(new DataBean("名称" + i + 1, i + 10));

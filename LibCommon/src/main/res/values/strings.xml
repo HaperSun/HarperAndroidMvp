@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="app_name">Harper</string>
+    <string name="copied_to_pasteboard">已复制到粘贴板</string>
+    <string name="loading_failed_please_try_again">加载失败，请重试！</string>
+    <string name="loading">正在加载…</string>
+    <string name="save_to_album">保存到相册</string>
+    <string name="reminder">温馨提示</string>
+    <string name="permission_tips_write_read">您还没有开启读写(存储)sd卡权限，需要开启权限吗？</string>
+    <string name="loading_image_failed">图片加载失败！</string>
+</resources>

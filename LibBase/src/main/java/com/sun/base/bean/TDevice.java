@@ -834,7 +834,7 @@ public class TDevice {
         }
         ClipboardManager clip = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         clip.setText(string);
-        Toast.makeText(mContext, mContext.getResources().getString(R.string.copy_success), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, mContext.getResources().getString(R.string.copied_to_pasteboard), Toast.LENGTH_SHORT).show();
     }
 
     /**

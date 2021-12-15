@@ -1,0 +1,40 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:divider="@drawable/divider_bottom_dialog"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e4eef4"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp5">
+
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_grey_white"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dp16"
+            android:paddingLeft="@dimen/dp32"
+            android:paddingRight="@dimen/dp32"
+            android:paddingTop="@dimen/dp16"
+            android:text="@string/cancel"
+            android:textColor="#838ea0"
+            android:textSize="@dimen/sp16"/>
+    </FrameLayout>
+</LinearLayout>

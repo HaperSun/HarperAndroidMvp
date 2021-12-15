@@ -6,6 +6,7 @@ android {
     compileSdkVersion build_version.compile_sdk
     buildToolsVersion build_version.build_tools
     defaultConfig {
+        multiDexEnabled true
         applicationId config.app.package
         minSdkVersion build_version.min_sdk
         targetSdkVersion build_version.target_sdk
@@ -30,6 +31,10 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     productFlavors {
         //多渠道打包
         pro {
@@ -37,6 +42,19 @@ android {
             buildConfigField "String", "RELEASE_URL", config.server.releaseUrl
             buildConfigField "boolean", "VAR_BOOLEAN", 'false'
             buildConfigField "String", "VAR_STRING", '"我是String"'
+        }
+    }
+
+    //打包命名
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            def date = new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+08"))
+            if (variant.buildType.name.equals('debug')) {
+                outputFileName = "harper_${date}.apk"
+            }
+            if (variant.buildType.name.equals('release')) {
+                outputFileName = "harper_${versionName}.apk"
+            }
         }
     }
 
@@ -66,8 +84,20 @@ dependencies {
     implementation target.appcompat
     implementation target.material
     implementation target.constraintlayout
+    implementation target.multidex
+
+    //分享
+    implementation target.umsdk_common
+    implementation target.umsdk_asms
+    implementation target.umsdk_link
+    implementation target.umsdk_share_core
+    implementation target.umsdk_share_board
+    implementation target.umsdk_share_wx
+    implementation target.wechat_opensdk
+
     api project(':LibBase')
     api project(':LibDb')
     api project(':LibCommon')
     api project(':LibChart')
+    implementation 'androidx.palette:palette:1.0.0'
 }

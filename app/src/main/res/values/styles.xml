@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="dialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:windowFrame">@null</item><!--无边框-->
+        <item name="android:windowIsFloating">true</item><!--浮动-->
+        <item name="android:windowNoTitle">true</item><!--无title-->
+        <item name="android:windowIsTranslucent">true</item><!--界面透明-->
+        <item name="android:background">@android:color/transparent</item><!--背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item><!--窗体背景透明-->
+        <item name="android:backgroundDimAmount">0.2</item>
+    </style>
+
+    <style name="main_menu_animstyle">
+        <item name="android:windowEnterAnimation">@anim/photo_dialog_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/photo_dialog_out_anim</item>
+    </style>
+</resources>

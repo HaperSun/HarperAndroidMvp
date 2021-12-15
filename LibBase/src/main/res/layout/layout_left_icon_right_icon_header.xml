@@ -20,7 +20,7 @@
             android:src="@mipmap/icon_back" />
     </FrameLayout>
 
-    <com.sun.base.ui.widget.MarqueeTextView
+    <com.sun.base.base.widget.MarqueeTextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp44"

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/preview_close"
+            android:layout_width="@dimen/dp44"
+            android:layout_height="@dimen/dp51"
+            android:layout_marginStart="@dimen/dp10"
+            android:padding="@dimen/dp15"
+            android:src="@mipmap/icon_preview_close" />
+
+        <TextView
+            android:id="@+id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp20"
+            android:background="@drawable/bg_indicator"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp22"
+            android:paddingTop="@dimen/dp5"
+            android:paddingRight="@dimen/dp22"
+            android:paddingBottom="@dimen/dp5"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp14"
+            tools:text="1/2" />
+    </RelativeLayout>
+</layout>

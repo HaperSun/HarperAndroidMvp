@@ -21,7 +21,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
-import com.sun.base.ui.activity.BaseMvpActivity;
+import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityPieChartsBasicBinding;
 
@@ -59,7 +59,7 @@ public class PieChartsBasicActivity extends BaseMvpActivity {
     }
 
     @Override
-    public void requestData() {
+    public void initData() {
         chart.setUsePercentValues(true);
         chart.getDescription().setEnabled(false);
         chart.setExtraOffsets(0, 10, 80, 5);

@@ -3,14 +3,14 @@ package com.sun.demo2.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.RectF;
-
 import android.graphics.Typeface;
+import android.media.ThumbnailUtils;
 import android.util.Log;
 
-
 import androidx.core.content.ContextCompat;
-
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -26,23 +26,28 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Fill;
 import com.github.mikephil.charting.utils.MPPointF;
-import com.sun.base.ui.activity.BaseMvpActivity;
+import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.common.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.sun.demo2.custom.DayAxisValueFormatter;
 import com.sun.demo2.custom.MyAxisValueFormatter;
 import com.sun.demo2.custom.XYMarkerView;
 import com.sun.demo2.databinding.ActivityBarChartBasicBinding;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author: Harper
- * @date:   2021/11/22
+ * @date: 2021/11/22
  * @note: 柱状图
  */
 public class BarChartBasicActivity extends BaseMvpActivity implements OnChartValueSelectedListener {
 
+    private Context mContext;
     private BarChart chart;
     private Typeface tfLight;
 
@@ -58,12 +63,29 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
 
     @Override
     public void initView() {
+        mContext = BarChartBasicActivity.this;
         ActivityBarChartBasicBinding binding = (ActivityBarChartBasicBinding) mViewDataBinding;
         chart = binding.chart;
+        binding.flContent.setOnClickListener(v -> {
+            try {
+                //分享
+                Bitmap bitmap = Bitmap.createBitmap(binding.flContent.getWidth(), binding.flContent.getHeight(), Bitmap.Config.ARGB_8888);
+                Canvas c = new Canvas(bitmap);
+                binding.flContent.draw(c);
+                //bitmap文件
+                UMImage image = new UMImage(mThis(), bitmap);
+                UMImage thumb = new UMImage(mThis(), ThumbnailUtils.extractThumbnail(bitmap, 200, 200));
+                image.setThumb(thumb);
+                new ShareAction(mThis()).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(image).share();
+            } catch (Exception e) {
+                e.printStackTrace();
+                ToastHelper.showCommonToast(mThis(), R.string.share_failed);
+            }
+        });
     }
 
     @Override
-    public void requestData() {
+    public void initData() {
         chart.setOnChartValueSelectedListener(this);
         chart.setDrawBarShadow(false);
         chart.setDrawValueAboveBar(true);
@@ -112,7 +134,7 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
         XYMarkerView mv = new XYMarkerView(this, xAxisFormatter);
         mv.setChartView(chart); // For bounds control
         chart.setMarker(mv); // Set the marker to the chart
-        setData(12,50);
+        setData(12, 50);
     }
 
     private void setData(int count, float range) {
@@ -201,6 +223,7 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
     }
 
     @Override
-    public void onNothingSelected() { }
+    public void onNothingSelected() {
+    }
 
 }

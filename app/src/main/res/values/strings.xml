@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Harper</string>
+    <string name="download_address">下载地址</string>
+    <string name="download">下载</string>
+    <string name="cancel">取消</string>
+    <string name="share">分享</string>
+    <string name="share_failed">分享失败</string>
+    <string name="wechat">微信</string>
+    <string name="wechat_moments">朋友圈</string>
+    <string name="qq">QQ</string>
+    <string name="qq_zone">QQ空间</string>
 </resources>

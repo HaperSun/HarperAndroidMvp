@@ -30,6 +30,11 @@ android {
         sourceCompatibility build_version.version_java
         targetCompatibility build_version.version_java
     }
+
+    //启动dataBinding
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {

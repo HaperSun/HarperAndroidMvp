@@ -2,7 +2,7 @@ package com.sun.demo2.iview;
 
 
 import com.sun.base.net.exception.ApiException;
-import com.sun.base.ui.IAddPresenterView;
+import com.sun.base.base.IAddPresenterView;
 import com.sun.demo2.model.response.LoginResponse;
 
 /**

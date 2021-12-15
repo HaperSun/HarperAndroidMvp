@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sun.base.ui.activity.BaseMvpActivity;
+import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityHomepageBinding;
 
@@ -39,7 +39,7 @@ public class HomepageActivity extends BaseMvpActivity {
     }
 
     @Override
-    public void requestData() {
+    public void initData() {
         mContext = HomepageActivity.this;
         mTitles = getTitles();
         Adapter adapter = new Adapter();
@@ -53,6 +53,9 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("Bar Charts 双柱状图");
         titles.add("Pie Charts 饼状图");
         titles.add("RecyclerView中的EditText");
+        titles.add("图片倒影处理");
+        titles.add("图片取色并融入背景色效果");
+        titles.add("测试在列表中的图片加载");
         return titles;
     }
 
@@ -74,6 +77,21 @@ public class HomepageActivity extends BaseMvpActivity {
             });
         }
 
+        @Override
+        public int getItemCount() {
+            return mTitles.size();
+        }
+
+        class Holder extends RecyclerView.ViewHolder {
+
+            TextView mTitleTextView;
+
+            public Holder(View itemView) {
+                super(itemView);
+                mTitleTextView = itemView.findViewById(R.id.adapter_title_text);
+            }
+        }
+
         private void doClick(int position) {
             switch (position) {
                 case 0:
@@ -91,23 +109,17 @@ public class HomepageActivity extends BaseMvpActivity {
                 case 4:
                     EditTextInRecyclerViewActivity.startActivity(mContext);
                     break;
+                case 5:
+                    InvertedImageActivity.startActivity(mContext);
+                    break;
+                case 6:
+                    PickingPictureActivity.startActivity(mContext);
+                    break;
+                case 7:
+                    RecyclerViewImageActivity.startActivity(mContext);
+                    break;
                 default:
                     break;
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return mTitles.size();
-        }
-
-        class Holder extends RecyclerView.ViewHolder {
-
-            TextView mTitleTextView;
-
-            public Holder(View itemView) {
-                super(itemView);
-                mTitleTextView = itemView.findViewById(R.id.adapter_title_text);
             }
         }
     }
