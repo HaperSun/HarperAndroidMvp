@@ -31,7 +31,6 @@ public class CommonAlertDialog extends Dialog {
     private View.OnClickListener mPositiveClickListener;
     //NegativeBtn是否可见，默认可见
     private boolean mIsShowNegativeBtn = true;
-    private ImageView mIvWave;
     private boolean mIsShowWave = false;
     //是否可以多点点击
     private boolean mSetMotionEventSplittingEnabled;
@@ -51,8 +50,8 @@ public class CommonAlertDialog extends Dialog {
         TextView btnNegative = findViewById(R.id.btn_negative);
         TextView btnPositive = findViewById(R.id.btn_positive);
         //添加底部波浪
-        mIvWave = findViewById(R.id.iv_wave);
-        mIvWave.setVisibility(mIsShowWave ? View.VISIBLE : View.GONE);
+        ImageView ivWave = findViewById(R.id.iv_wave);
+        ivWave.setVisibility(mIsShowWave ? View.VISIBLE : View.GONE);
         tvTitle.setVisibility(TextUtils.isEmpty(mTitle) ? View.GONE : View.VISIBLE);
         tvTitle.setText(mTitle);
         tvMessage.setVisibility(TextUtils.isEmpty(mMessage) ? View.GONE : View.VISIBLE);

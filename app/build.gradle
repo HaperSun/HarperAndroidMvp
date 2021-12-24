@@ -38,8 +38,12 @@ android {
     productFlavors {
         //多渠道打包
         pro {
-            buildConfigField "String", "TEST_URL", config.server.testUrl
-            buildConfigField "String", "RELEASE_URL", config.server.releaseUrl
+            buildConfigField "String", "Base_URL", config.server.releaseUrl
+            buildConfigField "boolean", "VAR_BOOLEAN", 'false'
+            buildConfigField "String", "VAR_STRING", '"我是String"'
+        }
+        dev {
+            buildConfigField "String", "Base_URL", config.server.testUrl
             buildConfigField "boolean", "VAR_BOOLEAN", 'false'
             buildConfigField "String", "VAR_STRING", '"我是String"'
         }
@@ -49,10 +53,10 @@ android {
     android.applicationVariants.all { variant ->
         variant.outputs.all {
             def date = new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+08"))
-            if (variant.buildType.name.equals('debug')) {
+            if (variant.buildType.name == 'debug') {
                 outputFileName = "harper_${date}.apk"
             }
-            if (variant.buildType.name.equals('release')) {
+            if (variant.buildType.name == 'release') {
                 outputFileName = "harper_${versionName}.apk"
             }
         }

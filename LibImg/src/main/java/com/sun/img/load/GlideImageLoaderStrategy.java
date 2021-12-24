@@ -37,8 +37,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
 
     @Override
     public void loadImage(String url, ImageView imageView) {
-        RequestOptions requestOptions = new RequestOptions()
-                .dontAnimate();
+        RequestOptions requestOptions = new RequestOptions().dontAnimate();
         Glide.with(imageView.getContext())
                 .load(url)
                 .apply(requestOptions)
@@ -46,10 +45,17 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
     }
 
     @Override
+    public void loadVideoImage(String url, ImageView imageView) {
+        //加载视频，并截取0.01秒的图片做封面
+        RequestOptions requestOptions = new RequestOptions().frame(1000);
+        Glide.with(imageView.getContext()).setDefaultRequestOptions(requestOptions)
+                .load(url).into(imageView);
+    }
+
+    @Override
     public void loadImage(String url, ImageView imageView, final ImageLoadListener loadListener) {
         loadListener.onLoadingStarted();
-        RequestOptions requestOptions = new RequestOptions()
-                .dontAnimate();
+        RequestOptions requestOptions = new RequestOptions().dontAnimate();
         Glide.with(imageView.getContext()).asBitmap()
                 .load(url)
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
@@ -75,8 +81,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
     @Override
     public void loadImage(String url, int width, int height, ImageView imageView, final ImageLoadListener loadListener) {
         loadListener.onLoadingStarted();
-        RequestOptions requestOptions = new RequestOptions()
-                .dontAnimate();
+        RequestOptions requestOptions = new RequestOptions().dontAnimate();
         Glide.with(imageView.getContext()).asBitmap()
                 .load(url)
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
@@ -101,8 +106,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
 
     @Override
     public void loadImage(String url, int placeholder, ImageView imageView) {
-        RequestOptions requestOptions = new RequestOptions()
-                .placeholder(placeholder).dontAnimate();
+        RequestOptions requestOptions = new RequestOptions().placeholder(placeholder).dontAnimate();
         Glide.with(imageView.getContext())
                 .load(url)
                 .apply(requestOptions)
@@ -118,9 +122,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
 
     @Override
     public void loadImage(String url, int placeholder, int errorResource, ImageView imageView) {
-        RequestOptions requestOptions = new RequestOptions()
-                .placeholder(placeholder)
-                .error(errorResource)
+        RequestOptions requestOptions = new RequestOptions().placeholder(placeholder).error(errorResource)
                 .dontAnimate();
         Glide.with(imageView.getContext())
                 .load(url)
@@ -131,8 +133,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
 
     @Override
     public void loadImageAutoFit(String url, int placeholder, int errorResource, ImageView imageView) {
-        RequestOptions requestOptions = new RequestOptions()
-                .placeholder(placeholder)
+        RequestOptions requestOptions = new RequestOptions().placeholder(placeholder)
                 .error(errorResource).dontAnimate();
         Glide.with(imageView.getContext())
                 .load(url)

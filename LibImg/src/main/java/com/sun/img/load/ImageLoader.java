@@ -50,6 +50,16 @@ public class ImageLoader {
     }
 
     /**
+     * 加载视频，并截取0.01秒的图片做封面
+     *
+     * @param url       图片地址
+     * @param imageView 目标容器
+     */
+    public void loadVideoImage(String url, ImageView imageView){
+        mStrategy.loadVideoImage(url, imageView);
+    }
+
+    /**
      * 加载图片
      *
      * @param url          图片地址

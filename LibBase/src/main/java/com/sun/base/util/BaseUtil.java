@@ -1,11 +1,6 @@
 package com.sun.base.util;
 
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-
 import com.sun.base.BuildConfig;
-import com.sun.base.R;
 import com.sun.base.bean.BaseConfig;
 
 /**
@@ -27,7 +22,7 @@ public abstract class BaseUtil {
      * @return
      */
     public static String getServerUrl() {
-        return BuildConfig.DEBUG ? mBaseConfig.testUrl : mBaseConfig.releaseUrl;
+        return mBaseConfig.baseUrl;
     }
 
 

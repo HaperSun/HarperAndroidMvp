@@ -104,10 +104,7 @@ public class ImagePreviewFragment extends BaseMvpFragment {
                 }
                 //弹出保存选项
                 new BottomDialogFragment.Builder().addDialogItem(new BottomDialogFragment.DialogItem(getResources().getString(R.string.save_to_album),
-                        view1 -> {
-                            applyPermission();
-                        })).build().show(getChildFragmentManager(),
-                        "ImagePreviewFragment");
+                        view1 -> applyPermission())).build().show(getChildFragmentManager(), "ImagePreviewFragment");
                 return true;
             });
         } catch (Exception e) {
@@ -135,14 +132,10 @@ public class ImagePreviewFragment extends BaseMvpFragment {
                             new CommonAlertDialog.Builder(mActivity)
                                     .setTitle(getResources().getString(R.string.reminder))
                                     .setMessage(getResources().getString(R.string.permission_tips_write_read))
-                                    .setNegativeText(getResources().getString(R.string.cancel), (View.OnClickListener) v ->
-                                            mActivity.finish())
-                                    .setPositiveText(getResources().getString(R.string.confirm), (View.OnClickListener) view ->
+                                    .setNegativeText(getResources().getString(R.string.cancel))
+                                    .setPositiveText(getResources().getString(R.string.confirm), view ->
                                             AndPermission.with(mActivity).runtime().setting().start(REQ_CODE_PERMISSION_WRITE_STORAGE))
                                     .build().show();
-                        } else {
-                            ToastHelper.showCommonToast(mActivity, "图片保存失败！");
-                            mActivity.finish();
                         }
                     })
                     .start();

@@ -10,14 +10,12 @@ public class BaseConfig {
     public String packageName;
     public int versionCode;
     public String versionName;
-    public String testUrl;
-    public String releaseUrl;
+    public String baseUrl;
 
-    public BaseConfig(String packageName, int versionCode, String versionName, String testUrl, String releaseUrl) {
+    public BaseConfig(String packageName, int versionCode, String versionName, String baseUrl) {
         this.packageName = packageName;
         this.versionCode = versionCode;
         this.versionName = versionName;
-        this.testUrl = testUrl;
-        this.releaseUrl = releaseUrl;
+        this.baseUrl = baseUrl;
     }
 }
