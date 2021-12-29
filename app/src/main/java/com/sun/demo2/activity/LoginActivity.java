@@ -27,7 +27,7 @@ public class LoginActivity extends BaseMvpActivity implements LoginView {
 
     private LoginPresenter mLoginPresenter;
 
-    public static void startActivity(Context context) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }
@@ -44,7 +44,8 @@ public class LoginActivity extends BaseMvpActivity implements LoginView {
         binding.commonToast.setOnClickListener(v -> ToastHelper.showCommonToast(this, R.string.copied_to_pasteboard));
         binding.customToast.setOnClickListener(v -> ToastHelper.showCustomToast(this, R.string.copied_to_pasteboard));
         String img1 = "https://qiniu.fxgkpt.com/hycg/1639356784663.jpg";
-        String img2 = "http://pic.ntimg.cn/file/20180211/7259105_125622777789_2.jpg";
+//        String img2 = "http://pic.ntimg.cn/file/20180211/7259105_125622777789_2.jpg";
+        String img2 = "/data/user/0/com.sun.demo2/app_img/AAA.jpg";
         ImageLoader.getInstance().loadImage(img2, binding.imgView);
         binding.imgView.setOnClickListener(v -> {
             ImagePreviewActivity.actionStart(this, img2);

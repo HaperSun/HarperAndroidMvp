@@ -1,12 +1,8 @@
 package com.sun.img.preview;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.ProgressBar;
 
 import androidx.fragment.app.FragmentActivity;
@@ -14,11 +10,9 @@ import androidx.fragment.app.FragmentActivity;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.sun.base.base.fragment.BaseMvpFragment;
 import com.sun.base.dialog.BottomDialogFragment;
-import com.sun.base.dialog.CommonAlertDialog;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogUtil;
-import com.sun.base.util.MD5;
-import com.sun.base.util.StringUtils;
+import com.sun.base.util.PermissionUtil;
 import com.sun.common.toast.CustomToast;
 import com.sun.common.toast.ToastHelper;
 import com.sun.img.R;
@@ -26,13 +20,6 @@ import com.sun.img.bean.ImageItem;
 import com.sun.img.databinding.FragmentImagePreviewBinding;
 import com.sun.img.load.ImageLoadListener;
 import com.sun.img.load.ImageLoader;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.runtime.Permission;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.UUID;
 
 /**
  * @author: Harper
@@ -104,43 +91,16 @@ public class ImagePreviewFragment extends BaseMvpFragment {
                 }
                 //弹出保存选项
                 new BottomDialogFragment.Builder().addDialogItem(new BottomDialogFragment.DialogItem(getResources().getString(R.string.save_to_album),
-                        view1 -> applyPermission())).build().show(getChildFragmentManager(), "ImagePreviewFragment");
+                        view1 -> {
+                            if (PermissionUtil.checkStoragePermission(mActivity)){
+                                saveImage();
+                            }
+                        })).build().show(getChildFragmentManager(), "ImagePreviewFragment");
                 return true;
             });
         } catch (Exception e) {
             LogUtil.e(TAG, "Exception ->" + e);
         }
-    }
-
-    private void applyPermission() {
-        if (AndPermission.hasPermissions(getActivity(), Permission.WRITE_EXTERNAL_STORAGE)) {
-            //判断已经获取了sd卡的写入权限
-            saveImage();
-        } else {
-            //申请sd卡的写入权限
-            AndPermission.with(getActivity())
-                    .runtime()
-                    .permission(Permission.WRITE_EXTERNAL_STORAGE)
-                    .onGranted(permissions -> {
-                        //申请sd卡的写入权限通过了
-                        saveImage();
-                    })
-                    .onDenied(permissions -> {
-                        //申请sd卡的写入权限被拒绝了
-                        if (AndPermission.hasAlwaysDeniedPermission(mActivity, permissions)) {
-                            //用户否勾选了不再提示并且拒绝了权限，那么提示用户到设置中授权
-                            new CommonAlertDialog.Builder(mActivity)
-                                    .setTitle(getResources().getString(R.string.reminder))
-                                    .setMessage(getResources().getString(R.string.permission_tips_write_read))
-                                    .setNegativeText(getResources().getString(R.string.cancel))
-                                    .setPositiveText(getResources().getString(R.string.confirm), view ->
-                                            AndPermission.with(mActivity).runtime().setting().start(REQ_CODE_PERMISSION_WRITE_STORAGE))
-                                    .build().show();
-                        }
-                    })
-                    .start();
-        }
-        saveImage();
     }
 
 
@@ -173,44 +133,45 @@ public class ImagePreviewFragment extends BaseMvpFragment {
      * 保存图片操作
      */
     private void saveImage() {
-        String imgOri = mImageItem.getImageOri();
-        String ext;//图片后缀
-        if (StringUtils.isWebUrlString(imgOri)) {
-            ext = MimeTypeMap.getFileExtensionFromUrl(imgOri);
-        } else {
-            ext = FileUtil.getExtension(imgOri);
-        }
-        boolean isPng = "png".equalsIgnoreCase(ext);
-        if (!isPng) {
-            ext = "jpg";
-        }
-        //保存的文件名以原文件路径md5值命名/保证生成多个
-        String saveFileName = MD5.getMD5Code(imgOri) + UUID.randomUUID() + "." + ext;
-        File saveFileDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String saveFilePath = new File(saveFileDir, saveFileName).getAbsolutePath();
-        //保存图片
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(saveFilePath);
-            mOriImgBitmap.compress(isPng ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG,
-                    100, fos);
-            ToastHelper.showCommonToast(mActivity, "图片已保存至" + saveFileDir.getAbsolutePath() + "文件夹");
-            //发广播更新图库
-            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            Uri uri = Uri.fromFile(new File(saveFilePath));
-            intent.setData(uri);
-            mActivity.sendBroadcast(intent);
-        } catch (Exception e) {
-            LogUtil.e(TAG, "saveImage Exception!", e);
-            ToastHelper.showCommonToast(mActivity, "图片保存失败！");
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        FileUtil.saveNetImgToAlbum(mActivity, mImageItem.getImageOri(), mOriImgBitmap);
+//        String imgOri = mImageItem.getImageOri();
+//        String ext;//图片后缀
+//        if (StringUtils.isWebUrlString(imgOri)) {
+//            ext = MimeTypeMap.getFileExtensionFromUrl(imgOri);
+//        } else {
+//            ext = FileUtil.getExtension(imgOri);
+//        }
+//        boolean isPng = "png".equalsIgnoreCase(ext);
+//        if (!isPng) {
+//            ext = "jpg";
+//        }
+//        //保存的文件名以原文件路径md5值命名/保证生成多个
+//        String saveFileName = MD5.getMD5Code(imgOri) + UUID.randomUUID() + "." + ext;
+//        File saveFileDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+//        String saveFilePath = new File(saveFileDir, saveFileName).getAbsolutePath();
+//        //保存图片
+//        FileOutputStream fos = null;
+//        try {
+//            fos = new FileOutputStream(saveFilePath);
+//            mOriImgBitmap.compress(isPng ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG,
+//                    100, fos);
+//            ToastHelper.showCommonToast(mActivity, "图片已保存至" + saveFileDir.getAbsolutePath() + "文件夹");
+//            //发广播更新图库
+//            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//            Uri uri = Uri.fromFile(new File(saveFilePath));
+//            intent.setData(uri);
+//            mActivity.sendBroadcast(intent);
+//        } catch (Exception e) {
+//            LogUtil.e(TAG, "saveImage Exception!", e);
+//            ToastHelper.showCommonToast(mActivity, "图片保存失败！");
+//        } finally {
+//            if (fos != null) {
+//                try {
+//                    fos.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
     }
 }

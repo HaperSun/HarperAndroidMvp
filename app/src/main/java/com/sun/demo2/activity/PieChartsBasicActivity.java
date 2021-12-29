@@ -38,7 +38,7 @@ public class PieChartsBasicActivity extends BaseMvpActivity {
     private Typeface tfLight;
     private Typeface tfRegular;
 
-    public static void startActivity(Context context) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, PieChartsBasicActivity.class);
         context.startActivity(intent);
     }

@@ -1,17 +1,18 @@
 package com.sun.base.net.interceptor;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import com.sun.base.R;
+import androidx.annotation.NonNull;
+
+import com.sun.base.util.BaseUtil;
+import com.sun.db.entity.UserInfo;
+import com.sun.db.table.manager.UserInfoManager;
 
 import java.io.IOException;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * @author: Harper
@@ -26,18 +27,20 @@ public class HeaderInterceptor implements Interceptor {
         this.mContext = context;
     }
 
+    @NonNull
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request original = chain.request();
-        SharedPreferences sp = mContext.getSharedPreferences("um_push", MODE_PRIVATE);
-        String deviceToken = sp.getString("deviceToken", "");
-        assert deviceToken != null;
+        String authorization = "";
+        UserInfo userInfo = UserInfoManager.getInstance(mContext).getCurrentLoginUser();
+        if (userInfo != null) {
+            authorization = userInfo.getAccessToken();
+        }
         Request.Builder requestBuilder = original.newBuilder()
-                .addHeader("authorization", "authorization")
-                .addHeader("deviceToken", deviceToken)
+                .addHeader("authorization", authorization)
                 .addHeader("client", "android")
                 .addHeader("deviceType", "android")
-                .addHeader("appVersion", mContext.getResources().getString(R.string.version_name) + "");
+                .addHeader("appVersion", BaseUtil.getVersionName());
         ;
 
         return chain.proceed(requestBuilder.build());

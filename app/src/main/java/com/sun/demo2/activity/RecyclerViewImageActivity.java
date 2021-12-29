@@ -31,7 +31,7 @@ public class RecyclerViewImageActivity extends BaseMvpActivity {
     private RecyclerView mRecyclerView;
     private List<ImgItemBean> mItemBeans;
 
-    public static void startActivity(Context context) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, RecyclerViewImageActivity.class);
         context.startActivity(intent);
     }

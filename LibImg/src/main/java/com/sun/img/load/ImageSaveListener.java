@@ -7,7 +7,13 @@ package com.sun.img.load;
  */
 public interface ImageSaveListener {
 
+    /**
+     * 保存成功
+     */
     void onSaveSuccess();
 
+    /**
+     * 保存成功失败
+     */
     void onSaveFail();
 }

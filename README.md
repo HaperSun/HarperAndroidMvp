@@ -15,6 +15,7 @@ LibChart代码来自github中优秀的chart项目，仅供学习参考。
 
 
 名称                    版本号          API等级           发布时间              BuildVersion
+R                       11              30
 Q	                    10.0	        29	            2019
 Pie	                    9.0	            28	            2018-08-01	        BuildVersionCodes.P
 Oreo	                8.1	            27	            2017-12-01	        BuildVersionCodes.OMr1

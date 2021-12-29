@@ -24,7 +24,7 @@ public class InvertedImageActivity extends BaseMvpActivity {
 
     ImageView ivInvert;
 
-    public static void startActivity(Context context) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, InvertedImageActivity.class);
         context.startActivity(intent);
     }

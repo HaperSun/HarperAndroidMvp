@@ -44,5 +44,7 @@ dependencies {
         exclude group: 'com.android.support'
     }
 
+    implementation target.andpermission
+    implementation project(':LibDb')
     api project(':LibCommon')
 }

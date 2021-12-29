@@ -25,7 +25,6 @@ public abstract class BaseUtil {
         return mBaseConfig.baseUrl;
     }
 
-
     /**
      * 是否是测试环境
      *

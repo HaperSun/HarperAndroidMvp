@@ -51,7 +51,7 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
     private BarChart chart;
     private Typeface tfLight;
 
-    public static void startActivity(Context context) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, BarChartBasicActivity.class);
         context.startActivity(intent);
     }

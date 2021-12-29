@@ -38,7 +38,7 @@ public class PickingPictureActivity extends BaseMvpActivity implements View.OnCl
     private boolean isMethod1 = false;
     private long time;
 
-    public static void startActivity(Context context) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, PickingPictureActivity.class);
         context.startActivity(intent);
     }

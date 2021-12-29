@@ -2,11 +2,16 @@ package com.sun.base.util;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
+
+import com.sun.base.R;
+import com.sun.common.toast.ToastHelper;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -19,6 +24,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
+import java.util.UUID;
 
 /**
  * @author: Harper
@@ -40,7 +46,7 @@ public class FileUtil {
      * @param dir     文件夹名
      * @return
      */
-    public static File getExternalFilesDir(Context context, String dir) {
+    public static File getExternalFileDir(Context context, String dir) {
         if (context == null) {
             return null;
         }
@@ -543,5 +549,55 @@ public class FileUtil {
             }
         }
         return null;
+    }
+
+    /**
+     * 在系统相册中创建以App名称为名字的文件夹，并将图片保存到该文件中
+     *
+     * @param context 上下文
+     * @param imgUrl  网络图片地址
+     * @param bitmap  bitmap
+     */
+    public static void saveNetImgToAlbum(Context context, String imgUrl, Bitmap bitmap) {
+        //图片后缀
+        String ext;
+        if (StringUtils.isWebUrlString(imgUrl)) {
+            ext = MimeTypeMap.getFileExtensionFromUrl(imgUrl);
+        } else {
+            ext = FileUtil.getExtension(imgUrl);
+        }
+        boolean isPng = "png".equalsIgnoreCase(ext);
+        if (!isPng) {
+            ext = "jpg";
+        }
+        //随机UUID+时间戳作为文件名
+        String saveFileName = UUID.randomUUID() + "_" + System.currentTimeMillis() + "." + ext;
+        File saveFileDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath()
+                + "/" + context.getString(R.string.app_name));
+        if (!saveFileDir.exists()) {
+            saveFileDir.mkdirs();
+        }
+        File saveFile = new File(saveFileDir, saveFileName);
+        //保存图片
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(saveFile);
+            bitmap.compress(isPng ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG, 100, fos);
+            ToastHelper.showCommonToast(context, "图片已保存至" + saveFileDir.getAbsolutePath() + "文件夹");
+            //发广播更新图库
+            Uri uri = Uri.fromFile(saveFile);
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
+        } catch (Exception e) {
+            LogUtil.e(TAG, "saveImage Exception!", e);
+            ToastHelper.showCommonToast(context, "图片保存失败！");
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

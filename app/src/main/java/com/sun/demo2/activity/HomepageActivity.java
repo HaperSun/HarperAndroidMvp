@@ -1,6 +1,7 @@
 package com.sun.demo2.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,12 @@ public class HomepageActivity extends BaseMvpActivity {
 
     private Context mContext;
     private List<String> mTitles;
-    private RecyclerView mRecyclerView;
+    private ActivityHomepageBinding mBinding;
+
+    public static void start(Context context) {
+        Intent intent = new Intent(context, HomepageActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     public int layoutId() {
@@ -34,8 +40,7 @@ public class HomepageActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        ActivityHomepageBinding binding = (ActivityHomepageBinding) mViewDataBinding;
-        mRecyclerView = binding.recyclerView;
+        mBinding = (ActivityHomepageBinding) mViewDataBinding;
     }
 
     @Override
@@ -43,7 +48,7 @@ public class HomepageActivity extends BaseMvpActivity {
         mContext = HomepageActivity.this;
         mTitles = getTitles();
         Adapter adapter = new Adapter();
-        mRecyclerView.setAdapter(adapter);
+        mBinding.recyclerView.setAdapter(adapter);
     }
 
     private List<String> getTitles() {
@@ -95,28 +100,28 @@ public class HomepageActivity extends BaseMvpActivity {
         private void doClick(int position) {
             switch (position) {
                 case 0:
-                    LoginActivity.startActivity(mContext);
+                    LoginActivity.start(mContext);
                     break;
                 case 1:
-                    BarChartBasicActivity.startActivity(mContext);
+                    BarChartBasicActivity.start(mContext);
                     break;
                 case 2:
-                    BarChartMultiActivity.startActivity(mContext);
+                    BarChartMultiActivity.start(mContext);
                     break;
                 case 3:
-                    PieChartsBasicActivity.startActivity(mContext);
+                    PieChartsBasicActivity.start(mContext);
                     break;
                 case 4:
-                    EditTextInRecyclerViewActivity.startActivity(mContext);
+                    EditTextInRecyclerViewActivity.start(mContext);
                     break;
                 case 5:
-                    InvertedImageActivity.startActivity(mContext);
+                    InvertedImageActivity.start(mContext);
                     break;
                 case 6:
-                    PickingPictureActivity.startActivity(mContext);
+                    PickingPictureActivity.start(mContext);
                     break;
                 case 7:
-                    RecyclerViewImageActivity.startActivity(mContext);
+                    RecyclerViewImageActivity.start(mContext);
                     break;
                 default:
                     break;

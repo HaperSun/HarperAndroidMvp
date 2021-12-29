@@ -267,7 +267,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
 
             fromStream = new FileInputStream(cacheFile);
             toStream = new FileOutputStream(file);
-            byte length[] = new byte[1024];
+            byte[] length = new byte[1024];
             int count;
             while ((count = fromStream.read(length)) > 0) {
                 toStream.write(length, 0, count);

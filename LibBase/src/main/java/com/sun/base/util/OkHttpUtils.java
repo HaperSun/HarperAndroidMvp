@@ -41,7 +41,6 @@ class OkHttpUtils {
 
     //设置缓存目录
     private static File cacheDirectory ;
-    private static Cache cache ;
 
 
     /**
@@ -64,7 +63,7 @@ class OkHttpUtils {
 
         // 配置缓存
         cacheDirectory = new File(context.getCacheDir().getAbsolutePath(), "MyCache");
-        cache = new Cache(cacheDirectory, 10 * 1024 * 1024);
+        Cache cache = new Cache(cacheDirectory, 10 * 1024 * 1024);
 
         if (null == mOkHttpClient) {
             CookieManager cookieManager = new CookieManager();

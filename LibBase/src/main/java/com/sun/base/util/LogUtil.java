@@ -283,7 +283,7 @@ public final class LogUtil {
     private static void setDiskLog(Context applicationContext) {
         //添加日志输出到本地功能
         // 日志输出文件夹路径
-        String logFolderPath = FileUtil.getExternalFilesDir(applicationContext, DiskLogHandler.DEFAULT_LOG_DIR_NAME)
+        String logFolderPath = FileUtil.getExternalFileDir(applicationContext, DiskLogHandler.DEFAULT_LOG_DIR_NAME)
                 .getAbsolutePath();
         //单个日志文件最大大小
         long maxPerLogFileSize = DiskLogHandler.DEFAULT_MAX_FILE_BYTES;

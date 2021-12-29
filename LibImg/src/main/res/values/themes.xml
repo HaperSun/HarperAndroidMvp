@@ -4,6 +4,6 @@
     <style name="Fullscreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:scaleType">fitCenter</item>
+        <item name="android:scaleType">fitXY</item>
     </style>
 </resources>

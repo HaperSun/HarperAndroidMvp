@@ -30,7 +30,7 @@ public class BarChartMultiActivity extends BaseMvpActivity {
     private BarChart chart;
     private Typeface tfLight;
 
-    public static void startActivity(Context context) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, BarChartMultiActivity.class);
         context.startActivity(intent);
     }
