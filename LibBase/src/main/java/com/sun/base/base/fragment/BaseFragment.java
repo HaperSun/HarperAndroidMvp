@@ -5,8 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
-import com.sun.base.base.IBaseFragment;
-import com.sun.base.base.IBaseView;
+import com.sun.base.base.iview.IBaseFragment;
+import com.sun.base.base.iview.IBaseView;
 import com.sun.base.base.activity.BaseActivity;
 import com.sun.base.base.widget.LoadingDialog;
 import com.sun.base.dialog.ResolveShowBugDialogFragment;

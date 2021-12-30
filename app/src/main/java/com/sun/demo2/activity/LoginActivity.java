@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.sun.base.base.activity.BaseMvpActivity;
-import com.sun.img.preview.ImagePreviewActivity;
 import com.sun.base.net.exception.ApiException;
 import com.sun.common.toast.CustomToast;
 import com.sun.common.toast.ToastHelper;
@@ -12,11 +11,11 @@ import com.sun.db.entity.UserInfo;
 import com.sun.db.table.manager.UserInfoManager;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityLoginBinding;
-import com.sun.demo2.fragment.TestFragment;
 import com.sun.demo2.iview.LoginView;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.present.LoginPresenter;
 import com.sun.img.load.ImageLoader;
+import com.sun.img.preview.ImagePreviewActivity;
 
 /**
  * @author: Harper
@@ -50,8 +49,7 @@ public class LoginActivity extends BaseMvpActivity implements LoginView {
         binding.imgView.setOnClickListener(v -> {
             ImagePreviewActivity.actionStart(this, img2);
         });
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, TestFragment.newInstance())
-                .commitAllowingStateLoss();
+
     }
 
     @Override

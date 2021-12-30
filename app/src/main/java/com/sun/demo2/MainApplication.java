@@ -3,12 +3,16 @@ package com.sun.demo2;
 import android.app.Application;
 import android.content.Context;
 
+import com.rich.text.XRichText;
 import com.sun.base.bean.BaseConfig;
 import com.sun.base.bean.TDevice;
 import com.sun.base.net.NetWork;
+import com.sun.base.service.IAccountService;
+import com.sun.base.service.ServiceFactory;
 import com.sun.base.util.BaseUtil;
 import com.sun.base.util.LogUtil;
 import com.sun.base.util.RetrofitUtils;
+import com.sun.base.util.XRichEditorUtil;
 import com.sun.db.entity.UserInfo;
 import com.sun.db.table.manager.UserInfoManager;
 import com.sun.img.load.ImageLoader;
@@ -40,6 +44,9 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         //初始化图片加载组件
         ImageLoader.getInstance().setStrategy();
         initUmSdk();
+        //将 AccountService 类的实例注册到 ServiceFactory
+        initAccountService();
+        initRichEditor();
     }
 
     private void initUmSdk() {
@@ -73,5 +80,36 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
 
     public static Context getContext() {
         return ctx;
+    }
+
+
+    private void initAccountService() {
+        ServiceFactory.getInstance().setAccountService(new IAccountService() {
+            @Override
+            public String getAccountId() {
+                if (null != mUserInfo) {
+                    return mUserInfo.getUserId() + "";
+                }
+                return null;
+            }
+
+            @Override
+            public String getToken() {
+                if (null != mUserInfo) {
+                    return mUserInfo.getAccessToken();
+                }
+                return null;
+            }
+
+            @Override
+            public String getDisplayName() {
+                return null;
+            }
+        });
+    }
+
+    private void initRichEditor() {
+        XRichText.getInstance().setImageLoader((imagePath, imageView, imageHeight, root, isLocalUpload)
+                -> XRichEditorUtil.loadImage(getApplicationContext(), imagePath, imageView, imageHeight, root, isLocalUpload));
     }
 }

@@ -4,7 +4,7 @@ def config = [:]
 
 def app = [:]
 app.package = "com.sun.demo2"
-app.versionCode = 20211112
+app.versionCode = 1
 app.versionName = "v0.0.1"
 //友盟的 app_key
 app.umeng_app_key = "6193821ce014255fcb7d1395"
@@ -13,11 +13,14 @@ config.app = app
 //关于服务端的地址配置
 def server = [:]
 //测试环境
-server.testUrl = "\"https://测试环境地址前缀\""
-//准现网环境
-server.devUrl = "\"https://准现网环境地址前缀\""
+server.urlTest = "\"https://测试环境地址前缀\""
 //现网环境
-server.releaseUrl = "\"https://现网环境地址前缀\""
+server.urlRelease = "\"https://现网环境地址前缀\""
+//测试环境_H5
+server.urlH5Test = "\"https://H5测试环境地址前缀\""
+//现网环境_H5
+server.urlH5Release = "\"https://H5现网环境地址前缀\""
+
 config.server = server
 
 //GreenDao版本

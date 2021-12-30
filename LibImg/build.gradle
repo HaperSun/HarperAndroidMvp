@@ -33,7 +33,6 @@ android {
 dependencies {
     implementation target.appcompat
     api target.glide
-    api target.photoView
-    api target.andpermission
-    api project(':LibBase')
+    implementation target.photoView
+    implementation project(':LibBase')
 }

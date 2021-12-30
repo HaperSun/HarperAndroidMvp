@@ -38,13 +38,11 @@ dependencies {
     api target.converter_gson
     api target.logger
     api target.adapter_rxjava2
-
+    implementation target.glide
     api('com.alibaba.android:vlayout:1.0.4@aar') {
         transitive = true
         exclude group: 'com.android.support'
     }
-
-    implementation target.andpermission
     implementation project(':LibDb')
     api project(':LibCommon')
 }

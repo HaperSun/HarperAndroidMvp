@@ -38,6 +38,9 @@ android {
 }
 
 dependencies {
+    api target.appcompat
     api target.annotation
-    api "org.greenrobot:eventbus:3.1.1"
+    api target.eventbus
+    api target.andpermission
+    api target.rxpermissions
 }

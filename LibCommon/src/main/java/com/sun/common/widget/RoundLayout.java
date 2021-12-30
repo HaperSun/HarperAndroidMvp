@@ -1,4 +1,4 @@
-package com.sun.common.dialog;
+package com.sun.common.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -61,6 +61,7 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("图片倒影处理");
         titles.add("图片取色并融入背景色效果");
         titles.add("测试在列表中的图片加载");
+        titles.add("webView的封装");
         return titles;
     }
 
@@ -122,6 +123,9 @@ public class HomepageActivity extends BaseMvpActivity {
                     break;
                 case 7:
                     RecyclerViewImageActivity.start(mContext);
+                    break;
+                case 8:
+                    WebViewActivity.start(mContext);
                     break;
                 default:
                     break;

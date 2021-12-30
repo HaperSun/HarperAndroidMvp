@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.SummaryActivity">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.rich.text.RichTextEditor
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rt_editor_image_bottom="10"
+                app:rt_editor_image_height="0"
+                app:rt_editor_text_color="@color/color_3B3B3B"
+                app:rt_editor_text_hint_color="@color/color_AFAFAF"
+                app:rt_editor_text_init_hint="请填写您的回答"
+                app:rt_editor_text_line_space="0dp"
+                app:rt_editor_text_size="@dimen/sp16"/>
+
+            <com.rich.text.RichTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rt_view_image_bottom="10"
+                app:rt_view_image_height="0"
+                app:rt_view_text_color="@color/color_3B3B3B"
+                app:rt_view_text_hint_color="@color/color_AFAFAF"
+                app:rt_view_text_line_space="0dp"
+                app:rt_view_text_size="@dimen/sp14"/>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

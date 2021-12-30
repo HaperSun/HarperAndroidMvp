@@ -29,7 +29,6 @@ import com.sun.img.load.ImageLoader;
 public class ImagePreviewFragment extends BaseMvpFragment {
 
     private static final String EXTRA_IMAGE_ITEM = "EXTRA_IMAGE_ITEM";
-    private static final int REQ_CODE_PERMISSION_WRITE_STORAGE = 180;
     /**
      * 显示原图
      */
@@ -76,6 +75,31 @@ public class ImagePreviewFragment extends BaseMvpFragment {
         initClick();
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        String imgOri = mImageItem.getImageOri();
+        ImageLoader.getInstance().loadImage(imgOri, mImageView, new ImageLoadListener() {
+            @Override
+            public void onLoadingStarted() {
+                mLoadingBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onLoadingFailed(Exception e) {
+                mLoadingBar.setVisibility(View.GONE);
+                ToastHelper.showCustomToast(mActivity, R.string.loading_image_failed, CustomToast.WARNING);
+            }
+
+            @Override
+            public void onLoadingComplete(Bitmap bitmap) {
+                mLoadingBar.setVisibility(View.GONE);
+                mOriImgBitmap = bitmap;
+                mImageView.setImageBitmap(mOriImgBitmap);
+            }
+        });
+    }
+
     private void initClick() {
         mImageView.setOnPhotoTapListener((view, x, y) -> {
             //单击退出当前页面
@@ -103,75 +127,10 @@ public class ImagePreviewFragment extends BaseMvpFragment {
         }
     }
 
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        String imgOri = mImageItem.getImageOri();
-        ImageLoader.getInstance().loadImage(imgOri, mImageView, new ImageLoadListener() {
-            @Override
-            public void onLoadingStarted() {
-                mLoadingBar.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onLoadingFailed(Exception e) {
-                mLoadingBar.setVisibility(View.GONE);
-                ToastHelper.showCustomToast(mActivity, R.string.loading_image_failed, CustomToast.WARNING);
-            }
-
-            @Override
-            public void onLoadingComplete(Bitmap bitmap) {
-                mLoadingBar.setVisibility(View.GONE);
-                mOriImgBitmap = bitmap;
-                mImageView.setImageBitmap(mOriImgBitmap);
-            }
-        });
-    }
-
     /**
      * 保存图片操作
      */
     private void saveImage() {
         FileUtil.saveNetImgToAlbum(mActivity, mImageItem.getImageOri(), mOriImgBitmap);
-//        String imgOri = mImageItem.getImageOri();
-//        String ext;//图片后缀
-//        if (StringUtils.isWebUrlString(imgOri)) {
-//            ext = MimeTypeMap.getFileExtensionFromUrl(imgOri);
-//        } else {
-//            ext = FileUtil.getExtension(imgOri);
-//        }
-//        boolean isPng = "png".equalsIgnoreCase(ext);
-//        if (!isPng) {
-//            ext = "jpg";
-//        }
-//        //保存的文件名以原文件路径md5值命名/保证生成多个
-//        String saveFileName = MD5.getMD5Code(imgOri) + UUID.randomUUID() + "." + ext;
-//        File saveFileDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-//        String saveFilePath = new File(saveFileDir, saveFileName).getAbsolutePath();
-//        //保存图片
-//        FileOutputStream fos = null;
-//        try {
-//            fos = new FileOutputStream(saveFilePath);
-//            mOriImgBitmap.compress(isPng ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG,
-//                    100, fos);
-//            ToastHelper.showCommonToast(mActivity, "图片已保存至" + saveFileDir.getAbsolutePath() + "文件夹");
-//            //发广播更新图库
-//            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//            Uri uri = Uri.fromFile(new File(saveFilePath));
-//            intent.setData(uri);
-//            mActivity.sendBroadcast(intent);
-//        } catch (Exception e) {
-//            LogUtil.e(TAG, "saveImage Exception!", e);
-//            ToastHelper.showCommonToast(mActivity, "图片保存失败！");
-//        } finally {
-//            if (fos != null) {
-//                try {
-//                    fos.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
     }
 }

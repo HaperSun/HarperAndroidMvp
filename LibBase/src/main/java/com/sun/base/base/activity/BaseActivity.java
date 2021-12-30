@@ -15,8 +15,8 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.sun.base.base.IBaseActivity;
-import com.sun.base.base.IBaseView;
+import com.sun.base.base.iview.IBaseActivity;
+import com.sun.base.base.iview.IBaseView;
 import com.sun.base.base.widget.LoadingDialog;
 import com.sun.base.util.CommonUtils;
 import com.sun.common.toast.CustomToast;

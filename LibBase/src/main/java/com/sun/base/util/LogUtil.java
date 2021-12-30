@@ -278,7 +278,7 @@ public final class LogUtil {
     /**
      * 设置打印日志到本地
      *
-     * @param applicationContext
+     * @param applicationContext applicationContext
      */
     private static void setDiskLog(Context applicationContext) {
         //添加日志输出到本地功能
@@ -291,10 +291,7 @@ public final class LogUtil {
         long maxLogFolderSize = DiskLogHandler.DEFAULT_MAX_FOLDER_BYTES;
         LogStrategy diskLogStrategy = new DiskLogStrategy(new DiskLogHandler(logFolderPath, maxPerLogFileSize, maxLogFolderSize));
         // (Optional) Global tag for every log. Default PRETTY_LOGGER
-        CsvFormatStrategy csvFormatStrategy = CsvFormatStrategy.newBuilder()
-                .logStrategy(diskLogStrategy)
-                .tag(TAG)
-                .build();
+        CsvFormatStrategy csvFormatStrategy = CsvFormatStrategy.newBuilder().logStrategy(diskLogStrategy).tag(TAG).build();
         Logger.addLogAdapter(new DiskLogAdapter(csvFormatStrategy));
     }
 }

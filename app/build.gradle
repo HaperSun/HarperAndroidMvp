@@ -37,13 +37,15 @@ android {
 
     productFlavors {
         //多渠道打包
-        pro {
-            buildConfigField "String", "Base_URL", config.server.releaseUrl
+        dev {
+            buildConfigField "String", "Base_URL", config.server.urlTest
+            buildConfigField "String", "Base_URL_H5", config.server.urlH5Test
             buildConfigField "boolean", "VAR_BOOLEAN", 'false'
             buildConfigField "String", "VAR_STRING", '"我是String"'
         }
-        dev {
-            buildConfigField "String", "Base_URL", config.server.testUrl
+        pro {
+            buildConfigField "String", "Base_URL", config.server.urlRelease
+            buildConfigField "String", "Base_URL_H5", config.server.urlH5Release
             buildConfigField "boolean", "VAR_BOOLEAN", 'false'
             buildConfigField "String", "VAR_STRING", '"我是String"'
         }
@@ -57,7 +59,7 @@ android {
                 outputFileName = "harper_${date}.apk"
             }
             if (variant.buildType.name == 'release') {
-                outputFileName = "harper_${versionName}.apk"
+                outputFileName = "harper_${versionName}_${date}.apk"
             }
         }
     }
@@ -98,11 +100,13 @@ dependencies {
     implementation target.umsdk_share_board
     implementation target.umsdk_share_wx
     implementation target.wechat_opensdk
+    implementation target.palette
 
     api project(':LibBase')
     api project(':LibDb')
     api project(':LibCommon')
     api project(':LibChart')
     api project(':LibImg')
-    implementation 'androidx.palette:palette:1.0.0'
+    api project(':LibRichText')
+
 }

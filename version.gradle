@@ -18,7 +18,10 @@ version.status_bar_compat = "0.7"
 version.glide = "4.9.0"
 version.multidex = "2.0.1"
 version.photoView = "2.1.4" //com.github.chrisbanes:PhotoView   支持缩放的ImageView库
-version.andpermission = "2.0.1" //com.yanzhenjie.permission:support AndPermission运行时权限处理库
+version.eventbus = "3.1.1"
+version.andpermission = "2.0.1" //com.yanzhenjie.permission:support AndPermission 运行时权限处理库
+version.rxpermissions = "0.10.2" //https://github.com/tbruyelle/RxPermissions 权限处理库
+version.palette = "1.0.0" //Android L SDK 中的新特性，可以使用 Palette 从图像中提取出突出的颜色（主色调），获取到颜色之后我们再将这个颜色值赋给 ActionBar、状态栏等。从而达到界面色调的统一，使界面美观协调
 //友盟
 version.umsdk_common = "9.4.4"  //必选
 version.umsdk_asms = "1.4.1"   //必选
@@ -41,7 +44,10 @@ target.status_bar_compat = "com.githang:status-bar-compat:$version.status_bar_co
 target.glide = "com.github.bumptech.glide:glide:$version.glide"
 target.multidex = "androidx.multidex:multidex:$version.multidex"
 target.photoView = "com.github.chrisbanes:PhotoView:$version.photoView"
+target.eventbus = "org.greenrobot:eventbus:$version.eventbus"
 target.andpermission = "com.yanzhenjie.permission:support:$version.andpermission"
+target.rxpermissions = "com.github.tbruyelle:rxpermissions:$version.rxpermissions"
+target.palette = "androidx.palette:palette:$version.palette"
 
 //友盟
 target.umsdk_common = "com.umeng.umsdk:common:$version.umsdk_common"
