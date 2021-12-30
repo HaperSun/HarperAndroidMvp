@@ -11,8 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.base.net.exception.ApiException;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityHomepageBinding;
+import com.sun.demo2.event.UpgradeApkDownloadSuccessEvent;
+import com.sun.demo2.update.UpdateService;
+import com.sun.demo2.update.model.GetUpdateInfoResponse;
+import com.sun.demo2.update.view.UpdateAppDialogFragment;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +57,44 @@ public class HomepageActivity extends BaseMvpActivity {
         mTitles = getTitles();
         Adapter adapter = new Adapter();
         mBinding.recyclerView.setAdapter(adapter);
+        initUpdateService();
+    }
+
+    private void initUpdateService() {
+        UpdateService.start(mContext, UpdateService.CMD_CHECK_UPDATE);
+        UpdateService.addOnForceInstallListener((updateInfo, isDownloaded) -> {
+            //强制安装的话，没有下载下来就不弹窗
+            if (!isDownloaded) {
+                return;
+            }
+            UpdateAppDialogFragment.newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(),
+                    isDownloaded, updateInfo.isForceUpdate()).show(getSupportFragmentManager(), "UpdateHintDialogFragment");
+        });
+       UpdateService.addOnCheckUpdateListener(new UpdateService.OnCheckUpdateListener() {
+           @Override
+           public void onNewVersionFounded(GetUpdateInfoResponse.DataBean updateInfo, boolean isDownloaded) {
+               UpdateAppDialogFragment updateAppDialogFragment = UpdateAppDialogFragment
+                       .newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(), isDownloaded,
+                               updateInfo.isForceUpdate());
+               updateAppDialogFragment.show(getSupportFragmentManager(), "UpdateHintDialogFragment");
+               updateAppDialogFragment.setUpdateHintDialogListener(new UpdateAppDialogFragment.UpdateAppDialogListener() {
+                   @Override
+                   public void onCancelDownloadClick(View view) {
+                       //doNothing
+                   }
+
+                   @Override
+                   public void onDownloadError(boolean isNeedFinish) {
+                       //doNothing
+                   }
+               });
+           }
+
+           @Override
+           public void onNoNewVersionFounded(ApiException e) {
+
+           }
+       });
     }
 
     private List<String> getTitles() {
@@ -63,6 +109,15 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("测试在列表中的图片加载");
         titles.add("webView的封装");
         return titles;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpgradeApkDownloadSuccessEvent(UpgradeApkDownloadSuccessEvent event) {
+        GetUpdateInfoResponse.DataBean updateInfo = event.getUpdateInfo();
+        UpdateAppDialogFragment
+                .newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(), true,
+                        updateInfo.isForceUpdate())
+                .show(getSupportFragmentManager(), "UpdateHintDialogFragment");
     }
 
     class Adapter extends RecyclerView.Adapter<Adapter.Holder> {

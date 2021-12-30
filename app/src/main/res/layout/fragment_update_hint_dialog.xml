@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/dp240"
+    android:layout_height="@dimen/dp275"
+    android:gravity="center_horizontal"
+    android:background="@mipmap/bg_update"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_new_version_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp100"
+        android:layout_marginStart="@dimen/dp50"
+        android:paddingLeft="@dimen/dp10"
+        android:paddingRight="@dimen/dp10"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp12"
+        tools:text="V1.0" />
+
+    <TextView
+        android:id="@+id/new_version_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        android:text="@string/found_new_version"
+        android:textColor="#FF6600"
+        android:textSize="@dimen/sp21"
+        android:textStyle="bold" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginStart="@dimen/dp40"
+        android:layout_marginEnd="@dimen/dp40">
+
+        <TextView
+            android:id="@+id/tv_update_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.1"
+            android:textColor="#1b1b1b"
+            android:textSize="@dimen/sp14"
+            tools:text="1.bug修复体验优化~\n2.新增游戏闯关!\n3.优化首页ui\n4.新增游戏闯关,1~6年级" />
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp3"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginStart="@dimen/dp40"
+        android:layout_marginEnd="@dimen/dp40"
+        android:progressDrawable="@drawable/web_progress_horizontal"
+        android:visibility="visible"
+        tools:progress="50"
+        tools:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp10"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp21"
+        android:paddingRight="@dimen/dp21">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/shape_orange_deep_corner_10"
+            android:gravity="center"
+            android:minWidth="@dimen/dp94"
+            android:minHeight="@dimen/dp32"
+            android:text="@string/ignore"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/sp15" />
+
+        <Space
+            android:id="@+id/space"
+            android:layout_width="@dimen/dp10"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_update_now"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_positive_btn"
+            android:gravity="center"
+            android:minWidth="@dimen/dp94"
+            android:minHeight="@dimen/dp32"
+            android:text="@string/update_now"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/sp15" />
+    </LinearLayout>
+</LinearLayout>

@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
  * @note: 解决调用show方法Caused by: java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState的bug
  * * 参考链接：https://stackoverflow.com/questions/14262312/java-lang-illegalstateexception-can-not-perform-this-action-after-onsaveinstanc
  */
-public class ResolveShowBugDialogFragment extends DialogFragment {
+public class BaseDialogFragment extends DialogFragment {
 
     @Override
     public void show(FragmentManager manager, String tag) {
@@ -51,7 +51,7 @@ public class ResolveShowBugDialogFragment extends DialogFragment {
             mPendingShowDialog = true;
         } else {
             FragmentManager fm = getFragmentManager();
-            ResolveShowBugDialogFragment snoozeDialog = new ResolveShowBugDialogFragment();
+            BaseDialogFragment snoozeDialog = new BaseDialogFragment();
             snoozeDialog.show(fm, "BaseDialogFragment");
         }
     }

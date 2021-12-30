@@ -9,7 +9,7 @@ import com.sun.base.base.iview.IBaseFragment;
 import com.sun.base.base.iview.IBaseView;
 import com.sun.base.base.activity.BaseActivity;
 import com.sun.base.base.widget.LoadingDialog;
-import com.sun.base.dialog.ResolveShowBugDialogFragment;
+import com.sun.base.dialog.BaseDialogFragment;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -23,7 +23,7 @@ import io.reactivex.disposables.Disposable;
  *  解决 Can not perform this action  after onSaveInstanceState
  * 参考类 ResolveShowBugDialogFragment
  */
-public abstract class BaseFragment extends ResolveShowBugDialogFragment implements IBaseView, IBaseFragment {
+public abstract class BaseFragment extends BaseDialogFragment implements IBaseView, IBaseFragment {
 
 
     protected final String TAG = getClass().getSimpleName();

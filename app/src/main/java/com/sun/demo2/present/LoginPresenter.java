@@ -29,7 +29,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     public void getLoginInfo(String loginName, String password) {
         mView.get().onAtLoginStart();
         NetWork.getInstance()
-                .commonSendRequest(LoginManager.getLoginInfo(loginName,password))
+                .commonSendRequest(LoginManager.getLoginInfo(loginName, password))
                 .subscribe(new MvpSafetyObserver<Result<LoginResponse>>(mView) {
                     @Override
                     protected void onSuccess(Result<LoginResponse> result) {

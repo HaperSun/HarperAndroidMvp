@@ -69,7 +69,8 @@ android {
             signingConfig signingConfigs.release
         }
         release {
-            minifyEnabled false
+            //开启混淆
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }

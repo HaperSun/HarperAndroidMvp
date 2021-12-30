@@ -1,8 +1,11 @@
 package com.sun.demo2.manager;
 
+import com.sun.base.util.GetRequestUtil;
 import com.sun.base.util.RetrofitUtils;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.service.LoginService;
+import com.sun.demo2.update.model.GetUpdateInfoResponse;
+import com.sun.demo2.update.model.request.GetUpdateInfoRequest;
 
 import io.reactivex.Observable;
 import retrofit2.adapter.rxjava2.Result;
@@ -28,6 +31,16 @@ public class LoginManager {
     }
 
     public static Observable<Result<LoginResponse>> getLoginInfo(String loginName, String password) {
-        return getLoginService().iGetLoginInfo(loginName,password);
+        return getLoginService().iGetLoginInfo(loginName, password);
+    }
+
+    /**
+     * 获取更新接口信息
+     *
+     * @param getUpdateInfoRequest
+     * @return
+     */
+    public static Observable<Result<GetUpdateInfoResponse>> getAppUpdateInfo(GetUpdateInfoRequest getUpdateInfoRequest) {
+        return getLoginService().iGetAppUpdateInfo(GetRequestUtil.getRqstUrl("mobileBusiness/version/max", getUpdateInfoRequest.getParams()));
     }
 }
