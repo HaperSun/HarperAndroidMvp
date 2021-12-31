@@ -7,21 +7,14 @@ import android.preference.PreferenceManager;
 /**
  * @author: Harper
  * @date: 2021/12/31
- * @note:
+ * @note: sp帮助类，存储文件名：Harper_SP
  */
 public class SPHelper {
-
-    //=====================begin 在这里定义各种sp的文件名
-    /**
-     * 作业计时相关的sp文件名
-     */
-    private static final String SP_FILE_NAME = "Harper_SP";
-    //=====================end 在这里定义各种sp的文件名
 
     /**
      * 获取SharedPreferences实例对象
      *
-     * @param context
+     * @param context  context
      * @param fileName sp的文件名
      * @return
      */
@@ -32,17 +25,17 @@ public class SPHelper {
     /**
      * 获取作业相关的SharedPreferences实例对象
      *
-     * @param context
+     * @param context context
      * @return
      */
     public static SharedPreferences getHomeworkSharedPreferences(Context context) {
-        return getSharedPreferences(context, SP_FILE_NAME);
+        return getSharedPreferences(context, "Harper_SP");
     }
 
     /**
      * 获取默认的SharedPreferences实例对象
      *
-     * @param context
+     * @param context context
      * @return
      */
     public static SharedPreferences getDefaultSharedPreferences(Context context) {
