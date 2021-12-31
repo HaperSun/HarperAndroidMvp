@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.sun.base.dialog.BaseDialogFragment;
+import com.sun.base.util.PermissionUtil;
 import com.sun.common.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.sun.demo2.update.UpdateService;
@@ -26,7 +27,7 @@ import java.util.Objects;
  * @date: 2021/12/30
  * @note: 有更新的弹框提示 需要用户点击下载 带有更新进度条
  */
-public class UpdateAppDialogFragment extends BaseDialogFragment implements UpdateService.OnDownloadListener {
+public class UpdateAppDialogFragment extends BaseDialogFragment implements UpdateService.OnDownloadListener, View.OnClickListener {
 
     private static final String EXTRA_VERSION_NAME = "version_name";
     private static final String EXTRA_MESSAGE = "message";
@@ -46,9 +47,8 @@ public class UpdateAppDialogFragment extends BaseDialogFragment implements Updat
     private View mTvCancel;
 
     /**
-     *
-     * @param versionName  版本名称
-     * @param message 更新信息
+     * @param versionName   版本名称
+     * @param message       更新信息
      * @param isDownloaded
      * @param isForceUpdate 是否强制更新
      */
@@ -137,31 +137,47 @@ public class UpdateAppDialogFragment extends BaseDialogFragment implements Updat
             default:
                 break;
         }
-        mTvUpdateInstall.setOnClickListener(v -> {
-            switch (mType) {
-                case TYPE_INSTALL:
-                    install();
+        mTvUpdateInstall.setOnClickListener(this);
+        mTvCancel.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (PermissionUtil.checkStoragePermission(getActivity())){
+            switch (v.getId()){
+                case R.id.tv_update_now:
+                    clickUpdate();
                     break;
-                case TYPE_UPDATE:
-                    mTvUpdateInstall.setClickable(false);
-                    mTvUpdateInstall.setText("下载中...");
-                    mTvCancel.setVisibility(View.VISIBLE);
-                    checkIsForce(true);
-                    download();
+                case R.id.tv_cancel:
+                    clickCancel(v);
                     break;
                 default:
                     break;
             }
-        });
+        }
+    }
 
-        mTvCancel.setOnClickListener(v -> {
-            cancelDownload();
-            dismissAllowingStateLoss();
+    private void clickUpdate() {
+        if (mType == TYPE_INSTALL){
+            // 点击立即安装 不需要隐藏弹框
+            // dismissAllowingStateLoss();
+            UpdateService.start(getActivity(), UpdateService.CMD_INSTALL);
+        }else if (mType == TYPE_UPDATE){
+            mTvUpdateInstall.setClickable(false);
+            mTvUpdateInstall.setText("下载中...");
+            mTvCancel.setVisibility(View.VISIBLE);
+            checkIsForce(true);
+            download();
+        }
+    }
+
+    private void clickCancel(View v) {
+        cancelDownload();
+        dismissAllowingStateLoss();
 //                checkFinishActivity();
-            if (mUpdateAppDialogListener != null) {
-                mUpdateAppDialogListener.onCancelDownloadClick(v);
-            }
-        });
+        if (mUpdateAppDialogListener != null) {
+            mUpdateAppDialogListener.onCancelDownloadClick(v);
+        }
     }
 
     /**
@@ -170,8 +186,6 @@ public class UpdateAppDialogFragment extends BaseDialogFragment implements Updat
     private void checkIsForce(boolean clickUpdate) {
         if (isForceUpdate) {
             mTvCancel.setVisibility(View.GONE);
-        }
-        if (mType != TYPE_INSTALL && !clickUpdate) {//强制安装时如果安装包还没下载下来允许用户关闭更新弹窗
         }
     }
 
@@ -185,12 +199,6 @@ public class UpdateAppDialogFragment extends BaseDialogFragment implements Updat
             return true;
         }
         return false;
-    }
-
-    private void install() {
-        // 点击立即安装 不需要隐藏弹框
-        // dismissAllowingStateLoss();
-        UpdateService.start(getActivity(), UpdateService.CMD_INSTALL);
     }
 
     private void download() {
@@ -219,7 +227,7 @@ public class UpdateAppDialogFragment extends BaseDialogFragment implements Updat
     @Override
     public void onDownloadProgress(final int progress) {
         mTvUpdateInstall.post(() -> {
-            if (mProgressBar.getVisibility() != View.VISIBLE){
+            if (mProgressBar.getVisibility() != View.VISIBLE) {
                 mProgressBar.setVisibility(View.VISIBLE);
             }
             mProgressBar.setProgress(progress);

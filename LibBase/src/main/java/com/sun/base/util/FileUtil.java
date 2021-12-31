@@ -63,26 +63,6 @@ public class FileUtil {
     }
 
     /**
-     * 返回sd卡程序包名下缓存文件路径，卸载程序时会一起跟着清空
-     *
-     * @param context
-     * @param dir     文件夹名
-     * @return
-     */
-    public static File getExternalCacheDir(Context context, String dir) {
-        File appFiles = context.getExternalCacheDir();
-        if (appFiles == null) {
-            String packageName = context.getPackageName();
-            File externalPath = Environment.getExternalStorageDirectory();
-            appFiles = new File(externalPath.getAbsolutePath() + "/Android/data/" + packageName + "/cache/" + dir);
-            if (!appFiles.exists()) {
-                appFiles.mkdirs();
-            }
-        }
-        return appFiles;
-    }
-
-    /**
      * 将指定数据保存到指定文件中去
      *
      * @param data     要保存的数据

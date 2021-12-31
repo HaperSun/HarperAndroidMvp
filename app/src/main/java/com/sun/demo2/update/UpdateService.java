@@ -13,8 +13,10 @@ import com.sun.base.base.widget.BaseMvpService;
 import com.sun.base.bean.TDevice;
 import com.sun.base.net.exception.ApiException;
 import com.sun.base.util.CollectionUtil;
+import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogUtil;
 import com.sun.demo2.BuildConfig;
+import com.sun.demo2.R;
 import com.sun.demo2.event.UpgradeApkDownloadSuccessEvent;
 import com.sun.demo2.update.ivew.IGetUpdateInfoView;
 import com.sun.demo2.update.model.GetUpdateInfoResponse;
@@ -46,26 +48,6 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
     public static final int CMD_STOP_DOWNLOAD = 3;
     public static final int CMD_INSTALL = 4;
     public static final int CMD_MANUAL_UPDATE = 5;
-
-    @IntDef({CMD_CHECK_UPDATE, CMD_START_DOWNLOAD,
-            CMD_STOP_DOWNLOAD, CMD_INSTALL, CMD_MANUAL_UPDATE})
-    public @interface ServiceCmd {
-    }
-
-    public static void start(Context context, @ServiceCmd int cmd) {
-        try {
-            if (context == null) {
-                throw new RuntimeException("UpdateService start context cannot be null!");
-            }
-            Intent intent = new Intent(context, UpdateService.class);
-            intent.putExtra(EXTRA_CMD, cmd);
-            context.startService(intent);
-        } catch (Exception e) {
-            LogUtil.d("UpdateService-------start" + e.getMessage());
-        }
-
-    }
-
     private static String downloadDir;      //更新包要下载下来的目录地址
     private static String downloadFileName; //更新包要下载下来的文件名
     private static String appname;          //更新应用名
@@ -93,6 +75,25 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
 
     private GetUpdateInfoPresenter mGetUpdateInfoPresenter;
     private GetUpdateInfoResponse.DataBean mUpdateInfo;
+
+    @IntDef({CMD_CHECK_UPDATE, CMD_START_DOWNLOAD,
+            CMD_STOP_DOWNLOAD, CMD_INSTALL, CMD_MANUAL_UPDATE})
+    public @interface ServiceCmd {
+    }
+
+    public static void start(Context context, @ServiceCmd int cmd) {
+        try {
+            if (context == null) {
+                throw new RuntimeException("UpdateService start context cannot be null!");
+            }
+            Intent intent = new Intent(context, UpdateService.class);
+            intent.putExtra(EXTRA_CMD, cmd);
+            context.startService(intent);
+        } catch (Exception e) {
+            LogUtil.d("UpdateService-------start" + e.getMessage());
+        }
+
+    }
 
     @Nullable
     @Override
@@ -242,10 +243,6 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
         //小于等于的话认为没有更新信息
         if (mUpdateInfo.getVersion() <= BuildConfig.VERSION_CODE) {
             dispatchOnNoNewVersionFounded(null);
-            //做闪屏页点击跳转的操作
-            if (mOnSplashJumpListener != null) {
-                mOnSplashJumpListener.onSplashJump();
-            }
             return;
         }
         //下载App
@@ -254,10 +251,6 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
 
     @Override
     public void onGetUpdateInfoError(ApiException e) {
-        //做闪屏页点击跳转的操作
-        if (mOnSplashJumpListener != null) {
-            mOnSplashJumpListener.onSplashJump();
-        }
         //调用检查更新接口出错，统一认为没有发现新版本
         int code = e.getCode();
         if (code == GetUpdateInfoResponse.CODE_NO_UPDATE_INFO) {
@@ -329,11 +322,8 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
 
                 inputStream = urlConnection.getInputStream();
 
-                File file = new File(downloadDir);
-                if (!file.exists()) {
-                    file.mkdirs();
-                }
-                apkFile = new File(file, downloadFileName);
+                File file = FileUtil.getExternalFileDir(getContext(), "update");
+                apkFile = new File(file, getContext().getString(R.string.app_name) + "_" + mUpdateInfo.getVersion());
                 if (apkFile.exists()) {
                     apkFile.delete();
                 }
@@ -370,7 +360,7 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
                 isManualDownload = false;
                 isDownloading = false;
                 isManualCheckUpdate = false;
-                isManualDownload = false;
+                isCancelDownloading = false;
                 try {
                     if (fileOutputStream != null) {
                         fileOutputStream.close();
@@ -419,18 +409,6 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
         void onDownloadSuccess();
     }
 
-    private static OnSplashJumpListener mOnSplashJumpListener;
-
-    public static void setSplashJumpListener(OnSplashJumpListener onSplashJumpListener) {
-        mOnSplashJumpListener = onSplashJumpListener;
-    }
-
-    public interface OnSplashJumpListener {
-        /**
-         * 做闪屏页点击跳转的操作
-         */
-        void onSplashJump();
-    }
 
     /**
      * 初始化更新下载参数，使用更新服务，务必先调用此方法，一般放在Application的onCreate方法中

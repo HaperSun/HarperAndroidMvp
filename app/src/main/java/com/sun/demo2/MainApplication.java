@@ -6,6 +6,9 @@ import android.content.Context;
 import com.rich.text.XRichText;
 import com.sun.base.bean.BaseConfig;
 import com.sun.base.bean.TDevice;
+import com.sun.base.disk.CacheFileRule;
+import com.sun.base.disk.DiskCacheConst;
+import com.sun.base.disk.DiskCacheManager;
 import com.sun.base.net.NetWork;
 import com.sun.base.service.IAccountService;
 import com.sun.base.service.ServiceFactory;
@@ -15,6 +18,7 @@ import com.sun.base.util.RetrofitUtils;
 import com.sun.base.util.XRichEditorUtil;
 import com.sun.db.entity.UserInfo;
 import com.sun.db.table.manager.UserInfoManager;
+import com.sun.demo2.model.response.LoginResponse;
 import com.sun.img.load.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
@@ -27,9 +31,12 @@ import com.umeng.socialize.PlatformConfig;
  */
 public class MainApplication extends Application implements UserInfoManager.OnUpdateUserInfoListener,
         UserInfoManager.OnGetCurrentUserInfoListener {
-
     private static MainApplication ctx;
     private UserInfo mUserInfo;
+
+    public static Context getContext() {
+        return ctx;
+    }
 
     @Override
     public void onCreate() {
@@ -47,6 +54,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         //将 AccountService 类的实例注册到 ServiceFactory
         initAccountService();
         initRichEditor();
+        initDiskCacheManager();
     }
 
     private void initUmSdk() {
@@ -74,14 +82,14 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         return mUserInfo;
     }
 
-    public static MainApplication getInstance() {
-        return ctx;
+    private void initDiskCacheManager() {
+        DiskCacheManager.init(ctx, () -> {
+            UserInfo currentUserInfo = getCurrentUserInfo();
+            return currentUserInfo == null ? null : String.valueOf(currentUserInfo.getUserId());
+        });
+        DiskCacheManager.registerClassCacheFileRule(LoginResponse.class,
+                new CacheFileRule(DiskCacheConst.Login.FILE_NAME, DiskCacheConst.Login.DIR_NAME, false));
     }
-
-    public static Context getContext() {
-        return ctx;
-    }
-
 
     private void initAccountService() {
         ServiceFactory.getInstance().setAccountService(new IAccountService() {
