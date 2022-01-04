@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.sun.common.UiHandler;
 import com.sun.demo2.R;
 
 /**
@@ -20,6 +23,7 @@ import com.sun.demo2.R;
  */
 public class SplashActivity extends AppCompatActivity {
 
+    private final IHandler mHandler = new IHandler(this);
     private FrameLayout mRootLayout;
 
     @Override
@@ -41,7 +45,8 @@ public class SplashActivity extends AppCompatActivity {
             return;
         }
         setFullScreen();
-        toHomepage();
+        mHandler.post(mRunnable);
+//        toHomepage();
     }
 
     private boolean isActivityTaskRoot() {
@@ -78,9 +83,31 @@ public class SplashActivity extends AppCompatActivity {
      * 去首页
      */
     private void toHomepage() {
+        //这种延时操作是不合理的，如果立即返回后还是会出现跳转到首页的现象
         mRootLayout.postDelayed(() -> {
             HomepageActivity.start(this);
             finish();
         }, 1000);
+    }
+
+    private final Runnable mRunnable = () -> mHandler.sendEmptyMessageDelayed(0,1000);
+
+    private static class IHandler extends UiHandler<SplashActivity>{
+
+        public IHandler(SplashActivity cla) {
+            super(cla);
+        }
+
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            SplashActivity activity = getRef();
+            if (activity != null && !activity.isFinishing()){
+                if (0 == msg.what){
+                    HomepageActivity.start(activity);
+                    activity.finish();
+                }
+            }
+        }
     }
 }

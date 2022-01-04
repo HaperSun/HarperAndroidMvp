@@ -20,6 +20,10 @@ import com.sun.demo2.sp.LoginInfoSp;
 import com.sun.img.load.ImageLoader;
 import com.sun.img.preview.ImagePreviewActivity;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * @author: Harper
  * @date: 2021/12/6
@@ -59,6 +63,17 @@ public class LoginActivity extends BaseMvpActivity implements LoginView {
         if (mLoginPresenter == null) {
             mLoginPresenter = new LoginPresenter(this);
         }
+        List<String> list = new ArrayList<>();
+        list.add("aa");
+        list.add("bb");
+        list.add("cc");
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()){
+            if ("bb".equals(iterator.next())){
+                iterator.remove();
+            }
+        }
+        System.out.print(list.toString());
     }
 
     private void doLogin() {

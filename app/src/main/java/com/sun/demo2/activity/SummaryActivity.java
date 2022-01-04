@@ -2,6 +2,7 @@ package com.sun.demo2.activity;
 
 import android.annotation.SuppressLint;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.demo2.R;
@@ -41,5 +42,10 @@ public class SummaryActivity extends BaseMvpActivity {
 
         //recyclerView在NestedScrollView中使用，滑动时会抢占焦点，导致滑动卡顿，这个是是用来解决
         mBinding.recyclerView.setNestedScrollingEnabled(false);
+
+        //将scrollView滑动到顶部
+        mBinding.scrollView.scrollTo(0,0);
+        //将scrollView滑动到底部
+        mBinding.scrollView.postDelayed(()->mBinding.scrollView.fullScroll(ScrollView.FOCUS_DOWN),100);
     }
 }

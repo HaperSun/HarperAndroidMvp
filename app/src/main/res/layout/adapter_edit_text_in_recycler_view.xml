@@ -16,15 +16,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawablePadding="@dimen/dp4"
             android:gravity="center"
+            android:hint="请选择"
             android:paddingStart="@dimen/dp5"
             android:paddingTop="@dimen/dp7"
             android:paddingEnd="@dimen/dp10"
             android:paddingBottom="@dimen/dp7"
-            android:hint="请选择"
             android:textColor="@color/black"
             android:textSize="@dimen/sp12"
-            android:drawablePadding="@dimen/dp4"
             app:drawableEndCompat="@mipmap/ic_open" />
 
         <TextView
@@ -32,22 +32,16 @@
             android:layout_height="match_parent"
             android:background="@color/black" />
 
-        <FrameLayout
+        <EditText
+            android:id="@+id/et_count"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/et_count"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:layout_margin="@dimen/dp2"
-                android:gravity="center"
-                android:numeric="integer"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp12" />
-        </FrameLayout>
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:numeric="integer"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp12" />
 
         <TextView
             android:layout_width="@dimen/dp05"

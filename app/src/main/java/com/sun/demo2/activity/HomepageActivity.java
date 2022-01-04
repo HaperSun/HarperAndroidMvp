@@ -68,7 +68,7 @@ public class HomepageActivity extends BaseMvpActivity {
                 return;
             }
             UpdateAppDialogFragment.newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(),
-                    isDownloaded, updateInfo.isForceUpdate()).show(getSupportFragmentManager(), "UpdateHintDialogFragment");
+                    isDownloaded, updateInfo.isForceUpdate()).show(getSupportFragmentManager(), "UpdateAppDialogFragment");
         });
        UpdateService.addOnCheckUpdateListener(new UpdateService.OnCheckUpdateListener() {
            @Override
@@ -76,7 +76,7 @@ public class HomepageActivity extends BaseMvpActivity {
                UpdateAppDialogFragment updateAppDialogFragment = UpdateAppDialogFragment
                        .newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(), isDownloaded,
                                updateInfo.isForceUpdate());
-               updateAppDialogFragment.show(getSupportFragmentManager(), "UpdateHintDialogFragment");
+               updateAppDialogFragment.show(getSupportFragmentManager(), "UpdateAppDialogFragment");
                updateAppDialogFragment.setUpdateHintDialogListener(new UpdateAppDialogFragment.UpdateAppDialogListener() {
                    @Override
                    public void onCancelDownloadClick(View view) {
