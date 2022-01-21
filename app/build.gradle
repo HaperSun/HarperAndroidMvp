@@ -20,6 +20,10 @@ android {
         //版本名后面添加一句话，意思就是flavor dimension 它的维度就是该版本号，这样维度就是都是统一的了
         //用来解决All flavors must now belong to a named flavor dimension问题
         flavorDimensions "versionCode"
+
+//        ndk {
+//            abiFilters "armeabi","armeabi-v7a","x86","mips"
+//        }
     }
 
     signingConfigs {
@@ -105,7 +109,6 @@ dependencies {
 
     api project(':LibBase')
     api project(':LibDb')
-    api project(':LibCommon')
     api project(':LibChart')
     api project(':LibImg')
     api project(':LibRichText')

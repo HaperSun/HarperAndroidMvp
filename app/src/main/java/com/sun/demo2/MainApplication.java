@@ -1,7 +1,6 @@
 package com.sun.demo2;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.rich.text.XRichText;
 import com.sun.base.bean.BaseConfig;
@@ -20,6 +19,7 @@ import com.sun.db.entity.UserInfo;
 import com.sun.db.table.manager.UserInfoManager;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.img.load.ImageLoader;
+import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
@@ -34,7 +34,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
     private static MainApplication ctx;
     private UserInfo mUserInfo;
 
-    public static Context getContext() {
+    public static MainApplication getContext() {
         return ctx;
     }
 
@@ -53,8 +53,12 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         initUmSdk();
         //将 AccountService 类的实例注册到 ServiceFactory
         initAccountService();
+        //初始化富文本控件
         initRichEditor();
+        //初始化磁盘缓存
         initDiskCacheManager();
+        //初始化腾讯QbSdk
+        initQbSdk();
     }
 
     private void initUmSdk() {
@@ -65,7 +69,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
     }
 
     private BaseConfig getBaseConfig() {
-        return new BaseConfig(BuildConfig.APPLICATION_ID, BuildConfig.VERSION_CODE,
+        return new BaseConfig(ctx, BuildConfig.APPLICATION_ID, BuildConfig.VERSION_CODE,
                 BuildConfig.VERSION_NAME, BuildConfig.Base_URL);
     }
 
@@ -119,5 +123,22 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
     private void initRichEditor() {
         XRichText.getInstance().setImageLoader((imagePath, imageView, imageHeight, root, isLocalUpload)
                 -> XRichEditorUtil.loadImage(getApplicationContext(), imagePath, imageView, imageHeight, root, isLocalUpload));
+    }
+
+
+    private void initQbSdk() {
+        QbSdk.setDownloadWithoutWifi(true);
+        QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
+            @Override
+            public void onCoreInitFinished() {
+                LogUtil.e("QbSdk++onCoreInitFinished");
+            }
+
+            @Override
+            public void onViewInitFinished(boolean b) {
+                LogUtil.e("QbSdk++onViewInitFinished" + b);
+            }
+        };
+        QbSdk.initX5Environment(ctx, cb);
     }
 }

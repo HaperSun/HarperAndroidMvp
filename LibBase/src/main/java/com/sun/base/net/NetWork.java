@@ -43,11 +43,11 @@ public class NetWork extends RetrofitUtils {
     private static class ServerResultFunc<T extends Response> implements Function<Result<T>, Result<T>> {
         @Override
         public Result<T> apply(@NonNull Result<T> tResult) throws Exception {
-            if (tResult != null && tResult.isError() && (tResult.error() instanceof Exception)) {
+            if (tResult.isError() && tResult.error() instanceof Exception) {
                 throw (Exception) tResult.error();
-            } else if (tResult != null && tResult.response() != null && !tResult.response().isSuccessful()) {
+            } else if (tResult.response() != null && !tResult.response().isSuccessful()) {
                 throw new HttpException(tResult.response());
-            } else if (tResult == null || tResult.response() == null) {
+            } else if (tResult.response() == null) {
                 throw new NullPointerException("Result or Response is Null");
             } else {
                 return tResult;
@@ -57,7 +57,7 @@ public class NetWork extends RetrofitUtils {
 
     private static class HttpResultFunc<T> implements Function<Throwable, Observable<T>> {
         @Override
-        public Observable<T> apply(Throwable throwable) {
+        public Observable<T> apply(@NonNull Throwable throwable) {
             return Observable.error(ExceptionEngine.handleException(throwable));
         }
     }

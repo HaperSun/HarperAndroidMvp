@@ -2,7 +2,6 @@ package com.sun.common.util;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.WindowManager;
 
 /**
@@ -21,7 +20,18 @@ public class ScreenUtil {
      * @return int
      */
     public static int dp2px(Context context, float dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+        return (int) (dp * context.getResources().getDisplayMetrics().density);
+    }
+
+    /**
+     * dp转px
+     *
+     * @param context context
+     * @param dp      dp
+     * @return int
+     */
+    public static int dp2px(Context context, int dp) {
+        return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
     }
 
     /**

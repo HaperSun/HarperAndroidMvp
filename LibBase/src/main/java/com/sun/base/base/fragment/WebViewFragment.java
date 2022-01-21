@@ -26,7 +26,7 @@ import com.sun.base.util.LogUtil;
  * @date: 2021/12/30
  * @note: 默认的含有WebView的Fragment
  */
-public class WebViewFragment extends BaseMvpFragment implements WebViewX.ScrollInterface {
+public class WebViewFragment extends BaseMvpFragment {
 
     protected WebViewX mWebViewX;
     private ProgressBar mProgressBar;//加载进度条
@@ -95,24 +95,6 @@ public class WebViewFragment extends BaseMvpFragment implements WebViewX.ScrollI
     }
 
     /**
-     * 处理WebView界面按Back键事件
-     *
-     * @return
-     */
-    public boolean onBackPressed() {
-        if (mWebViewX != null && mWebViewX.canGoBack()) {
-            //if (mRedirectedCount > 0) {//为了处理重定向导致无法返回的问题
-            //    mWebViewEx.goBackOrForward(-mRedirectedCount);
-            //    mRedirectedCount = 0; //clear
-            //} else {
-            mWebViewX.goBack();
-//            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * 做一些webView的配置
      */
     protected void initWebView() {
@@ -124,29 +106,40 @@ public class WebViewFragment extends BaseMvpFragment implements WebViewX.ScrollI
         if (BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
-        initProgressBar();
+        initWebViewListener();
         initWebViewClient();
-        mWebViewX.setOnCustomScrollChangeListener(this);
     }
 
-    /**
-     * 加载进度条
-     */
-    private void initProgressBar() {
-        if (mShowProgressBar){
-            mWebViewX.setOnPageLoadProgressListener(progress -> {
-                mProgressBar.setProgress(progress);
-                boolean isCompleted = progress >= 100;
-                if (isCompleted) {
-                    mProgressBar.setVisibility(View.GONE);
-                    if (mOnWebLoadCompleteListener != null) {
-                        mOnWebLoadCompleteListener.onWebLoadCompleted(mWebViewX);
+    private void initWebViewListener() {
+        mWebViewX.setOnWebViewListener(new WebViewX.OnWebViewListener() {
+            @Override
+            public void loadProgress(int progress) {
+                //加载进度条
+                if (mShowProgressBar) {
+                    mProgressBar.setProgress(progress);
+                    boolean isCompleted = progress >= 100;
+                    if (isCompleted) {
+                        mProgressBar.setVisibility(View.GONE);
+                        if (mOnWebLoadCompleteListener != null) {
+                            mOnWebLoadCompleteListener.onWebLoadCompleted(mWebViewX);
+                        }
+                    } else {
+                        mProgressBar.setVisibility(View.VISIBLE);
                     }
-                } else {
-                    mProgressBar.setVisibility(View.VISIBLE);
                 }
-            });
-        }
+            }
+
+            @Override
+            public void scrollChanged(int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                //webView滚动监听
+                float mWebViewTotalHeight = mWebViewX.getContentHeight() * mWebViewX.getScale() - mWebViewX.getHeight();
+                if (mOnWebScrollBottomListener != null) {
+                    mOnWebScrollBottomListener.onWebLoadCompletedHeight(scrollX, scrollY, oldScrollX, oldScrollY,
+                            mWebViewTotalHeight);
+                }
+                Log.d(TAG, "-" + mWebViewTotalHeight);
+            }
+        });
     }
 
     private void initWebViewClient() {
@@ -262,16 +255,6 @@ public class WebViewFragment extends BaseMvpFragment implements WebViewX.ScrollI
 
     public void setOnInitViewCompleteListener(OnInitViewCompleteListener onInitViewCompleteListener) {
         mOnInitViewCompleteListener = onInitViewCompleteListener;
-    }
-
-    @Override
-    public void onSChanged(int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-        float mWebViewTotalHeight = mWebViewX.getContentHeight() * mWebViewX.getScale() - mWebViewX.getHeight();
-        if (mOnWebScrollBottomListener != null) {
-            mOnWebScrollBottomListener.onWebLoadCompletedHeight(scrollX, scrollY, oldScrollX, oldScrollY,
-                    mWebViewTotalHeight);
-        }
-        Log.d(TAG, "-" + mWebViewTotalHeight);
     }
 
     public void setOnWebLoadCompleteListener(OnWebLoadCompleteListener onWebLoadCompleteListener) {

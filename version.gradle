@@ -22,6 +22,7 @@ version.eventbus = "3.1.1"
 version.andpermission = "2.0.1" //com.yanzhenjie.permission:support AndPermission 运行时权限处理库
 version.rxpermissions = "0.10.2" //https://github.com/tbruyelle/RxPermissions 权限处理库
 version.palette = "1.0.0" //Android L SDK 中的新特性，可以使用 Palette 从图像中提取出突出的颜色（主色调），获取到颜色之后我们再将这个颜色值赋给 ActionBar、状态栏等。从而达到界面色调的统一，使界面美观协调
+version.tbs ="sdk:43903"//腾讯 TBS X5内核
 //友盟
 version.umsdk_common = "9.4.4"  //必选
 version.umsdk_asms = "1.4.1"   //必选
@@ -48,6 +49,7 @@ target.eventbus = "org.greenrobot:eventbus:$version.eventbus"
 target.andpermission = "com.yanzhenjie.permission:support:$version.andpermission"
 target.rxpermissions = "com.github.tbruyelle:rxpermissions:$version.rxpermissions"
 target.palette = "androidx.palette:palette:$version.palette"
+target.tbs = "com.tencent.tbs.tbssdk:$version.tbs"
 
 //友盟
 target.umsdk_common = "com.umeng.umsdk:common:$version.umsdk_common"

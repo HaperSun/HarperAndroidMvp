@@ -62,7 +62,7 @@ class OkHttpUtils {
         }
 
         // 配置缓存
-        cacheDirectory = new File(context.getCacheDir().getAbsolutePath(), "MyCache");
+        cacheDirectory = new File(context.getCacheDir().getAbsolutePath(), "Cache");
         Cache cache = new Cache(cacheDirectory, 10 * 1024 * 1024);
 
         if (null == mOkHttpClient) {

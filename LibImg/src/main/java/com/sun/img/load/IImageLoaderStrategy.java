@@ -24,7 +24,7 @@ public interface IImageLoaderStrategy {
      * @param url       图片地址
      * @param imageView 目标容器
      */
-    void loadVideoImage(String url, ImageView imageView);
+    void loadVideo(String url, ImageView imageView);
 
     void loadImage(int resourceId, ImageView imageView);
 
@@ -64,7 +64,7 @@ public interface IImageLoaderStrategy {
 
     void loadCircleBorderImage(String url, int placeholder, int errorResource, ImageView imageView, float borderWidth, int borderColor, int heightPx, int widthPx);
 
-    void loadCornerImage(String url, ImageView imageView, int corner);
+    void loadRectangleImage(String url, ImageView imageView, int corner);
 
     /**
      * 加载GIF，常用

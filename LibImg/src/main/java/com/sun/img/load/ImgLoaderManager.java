@@ -7,7 +7,8 @@ import androidx.annotation.IntDef;
 /**
  * @author: Harper
  * @date: 2021/12/10
- * @note: ImgLoader配置文件
+ * @note: ImgLoader加载策略管理
+ * 当前只封装了Glide的加载策略
  */
 public class ImgLoaderManager {
 

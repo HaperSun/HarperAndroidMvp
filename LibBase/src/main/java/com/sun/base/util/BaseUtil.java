@@ -1,5 +1,8 @@
 package com.sun.base.util;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+
 import com.sun.base.BuildConfig;
 import com.sun.base.bean.BaseConfig;
 
@@ -10,10 +13,15 @@ import com.sun.base.bean.BaseConfig;
  */
 public abstract class BaseUtil {
 
+    @SuppressLint("StaticFieldLeak")
     private static BaseConfig mBaseConfig;
 
     public static void init(BaseConfig baseConfig) {
         mBaseConfig = baseConfig;
+    }
+
+    public static Context getApplicationContext(){
+        return mBaseConfig.ctx;
     }
 
     /**

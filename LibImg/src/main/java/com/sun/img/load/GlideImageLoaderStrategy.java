@@ -45,7 +45,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
     }
 
     @Override
-    public void loadVideoImage(String url, ImageView imageView) {
+    public void loadVideo(String url, ImageView imageView) {
         //加载视频，并截取0.01秒的图片做封面
         RequestOptions requestOptions = new RequestOptions().frame(1000);
         Glide.with(imageView.getContext()).setDefaultRequestOptions(requestOptions)
@@ -181,7 +181,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
     }
 
     @Override
-    public void loadCornerImage(String url, ImageView imageView, int corner) {
+    public void loadRectangleImage(String url, ImageView imageView, int corner) {
         RequestOptions options = RequestOptions.bitmapTransform(new RoundedCorners(corner));
         Glide.with(imageView.getContext())
                 .load(url)

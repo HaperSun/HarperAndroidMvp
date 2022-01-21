@@ -83,7 +83,7 @@ public class SplashActivity extends AppCompatActivity {
      * 去首页
      */
     private void toHomepage() {
-        //这种延时操作是不合理的，如果立即返回后还是会出现跳转到首页的现象
+        //这种延时操作会产生不合理的现象，如果立即返回后还是会出现跳转到首页的现象
         mRootLayout.postDelayed(() -> {
             HomepageActivity.start(this);
             finish();
@@ -102,11 +102,12 @@ public class SplashActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             SplashActivity activity = getRef();
-            if (activity != null && !activity.isFinishing()){
-                if (0 == msg.what){
-                    HomepageActivity.start(activity);
-                    activity.finish();
-                }
+            if (activity == null || activity.isFinishing()){
+                return;
+            }
+            if (0 == msg.what){
+                HomepageActivity.start(activity);
+                activity.finish();
             }
         }
     }

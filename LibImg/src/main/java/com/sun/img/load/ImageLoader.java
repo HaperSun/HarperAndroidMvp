@@ -12,8 +12,6 @@ import android.widget.ImageView;
 public class ImageLoader {
 
     private IImageLoaderStrategy mStrategy;
-    @ImgLoaderManager.StrategyType
-    private final int mStrategyType = ImgLoaderManager.STRATEGY_DEFAULT;
     private static volatile ImageLoader sInstance = null;
 
     public ImageLoader() {
@@ -36,7 +34,7 @@ public class ImageLoader {
     }
 
     public void setStrategy() {
-        mStrategy = ImgLoaderManager.getImgLoaderStrategy(mStrategyType);
+        mStrategy = ImgLoaderManager.getImgLoaderStrategy(ImgLoaderManager.STRATEGY_DEFAULT);
     }
 
     /**
@@ -55,8 +53,8 @@ public class ImageLoader {
      * @param url       图片地址
      * @param imageView 目标容器
      */
-    public void loadVideoImage(String url, ImageView imageView){
-        mStrategy.loadVideoImage(url, imageView);
+    public void loadVideo(String url, ImageView imageView) {
+        mStrategy.loadVideo(url, imageView);
     }
 
     /**
@@ -212,7 +210,7 @@ public class ImageLoader {
      * @param corner    圆角
      */
     public void loadCornerImage(String url, ImageView imageView, int corner) {
-        mStrategy.loadCornerImage(url, imageView, corner);
+        mStrategy.loadRectangleImage(url, imageView, corner);
     }
 
     /**
