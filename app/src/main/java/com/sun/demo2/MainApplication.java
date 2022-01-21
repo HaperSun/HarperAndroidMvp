@@ -46,7 +46,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         TDevice.initTDevice(ctx);
         NetWork.init(ctx);
         RetrofitUtils.initRetrofit(ctx);
-        //初始化LogUtil
+        //初始化LogUtil,默认debug模式可打印所有级别的log
         LogUtil.init(ctx, LogUtil.ALL);
         //初始化图片加载组件
         ImageLoader.getInstance().setStrategy();

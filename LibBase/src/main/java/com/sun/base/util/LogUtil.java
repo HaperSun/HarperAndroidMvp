@@ -49,7 +49,7 @@ public final class LogUtil {
      */
     public static void v(String tag, String msg) {
         try {
-            if (mEnableLog && mLogLevel <= V) {
+            if (mEnableLog && mLogLevel >= V) {
                 Logger.t(tag).v(msg);
             }
         } catch (Exception e) {
@@ -64,7 +64,7 @@ public final class LogUtil {
      */
     public static void v(String msg) {
         try {
-            if (mEnableLog && mLogLevel <= V) {
+            if (mEnableLog && mLogLevel >= V) {
                 Logger.v(msg);
             }
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public final class LogUtil {
      */
     public static void i(String tag, String msg) {
         try {
-            if (mEnableLog && mLogLevel <= I) {
+            if (mEnableLog && mLogLevel >= I) {
                 Logger.t(tag).i(msg);
             }
         } catch (Exception e) {
@@ -91,7 +91,7 @@ public final class LogUtil {
 
     public static void i(String msg) {
         try {
-            if (mEnableLog && mLogLevel <= I) {
+            if (mEnableLog && mLogLevel >= I) {
                 Logger.i(msg);
             }
         } catch (Exception e) {
@@ -138,7 +138,7 @@ public final class LogUtil {
      */
     public static void w(String tag, String msg) {
         try {
-            if (mEnableLog && mLogLevel <= W) {
+            if (mEnableLog && mLogLevel >= W) {
                 Logger.t(tag).w(msg);
             }
         } catch (Exception e) {
@@ -153,7 +153,7 @@ public final class LogUtil {
      */
     public static void w(String msg) {
         try {
-            if (mEnableLog && mLogLevel <= W) {
+            if (mEnableLog && mLogLevel >= W) {
                 Logger.w(msg);
             }
         } catch (Exception e) {
@@ -168,7 +168,7 @@ public final class LogUtil {
      * @param msg
      */
     public static void w(String tag, String msg, Throwable e) {
-        if (mEnableLog && mLogLevel <= W) {
+        if (mEnableLog && mLogLevel >= W) {
             Logger.t(tag).e(e, msg);
         }
     }
@@ -197,7 +197,7 @@ public final class LogUtil {
      */
     public static void e(String msg) {
         try {
-            if (mEnableLog && mLogLevel <= E) {
+            if (mEnableLog && mLogLevel >= E) {
                 Logger.e(msg);
             }
         } catch (Exception e) {
@@ -213,19 +213,19 @@ public final class LogUtil {
      * @param e
      */
     public static void e(String tag, String msg, Throwable e) {
-        if (mEnableLog && mLogLevel <= E) {
+        if (mEnableLog && mLogLevel >= E) {
             Logger.t(tag).e(e, msg);
         }
     }
 
     public static void json(String tag, String msg) {
-        if (mEnableLog && mLogLevel <= D) {
+        if (mEnableLog && mLogLevel >= D) {
             Logger.t(tag).json(msg);
         }
     }
 
     public static void json(String msg) {
-        if (mEnableLog && mLogLevel <= D) {
+        if (mEnableLog && mLogLevel >= D) {
             Logger.json(msg);
         }
     }
