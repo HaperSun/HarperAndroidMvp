@@ -3,7 +3,7 @@ package com.sun.demo2;
 import android.app.Application;
 
 import com.rich.text.XRichText;
-import com.sun.base.bean.BaseConfig;
+import com.sun.common.bean.AppConfig;
 import com.sun.base.bean.TDevice;
 import com.sun.base.disk.CacheFileRule;
 import com.sun.base.disk.DiskCacheConst;
@@ -11,7 +11,7 @@ import com.sun.base.disk.DiskCacheManager;
 import com.sun.base.net.NetWork;
 import com.sun.base.service.IAccountService;
 import com.sun.base.service.ServiceFactory;
-import com.sun.base.util.BaseUtil;
+import com.sun.common.util.AppUtil;
 import com.sun.base.util.LogUtil;
 import com.sun.base.util.RetrofitUtils;
 import com.sun.base.util.XRichEditorUtil;
@@ -42,7 +42,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
     public void onCreate() {
         super.onCreate();
         ctx = MainApplication.this;
-        BaseUtil.init(getBaseConfig());
+        AppUtil.init(getBaseConfig());
         TDevice.initTDevice(ctx);
         NetWork.init(ctx);
         RetrofitUtils.initRetrofit(ctx);
@@ -68,8 +68,8 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         PlatformConfig.setWXFileProvider("com.sun.demo2.fileprovider");
     }
 
-    private BaseConfig getBaseConfig() {
-        return new BaseConfig(ctx, BuildConfig.APPLICATION_ID, BuildConfig.VERSION_CODE,
+    private AppConfig getBaseConfig() {
+        return new AppConfig(ctx, BuildConfig.APPLICATION_ID, BuildConfig.VERSION_CODE,
                 BuildConfig.VERSION_NAME, BuildConfig.Base_URL);
     }
 

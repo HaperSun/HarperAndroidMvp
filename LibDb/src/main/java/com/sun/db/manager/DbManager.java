@@ -4,9 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.sun.common.util.AppUtil;
 import com.sun.db.greendao.DaoMaster;
 import com.sun.db.greendao.DaoSession;
-import com.sun.db.util.CommonUtil;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -31,7 +31,7 @@ public class DbManager {
         // 初始化数据库信息
         mDbOpenHelper = new DbOpenHelper(context, DB_NAME);
         //debug 模式下打印sql信息，方便查找错误
-        boolean isDebug = CommonUtil.isApkDebugEnable();
+        boolean isDebug = AppUtil.isApkDebugEnable();
         QueryBuilder.LOG_SQL = isDebug;
         QueryBuilder.LOG_VALUES = isDebug;
     }

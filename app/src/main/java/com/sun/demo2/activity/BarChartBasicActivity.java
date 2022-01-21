@@ -79,7 +79,7 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
                 new ShareAction(mThis()).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(image).share();
             } catch (Exception e) {
                 e.printStackTrace();
-                ToastHelper.showCommonToast(mThis(), R.string.share_failed);
+                ToastHelper.showCommonToast(R.string.share_failed);
             }
         });
     }

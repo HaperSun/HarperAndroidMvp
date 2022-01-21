@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.sun.base.net.gson.NullString2EmptyAdapterFactory;
 import com.sun.base.net.gson.ResponseConverterFactory;
+import com.sun.common.util.AppUtil;
 
 
 import okhttp3.Interceptor;
@@ -43,7 +44,7 @@ public abstract class RetrofitUtils {
             mOkHttpClient = OkHttpUtils.getOkHttpClient(context, interceptor);
         }
 
-        API_SERVER = BaseUtil.getServerUrl();
+        API_SERVER = AppUtil.getServerUrl();
 
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(API_SERVER)

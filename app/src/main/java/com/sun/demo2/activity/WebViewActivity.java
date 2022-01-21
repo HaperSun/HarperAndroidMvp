@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.sun.base.base.activity.BaseMvpActivity;
-import com.sun.base.util.BaseUtil;
+import com.sun.common.util.AppUtil;
 import com.sun.demo2.BuildConfig;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityWebViewBinding;
@@ -30,7 +30,7 @@ public class WebViewActivity extends BaseMvpActivity {
     @Override
     public void initView() {
         ActivityWebViewBinding binding = (ActivityWebViewBinding) mViewDataBinding;
-        binding.tvUrl.setText(BaseUtil.getServerUrl());
+        binding.tvUrl.setText(AppUtil.getServerUrl());
         binding.tvH5Url.setText(BuildConfig.Base_URL_H5);
     }
 

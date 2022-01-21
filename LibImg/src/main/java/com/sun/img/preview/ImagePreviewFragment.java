@@ -88,7 +88,7 @@ public class ImagePreviewFragment extends BaseMvpFragment {
             @Override
             public void onLoadingFailed(Exception e) {
                 mLoadingBar.setVisibility(View.GONE);
-                ToastHelper.showCustomToast(mActivity, R.string.loading_image_failed, CustomToast.WARNING);
+                ToastHelper.showCustomToast(R.string.loading_image_failed, CustomToast.WARNING);
             }
 
             @Override
@@ -116,7 +116,7 @@ public class ImagePreviewFragment extends BaseMvpFragment {
                 //弹出保存选项
                 new BottomDialogFragment.Builder().addDialogItem(new BottomDialogFragment.DialogItem(getResources().getString(R.string.save_to_album),
                         view1 -> {
-                            if (PermissionUtil.checkStoragePermission(mActivity)){
+                            if (PermissionUtil.checkStoragePermission(mActivity)) {
                                 saveImage();
                             }
                         })).build().show(getChildFragmentManager(), "ImagePreviewFragment");

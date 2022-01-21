@@ -101,11 +101,11 @@ public class BottomShareDialog extends Dialog implements View.OnClickListener {
      */
     private void goToShare(SHARE_MEDIA shareMedia) {
         if (shareMedia == SHARE_MEDIA.QQ) {
-            ToastHelper.showCommonToast(mContext, "暂不支持分享到QQ~");
+            ToastHelper.showCommonToast("暂不支持分享到QQ~");
             return;
         }
         if (shareMedia == SHARE_MEDIA.QZONE) {
-            ToastHelper.showCommonToast(mContext, "暂不支持分享到QQ空间~");
+            ToastHelper.showCommonToast("暂不支持分享到QQ空间~");
             return;
         }
         if (!TextUtils.isEmpty(mShareUrl)) {
@@ -131,7 +131,7 @@ public class BottomShareDialog extends Dialog implements View.OnClickListener {
                     .withMedia(umWeb)
                     .share();
         } else {
-            ToastHelper.showCommonToast(mContext, R.string.share_failed);
+            ToastHelper.showCommonToast(R.string.share_failed);
         }
     }
 

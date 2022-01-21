@@ -1,5 +1,6 @@
 package com.sun.common.toast;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.StringRes;
 
 import com.sun.common.R;
+import com.sun.common.util.AppUtil;
 
 
 /**
@@ -20,17 +22,20 @@ import com.sun.common.R;
  */
 public class ToastHelper {
 
+    //--------------------------------------------自定义---------------------------------------------
+
+    @SuppressLint("StaticFieldLeak")
     private static CustomToast sCustomToast;
 
-    private static CustomToast getCustomToast(Context context) {
+    private static CustomToast getCustomToast() {
         try {
             if (sCustomToast == null) {
-                Context applicationContext = context.getApplicationContext();
+                Context applicationContext = AppUtil.getApplicationContext();
                 sCustomToast = new CustomToast.Builder(applicationContext)
                         .build();
             } else {
                 sCustomToast.cancel();
-                Context applicationContext = context.getApplicationContext();
+                Context applicationContext = AppUtil.getApplicationContext();
                 sCustomToast = new CustomToast.Builder(applicationContext)
                         .build();
             }
@@ -40,9 +45,9 @@ public class ToastHelper {
         return sCustomToast;
     }
 
-    public static void showCustomToast(Context context, CharSequence msg, @CustomToast.TOAST_TYPE int type, int duration) {
+    public static void showCustomToast(CharSequence msg, @CustomToast.TOAST_TYPE int type, int duration) {
         try {
-            CustomToast customToast = getCustomToast(context);
+            CustomToast customToast = getCustomToast();
             customToast.setText(msg);
             customToast.setType(type);
             customToast.setDuration(duration != 1 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
@@ -52,56 +57,56 @@ public class ToastHelper {
         }
     }
 
-    public static void showCustomToast(Context context, @StringRes int resId) {
+    public static void showCustomToast(@StringRes int resId) {
         try {
-            showCustomToast(context, context.getString(resId), CustomToast.WARNING, Toast.LENGTH_SHORT);
+            showCustomToast(AppUtil.getApplicationContext().getString(resId), CustomToast.WARNING, Toast.LENGTH_SHORT);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void showCustomToast(Context context, CharSequence msg) {
-        showCustomToast(context, msg, CustomToast.WARNING, Toast.LENGTH_SHORT);
+    public static void showCustomToast(CharSequence msg) {
+        showCustomToast(msg, CustomToast.WARNING, Toast.LENGTH_SHORT);
     }
 
-    public static void showCustomToast(Context context, @StringRes int resId, @CustomToast.TOAST_TYPE int type) {
+    public static void showCustomToast(@StringRes int resId, @CustomToast.TOAST_TYPE int type) {
         try {
-            showCustomToast(context, context.getString(resId), type, Toast.LENGTH_SHORT);
+            showCustomToast(AppUtil.getApplicationContext().getString(resId), type, Toast.LENGTH_SHORT);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void showCustomToast(Context context, CharSequence msg, @CustomToast.TOAST_TYPE int type) {
-        showCustomToast(context, msg, type, Toast.LENGTH_SHORT);
+    public static void showCustomToast(CharSequence msg, @CustomToast.TOAST_TYPE int type) {
+        showCustomToast(msg, type, Toast.LENGTH_SHORT);
     }
 
-    //----------------------------------------------------------------------------------------------
+    //--------------------------------------------通用-----------------------------------------------
 
     private static Toast sToast;
 
-    public static void showCommonToast(Context context, @StringRes int resId, int duration) {
+    public static void showCommonToast(@StringRes int resId, int duration) {
         try {
-            showCommonToast(context, context.getString(resId), duration);
+            showCommonToast(AppUtil.getApplicationContext().getString(resId), duration);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void showCommonToast(Context context, String msg) {
-        showCommonToast(context, msg, Toast.LENGTH_SHORT);
+    public static void showCommonToast(String msg) {
+        showCommonToast(msg, Toast.LENGTH_SHORT);
     }
 
-    public static void showCommonToast(Context context, @StringRes int resId) {
+    public static void showCommonToast(@StringRes int resId) {
         try {
-            showCommonToast(context, context.getString(resId), Toast.LENGTH_SHORT);
+            showCommonToast(AppUtil.getApplicationContext().getString(resId), Toast.LENGTH_SHORT);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void showCommonToast(Context context, String msg, int duration) {
-        Context applicationContext = context.getApplicationContext();
+    public static void showCommonToast(String msg, int duration) {
+        Context applicationContext = AppUtil.getApplicationContext();
         if (applicationContext == null) {
             return;
         }

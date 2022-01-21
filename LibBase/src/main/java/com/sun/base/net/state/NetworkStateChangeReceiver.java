@@ -7,7 +7,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.text.TextUtils;
 
-import com.sun.base.util.BaseUtil;
+import com.sun.common.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class NetworkStateChangeReceiver extends BroadcastReceiver {
 
-    private String mType = NetworkUtil.getNetworkType(BaseUtil.getApplicationContext());
+    private String mType = NetworkUtil.getNetworkType(AppUtil.getApplicationContext());
 
     private static class InstanceHolder {
         private static final NetworkStateChangeReceiver INSTANCE = new NetworkStateChangeReceiver();

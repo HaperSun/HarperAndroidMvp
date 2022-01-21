@@ -52,8 +52,8 @@ public class LoginActivity extends BaseMvpActivity implements LoginView, NetStat
         mContext = LoginActivity.this;
         ActivityLoginBinding binding = (ActivityLoginBinding) mViewDataBinding;
         binding.login.setOnClickListener(v -> doLogin());
-        binding.commonToast.setOnClickListener(v -> ToastHelper.showCommonToast(mContext, R.string.copied_to_pasteboard));
-        binding.customToast.setOnClickListener(v -> ToastHelper.showCustomToast(mContext, R.string.copied_to_pasteboard));
+        binding.commonToast.setOnClickListener(v -> ToastHelper.showCommonToast(R.string.copied_to_pasteboard));
+        binding.customToast.setOnClickListener(v -> ToastHelper.showCustomToast(R.string.copied_to_pasteboard));
         String img1 = "https://qiniu.fxgkpt.com/hycg/1639356784663.jpg";
         String img2 = "http://pic.ntimg.cn/file/20180211/7259105_125622777789_2.jpg";
         ImageLoader.getInstance().loadImage(img2, binding.imgView);
@@ -78,8 +78,8 @@ public class LoginActivity extends BaseMvpActivity implements LoginView, NetStat
             }
         }
         System.out.print(list.toString());
-        if (NetworkUtil.hasNet(this)){
-            ToastHelper.showCommonToast(mContext,"当前网络可用~");
+        if (NetworkUtil.hasNet()) {
+            ToastHelper.showCommonToast("当前网络可用~");
         }
         NetworkStateChangeReceiver.registerObserver(this);
     }
@@ -104,12 +104,12 @@ public class LoginActivity extends BaseMvpActivity implements LoginView, NetStat
 
     @Override
     public void onNetDisconnected() {
-        ToastHelper.showCommonToast(mContext, "网络断开了~");
+        ToastHelper.showCommonToast("网络断开了~");
     }
 
     @Override
     public void onNetConnected(String networkType) {
-        ToastHelper.showCommonToast(mContext, networkType);
+        ToastHelper.showCommonToast(networkType);
     }
 
 
@@ -132,7 +132,7 @@ public class LoginActivity extends BaseMvpActivity implements LoginView, NetStat
                 UserInfo userInfo = new UserInfo(object.userName, object.password, object.token,
                         object.id, UserInfo.LoginState.LOGIN);
                 UserInfoManager.getInstance(this).loginAndSaveUserInfo(userInfo);
-                ToastHelper.showCustomToast(mContext, "登陆成功", CustomToast.CORRECT);
+                ToastHelper.showCustomToast("登陆成功", CustomToast.CORRECT);
 
                 //2、使用磁盘缓存保存和获取登录成功后的信息
                 DiskCacheManager.getInstance().saveCacheData(response);

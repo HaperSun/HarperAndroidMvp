@@ -7,6 +7,8 @@ import android.telephony.TelephonyManager;
 
 import androidx.annotation.RequiresPermission;
 
+import com.sun.common.util.AppUtil;
+
 /**
  * @author Harper
  * @date 2022/1/21
@@ -83,18 +85,18 @@ public class NetworkUtil {
      * 判断网络是否可用
      * * Created by Dave on 2016/10/12.
      *
-     * @param context context
      * @return boolean
      */
-    public static boolean hasNet(Context context) {
+    public static boolean hasNet() {
         try {
-            ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager manager = (ConnectivityManager) AppUtil.getApplicationContext()
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
             if (manager == null) {
                 return false;
             }
             NetworkInfo networkInfo = manager.getActiveNetworkInfo();
             return networkInfo != null && networkInfo.isAvailable();
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }

@@ -1,4 +1,4 @@
-package com.sun.base.bean;
+package com.sun.common.bean;
 
 import android.content.Context;
 
@@ -7,7 +7,7 @@ import android.content.Context;
  * @date 2021/12/6
  * note:
  */
-public class BaseConfig {
+public class AppConfig {
 
     public Context ctx;
     public String packageName;
@@ -15,7 +15,7 @@ public class BaseConfig {
     public String versionName;
     public String baseUrl;
 
-    public BaseConfig(Context ctx, String packageName, int versionCode, String versionName, String baseUrl) {
+    public AppConfig(Context ctx, String packageName, int versionCode, String versionName, String baseUrl) {
         this.ctx = ctx;
         this.packageName = packageName;
         this.versionCode = versionCode;

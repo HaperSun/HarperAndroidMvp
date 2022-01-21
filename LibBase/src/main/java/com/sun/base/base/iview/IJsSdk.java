@@ -6,7 +6,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import com.sun.base.service.ServiceFactory;
-import com.sun.base.util.BaseUtil;
+import com.sun.common.util.AppUtil;
 import com.sun.base.util.NetUtils;
 import com.sun.common.toast.ToastHelper;
 
@@ -32,7 +32,7 @@ public class IJsSdk {
      */
     @JavascriptInterface
     public String getAppVersion() {
-        return BaseUtil.getVersionName();
+        return AppUtil.getVersionName();
     }
 
     /**
@@ -155,7 +155,7 @@ public class IJsSdk {
     @JavascriptInterface
     public void showToast(String toast) {
         if (mActivity != null) {
-            mActivity.runOnUiThread(() -> ToastHelper.showCommonToast(mActivity, toast));
+            mActivity.runOnUiThread(() -> ToastHelper.showCommonToast(toast));
         }
     }
 

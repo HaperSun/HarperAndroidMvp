@@ -146,21 +146,21 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     @Override
     public void showToast(int resId) {
         if (!isFinishing()) {
-            ToastHelper.showCommonToast(this, getString(resId));
+            ToastHelper.showCommonToast(getString(resId));
         }
     }
 
     @Override
     public void showToast(String msg) {
         if (!isFinishing()) {
-            ToastHelper.showCommonToast(this, msg);
+            ToastHelper.showCommonToast(msg);
         }
     }
 
     @Override
     public void showLongToast(String msg) {
         if (!isFinishing()) {
-            ToastHelper.showCommonToast(this, msg, Toast.LENGTH_LONG);
+            ToastHelper.showCommonToast(msg, Toast.LENGTH_LONG);
         }
     }
 
@@ -171,7 +171,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      */
     public void showToastSuccess(int resId) {
         if (!isFinishing()) {
-            ToastHelper.showCustomToast(this, resId, CustomToast.CORRECT);
+            ToastHelper.showCustomToast(resId, CustomToast.CORRECT);
         }
     }
 
@@ -182,7 +182,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      */
     public void showToastSuccess(String msg) {
         if (!isFinishing()) {
-            ToastHelper.showCustomToast(this, msg, CustomToast.CORRECT);
+            ToastHelper.showCustomToast(msg, CustomToast.CORRECT);
         }
     }
 
@@ -193,7 +193,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      */
     public void showLongToastSuccess(String msg) {
         if (!isFinishing()) {
-            ToastHelper.showCustomToast(this, msg, CustomToast.CORRECT, Toast.LENGTH_LONG);
+            ToastHelper.showCustomToast(msg, CustomToast.CORRECT, Toast.LENGTH_LONG);
         }
     }
 

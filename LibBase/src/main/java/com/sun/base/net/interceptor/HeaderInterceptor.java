@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import com.sun.base.util.BaseUtil;
+import com.sun.common.util.AppUtil;
 import com.sun.db.entity.UserInfo;
 import com.sun.db.table.manager.UserInfoManager;
 
@@ -40,7 +40,7 @@ public class HeaderInterceptor implements Interceptor {
                 .addHeader("authorization", authorization)
                 .addHeader("client", "android")
                 .addHeader("deviceType", "android")
-                .addHeader("appVersion", BaseUtil.getVersionName());
+                .addHeader("appVersion", AppUtil.getVersionName());
         ;
 
         return chain.proceed(requestBuilder.build());

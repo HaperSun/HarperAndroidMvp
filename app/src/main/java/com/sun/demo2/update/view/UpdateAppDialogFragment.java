@@ -143,8 +143,8 @@ public class UpdateAppDialogFragment extends BaseDialogFragment implements Updat
 
     @Override
     public void onClick(View v) {
-        if (PermissionUtil.checkStoragePermission(getActivity())){
-            switch (v.getId()){
+        if (PermissionUtil.checkStoragePermission(getActivity())) {
+            switch (v.getId()) {
                 case R.id.tv_update_now:
                     clickUpdate();
                     break;
@@ -158,11 +158,11 @@ public class UpdateAppDialogFragment extends BaseDialogFragment implements Updat
     }
 
     private void clickUpdate() {
-        if (mType == TYPE_INSTALL){
+        if (mType == TYPE_INSTALL) {
             // 点击立即安装 不需要隐藏弹框
             // dismissAllowingStateLoss();
             UpdateService.start(getActivity(), UpdateService.CMD_INSTALL);
-        }else if (mType == TYPE_UPDATE){
+        } else if (mType == TYPE_UPDATE) {
             mTvUpdateInstall.setClickable(false);
             mTvUpdateInstall.setText("下载中...");
             mTvCancel.setVisibility(View.VISIBLE);
@@ -216,7 +216,7 @@ public class UpdateAppDialogFragment extends BaseDialogFragment implements Updat
         UpdateService.removeOnDownloadListener(this);
         mTvUpdateInstall.post(() -> {
             dismissAllowingStateLoss();
-            ToastHelper.showCustomToast(getActivity(), "更新包下载失败");
+            ToastHelper.showCustomToast("更新包下载失败");
         });
         if (mUpdateAppDialogListener != null) {
             //强制升级或强制安装下载出错时，需要关闭当前页面
