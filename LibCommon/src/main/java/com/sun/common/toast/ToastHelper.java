@@ -30,12 +30,12 @@ public class ToastHelper {
     private static CustomToast getCustomToast() {
         try {
             if (sCustomToast == null) {
-                Context applicationContext = AppUtil.getApplicationContext();
+                Context applicationContext = AppUtil.getCtx();
                 sCustomToast = new CustomToast.Builder(applicationContext)
                         .build();
             } else {
                 sCustomToast.cancel();
-                Context applicationContext = AppUtil.getApplicationContext();
+                Context applicationContext = AppUtil.getCtx();
                 sCustomToast = new CustomToast.Builder(applicationContext)
                         .build();
             }
@@ -59,7 +59,7 @@ public class ToastHelper {
 
     public static void showCustomToast(@StringRes int resId) {
         try {
-            showCustomToast(AppUtil.getApplicationContext().getString(resId), CustomToast.WARNING, Toast.LENGTH_SHORT);
+            showCustomToast(AppUtil.getCtx().getString(resId), CustomToast.WARNING, Toast.LENGTH_SHORT);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,7 +71,7 @@ public class ToastHelper {
 
     public static void showCustomToast(@StringRes int resId, @CustomToast.TOAST_TYPE int type) {
         try {
-            showCustomToast(AppUtil.getApplicationContext().getString(resId), type, Toast.LENGTH_SHORT);
+            showCustomToast(AppUtil.getCtx().getString(resId), type, Toast.LENGTH_SHORT);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -87,7 +87,7 @@ public class ToastHelper {
 
     public static void showCommonToast(@StringRes int resId, int duration) {
         try {
-            showCommonToast(AppUtil.getApplicationContext().getString(resId), duration);
+            showCommonToast(AppUtil.getCtx().getString(resId), duration);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,14 +99,14 @@ public class ToastHelper {
 
     public static void showCommonToast(@StringRes int resId) {
         try {
-            showCommonToast(AppUtil.getApplicationContext().getString(resId), Toast.LENGTH_SHORT);
+            showCommonToast(AppUtil.getCtx().getString(resId), Toast.LENGTH_SHORT);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void showCommonToast(String msg, int duration) {
-        Context applicationContext = AppUtil.getApplicationContext();
+        Context applicationContext = AppUtil.getCtx();
         if (applicationContext == null) {
             return;
         }

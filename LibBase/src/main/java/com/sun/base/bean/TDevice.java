@@ -39,7 +39,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationManagerCompat;
@@ -49,6 +48,8 @@ import com.sun.base.R;
 import com.sun.base.util.LogUtil;
 import com.sun.base.util.StringUtils;
 import com.sun.base.util.ToastUtil;
+import com.sun.common.toast.ToastHelper;
+import com.sun.common.util.AppUtil;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -69,24 +70,16 @@ import java.util.List;
 public class TDevice {
 
     private static final String TAG = "TDevice";
-
-    private static Context mContext;
-
     // 手机网络类型
     public static final int NETTYPE_WIFI = 0x01;
     public static final int NETTYPE_CMWAP = 0x02;
     public static final int NETTYPE_CMNET = 0x03;
-
     private static Boolean _hasBigScreen = null;
     private static Boolean _hasCamera = null;
     private static Boolean _isTablet = null;
     private static Integer _loadFactor = null;
-
     private static float displayDensity = 0.0F;
 
-    public static void initTDevice(Context context) {
-        mContext = context.getApplicationContext();
-    }
 
     private TDevice() {
     }
@@ -95,7 +88,7 @@ public class TDevice {
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
     public static int dip2px(float dpValue) {
-        final float scale = mContext.getResources().getDisplayMetrics().density;
+        final float scale = AppUtil.getCtx().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -103,13 +96,13 @@ public class TDevice {
      * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
      */
     public static int px2dip(float pxValue) {
-        final float scale = mContext.getResources().getDisplayMetrics().density;
+        final float scale = AppUtil.getCtx().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
     public static int getDefaultLoadFactor() {
         if (_loadFactor == null) {
-            Integer integer = Integer.valueOf(0xf & mContext.getResources().getConfiguration().screenLayout);
+            Integer integer = Integer.valueOf(0xf & AppUtil.getCtx().getResources().getConfiguration().screenLayout);
             _loadFactor = integer;
             _loadFactor = Integer.valueOf(Math.max(integer.intValue(), 1));
         }
@@ -125,9 +118,7 @@ public class TDevice {
 
     public static DisplayMetrics getDisplayMetrics() {
         DisplayMetrics displaymetrics = new DisplayMetrics();
-        ((WindowManager) mContext.getSystemService(
-                Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(
-                displaymetrics);
+        ((WindowManager) AppUtil.getCtx().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
         return displaymetrics;
     }
 
@@ -181,7 +172,7 @@ public class TDevice {
         boolean flag = true;
         if (_hasBigScreen == null) {
             boolean flag1;
-            flag1 = (0xf & mContext.getResources()
+            flag1 = (0xf & AppUtil.getCtx().getResources()
                     .getConfiguration().screenLayout) >= 3;
             Boolean boolean1 = Boolean.valueOf(flag1);
             _hasBigScreen = boolean1;
@@ -197,7 +188,7 @@ public class TDevice {
 
     public static boolean hasCamera() {
         if (_hasCamera == null) {
-            PackageManager pckMgr = mContext
+            PackageManager pckMgr = AppUtil.getCtx()
                     .getPackageManager();
             boolean flag = pckMgr
                     .hasSystemFeature("android.hardware.camera.front");
@@ -214,7 +205,7 @@ public class TDevice {
      * @return boolean
      */
     public static boolean isSupportFlash() {
-        PackageManager pm = mContext.getPackageManager();
+        PackageManager pm = AppUtil.getCtx().getPackageManager();
         FeatureInfo[] features = pm.getSystemAvailableFeatures();
         for (FeatureInfo f : features) {
             // 判断设备是否支持闪光灯
@@ -226,7 +217,7 @@ public class TDevice {
     }
 
     public static boolean hasInternet() {
-        return ((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null;
+        return ((ConnectivityManager) AppUtil.getCtx().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null;
     }
 
     public static boolean gotoGoogleMarket(Activity activity, String pck) {
@@ -245,7 +236,7 @@ public class TDevice {
 
     public static boolean isPackageExist(String pckName) {
         try {
-            PackageInfo pckInfo = mContext.getPackageManager()
+            PackageInfo pckInfo = AppUtil.getCtx().getPackageManager()
                     .getPackageInfo(pckName, 0);
             if (pckInfo != null) {
                 return true;
@@ -260,18 +251,18 @@ public class TDevice {
         if (view == null) {
             return;
         }
-        ((InputMethodManager) mContext.getSystemService(
+        ((InputMethodManager) AppUtil.getCtx().getSystemService(
                 Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
                 view.getWindowToken(), 0);
     }
 
     public static boolean isLandscape() {
-        return mContext.getResources().getConfiguration().orientation == 2;
+        return AppUtil.getCtx().getResources().getConfiguration().orientation == 2;
     }
 
     public static boolean isPortrait() {
         boolean flag = true;
-        if (mContext.getResources().getConfiguration().orientation != 1) {
+        if (AppUtil.getCtx().getResources().getConfiguration().orientation != 1) {
             flag = false;
         }
         return flag;
@@ -284,7 +275,7 @@ public class TDevice {
      */
     public static boolean isTablet() {
         if (_isTablet == null) {
-            boolean flag = (mContext.getResources().getConfiguration().screenLayout
+            boolean flag = (AppUtil.getCtx().getResources().getConfiguration().screenLayout
                     & Configuration.SCREENLAYOUT_SIZE_MASK)
                     >= Configuration.SCREENLAYOUT_SIZE_LARGE;
             _isTablet = Boolean.valueOf(flag);
@@ -306,13 +297,13 @@ public class TDevice {
     }
 
     public static void showSoftKeyboard(View view) {
-        ((InputMethodManager) mContext.getSystemService(
+        ((InputMethodManager) AppUtil.getCtx().getSystemService(
                 Context.INPUT_METHOD_SERVICE)).showSoftInput(view,
                 InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
 
     public static void toogleSoftKeyboard(View view) {
-        ((InputMethodManager) mContext.getSystemService(
+        ((InputMethodManager) AppUtil.getCtx().getSystemService(
                 Context.INPUT_METHOD_SERVICE)).toggleSoftInput(0,
                 InputMethodManager.HIDE_NOT_ALWAYS);
     }
@@ -343,9 +334,10 @@ public class TDevice {
         return str;
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     public static void gotoMarket(Context context, String pck) {
         if (!isHaveMarket(context)) {
-            Toast.makeText(mContext, "你手机中没有安装应用市场", Toast.LENGTH_SHORT).show();
+            ToastHelper.showCommonToast("你手机中没有安装应用市场");
             return;
         }
         Intent intent = new Intent();
@@ -356,6 +348,7 @@ public class TDevice {
         }
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     public static void gotoMarket2(Context context, String pck) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
@@ -363,7 +356,7 @@ public class TDevice {
         if (intent.resolveActivity(context.getPackageManager()) != null) {
             context.startActivity(intent);
         } else {
-            Toast.makeText(mContext, "你手机中没有安装应用市场", Toast.LENGTH_SHORT).show();
+            ToastHelper.showCommonToast("你手机中没有安装应用市场");
         }
     }
 
@@ -415,7 +408,7 @@ public class TDevice {
 
     public static PackageInfo getPackageInfo(String pckName) {
         try {
-            return mContext.getPackageManager()
+            return AppUtil.getCtx().getPackageManager()
                     .getPackageInfo(pckName, 0);
         } catch (NameNotFoundException e) {
             LogUtil.e(e.getMessage());
@@ -439,9 +432,9 @@ public class TDevice {
     public static int getVersionCode() {
         int versionCode;
         try {
-            versionCode = mContext
+            versionCode = AppUtil.getCtx()
                     .getPackageManager()
-                    .getPackageInfo(mContext.getPackageName(),
+                    .getPackageInfo(AppUtil.getPackageName(),
                             0).versionCode;
         } catch (NameNotFoundException ex) {
             versionCode = 0;
@@ -452,7 +445,7 @@ public class TDevice {
     public static int getVersionCode(String packageName) {
         int versionCode;
         try {
-            versionCode = mContext.getPackageManager()
+            versionCode = AppUtil.getCtx().getPackageManager()
                     .getPackageInfo(packageName, 0).versionCode;
         } catch (NameNotFoundException ex) {
             versionCode = 0;
@@ -463,9 +456,9 @@ public class TDevice {
     public static String getVersionName() {
         String name;
         try {
-            name = mContext
+            name = AppUtil.getCtx()
                     .getPackageManager()
-                    .getPackageInfo(mContext.getPackageName(),
+                    .getPackageInfo(AppUtil.getPackageName(),
                             0).versionName;
         } catch (NameNotFoundException ex) {
             name = "";
@@ -599,8 +592,7 @@ public class TDevice {
      * @return
      */
     public static String getIMEI() {
-        TelephonyManager tel = (TelephonyManager) mContext
-                .getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tel = (TelephonyManager) AppUtil.getCtx().getSystemService(Context.TELEPHONY_SERVICE);
         if (tel == null) {
             return null;
         }
@@ -614,7 +606,8 @@ public class TDevice {
      * @return
      */
     public static String getWlanMacAddress() {
-        WifiManager wm = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
+        @SuppressLint("WifiManagerLeak")
+        WifiManager wm = (WifiManager) AppUtil.getCtx().getSystemService(Context.WIFI_SERVICE);
         if (wm == null) {
             return null;
         }
@@ -794,7 +787,7 @@ public class TDevice {
     }
 
     public static void openApp(Context context, String packageName) {
-        Intent mainIntent = mContext.getPackageManager()
+        Intent mainIntent = AppUtil.getCtx().getPackageManager()
                 .getLaunchIntentForPackage(packageName);
         if (mainIntent == null) {
             mainIntent = new Intent(packageName);
@@ -834,7 +827,7 @@ public class TDevice {
         }
         ClipboardManager clip = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         clip.setText(string);
-        Toast.makeText(mContext, mContext.getResources().getString(R.string.copied_to_pasteboard), Toast.LENGTH_SHORT).show();
+        ToastHelper.showCommonToast(AppUtil.getCtx().getResources().getString(R.string.copied_to_pasteboard));
     }
 
     /**
@@ -889,7 +882,7 @@ public class TDevice {
      */
     public static int getNetworkType() {
         int netType = 0;
-        ConnectivityManager connectivityManager = (ConnectivityManager) mContext
+        ConnectivityManager connectivityManager = (ConnectivityManager) AppUtil.getCtx()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo == null) {
@@ -913,7 +906,7 @@ public class TDevice {
 
     public static int getStatusBarHeight() {
         int result = 0;
-        Resources resources = mContext.getResources();
+        Resources resources = AppUtil.getCtx().getResources();
         int resId = resources.getIdentifier("status_bar_height", "dimen", "android");
         if (resId > 0) {
             result = resources.getDimensionPixelOffset(resId);
@@ -957,7 +950,7 @@ public class TDevice {
      */
     public static boolean isApkDebugable() {
         try {
-            ApplicationInfo info = mContext.getApplicationInfo();
+            ApplicationInfo info = AppUtil.getCtx().getApplicationInfo();
             return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
         } catch (Exception e) {
 

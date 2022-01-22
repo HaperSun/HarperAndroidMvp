@@ -1,28 +1,24 @@
 package com.sun.base.base.iview;
 
 import android.app.Activity;
-import android.net.ConnectivityManager;
 import android.webkit.JavascriptInterface;
-import android.webkit.WebView;
 
+import com.sun.base.net.state.NetworkUtil;
 import com.sun.base.service.ServiceFactory;
-import com.sun.common.util.AppUtil;
-import com.sun.base.util.NetUtils;
 import com.sun.common.toast.ToastHelper;
+import com.sun.common.util.AppUtil;
 
 /**
  * @author: Harper
  * @date: 2021/12/30
  * @note: jssdk
  */
-public class IJsSdk {
+public class IJsConfig {
 
-    private Activity mActivity;
-    private WebView mWebView;
+    private final Activity mActivity;
 
-    public IJsSdk(Activity activity, WebView webView) {
+    public IJsConfig(Activity activity) {
         this.mActivity = activity;
-        this.mWebView = webView;
     }
 
     /**
@@ -80,14 +76,7 @@ public class IJsSdk {
      */
     @JavascriptInterface
     public String getNetworkState() {
-        int connectedType = NetUtils.getConnectedType(mActivity);
-        if (connectedType == ConnectivityManager.TYPE_WIFI) {
-            return "wifi";
-        } else if (connectedType == -1) {
-            return "none";
-        } else {
-            return "wwan";
-        }
+        return NetworkUtil.getNetworkType();
     }
 
     /**

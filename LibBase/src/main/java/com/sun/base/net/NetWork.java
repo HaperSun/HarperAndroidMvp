@@ -1,7 +1,5 @@
 package com.sun.base.net;
 
-import android.content.Context;
-
 import com.sun.base.net.exception.ExceptionEngine;
 import com.sun.base.net.response.Response;
 import com.sun.base.util.RetrofitUtils;
@@ -23,7 +21,7 @@ public class NetWork extends RetrofitUtils {
 
     private static NetWork instance;
 
-    public static void init(Context context) {
+    public static void init() {
         instance = new NetWork();
     }
 

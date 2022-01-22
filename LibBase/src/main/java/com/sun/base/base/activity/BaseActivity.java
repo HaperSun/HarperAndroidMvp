@@ -66,7 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
                 }
                 View view = getCurrentFocus();
                 if (isHideInput(view, ev)) {
-                    HideSoftInput(view.getWindowToken());
+                    hideSoftInput(view.getWindowToken());
                 }
             }
             return super.dispatchTouchEvent(ev);
@@ -76,9 +76,13 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         return false;
     }
 
-    // 判定是否需要隐藏
+    /**
+     * 判定是否需要隐藏
+     * @param v
+     * @param ev
+     * @return
+     */
     private boolean isHideInput(View v, MotionEvent ev) {
-
         // 如果不需要 则立即返回
         if (!needClickHideSoftInput) {
             return needClickHideSoftInput;
@@ -94,12 +98,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         return false;
     }
 
-    // 隐藏软键盘
-    private void HideSoftInput(IBinder token) {
+    /**
+     * 隐藏软键盘
+     * @param token
+     */
+    private void hideSoftInput(IBinder token) {
         if (token != null) {
             InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            manager.hideSoftInputFromWindow(token,
-                    InputMethodManager.HIDE_NOT_ALWAYS);
+            manager.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 

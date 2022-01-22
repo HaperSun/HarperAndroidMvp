@@ -81,7 +81,7 @@ public abstract class BaseMvpFragment extends BaseFragment implements IAddPresen
     public void onDestroy() {
         if (mPresenters != null) {
             for (BasePresenter presenter : mPresenters) {
-                presenter.detachView();
+                presenter.clearView();
             }
             mPresenters = null;
         }

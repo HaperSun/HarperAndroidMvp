@@ -44,7 +44,7 @@ public class BaseMvpService extends Service implements IAddPresenterView {
     public void onDestroy() {
         if (mPresenters != null) {
             for (BasePresenter presenter : mPresenters) {
-                presenter.detachView();
+                presenter.clearView();
             }
             mPresenters = null;
         }

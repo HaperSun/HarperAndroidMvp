@@ -34,8 +34,8 @@ public abstract class RetrofitUtils {
         return mRetrofit;
     }
 
-    public static void initRetrofit(Context context) {
-        initRetrofit(context, null);
+    public static void initRetrofit() {
+        initRetrofit(AppUtil.getCtx(), null);
     }
 
     public static void initRetrofit(Context context, Interceptor interceptor) {

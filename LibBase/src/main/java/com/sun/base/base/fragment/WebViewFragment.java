@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 
 import com.sun.base.BuildConfig;
 import com.sun.base.R;
-import com.sun.base.base.iview.IJsSdk;
+import com.sun.base.base.iview.IJsConfig;
 import com.sun.base.base.widget.WebViewX;
 import com.sun.base.databinding.FragmentWebViewBinding;
 import com.sun.base.util.LogUtil;
@@ -50,8 +50,8 @@ public class WebViewFragment extends BaseMvpFragment {
     private OnWebLoadCompleteListener mOnWebLoadCompleteListener;
     private OnWebScrollBottomListener mOnWebScrollBottomListener;
     public String mUrl;//要加载的url
-    public boolean mNeedSupportZoom;//是否支持缩放
-    public boolean mShowProgressBar = true;//是否展示进度条
+    public boolean mNeedSupportZoom = false;//是否支持缩放
+    public boolean mShowProgressBar = false;//是否展示进度条
 
     @Override
     public int layoutId() {
@@ -80,7 +80,7 @@ public class WebViewFragment extends BaseMvpFragment {
         mFailStartNum = -1;
         mFailFinishNum = -1;
         mWebViewX.loadUrl(mUrl);
-        mWebViewX.addJavascriptInterface(new IJsSdk(getActivity(), mWebViewX), "IJsSdk");
+        mWebViewX.addJavascriptInterface(new IJsConfig(getActivity()), "IJsSdk");
     }
 
     public void loadUrl() {

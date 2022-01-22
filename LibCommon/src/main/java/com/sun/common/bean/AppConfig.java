@@ -5,7 +5,7 @@ import android.content.Context;
 /**
  * @author Harper
  * @date 2021/12/6
- * note:
+ * note:App的基础信息
  */
 public class AppConfig {
 

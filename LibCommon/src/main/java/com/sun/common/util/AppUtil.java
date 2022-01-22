@@ -22,7 +22,12 @@ public abstract class AppUtil {
         mAppConfig = appConfig;
     }
 
-    public static Context getApplicationContext(){
+    /**
+     * 获取Application的Context
+     *
+     * @return Context
+     */
+    public static Context getCtx() {
         return mAppConfig.ctx;
     }
 

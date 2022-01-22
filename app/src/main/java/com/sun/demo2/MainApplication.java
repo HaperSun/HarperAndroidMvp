@@ -3,18 +3,17 @@ package com.sun.demo2;
 import android.app.Application;
 
 import com.rich.text.XRichText;
-import com.sun.common.bean.AppConfig;
-import com.sun.base.bean.TDevice;
 import com.sun.base.disk.CacheFileRule;
 import com.sun.base.disk.DiskCacheConst;
 import com.sun.base.disk.DiskCacheManager;
 import com.sun.base.net.NetWork;
 import com.sun.base.service.IAccountService;
 import com.sun.base.service.ServiceFactory;
-import com.sun.common.util.AppUtil;
 import com.sun.base.util.LogUtil;
 import com.sun.base.util.RetrofitUtils;
 import com.sun.base.util.XRichEditorUtil;
+import com.sun.common.bean.AppConfig;
+import com.sun.common.util.AppUtil;
 import com.sun.db.entity.UserInfo;
 import com.sun.db.table.manager.UserInfoManager;
 import com.sun.demo2.model.response.LoginResponse;
@@ -43,11 +42,10 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         super.onCreate();
         ctx = MainApplication.this;
         AppUtil.init(getBaseConfig());
-        TDevice.initTDevice(ctx);
-        NetWork.init(ctx);
-        RetrofitUtils.initRetrofit(ctx);
+        NetWork.init();
+        RetrofitUtils.initRetrofit();
         //初始化LogUtil,默认debug模式可打印所有级别的log
-        LogUtil.init(ctx, LogUtil.ALL);
+        LogUtil.init();
         //初始化图片加载组件
         ImageLoader.getInstance().setStrategy();
         initUmSdk();

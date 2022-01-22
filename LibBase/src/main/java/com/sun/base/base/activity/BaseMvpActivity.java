@@ -97,7 +97,7 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
     protected void onDestroy() {
         if (mPresenters != null) {
             for (BasePresenter presenter : mPresenters) {
-                presenter.detachView();
+                presenter.clearView();
             }
             mPresenters = null;
         }

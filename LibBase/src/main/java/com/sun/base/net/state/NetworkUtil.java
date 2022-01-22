@@ -31,9 +31,9 @@ public class NetworkUtil {
      * 需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}
      */
     @RequiresPermission("android.permission.ACCESS_NETWORK_STATE")
-    public static String getNetworkType(Context context) {
+    public static String getNetworkType() {
         String netType = NetworkType.NETWORK_NO;
-        NetworkInfo info = getActiveNetworkInfo(context);
+        NetworkInfo info = getActiveNetworkInfo(AppUtil.getCtx());
         if (info != null && info.isAvailable()) {
             if (info.getType() == ConnectivityManager.TYPE_WIFI) {
                 netType = NetworkType.NETWORK_WIFI;
@@ -89,7 +89,7 @@ public class NetworkUtil {
      */
     public static boolean hasNet() {
         try {
-            ConnectivityManager manager = (ConnectivityManager) AppUtil.getApplicationContext()
+            ConnectivityManager manager = (ConnectivityManager) AppUtil.getCtx()
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
             if (manager == null) {
                 return false;

@@ -7,8 +7,6 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.text.TextUtils;
 
-import com.sun.common.util.AppUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +17,7 @@ import java.util.List;
  */
 public class NetworkStateChangeReceiver extends BroadcastReceiver {
 
-    private String mType = NetworkUtil.getNetworkType(AppUtil.getApplicationContext());
+    private String mType = NetworkUtil.getNetworkType();
 
     private static class InstanceHolder {
         private static final NetworkStateChangeReceiver INSTANCE = new NetworkStateChangeReceiver();
@@ -30,7 +28,7 @@ public class NetworkStateChangeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
-            String networkType = NetworkUtil.getNetworkType(context);
+            String networkType = NetworkUtil.getNetworkType();
             notifyObservers(networkType);
         }
     }

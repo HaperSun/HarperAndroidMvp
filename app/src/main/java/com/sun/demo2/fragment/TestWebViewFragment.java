@@ -14,6 +14,7 @@ import com.sun.img.preview.ImagePreviewActivity;
  */
 public class TestWebViewFragment extends WebViewFragment {
 
+    private static final String TAG = TestWebViewFragment.class.getName();
     private static final String ANSWER_LIST_URL = "/answersDetail";
 
     public static TestWebViewFragment newInstance() {
@@ -27,7 +28,7 @@ public class TestWebViewFragment extends WebViewFragment {
     public void loadUrl() {
 //        mUrl = BuildConfig.Base_URL_H5 + ANSWER_LIST_URL + "?quesId=" + "quesId";
         mUrl = "https://www.baidu.com";
-        mNeedSupportZoom = false;
+        mNeedSupportZoom = true;
         mShowProgressBar = true;
     }
 
@@ -37,7 +38,7 @@ public class TestWebViewFragment extends WebViewFragment {
         //开启LocalStorage
         mWebViewX.getSettings().setDomStorageEnabled(true);
         //Js调我
-        mWebViewX.addJavascriptInterface(new JsNative(getContext()), "TestFragment");
+        mWebViewX.addJavascriptInterface(new JsNative(getContext()), TAG);
     }
 
     static class JsNative {

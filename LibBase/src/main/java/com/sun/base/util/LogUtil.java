@@ -13,6 +13,7 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.sun.base.BuildConfig;
 
 import com.sun.base.bean.DiskLogHandler;
+import com.sun.common.util.AppUtil;
 
 
 /**
@@ -241,14 +242,11 @@ public final class LogUtil {
 
     /**
      * 需要在Application中初始化
-     *
-     * @param applicationContext applicationContext
      */
-    public static void init(Context applicationContext, int logLevel) {
+    public static void init() {
         mEnableLog = BuildConfig.DEBUG;
-        mLogLevel = logLevel;
         setAndroidLog();
-        setDiskLog(applicationContext);
+        setDiskLog(AppUtil.getCtx());
     }
 
     /**

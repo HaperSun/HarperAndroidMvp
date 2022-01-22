@@ -30,7 +30,7 @@ public class GetUpdateInfoPresenter extends BasePresenter<IGetUpdateInfoView> {
                 .subscribe(new MvpSafetyObserver<Result<GetUpdateInfoResponse>>(mView) {
                     @Override
                     protected void onSuccess(Result<GetUpdateInfoResponse> result) {
-                        if (!isDetached()) {
+                        if (isCreated()) {
                             assert result.response() != null;
                             mView.get().onGetUpdateInfoReturned(result.response().body());
                         }
@@ -43,7 +43,7 @@ public class GetUpdateInfoPresenter extends BasePresenter<IGetUpdateInfoView> {
 
                     @Override
                     public void onError(ApiException e) {
-                        if (!isDetached()) {
+                        if (isCreated()) {
                             mView.get().onGetUpdateInfoError(e);
                         }
                     }
