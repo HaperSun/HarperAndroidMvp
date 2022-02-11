@@ -48,8 +48,7 @@ public class CustomEditText extends EditText {
     }
 
     public void setMeetingSpecialCharacterFilters20() {
-        setFilters(new InputFilter[]{/* new MeetingEditTextFilter(),new EmojiFilter(),*/
-                new MeetingTextLengthFilter(), new InputFilter.LengthFilter(20)});
+        setFilters(new InputFilter[]{new MeetingTextLengthFilter(), new InputFilter.LengthFilter(20)});
     }
 
     public void setSpecialCharacterFilters(InputFilter[] filters) {

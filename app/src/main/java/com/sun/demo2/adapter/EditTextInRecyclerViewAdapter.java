@@ -1,6 +1,7 @@
 package com.sun.demo2.adapter;
 
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sun.common.filter.LengthFilter;
+import com.sun.common.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.sun.demo2.model.DataBean;
 
@@ -48,6 +51,7 @@ public class EditTextInRecyclerViewAdapter extends RecyclerView.Adapter<EditText
             }
         });
 
+        holder.mEtCount.setFilters(new InputFilter[]{new LengthFilter(50, () -> ToastHelper.showCommonToast("限制50个字~"))});
         if (holder.mEtCount.getTag() != null && holder.mEtCount.getTag() instanceof TextWatcher) {
             holder.mEtCount.removeTextChangedListener((TextWatcher) holder.mEtCount.getTag());
             holder.mEtCount.clearFocus();
