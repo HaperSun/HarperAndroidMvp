@@ -1,4 +1,4 @@
-package com.sun.img.load;
+package com.sun.img.img;
 
 import android.content.Context;
 import android.content.Intent;

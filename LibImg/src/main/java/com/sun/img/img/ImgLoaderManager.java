@@ -1,4 +1,4 @@
-package com.sun.img.load;
+package com.sun.img.img;
 
 import android.util.Log;
 
@@ -29,12 +29,10 @@ public class ImgLoaderManager {
      * @param strategyType 具体策略类型
      */
     public static IImageLoaderStrategy getImgLoaderStrategy(@StrategyType int strategyType) {
-        switch (strategyType) {
-            case STRATEGY_GLIDE:
-                return new GlideImageLoaderStrategy();
-            default:
-                Log.e("ImgLoader", "暂不支持更多类型选择，返回默认Strategy");
-                return new GlideImageLoaderStrategy();
+        if (strategyType == STRATEGY_GLIDE) {
+            return new GlideImageLoaderStrategy();
         }
+        Log.e("ImgLoader", "暂不支持更多类型选择，返回默认Strategy");
+        return new GlideImageLoaderStrategy();
     }
 }

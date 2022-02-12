@@ -15,7 +15,7 @@ import com.sun.img.preview.ImagePreviewActivity;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityRecyclerViewImageBinding;
 import com.sun.demo2.model.ImgItemBean;
-import com.sun.img.load.ImageLoader;
+import com.sun.img.img.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;

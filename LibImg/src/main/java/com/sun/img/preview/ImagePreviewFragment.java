@@ -18,8 +18,8 @@ import com.sun.common.toast.ToastHelper;
 import com.sun.img.R;
 import com.sun.img.bean.ImageItem;
 import com.sun.img.databinding.FragmentImagePreviewBinding;
-import com.sun.img.load.ImageLoadListener;
-import com.sun.img.load.ImageLoader;
+import com.sun.img.img.ImageLoadListener;
+import com.sun.img.img.ImageLoader;
 
 /**
  * @author: Harper

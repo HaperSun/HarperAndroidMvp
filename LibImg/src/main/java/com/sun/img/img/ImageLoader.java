@@ -1,4 +1,4 @@
-package com.sun.img.load;
+package com.sun.img.img;
 
 import android.content.Context;
 import android.widget.ImageView;
@@ -18,7 +18,7 @@ public class ImageLoader {
     }
 
     /**
-     * 单例模式的最佳实现：内存占用地，效率高，线程安全，多线程操作原子性
+     * 单例模式的最佳实现：内存占用低，效率高，线程安全
      *
      * @return ImageLoader
      */

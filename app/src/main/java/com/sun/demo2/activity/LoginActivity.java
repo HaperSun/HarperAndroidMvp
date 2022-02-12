@@ -20,7 +20,7 @@ import com.sun.demo2.iview.LoginView;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.present.LoginPresenter;
 import com.sun.demo2.sp.LoginInfoSp;
-import com.sun.img.load.ImageLoader;
+import com.sun.img.img.ImageLoader;
 import com.sun.img.preview.ImagePreviewActivity;
 
 import java.util.ArrayList;

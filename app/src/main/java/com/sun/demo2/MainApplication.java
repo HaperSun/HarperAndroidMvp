@@ -17,7 +17,7 @@ import com.sun.common.util.AppUtil;
 import com.sun.db.entity.UserInfo;
 import com.sun.db.table.manager.UserInfoManager;
 import com.sun.demo2.model.response.LoginResponse;
-import com.sun.img.load.ImageLoader;
+import com.sun.img.img.ImageLoader;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
