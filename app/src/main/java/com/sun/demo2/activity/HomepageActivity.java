@@ -108,6 +108,7 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("图片取色并融入背景色效果");
         titles.add("测试在列表中的图片加载");
         titles.add("webView的封装");
+        titles.add("计时器");
         return titles;
     }
 
@@ -181,6 +182,9 @@ public class HomepageActivity extends BaseMvpActivity {
                     break;
                 case 8:
                     WebViewActivity.start(mContext);
+                    break;
+                case 9:
+                    TimerActivity.start(mContext);
                     break;
                 default:
                     break;

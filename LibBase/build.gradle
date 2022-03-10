@@ -45,5 +45,6 @@ dependencies {
         exclude group: 'com.android.support'
     }
     implementation project(':LibDb')
+    api target.commons_lang
     api project(':LibCommon')
 }

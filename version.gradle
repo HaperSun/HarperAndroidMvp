@@ -31,6 +31,7 @@ version.umsdk_share_core = "7.1.6"  //分享核心库，必选
 version.umsdk_share_board = "7.1.6" //分享面板功能，可选
 version.umsdk_share_wx = "7.1.6"    //微信完整版
 version.wechat_opensdk = "6.8.0"    //微信官方依赖库，必选
+version.commons_lang = "3.7"    //一些工具类
 
 def target = [:]
 target.appcompat = "androidx.appcompat:appcompat:$version.appcompat"
@@ -50,6 +51,7 @@ target.andpermission = "com.yanzhenjie.permission:support:$version.andpermission
 target.rxpermissions = "com.github.tbruyelle:rxpermissions:$version.rxpermissions"
 target.palette = "androidx.palette:palette:$version.palette"
 target.tbs = "com.tencent.tbs.tbssdk:$version.tbs"
+target.commons_lang = "org.apache.commons:commons-lang3:$version.commons_lang"
 
 //友盟
 target.umsdk_common = "com.umeng.umsdk:common:$version.umsdk_common"
