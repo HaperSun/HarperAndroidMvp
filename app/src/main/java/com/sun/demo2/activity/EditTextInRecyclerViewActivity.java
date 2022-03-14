@@ -4,8 +4,6 @@ package com.sun.demo2.activity;
 import android.content.Context;
 import android.content.Intent;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.demo2.R;
 import com.sun.demo2.adapter.EditTextInRecyclerViewAdapter;
@@ -22,9 +20,9 @@ import java.util.List;
  */
 public class EditTextInRecyclerViewActivity extends BaseMvpActivity implements EditTextInRecyclerViewAdapter.OnAdapterClickListener {
 
-    private RecyclerView mRecyclerView;
     private EditTextInRecyclerViewAdapter mAdapter;
     private List<DataBean> mDataBeans;
+    private ActivityEditTextInRecyclerViewBinding mBind;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, EditTextInRecyclerViewActivity.class);
@@ -38,9 +36,8 @@ public class EditTextInRecyclerViewActivity extends BaseMvpActivity implements E
 
     @Override
     public void initView() {
-        ActivityEditTextInRecyclerViewBinding binding = (ActivityEditTextInRecyclerViewBinding) mViewDataBinding;
-        mRecyclerView = binding.recyclerView;
-        binding.ivAddItem.setOnClickListener(v -> {
+        mBind = (ActivityEditTextInRecyclerViewBinding) mViewDataBinding;
+        mBind.ivAddItem.setOnClickListener(v -> {
             mDataBeans.add(new DataBean("",0));
             mAdapter.notifyDataSetChanged();
         });
@@ -54,9 +51,9 @@ public class EditTextInRecyclerViewActivity extends BaseMvpActivity implements E
         }
         mAdapter = new EditTextInRecyclerViewAdapter();
         mAdapter.setAdapterData(mDataBeans);
-        mRecyclerView.setAdapter(mAdapter);
+        mBind.recyclerView.setAdapter(mAdapter);
         //解决recyclerview在NestScrollView中是使用时，滑动卡顿问题
-//        mRecyclerView.setNestedScrollingEnabled(false);
+//        mBind.recyclerView.setNestedScrollingEnabled(false);
         mAdapter.setOnAdapterClickListener(this);
     }
 

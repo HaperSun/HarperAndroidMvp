@@ -14,15 +14,19 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
 
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityInvertedImageBinding;
 
+/**
+ * @author: Harper
+ * @date: 2022/3/14
+ * @note:图片倒影处理
+ */
 public class InvertedImageActivity extends BaseMvpActivity {
 
-    ImageView ivInvert;
+    private ActivityInvertedImageBinding mBind;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, InvertedImageActivity.class);
@@ -36,15 +40,14 @@ public class InvertedImageActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        ActivityInvertedImageBinding binding = (ActivityInvertedImageBinding) mViewDataBinding;
-        ivInvert = binding.ivInvert;
+        mBind = (ActivityInvertedImageBinding) mViewDataBinding;
     }
 
     @Override
     public void initData() {
-        ivInvert.setImageBitmap(getReverseBitmapById(this, R.mipmap.bg_invert_image, 0.5f));
+        mBind.ivInvert.setImageBitmap(getReverseBitmapById(this, R.mipmap.bg_invert_image, 0.5f));
         TranslateAnimation animation = new TranslateAnimation(0, 100, 0, 100);
-        ivInvert.setAnimation(animation);
+        mBind.ivInvert.setAnimation(animation);
     }
 
     /**

@@ -28,8 +28,8 @@ import java.util.List;
 public class RecyclerViewImageActivity extends BaseMvpActivity {
 
     private Context mContext;
-    private RecyclerView mRecyclerView;
     private List<ImgItemBean> mItemBeans;
+    private ActivityRecyclerViewImageBinding mBind;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, RecyclerViewImageActivity.class);
@@ -43,8 +43,7 @@ public class RecyclerViewImageActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        ActivityRecyclerViewImageBinding binding = (ActivityRecyclerViewImageBinding) mViewDataBinding;
-        mRecyclerView = binding.recyclerView;
+        mBind = (ActivityRecyclerViewImageBinding) mViewDataBinding;
     }
 
     @Override
@@ -56,7 +55,7 @@ public class RecyclerViewImageActivity extends BaseMvpActivity {
                     "https://pic.ntimg.cn/file/20180211/7259105_125622777789_2.jpg"));
         }
         Adapter adapter = new Adapter();
-        mRecyclerView.setAdapter(adapter);
+        mBind.recyclerView.setAdapter(adapter);
     }
 
     class Adapter extends RecyclerView.Adapter<Adapter.Holder> {

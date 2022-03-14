@@ -5,16 +5,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 
-
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
-
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityBarChartMultiBinding;
@@ -27,8 +23,8 @@ import java.util.ArrayList;
  */
 public class BarChartMultiActivity extends BaseMvpActivity {
 
-    private BarChart chart;
     private Typeface tfLight;
+    private ActivityBarChartMultiBinding mBind;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, BarChartMultiActivity.class);
@@ -42,17 +38,16 @@ public class BarChartMultiActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        ActivityBarChartMultiBinding binding = (ActivityBarChartMultiBinding) mViewDataBinding;
-        chart = binding.multiBarChart;
+        mBind = (ActivityBarChartMultiBinding) mViewDataBinding;
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
     }
 
     @Override
     public void initData() {
-        chart.getDescription().setEnabled(false);
-        chart.setPinchZoom(false);
-        chart.setDrawBarShadow(false);
-        chart.setDrawGridBackground(false);
+        mBind.multiBarChart.getDescription().setEnabled(false);
+        mBind.multiBarChart.setPinchZoom(false);
+        mBind.multiBarChart.setDrawBarShadow(false);
+        mBind.multiBarChart.setDrawGridBackground(false);
 //        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
 //        mv.setChartView(chart);
 //        chart.setMarker(mv);
@@ -67,7 +62,7 @@ public class BarChartMultiActivity extends BaseMvpActivity {
 //        l.setYEntrySpace(0f);
 //        l.setTextSize(8f);
 
-        XAxis xAxis = chart.getXAxis();
+        XAxis xAxis = mBind.multiBarChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
 //        xAxis.setLabelCount(3);
@@ -76,14 +71,14 @@ public class BarChartMultiActivity extends BaseMvpActivity {
         xAxis.setCenterAxisLabels(true);
         xAxis.setValueFormatter((value, axis) -> String.valueOf((int) value));
 
-        YAxis leftAxis = chart.getAxisLeft();
+        YAxis leftAxis = mBind.multiBarChart.getAxisLeft();
 //        leftAxis.setTypeface(tfLight);
         leftAxis.setValueFormatter(new LargeValueFormatter());
         leftAxis.setDrawGridLines(false);
         leftAxis.setSpaceTop(35f);
         leftAxis.setAxisMinimum(0f);
-        chart.getAxisRight().setEnabled(false);
-        chart.getLegend().setEnabled(false);
+        mBind.multiBarChart.getAxisRight().setEnabled(false);
+        mBind.multiBarChart.getLegend().setEnabled(false);
         initBarChart(8, 100);
     }
 
@@ -134,11 +129,11 @@ public class BarChartMultiActivity extends BaseMvpActivity {
         BarData data = new BarData(set1, set2);
         data.setValueFormatter(new LargeValueFormatter());
         data.setValueTypeface(tfLight);
-        chart.setData(data);
-        chart.getBarData().setBarWidth(barWidth);
-        chart.getXAxis().setAxisMinimum(startYear);
-        chart.getXAxis().setAxisMaximum(startYear + chart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
-        chart.groupBars(startYear, groupSpace, barSpace);
-        chart.invalidate();
+        mBind.multiBarChart.setData(data);
+        mBind.multiBarChart.getBarData().setBarWidth(barWidth);
+        mBind.multiBarChart.getXAxis().setAxisMinimum(startYear);
+        mBind.multiBarChart.getXAxis().setAxisMaximum(startYear + mBind.multiBarChart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
+        mBind.multiBarChart.groupBars(startYear, groupSpace, barSpace);
+        mBind.multiBarChart.invalidate();
     }
 }
