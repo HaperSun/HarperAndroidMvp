@@ -43,8 +43,6 @@ public class DownloadUtil {
      */
     private static final int DOWNLOAD_STOPPED = 3;
 
-    private final OkHttpClient okHttpClient;
-
     /**
      * 是否停止下载
      */
@@ -64,7 +62,6 @@ public class DownloadUtil {
     }
 
     public DownloadUtil() {
-        okHttpClient = new OkHttpClient();
     }
 
     /**
@@ -88,6 +85,7 @@ public class DownloadUtil {
             listener.onDownloadStart();
         }
         Request request = new Request.Builder().url(url).build();
+        OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -211,7 +209,7 @@ public class DownloadUtil {
         /**
          * 下载进度
          *
-         * @param progress  进度
+         * @param progress 进度
          */
         void onDownloading(int progress);
 
