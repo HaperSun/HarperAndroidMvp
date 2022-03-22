@@ -13,6 +13,7 @@ import com.sun.base.dialog.BottomDialogFragment;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogUtil;
 import com.sun.base.util.PermissionUtil;
+import com.sun.common.bean.MagicInt;
 import com.sun.common.toast.CustomToast;
 import com.sun.common.toast.ToastHelper;
 import com.sun.img.R;
@@ -116,8 +117,14 @@ public class ImagePreviewFragment extends BaseMvpFragment {
                 //弹出保存选项
                 new BottomDialogFragment.Builder().addDialogItem(new BottomDialogFragment.DialogItem(getResources().getString(R.string.save_to_album),
                         view1 -> {
-                            if (PermissionUtil.checkStoragePermission(mActivity)) {
+                            if (PermissionUtil.checkStorage()){
                                 saveImage();
+                            }else {
+                                PermissionUtil.requestStorage(mActivity, state -> {
+                                    if (state== MagicInt.ONE){
+                                        saveImage();
+                                    }
+                                });
                             }
                         })).build().show(getChildFragmentManager(), "ImagePreviewFragment");
                 return true;

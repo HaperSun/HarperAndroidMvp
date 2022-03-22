@@ -11,8 +11,8 @@ import com.orhanobut.logger.LogStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.sun.base.BuildConfig;
-
 import com.sun.base.bean.DiskLogHandler;
+import com.sun.common.bean.Constant;
 import com.sun.common.util.AppUtil;
 
 
@@ -281,8 +281,7 @@ public final class LogUtil {
     private static void setDiskLog(Context applicationContext) {
         //添加日志输出到本地功能
         // 日志输出文件夹路径
-        String logFolderPath = FileUtil.getExternalFileDir(applicationContext, DiskLogHandler.DEFAULT_LOG_DIR_NAME)
-                .getAbsolutePath();
+        String logFolderPath = FileUtil.getExternalFileDir(applicationContext, Constant.DirName.LOGGER).getAbsolutePath();
         //单个日志文件最大大小
         long maxPerLogFileSize = DiskLogHandler.DEFAULT_MAX_FILE_BYTES;
         //日志文件夹输出最大大小

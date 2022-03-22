@@ -239,27 +239,27 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         return true;
     }
 
-    protected LoadingDialog mDefaultLoadingDialog;
+    protected LoadingDialog mLoadingDialog;
 
-    protected void dismissDefaultLoadingDialog() {
-        if (mDefaultLoadingDialog != null && mDefaultLoadingDialog.isShowing()) {
-            mDefaultLoadingDialog.dismiss();
+    protected void dismissLoadingDialog() {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
         }
     }
 
-    protected void showDefaultLoadingDialog(CharSequence title) {
-        if (mDefaultLoadingDialog == null) {
-            mDefaultLoadingDialog = new LoadingDialog.Builder(this)
+    protected void showLoadingDialog(CharSequence title) {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new LoadingDialog.Builder(this)
                     .setCanceledOnTouchOutside(false)
                     .setCancelable(false)
                     .build();
         }
-        mDefaultLoadingDialog.setTitle(title);
-        mDefaultLoadingDialog.show();
+        mLoadingDialog.setTitle(title);
+        mLoadingDialog.show();
     }
 
-    protected void showDefaultLoadingDialog(@StringRes int titleResId) {
-        showDefaultLoadingDialog(getString(titleResId));
+    protected void showLoadingDialog(@StringRes int titleResId) {
+        showLoadingDialog(getString(titleResId));
     }
 
     protected BaseActivity mThis() {

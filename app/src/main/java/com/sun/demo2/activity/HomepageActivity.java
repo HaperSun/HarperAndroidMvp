@@ -109,6 +109,7 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("测试在列表中的图片加载");
         titles.add("webView的封装");
         titles.add("计时器");
+        titles.add("在App内浏览PDF、docx文件");
         return titles;
     }
 
@@ -185,6 +186,9 @@ public class HomepageActivity extends BaseMvpActivity {
                     break;
                 case 9:
                     TimerActivity.start(mContext);
+                    break;
+                case 10:
+                    TbsReaderActivity.start(mContext);
                     break;
                 default:
                     break;

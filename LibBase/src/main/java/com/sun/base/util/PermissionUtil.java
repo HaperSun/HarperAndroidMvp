@@ -2,21 +2,30 @@ package com.sun.base.util;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.sun.base.dialog.CommonAlertDialog;
 import com.sun.common.R;
+import com.sun.common.bean.MagicInt;
+import com.sun.common.util.AppUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author Harper
@@ -30,11 +39,79 @@ public class PermissionUtil {
     private static final int REQ_CODE_PERMISSION_STORAGE = 2000;
     private static int mAlwaysDeny = 0;
 
+    public static boolean checkStorage() {
+        //如果是android 11 及以上，且已经开启存储权限，直接返回true
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()) {
+            return true;
+        } else if (Build.VERSION.SDK_INT >= 23) {
+            Context context = AppUtil.getCtx();
+            return ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * 这种请求权限的方式，请求几个权限就会有几次回调
+     *
+     * @param activity activity
+     * @param listener listener
+     */
+    @SuppressLint("CheckResult")
+    public static void requestStorage(FragmentActivity activity, Listener listener) {
+        new RxPermissions(activity).requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(permission -> {
+            if (permission.granted) {
+                // 用户已经同意该权限
+                listener.permissionState(MagicInt.ONE);
+            } else if (permission.shouldShowRequestPermissionRationale) {
+                // 用户拒绝了该权限，没有选中『不再询问』
+                listener.permissionState(MagicInt.ZERO);
+            } else {
+                //用户拒绝权限
+                listener.permissionState(MagicInt.TWO);
+            }
+        });
+    }
+
+    /**
+     * 无论请求几个权限，onComplete只会回调一次
+     *
+     * @param activity activity
+     * @param listener listener
+     */
+    public static void requestStorage2(FragmentActivity activity, Listener listener) {
+        new RxPermissions(activity).requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(new Observer<com.tbruyelle.rxpermissions2.Permission>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull com.tbruyelle.rxpermissions2.Permission permission) {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        if (checkStorage()) {
+                            listener.permissionState(MagicInt.ONE);
+                        }
+                    }
+                });
+    }
+
+
     @SuppressLint("CheckResult")
     public static boolean checkStoragePermission(FragmentActivity activity) {
         AtomicBoolean hasPermission = new AtomicBoolean(false);
         //如果是android 11 及以上，且已经开启存储权限，直接返回true
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()) {
             mAlwaysDeny = 0;
             return true;
         }
@@ -48,13 +125,13 @@ public class PermissionUtil {
                 hasPermission.set(false);
             } else {
                 //用户拒绝权限后，这个方法会多次走，需要去重
-                //用户否勾选了不再提示并且拒绝了权限，那么提示用户到设置中授权
+                //用户是否勾选了不再提示并且拒绝了权限，那么提示用户到设置中授权
                 mAlwaysDeny++;
-                if (mAlwaysDeny == 1){
+                if (mAlwaysDeny == 1) {
                     new CommonAlertDialog.Builder(activity)
                             .setTitle(activity.getResources().getString(R.string.reminder))
                             .setMessage(activity.getResources().getString(R.string.permission_tips_write_read))
-                            .setNegativeText(activity.getResources().getString(R.string.cancel),view1 -> hasPermission.set(false))
+                            .setNegativeText(activity.getResources().getString(R.string.cancel), view1 -> hasPermission.set(false))
                             .setPositiveText(activity.getResources().getString(R.string.confirm), view2 -> {
                                 AndPermission.with(activity).runtime().setting().start(REQ_CODE_PERMISSION_STORAGE);
                             }).build().show();
@@ -140,5 +217,18 @@ public class PermissionUtil {
                         // 用户拒绝了该权限，并且选中『不再询问』
                     }
                 });
+    }
+
+    public interface Listener {
+        /**
+         * 权限状态
+         * 0 用户拒绝了该权限，没有选中『不再询问』
+         * 1 用户已经同意该权限
+         * 2 用户拒绝权限
+         *
+         * @param state 状态
+         * @return int
+         */
+        void permissionState(int state);
     }
 }

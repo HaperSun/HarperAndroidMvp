@@ -8,6 +8,7 @@ import android.os.Message;
 import android.text.TextUtils;
 
 import com.sun.base.util.FileUtil;
+import com.sun.common.bean.Constant;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,10 +21,6 @@ import java.io.IOException;
  */
 public class DiskLogHandler extends Handler {
 
-    /**
-     * 默认日志输出文件夹名称
-     */
-    public static final String DEFAULT_LOG_DIR_NAME = "logger";
     /**
      * 默认日志输出单个文件最大缓存大小，单位字节
      */
@@ -51,7 +48,7 @@ public class DiskLogHandler extends Handler {
     public DiskLogHandler(Looper looper, String folder, long maxFileSize, long maxFolderSize) {
         super(looper);
         if (TextUtils.isEmpty(folder)) {
-            folder = DEFAULT_LOG_DIR_NAME;
+            folder = Constant.DirName.LOGGER;
         }
         if (maxFileSize <= 0) {
             maxFileSize = DEFAULT_MAX_FILE_BYTES;

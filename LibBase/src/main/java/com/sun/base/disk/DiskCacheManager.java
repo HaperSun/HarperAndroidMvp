@@ -11,6 +11,7 @@ import com.google.gson.JsonSyntaxException;
 import com.sun.base.util.CipherUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogUtil;
+import com.sun.common.bean.Constant;
 
 import java.io.File;
 
@@ -23,10 +24,6 @@ public class DiskCacheManager {
 
     private static final String TAG = DiskCacheManager.class.getName();
 
-    /**
-     * 缓存根文件夹名字
-     */
-    private static final String DATA_CACHE_DIR_NAME = "cache";
     /**
      * 缓存根文件夹
      */
@@ -60,7 +57,7 @@ public class DiskCacheManager {
         if (context == null) {
             throw new RuntimeException("Please call init method first before use DiskCacheManager!");
         }
-        DIR_CACHE_ROOT = FileUtil.getExternalFileDir(context, DATA_CACHE_DIR_NAME);
+        DIR_CACHE_ROOT = FileUtil.getExternalFileDir(context, Constant.DirName.CACHE);
     }
 
     /**

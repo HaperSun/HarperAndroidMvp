@@ -12,7 +12,7 @@ import android.widget.ImageView;
 public class ImageLoader {
 
     private IImageLoaderStrategy mStrategy;
-    private static volatile ImageLoader sInstance = null;
+    private static volatile ImageLoader mInstance = null;
 
     public ImageLoader() {
     }
@@ -23,14 +23,14 @@ public class ImageLoader {
      * @return ImageLoader
      */
     public static ImageLoader getInstance() {
-        if (sInstance == null) {
+        if (mInstance == null) {
             synchronized (ImageLoader.class) {
-                if (sInstance == null) {
-                    sInstance = new ImageLoader();
+                if (mInstance == null) {
+                    mInstance = new ImageLoader();
                 }
             }
         }
-        return sInstance;
+        return mInstance;
     }
 
     public void setStrategy() {

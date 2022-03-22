@@ -15,6 +15,7 @@ import com.sun.base.net.exception.ApiException;
 import com.sun.base.util.CollectionUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogUtil;
+import com.sun.common.bean.Constant;
 import com.sun.demo2.BuildConfig;
 import com.sun.demo2.R;
 import com.sun.demo2.event.UpgradeApkDownloadSuccessEvent;
@@ -322,7 +323,7 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
 
                 inputStream = urlConnection.getInputStream();
 
-                File file = FileUtil.getExternalFileDir(getContext(), "update");
+                File file = FileUtil.getExternalFileDir(getContext(), Constant.DirName.TEMP);
                 apkFile = new File(file, getContext().getString(R.string.app_name) + "_" + mUpdateInfo.getVersion());
                 if (apkFile.exists()) {
                     apkFile.delete();

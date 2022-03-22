@@ -23,6 +23,8 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
+import org.xutils.x;
+
 /**
  * @author Harper
  * @date 2021/12/6
@@ -48,6 +50,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         LogUtil.init();
         //初始化图片加载组件
         ImageLoader.getInstance().setStrategy();
+        initUtil();
         initUmSdk();
         //将 AccountService 类的实例注册到 ServiceFactory
         initAccountService();
@@ -57,6 +60,16 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         initDiskCacheManager();
         //初始化腾讯QbSdk
         initQbSdk();
+    }
+
+    /**
+     * 初始化xUtil
+     */
+    private void initUtil() {
+        x.Ext.init(this);
+        // 全局默认信任所有https域名 或 仅添加信任的https域名
+        // 使用RequestParams#setHostnameVerifier(...)方法可设置单次请求的域名校验
+        x.Ext.setDefaultHostnameVerifier((hostname, session) -> true);
     }
 
     private void initUmSdk() {

@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.sun.common.bean.Constant;
 import com.sun.common.filter.EmojiFilter;
 
 import java.util.ArrayList;
@@ -331,7 +332,7 @@ public class RichTextEditor extends ScrollView {
         if (TextUtils.isEmpty(path)) {
             return true;
         }
-        if (Constant.URL_DEFAULT_INIT_PATH.equals(path)) {
+        if (Constant.Url.DEFAULT_INIT_PATH.equals(path)) {
             return true;
         }
         return false;
@@ -346,7 +347,7 @@ public class RichTextEditor extends ScrollView {
             return;
         }
         if (isImagePathEmpty(imagePath)) {
-            imagePath = Constant.URL_UPLOAD_PIC_FAILURE;
+            imagePath = Constant.Url.UPLOAD_PIC_FAILURE;
         }
         try {
             //lastFocusEdit获取焦点的EditText
