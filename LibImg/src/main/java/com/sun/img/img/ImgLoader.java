@@ -8,13 +8,12 @@ import android.widget.ImageView;
  * @date: 2021/12/10
  * @note: 图片加载实体
  */
-
-public class ImageLoader {
+public class ImgLoader {
 
     private IImageLoaderStrategy mStrategy;
-    private static volatile ImageLoader mInstance = null;
+    private static volatile ImgLoader mInstance = null;
 
-    public ImageLoader() {
+    public ImgLoader() {
     }
 
     /**
@@ -22,11 +21,11 @@ public class ImageLoader {
      *
      * @return ImageLoader
      */
-    public static ImageLoader getInstance() {
+    public static ImgLoader getInstance() {
         if (mInstance == null) {
-            synchronized (ImageLoader.class) {
+            synchronized (ImgLoader.class) {
                 if (mInstance == null) {
-                    mInstance = new ImageLoader();
+                    mInstance = new ImgLoader();
                 }
             }
         }

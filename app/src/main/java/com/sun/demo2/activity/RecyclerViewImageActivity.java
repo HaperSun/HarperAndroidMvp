@@ -15,7 +15,7 @@ import com.sun.img.preview.ImagePreviewActivity;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityRecyclerViewImageBinding;
 import com.sun.demo2.model.ImgItemBean;
-import com.sun.img.img.ImageLoader;
+import com.sun.img.img.ImgLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +70,8 @@ public class RecyclerViewImageActivity extends BaseMvpActivity {
         @Override
         public void onBindViewHolder(@NonNull RecyclerViewImageActivity.Adapter.Holder holder, int position) {
             ImgItemBean bean = mItemBeans.get(position);
-            ImageLoader.getInstance().loadImage(bean.getImg1(), holder.mIv1);
-            ImageLoader.getInstance().loadImage(bean.getImg2(), holder.mIv2);
+            ImgLoader.getInstance().loadImage(bean.getImg1(), holder.mIv1);
+            ImgLoader.getInstance().loadImage(bean.getImg2(), holder.mIv2);
             holder.itemView.setOnClickListener(v -> ImagePreviewActivity.actionStart(mContext, bean.getImg1(), bean.getImg2()));
         }
 

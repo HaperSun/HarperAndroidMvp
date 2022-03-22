@@ -17,7 +17,7 @@ import com.sun.common.util.AppUtil;
 import com.sun.db.entity.UserInfo;
 import com.sun.db.table.manager.UserInfoManager;
 import com.sun.demo2.model.response.LoginResponse;
-import com.sun.img.img.ImageLoader;
+import com.sun.img.img.ImgLoader;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
@@ -49,7 +49,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         //初始化LogUtil,默认debug模式可打印所有级别的log
         LogUtil.init();
         //初始化图片加载组件
-        ImageLoader.getInstance().setStrategy();
+        ImgLoader.getInstance().setStrategy();
         initUtil();
         initUmSdk();
         //将 AccountService 类的实例注册到 ServiceFactory

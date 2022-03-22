@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.widget.RelativeLayout;
 
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.base.util.DownloadUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.PermissionUtil;
 import com.sun.common.bean.Constant;
@@ -17,10 +18,6 @@ import com.sun.common.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityTbsReaderBinding;
 import com.tencent.smtt.sdk.TbsReaderView;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
 
 import java.io.File;
 
@@ -77,37 +74,65 @@ public class TbsReaderActivity extends BaseMvpActivity {
         File folderPath = FileUtil.getExternalFileDir(getContext(), Constant.DirName.TEMP);
         String folderPathStr = folderPath.getAbsolutePath();
         String fileUrl = Constant.Url.QI_NIU + mFileName;
-        RequestParams params = new RequestParams(fileUrl);
         String saveFilePath = folderPathStr + "/" + mFileName;
-        params.setSaveFilePath(saveFilePath);
-        showLoadingDialog(R.string.downloading);
-        x.http().get(params, new Callback.CacheCallback<File>() {
+        DownloadUtil.getInstance().download(fileUrl, saveFilePath, new DownloadUtil.OnDownloadListener() {
             @Override
-            public void onSuccess(File result) {
-                dismissLoadingDialog();
-                openFile(saveFilePath);
+            public void onDownloadStart() {
+                showLoadingDialog(R.string.downloading);
             }
 
             @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
+            public void onDownloadSuccess(String path) {
                 dismissLoadingDialog();
+                openFile(path);
             }
 
             @Override
-            public void onCancelled(CancelledException cex) {
-                dismissLoadingDialog();
+            public void onDownloading(int progress) {
+
             }
 
             @Override
-            public void onFinished() {
+            public void onDownloadFailed(Throwable e) {
                 dismissLoadingDialog();
             }
 
             @Override
-            public boolean onCache(File result) {
-                return false;
+            public void onDownloadStopped(int progress) {
+
             }
         });
+//        //使用xUtil下载文件到本地
+//        RequestParams params = new RequestParams(fileUrl);
+//        params.setSaveFilePath(saveFilePath);
+//        showLoadingDialog(R.string.downloading);
+//        x.http().get(params, new Callback.CacheCallback<File>() {
+//            @Override
+//            public void onSuccess(File result) {
+//                dismissLoadingDialog();
+//                openFile(saveFilePath);
+//            }
+//
+//            @Override
+//            public void onError(Throwable ex, boolean isOnCallback) {
+//                dismissLoadingDialog();
+//            }
+//
+//            @Override
+//            public void onCancelled(CancelledException cex) {
+//                dismissLoadingDialog();
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//                dismissLoadingDialog();
+//            }
+//
+//            @Override
+//            public boolean onCache(File result) {
+//                return false;
+//            }
+//        });
     }
 
     private void openFile(String localFileName) {

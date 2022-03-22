@@ -20,7 +20,7 @@ import com.sun.demo2.iview.LoginView;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.present.LoginPresenter;
 import com.sun.demo2.sp.LoginInfoSp;
-import com.sun.img.img.ImageLoader;
+import com.sun.img.img.ImgLoader;
 import com.sun.img.preview.ImagePreviewActivity;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class LoginActivity extends BaseMvpActivity implements LoginView, NetStat
         binding.customToast.setOnClickListener(v -> ToastHelper.showCustomToast(R.string.copied_to_pasteboard));
         String img1 = "https://qiniu.fxgkpt.com/hycg/1639356784663.jpg";
         String img2 = "http://pic.ntimg.cn/file/20180211/7259105_125622777789_2.jpg";
-        ImageLoader.getInstance().loadImage(img2, binding.imgView);
+        ImgLoader.getInstance().loadImage(img2, binding.imgView);
         binding.imgView.setOnClickListener(v -> ImagePreviewActivity.actionStart(mContext, img2));
     }
 

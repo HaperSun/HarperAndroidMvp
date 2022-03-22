@@ -20,7 +20,7 @@ import com.sun.img.R;
 import com.sun.img.bean.ImageItem;
 import com.sun.img.databinding.FragmentImagePreviewBinding;
 import com.sun.img.img.ImageLoadListener;
-import com.sun.img.img.ImageLoader;
+import com.sun.img.img.ImgLoader;
 
 /**
  * @author: Harper
@@ -80,7 +80,7 @@ public class ImagePreviewFragment extends BaseMvpFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         String imgOri = mImageItem.getImageOri();
-        ImageLoader.getInstance().loadImage(imgOri, mImageView, new ImageLoadListener() {
+        ImgLoader.getInstance().loadImage(imgOri, mImageView, new ImageLoadListener() {
             @Override
             public void onLoadingStarted() {
                 mLoadingBar.setVisibility(View.VISIBLE);
