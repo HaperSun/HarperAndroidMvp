@@ -12,13 +12,11 @@ import android.util.AttributeSet;
 public class MarqueeTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public MarqueeTextView(Context context) {
-        super(context);
-        init();
+        this(context, null);
     }
 
     public MarqueeTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs, 0);
     }
 
     public MarqueeTextView(Context context, AttributeSet attrs, int defStyle) {
@@ -27,10 +25,11 @@ public class MarqueeTextView extends androidx.appcompat.widget.AppCompatTextView
     }
 
     private void init() {
-        // 产品不需要跑马灯效果了，统一改成...
-        /*setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        setMarqueeRepeatLimit(-1);*/
-        setEllipsize(TextUtils.TruncateAt.END);
+        // 跑马灯效果
+        setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        //            // ...结束
+//            setEllipsize(TextUtils.TruncateAt.END);
+        setMarqueeRepeatLimit(-1);
         setSingleLine(true);
     }
 

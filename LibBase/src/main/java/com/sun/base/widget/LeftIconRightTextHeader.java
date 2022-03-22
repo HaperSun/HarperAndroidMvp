@@ -1,4 +1,4 @@
-package com.sun.base.base.widget;
+package com.sun.base.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,8 +11,8 @@ import com.sun.base.R;
 
 /**
  * @author: Harper
- * @date:   2021/11/12
- * @note: 左边icon，右边文字的头部
+ * @date: 2021/11/12
+ * @note: 左边是返回icon，中间标题，右侧是文字
  */
 public class LeftIconRightTextHeader extends BaseHeader {
 
@@ -42,14 +42,14 @@ public class LeftIconRightTextHeader extends BaseHeader {
         mTvTitle = findViewById(R.id.tv_title);
         mTvRight = (TextView) mRightTitle;
         if (attrs != null) {
-            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.LeftIconRightTextHeader);
+            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.BaseHeader);
             //读取xml中标记的标题文本
-            final CharSequence title = ta.getText(R.styleable.LeftIconRightTextHeader_centerTitle);
+            final CharSequence title = ta.getText(R.styleable.BaseHeader_centerTitle);
             if (!TextUtils.isEmpty(title)) {
                 mTvTitle.setText(title);
             }
             //读取xml中标记的右边文本
-            final CharSequence rightText = ta.getText(R.styleable.LeftIconRightTextHeader_rightText);
+            final CharSequence rightText = ta.getText(R.styleable.BaseHeader_rightText);
             if (!TextUtils.isEmpty(rightText)) {
                 mTvRight.setText(rightText);
             }

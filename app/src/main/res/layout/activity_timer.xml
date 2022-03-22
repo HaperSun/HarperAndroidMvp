@@ -9,6 +9,11 @@
         android:orientation="vertical"
         tools:context=".activity.TimerActivity">
 
+        <com.sun.base.widget.LeftIconHeader
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <TextView
             android:id="@+id/tv_timer"
             android:layout_width="wrap_content"

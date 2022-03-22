@@ -8,8 +8,8 @@ import android.view.WindowManager;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.sun.base.presenter.BasePresenter;
 import com.sun.base.base.iview.IAddPresenterView;
+import com.sun.base.presenter.BasePresenter;
 import com.sun.base.util.CommonUtils;
 
 import java.util.HashSet;

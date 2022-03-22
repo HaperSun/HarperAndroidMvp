@@ -39,19 +39,9 @@
     </style>
 
     <!--左边返回，中间标题 -->
-    <declare-styleable name="LeftIconHeader">
-        <attr name="centerTitle" />
-    </declare-styleable>
-
-    <!--左边返回，中间标题，右边图标-->
-    <declare-styleable name="LeftIconRightIconHeader">
-        <attr name="centerTitle" />
-        <attr name="rightIcon" />
-    </declare-styleable>
-
-    <!--左边返回，中间标题，右边标题-->
-    <declare-styleable name="LeftIconRightTextHeader">
-        <attr name="centerTitle" />
-        <attr name="rightText" />
+    <declare-styleable name="BaseHeader">
+        <attr name="centerTitle" format="string" />
+        <attr name="rightIcon" format="integer" />
+        <attr name="rightText" format="string" />
     </declare-styleable>
 </resources>

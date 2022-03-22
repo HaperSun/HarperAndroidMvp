@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.common.bean.MagicInt;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityTimerBinding;
 
@@ -26,7 +27,6 @@ import java.util.concurrent.TimeUnit;
  * @note: 计时器
  */
 public class TimerActivity extends BaseMvpActivity implements View.OnClickListener {
-
 
     private ActivityTimerBinding mBind;
     private int mCount1;
@@ -51,6 +51,12 @@ public class TimerActivity extends BaseMvpActivity implements View.OnClickListen
         mBind = (ActivityTimerBinding) mViewDataBinding;
         mBind.tvTimer.setOnClickListener(this);
         mBind.tvSes.setOnClickListener(this);
+        mBind.header.setTitle("计时器");
+        mBind.header.setHeaderClickListener((type, view) -> {
+            if (type == MagicInt.ZERO){
+                finish();
+            }
+        });
     }
 
     @Override
