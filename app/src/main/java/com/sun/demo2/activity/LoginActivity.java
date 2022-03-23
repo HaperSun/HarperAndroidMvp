@@ -136,20 +136,26 @@ public class LoginActivity extends BaseMvpActivity implements LoginView, NetStat
                 UserInfoManager.getInstance(this).loginAndSaveUserInfo(userInfo);
                 ToastHelper.showCustomToast("登陆成功", CustomToast.CORRECT);
 
-                //2、使用磁盘缓存保存和获取登录成功后的信息
+                //2、使用磁盘缓存保存登录成功后的信息
                 DiskCacheManager.getInstance().saveCacheData(response);
-                LoginResponse loginResponse = DiskCacheManager.getInstance().getCacheData(LoginResponse.class);
 
-                //3、SharedPreferences保存和获取登录成功后的信息
+                //3、SharedPreferences保存登录成功后的信息
                 new LoginInfoSp().save(new Gson().toJson(response));
-                String json = new LoginInfoSp().get();
-                LoginResponse response1 = new Gson().fromJson(json, LoginResponse.class);
             }
         }
     }
 
     @Override
     public void onAtLoginError(ApiException e) {
+        //三种保存数据的取值
+        //1、从本地数据库中取值
+        UserInfo userInfo = UserInfoManager.getInstance(this).getCurrentLoginUser();
 
+        //2、使用磁盘缓存获取登录成功后的信息
+        LoginResponse loginResponse = DiskCacheManager.getInstance().getCacheData(LoginResponse.class);
+
+        //3、SharedPreferences获取登录成功后的信息
+        String json = new LoginInfoSp().get();
+        LoginResponse response1 = new Gson().fromJson(json, LoginResponse.class);
     }
 }

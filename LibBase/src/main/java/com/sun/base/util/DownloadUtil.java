@@ -88,19 +88,20 @@ public class DownloadUtil {
         OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 //下载失败
                 Message message = mHandler.obtainMessage(DOWNLOAD_FAIL, new HandlerObject(listener, e));
                 mHandler.sendMessage(message);
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 InputStream is = null;
                 byte[] buf = new byte[2048];
                 int len = 0;
                 FileOutputStream fos = null;
                 try {
+                    assert response.body() != null;
                     is = response.body().byteStream();
                     long total = response.body().contentLength();
                     File file = new File(saveFilePath);
