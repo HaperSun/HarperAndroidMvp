@@ -35,6 +35,7 @@ public class TimerActivity extends BaseMvpActivity implements View.OnClickListen
     private ScheduledExecutorService mExecutorService;
     private boolean mStopTime;
     private boolean mStopSes;
+    private boolean mIsChecked;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, TimerActivity.class);
@@ -53,10 +54,17 @@ public class TimerActivity extends BaseMvpActivity implements View.OnClickListen
         mBind.tvSes.setOnClickListener(this);
         mBind.header.setTitle("计时器");
         mBind.header.setHeaderClickListener((type, view) -> {
-            if (type == MagicInt.ZERO){
+            if (type == MagicInt.ZERO) {
                 finish();
             }
         });
+        //RadioGroup+RadioButton
+        mBind.radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            mBind.rb1.setChecked(R.id.rb1 == checkedId);
+            mBind.rb2.setChecked(R.id.rb2 == checkedId);
+        });
+        //CheckBox
+        mBind.cb.setOnCheckedChangeListener((buttonView, isChecked) -> mIsChecked = isChecked);
     }
 
     @Override
@@ -78,13 +86,13 @@ public class TimerActivity extends BaseMvpActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.tv_timer:
                 mStopTime = !mStopTime;
-                if (!mStopTime){
+                if (!mStopTime) {
                     mCount1 = 0;
                 }
                 break;
             case R.id.tv_ses:
                 mStopSes = !mStopSes;
-                if (!mStopSes){
+                if (!mStopSes) {
                     mCount2 = 0;
                 }
                 break;
@@ -94,13 +102,13 @@ public class TimerActivity extends BaseMvpActivity implements View.OnClickListen
     }
 
     private void startTimer() {
-        if (mTimer == null){
+        if (mTimer == null) {
             return;
         }
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if (mStopTime){
+                if (mStopTime) {
                     mCount1++;
                     runOnUiThread(() -> mBind.tvTimer.setText(mCount1 + ""));
                 }
@@ -110,7 +118,7 @@ public class TimerActivity extends BaseMvpActivity implements View.OnClickListen
 
     private void startEse() {
         mExecutorService.scheduleAtFixedRate(() -> {
-            if (mStopSes){
+            if (mStopSes) {
                 mCount2++;
                 runOnUiThread(() -> mBind.tvSes.setText(mCount2 + ""));
             }
