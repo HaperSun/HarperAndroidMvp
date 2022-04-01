@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.request.target.ImageViewTarget;
-import com.sun.base.util.LogUtil;
+import com.sun.base.util.LogHelper;
 import com.sun.base.util.XRichEditorUtil;
 
 /**
@@ -81,8 +81,8 @@ public class TransformationScale extends ImageViewTarget<Bitmap> {
     private Bitmap changeBitmapSize(Bitmap bitmap, int newWidth, int newHeight) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
-        LogUtil.e("width", "width:" + width);
-        LogUtil.e("height", "height:" + height);
+        LogHelper.e("width", "width:" + width);
+        LogHelper.e("height", "height:" + height);
         //设置想要的大小
 //        int newWidth=30;
 //        int newHeight=30;
@@ -99,8 +99,8 @@ public class TransformationScale extends ImageViewTarget<Bitmap> {
         bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
         bitmap.getWidth();
         bitmap.getHeight();
-        LogUtil.e("newWidth", "newWidth: " + bitmap.getWidth());
-        LogUtil.e("newHeight", "newHeight: " + bitmap.getHeight());
+        LogHelper.e("newWidth", "newWidth: " + bitmap.getWidth());
+        LogHelper.e("newHeight", "newHeight: " + bitmap.getHeight());
         return bitmap;
     }
 }

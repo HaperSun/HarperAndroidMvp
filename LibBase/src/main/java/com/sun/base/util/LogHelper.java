@@ -21,7 +21,7 @@ import com.sun.common.util.AppUtil;
  * @date: 2021/11/12
  * @note: 自定义 打印日志工具
  */
-public final class LogUtil {
+public final class LogHelper {
     /**
      * 默认日志tag <br/>
      */

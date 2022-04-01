@@ -58,6 +58,7 @@ public class LoginActivity extends BaseMvpActivity implements LoginView, NetStat
         String img2 = "http://pic.ntimg.cn/file/20180211/7259105_125622777789_2.jpg";
         ImgLoader.getInstance().loadImage(img2, binding.imgView);
         binding.imgView.setOnClickListener(v -> ImagePreviewActivity.actionStart(mContext, img2));
+        listTest();
     }
 
     @Override
@@ -70,6 +71,14 @@ public class LoginActivity extends BaseMvpActivity implements LoginView, NetStat
             ToastHelper.showCommonToast("当前网络可用~");
         }
         NetworkStateChangeReceiver.registerObserver(this);
+    }
+
+    private void listTest(){
+        List<String> list = new ArrayList<>();
+        list.add("aa");
+        list.clear();
+        list.add("bb");
+        System.out.print(list.toString());
     }
 
     private void deleteElementFromList(){

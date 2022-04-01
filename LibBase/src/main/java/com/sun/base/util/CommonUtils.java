@@ -110,7 +110,7 @@ public class CommonUtils {
             Gson gson = new Gson();
             return gson.fromJson(gson.toJson(data), type);
         } catch (Exception e) {
-            LogUtil.e(TAG, "Exception", e);
+            LogHelper.e(TAG, "Exception", e);
             return null;
         }
     }
@@ -136,7 +136,7 @@ public class CommonUtils {
             resultnumber = b.floatValue();
 
         } catch (Exception ex) {
-            LogUtil.e(TAG, "Exception", ex);
+            LogHelper.e(TAG, "Exception", ex);
         }
 
         return resultnumber;
@@ -163,7 +163,7 @@ public class CommonUtils {
             resultnumber = b.doubleValue();
 
         } catch (Exception ex) {
-            LogUtil.e(TAG, "Exception", ex);
+            LogHelper.e(TAG, "Exception", ex);
         }
 
         return resultnumber;
@@ -191,7 +191,7 @@ public class CommonUtils {
             resultnumber = b.longValue();
 
         } catch (Exception ex) {
-            LogUtil.e(TAG, "Exception", ex);
+            LogHelper.e(TAG, "Exception", ex);
         }
 
         return resultnumber;
@@ -272,7 +272,7 @@ public class CommonUtils {
                     }
                     isSuccess = true;
                 } catch (OutOfMemoryError outOfMemoryError) {
-                    LogUtil.e(TAG, "setViewBackground OutOfMemoryError", outOfMemoryError);
+                    LogHelper.e(TAG, "setViewBackground OutOfMemoryError", outOfMemoryError);
                     inSampleSize *= 2;//发现OOM了，就将缩放比例乘以2
                 }
             }
@@ -516,7 +516,7 @@ public class CommonUtils {
             vendor = appInfo.metaData.getString("UMENG_CHANNEL");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            LogUtil.e(TAG, "getVendor exception", e);
+            LogHelper.e(TAG, "getVendor exception", e);
         }
         return vendor;
     }
@@ -629,7 +629,7 @@ public class CommonUtils {
             dialog.dismiss();
         } catch (final IllegalArgumentException e) {
             // Do nothing.
-            LogUtil.d(TAG, "Dialog对话框崩溃了，exception->" + e);
+            LogHelper.d(TAG, "Dialog对话框崩溃了，exception->" + e);
         } finally {
             dialog = null;
         }

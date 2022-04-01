@@ -34,6 +34,7 @@ version.wechat_opensdk = "6.8.0"    //微信官方依赖库，必选
 version.commons_lang = "3.7"    //一些工具类
 version.xUtil = "3.5.1"    //xUtil
 version.zxing = "3.3.0" //zxing
+version.lifecycle_extensions = "2.2.0" //lifecycle-extensions
 
 def target = [:]
 target.appcompat = "androidx.appcompat:appcompat:$version.appcompat"
@@ -56,6 +57,7 @@ target.tbs = "com.tencent.tbs.tbssdk:$version.tbs"
 target.commons_lang = "org.apache.commons:commons-lang3:$version.commons_lang"
 target.xUtil = "org.xutils:xutils:$version.xUtil"
 target.zxing = "com.google.zxing:core:$version.zxing"
+target.lifecycle_extensions = "androidx.lifecycle:lifecycle-extensions:$version.lifecycle_extensions"
 
 //友盟
 target.umsdk_common = "com.umeng.umsdk:common:$version.umsdk_common"

@@ -19,7 +19,7 @@ import com.sun.base.R;
 import com.sun.base.base.iview.IJsConfig;
 import com.sun.base.base.widget.WebViewX;
 import com.sun.base.databinding.FragmentWebViewBinding;
-import com.sun.base.util.LogUtil;
+import com.sun.base.util.LogHelper;
 
 /**
  * @author: Harper
@@ -149,10 +149,10 @@ public class WebViewFragment extends BaseMvpFragment {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                    LogUtil.d(TAG, "shouldInterceptRequest url-->" + url);
+                    LogHelper.d(TAG, "shouldInterceptRequest url-->" + url);
                     WebResourceResponse webResourceResponse = handleShouldInterceptRequest(view, url);
                     if (webResourceResponse != null) {
-                        LogUtil.d(TAG, "handleShouldInterceptRequest handled url -->" + url);
+                        LogHelper.d(TAG, "handleShouldInterceptRequest handled url -->" + url);
                         return webResourceResponse;
                     }
                 }
@@ -167,10 +167,10 @@ public class WebViewFragment extends BaseMvpFragment {
                     if (request != null) {
                         url = request.getUrl().toString();
                     }
-                    LogUtil.d(TAG, "shouldInterceptRequest url-->" + url);
+                    LogHelper.d(TAG, "shouldInterceptRequest url-->" + url);
                     WebResourceResponse webResourceResponse = handleShouldInterceptRequest(view, url);
                     if (webResourceResponse != null) {
-                        LogUtil.d(TAG, "handleShouldInterceptRequest handled url -->" + url);
+                        LogHelper.d(TAG, "handleShouldInterceptRequest handled url -->" + url);
                         return webResourceResponse;
                     }
                 }
@@ -188,7 +188,7 @@ public class WebViewFragment extends BaseMvpFragment {
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 super.onReceivedError(view, errorCode, description, failingUrl);
-                LogUtil.d(TAG, "onReceivedError errorCode=" + errorCode + " description=" + description + " " +
+                LogHelper.d(TAG, "onReceivedError errorCode=" + errorCode + " description=" + description + " " +
                         "failingUrl=" + failingUrl);
                 mWebViewX.setVisibility(View.GONE);
                 mWebLoadFailContainer.setVisibility(View.VISIBLE);
@@ -199,7 +199,7 @@ public class WebViewFragment extends BaseMvpFragment {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                LogUtil.d("WebViewFragment", "onPageStarted ：时间戳" + System.currentTimeMillis());
+                LogHelper.d("WebViewFragment", "onPageStarted ：时间戳" + System.currentTimeMillis());
                 mStartCount++;
                 if (mStartCount == mFailStartNum) {
                     mWebViewX.setVisibility(View.GONE);
@@ -213,7 +213,7 @@ public class WebViewFragment extends BaseMvpFragment {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                LogUtil.d("WebViewFragment", "onPageFinished:时间戳" + System.currentTimeMillis());
+                LogHelper.d("WebViewFragment", "onPageFinished:时间戳" + System.currentTimeMillis());
                 mFinishCount++;
                 //有的手机上onPageFinished会多执行一次
                 if (mFinishCount > mFailFinishNum && !mHasEnterPageFinished) {

@@ -3,7 +3,7 @@ package com.sun.base.net.interceptor;
 
 import android.text.TextUtils;
 
-import com.sun.base.util.LogUtil;
+import com.sun.base.util.LogHelper;
 
 import java.io.IOException;
 
@@ -52,8 +52,8 @@ public class LogInterceptor implements Interceptor {
             if (length > 0) {
                 sb.delete(length - 1, length);
             }
-            LogUtil.d("Http", "| RequestParams:{" + sb.toString() + "}");
-            LogUtil.d("Http", fullUrl.toString());
+            LogHelper.d("Http", "| RequestParams:{" + sb.toString() + "}");
+            LogHelper.d("Http", fullUrl.toString());
         }
         Headers headers = request.headers();
         int size = headers.size();
@@ -64,14 +64,14 @@ public class LogInterceptor implements Interceptor {
                 headerSb.append("&");
             }
         }
-        LogUtil.d("Http", url + " header-->" + headerSb);
+        LogHelper.d("Http", url + " header-->" + headerSb);
         Response response = chain.proceed(request);
         ResponseBody responseBody = response.body();
         assert responseBody != null;
         okhttp3.MediaType mediaType = responseBody.contentType();
         String content = responseBody.string();
         content = TextUtils.isEmpty(content) ? " 返回结果为空" : content;
-        LogUtil.d("Http", url + content);
+        LogHelper.d("Http", url + content);
         return response
                 .newBuilder()
                 .body(ResponseBody.create(mediaType, content))

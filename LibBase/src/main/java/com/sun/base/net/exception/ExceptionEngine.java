@@ -2,7 +2,7 @@ package com.sun.base.net.exception;
 
 import com.google.gson.JsonParseException;
 import com.sun.base.net.vo.TokenInvalidEvent;
-import com.sun.base.util.LogUtil;
+import com.sun.base.util.LogHelper;
 
 
 import org.apache.http.conn.ConnectTimeoutException;
@@ -82,7 +82,7 @@ public class ExceptionEngine {
                    || e instanceof ConnectTimeoutException
                    || e instanceof SocketTimeoutException
                    || e instanceof UnknownHostException) {
-            LogUtil.e("NetWorkException", e.getMessage(),e);
+            LogHelper.e("NetWorkException", e.getMessage(),e);
             ex = new ApiException(e, ERROR.NETWORD_ERROR);
             errorMsg = "网络异常，请检查网络后重试！"; // 均视为网络错误
         } else {
@@ -90,7 +90,7 @@ public class ExceptionEngine {
             errorMsg = "失败！"; // 未知错误
         }
         ex.setDisplayMessage(errorMsg);
-        LogUtil.e("ExceptionEngine", errorMsg, ex);
+        LogHelper.e("ExceptionEngine", errorMsg, ex);
         return ex;
     }
 }

@@ -2,6 +2,8 @@ package com.sun.demo2;
 
 import android.app.Application;
 
+import androidx.lifecycle.ProcessLifecycleOwner;
+
 import com.rich.text.XRichText;
 import com.sun.base.disk.CacheFileRule;
 import com.sun.base.disk.DiskCacheConst;
@@ -9,7 +11,7 @@ import com.sun.base.disk.DiskCacheManager;
 import com.sun.base.net.NetWork;
 import com.sun.base.service.IAccountService;
 import com.sun.base.service.ServiceFactory;
-import com.sun.base.util.LogUtil;
+import com.sun.base.util.LogHelper;
 import com.sun.base.util.RetrofitUtils;
 import com.sun.base.util.XRichEditorUtil;
 import com.sun.common.bean.AppConfig;
@@ -17,6 +19,7 @@ import com.sun.common.util.AppUtil;
 import com.sun.db.entity.UserInfo;
 import com.sun.db.table.manager.UserInfoManager;
 import com.sun.demo2.model.response.LoginResponse;
+import com.sun.demo2.observer.ApplicationObserver;
 import com.sun.img.img.ImgLoader;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
@@ -47,7 +50,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         NetWork.init();
         RetrofitUtils.initRetrofit();
         //初始化LogUtil,默认debug模式可打印所有级别的log
-        LogUtil.init();
+        LogHelper.init();
         //初始化图片加载组件
         ImgLoader.getInstance().setStrategy();
         initUtil();
@@ -60,6 +63,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         initDiskCacheManager();
         //初始化腾讯QbSdk
         initQbSdk();
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(new ApplicationObserver());
     }
 
     /**
@@ -142,12 +146,12 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
             @Override
             public void onCoreInitFinished() {
-                LogUtil.e("QbSdk++onCoreInitFinished");
+                LogHelper.e("QbSdk++onCoreInitFinished");
             }
 
             @Override
             public void onViewInitFinished(boolean b) {
-                LogUtil.e("QbSdk++onViewInitFinished" + b);
+                LogHelper.e("QbSdk++onViewInitFinished" + b);
             }
         };
         QbSdk.initX5Environment(ctx, cb);

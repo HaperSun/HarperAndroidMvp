@@ -13,4 +13,6 @@
     <string name="ignore">跳过</string>
     <string name="update_now">立即更新</string>
     <string name="downloading">下载中…</string>
+    <string name="start">开始</string>
+    <string name="end">结束</string>
 </resources>

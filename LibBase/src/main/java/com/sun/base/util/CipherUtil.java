@@ -35,7 +35,7 @@ public class CipherUtil {
                     oriData.getBytes(StandardCharsets.UTF_8),
                     Base64.DEFAULT);
         } catch (Exception e) {
-            LogUtil.e(TAG, "desEncrypt exception", e);
+            LogHelper.e(TAG, "desEncrypt exception", e);
             return oriData;
         }
     }
@@ -52,7 +52,7 @@ public class CipherUtil {
                     Base64.decode(encryptData.getBytes(StandardCharsets.UTF_8), Base64.DEFAULT),
                     StandardCharsets.UTF_8);
         } catch (Exception e) {
-            LogUtil.e(TAG, "desDecrypt exception", e);
+            LogHelper.e(TAG, "desDecrypt exception", e);
             return encryptData;
         }
     }

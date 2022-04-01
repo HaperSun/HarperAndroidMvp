@@ -85,7 +85,7 @@ public class FileUtil {
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
-                LogUtil.d("saveStrToFile", e.getMessage());
+                LogHelper.d("saveStrToFile", e.getMessage());
             }
         }
         return false;
@@ -397,7 +397,7 @@ public class FileUtil {
                 closeable.close();
             }
         } catch (IOException e) {
-            LogUtil.e(TAG, "close closeable exception", e);
+            LogHelper.e(TAG, "close closeable exception", e);
         }
     }
 
@@ -473,7 +473,7 @@ public class FileUtil {
             //使用系统API，获取MimeTypeMap的单例实例，然后调用其内部方法获取文件后缀名（扩展名）所对应的MIME类型
             mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
         }
-        LogUtil.i(TAG, "filePathOrUrl-->" + filePathOrUrl + "的系统定义的MIME类型为：" + mimeType);
+        LogHelper.i(TAG, "filePathOrUrl-->" + filePathOrUrl + "的系统定义的MIME类型为：" + mimeType);
         return mimeType;
     }
 
@@ -568,7 +568,7 @@ public class FileUtil {
             Uri uri = Uri.fromFile(saveFile);
             context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
         } catch (Exception e) {
-            LogUtil.e(TAG, "saveImage Exception!", e);
+            LogHelper.e(TAG, "saveImage Exception!", e);
             ToastHelper.showCommonToast("图片保存失败！");
         } finally {
             if (fos != null) {

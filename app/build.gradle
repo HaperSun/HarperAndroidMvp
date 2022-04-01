@@ -101,6 +101,9 @@ dependencies {
     implementation target.material
     implementation target.constraintlayout
     implementation target.multidex
+    implementation target.palette
+    implementation target.xUtil
+    implementation target.lifecycle_extensions
 
     //分享
     implementation target.umsdk_common
@@ -110,13 +113,10 @@ dependencies {
     implementation target.umsdk_share_board
     implementation target.umsdk_share_wx
     implementation target.wechat_opensdk
-    implementation target.palette
-    implementation target.xUtil
 
     api project(':LibBase')
     api project(':LibDb')
     api project(':LibChart')
     api project(':LibImg')
     api project(':LibRichText')
-
 }

@@ -11,7 +11,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.sun.base.base.fragment.BaseMvpFragment;
 import com.sun.base.dialog.BottomDialogFragment;
 import com.sun.base.util.FileUtil;
-import com.sun.base.util.LogUtil;
+import com.sun.base.util.LogHelper;
 import com.sun.base.util.PermissionUtil;
 import com.sun.common.bean.MagicInt;
 import com.sun.common.toast.CustomToast;
@@ -130,7 +130,7 @@ public class ImagePreviewFragment extends BaseMvpFragment {
                 return true;
             });
         } catch (Exception e) {
-            LogUtil.e(TAG, "Exception ->" + e);
+            LogHelper.e(TAG, "Exception ->" + e);
         }
     }
 

@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.sun.base.base.activity.BaseMvpActivity;
-import com.sun.base.util.LogUtil;
+import com.sun.base.util.LogHelper;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityPickingPictureBinding;
 import com.sun.demo2.view.dialog.BottomShareDialog;
@@ -97,7 +97,7 @@ public class PickingPictureActivity extends BaseMvpActivity implements View.OnCl
                             }
                         });
 
-                        LogUtil.d("with=" + resource.getWidth() + "--height=" + resource.getHeight());
+                        LogHelper.d("with=" + resource.getWidth() + "--height=" + resource.getHeight());
                         time = System.currentTimeMillis();
                         if (isMethod1) {
                             mBind.ivMain.setImageBitmap(getImageToChange(resource));

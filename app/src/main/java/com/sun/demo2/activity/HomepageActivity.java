@@ -110,6 +110,7 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("webView的封装");
         titles.add("计时器");
         titles.add("在App内浏览PDF、docx文件");
+        titles.add("Lifecycle的示范");
         return titles;
     }
 
@@ -189,6 +190,9 @@ public class HomepageActivity extends BaseMvpActivity {
                     break;
                 case 10:
                     TbsReaderActivity.start(mContext);
+                    break;
+                case 11:
+                    LifeStudyActivity.start(mContext);
                     break;
                 default:
                     break;

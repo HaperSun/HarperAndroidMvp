@@ -14,7 +14,7 @@ import com.sun.base.bean.TDevice;
 import com.sun.base.net.exception.ApiException;
 import com.sun.base.util.CollectionUtil;
 import com.sun.base.util.FileUtil;
-import com.sun.base.util.LogUtil;
+import com.sun.base.util.LogHelper;
 import com.sun.common.bean.Constant;
 import com.sun.demo2.BuildConfig;
 import com.sun.demo2.R;
@@ -91,7 +91,7 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
             intent.putExtra(EXTRA_CMD, cmd);
             context.startService(intent);
         } catch (Exception e) {
-            LogUtil.d("UpdateService-------start" + e.getMessage());
+            LogHelper.d("UpdateService-------start" + e.getMessage());
         }
 
     }
@@ -280,7 +280,7 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
         }
         // apk文件不可用
         boolean apkFileCannotUse = !file.exists() || !TextUtils.equals(version, "v" + mUpdateInfo.getVersion());
-        LogUtil.d(TAG, "apkFileCannotUse-->" + apkFileCannotUse);
+        LogHelper.d(TAG, "apkFileCannotUse-->" + apkFileCannotUse);
         if (!apkFileCannotUse) {
             //最新的更新包已经下载下来了
             dispatchOnNewVersionFounded(mUpdateInfo, true);
@@ -304,7 +304,7 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
 
     private void downloadApk() {
         new Thread(() -> {
-            LogUtil.d(TAG, "run: 开始下载新的apk包-->" + mUpdateInfo.getUrl());
+            LogHelper.d(TAG, "run: 开始下载新的apk包-->" + mUpdateInfo.getUrl());
             HttpURLConnection urlConnection = null;
             InputStream inputStream = null;
             FileOutputStream fileOutputStream = null;
@@ -344,7 +344,7 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
                     downloadedSize += length;
                     int currProgress = (int) (downloadedSize * 100f / totalSize);
                     if (currProgress - lastProgress >= 1) {
-                        LogUtil.d(TAG, "run: 下载进度 " + currProgress);
+                        LogHelper.d(TAG, "run: 下载进度 " + currProgress);
                         dispatchOnDownloadProgress(currProgress);
                         lastProgress = currProgress;
                     }
@@ -352,10 +352,10 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
 
                 // 下载完成
                 dispatchOnDownloadSuccess();
-                LogUtil.d(TAG, "run: 下载完成，发送安装事件");
+                LogHelper.d(TAG, "run: 下载完成，发送安装事件");
                 EventBus.getDefault().post(new UpgradeApkDownloadSuccessEvent(mUpdateInfo));
             } catch (IOException e) {
-                LogUtil.e(TAG, "IOException", e);
+                LogHelper.e(TAG, "IOException", e);
                 dispatchOnDownloadError();
             } finally {
                 isManualDownload = false;
@@ -373,7 +373,7 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
                         urlConnection.disconnect();
                     }
                 } catch (Exception e) {
-                    LogUtil.e(TAG, "Exception", e);
+                    LogHelper.e(TAG, "Exception", e);
                 }
             }
         }).start();

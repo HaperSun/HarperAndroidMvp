@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.sun.base.util.CipherUtil;
 import com.sun.base.util.FileUtil;
-import com.sun.base.util.LogUtil;
+import com.sun.base.util.LogHelper;
 import com.sun.common.bean.Constant;
 
 import java.io.File;
@@ -170,7 +170,7 @@ public class DiskCacheManager {
         try {
             savedVersion = Integer.parseInt(saveDataStr.substring(firstLine.length(), saveDataStr.indexOf("\n\n")));
         } catch (Exception e) {
-            LogUtil.e(TAG, "get savedVersion failed " + cacheFileRule, e);
+            LogHelper.e(TAG, "get savedVersion failed " + cacheFileRule, e);
         }
         if (savedVersion != cacheFileRule.getVersion()) {
             //发现缓存版本号不一致，清除缓存，并返回空
@@ -182,7 +182,7 @@ public class DiskCacheManager {
             try {
                 return new Gson().fromJson(tDataStr, returnType);
             } catch (JsonSyntaxException e) {
-                LogUtil.e(TAG, "JsonSyntaxException ", e);
+                LogHelper.e(TAG, "JsonSyntaxException ", e);
             }
         }
         return null;

@@ -40,7 +40,7 @@ public class EncodeUtil {
         try {
             return URLEncoder.encode(input, charsetName);
         } catch (UnsupportedEncodingException e) {
-            LogUtil.e(TAG, "UnsupportedEncodingException", e);
+            LogHelper.e(TAG, "UnsupportedEncodingException", e);
         }
         return input;
     }

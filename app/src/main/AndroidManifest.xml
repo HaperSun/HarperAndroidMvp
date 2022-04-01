@@ -21,6 +21,7 @@
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" /> <!-- protection level is dangerous, need request runtime permission -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
@@ -46,6 +47,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="label,allowBackup,supportsRtl,icon">
+        <activity android:name=".activity.ViewModelActivity"></activity>
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -136,6 +138,12 @@
             android:name=".zxing.ScanActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.LifeStudyActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <service android:name=".observer.MyLocationService" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

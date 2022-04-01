@@ -7,7 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.sun.base.bean.NetworkChangeState;
-import com.sun.base.util.LogUtil;
+import com.sun.base.util.LogHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -23,11 +23,11 @@ public class ConnectiveReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        LogUtil.d(TAG, "onReceive action=" + action);
+        LogHelper.d(TAG, "onReceive action=" + action);
         NetworkInfo network = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
         boolean isConnected = network.isConnected();
         int type = network.getType();
-        LogUtil.d(TAG, "onReceive network isConnected=" + isConnected + ",type=" + type);
+        LogHelper.d(TAG, "onReceive network isConnected=" + isConnected + ",type=" + type);
         EventBus.getDefault().post(new NetworkChangeState(isConnected, type));
     }
 }
