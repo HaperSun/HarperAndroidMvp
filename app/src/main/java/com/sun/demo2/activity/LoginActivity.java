@@ -141,9 +141,8 @@ public class LoginActivity extends BaseMvpActivity implements ILoginView, NetSta
         ToastHelper.showCommonToast(networkType);
     }
 
-
     private void doLogin() {
-        mLoginPresenter.getLoginInfo("15345699036", "888888");
+        mLoginPresenter.getLoginInfo("", "888888");
     }
 
     @Override

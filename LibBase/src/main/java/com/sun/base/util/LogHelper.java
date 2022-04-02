@@ -108,7 +108,7 @@ public final class LogHelper {
      */
     public static void d(String tag, String msg) {
         try {
-            if (mEnableLog && mLogLevel == D) {
+            if (mEnableLog && mLogLevel >= D) {
                 Logger.t(tag).d(msg);
             }
         } catch (Exception e) {
@@ -123,7 +123,7 @@ public final class LogHelper {
      */
     public static void d(String msg) {
         try {
-            if (mEnableLog && mLogLevel == D) {
+            if (mEnableLog && mLogLevel >= D) {
                 Logger.d(msg);
             }
         } catch (Exception e) {

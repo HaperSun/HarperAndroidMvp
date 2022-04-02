@@ -64,7 +64,8 @@ public class HttpInterceptor implements Interceptor {
                 headerSb.append("&");
             }
         }
-        LogHelper.d("Http", url + " header-->" + headerSb);
+//        //打印http的header
+//        LogHelper.d("Http", " header-->" + headerSb);
         Response response = chain.proceed(request);
         ResponseBody responseBody = response.body();
         assert responseBody != null;

@@ -43,7 +43,7 @@ public final class TimeHelp {
      */
     public static String getFormatDeadLineTime(long deadLine) {
         //截止时间始终显示"MM月dd日 HH:mm"
-        return TimeHelp.millis2String(deadLine, "mm:ss");
+        return TimeHelp.formatTime(deadLine, "mm:ss");
     }
 
     private TimeHelp() {
@@ -57,12 +57,12 @@ public final class TimeHelp {
      * @param millis The milliseconds.
      * @return the formatted time string
      */
-    public static String millis2String(final long millis) {
-        return millis2String(millis, getDateFormatYmdHms());
+    public static String formatTime(final long millis) {
+        return formatTime(millis, getDateFormatYmdHms());
     }
 
     public static String millisToString(final long millis) {
-        return millis2String(millis, getDateFormatYmd());
+        return formatTime(millis, getDateFormatYmd());
     }
 
     /**
@@ -90,60 +90,58 @@ public final class TimeHelp {
      * @param format The format.
      * @return the formatted time string
      */
-    public static String millis2String(final long millis, @NonNull final DateFormat format) {
+    public static String formatTime(final long millis, @NonNull final DateFormat format) {
         return format.format(new Date(millis));
     }
 
     /**
-     * 毫秒转化成字符串
+     * 毫秒转化成字符串时间戳
      *
-     * @param millis
-     * @param formatStr
+     * @param millisecond 毫秒值
+     * @param formatStr   字符串时间戳格式
      * @return
      */
-    public static String millis2String(final long millis, @NonNull final String formatStr) {
+    public static String formatTime(long millisecond, @NonNull String formatStr) {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat format = new SimpleDateFormat(formatStr);
-        return format.format(new Date(millis));
+        return format.format(new Date(millisecond));
     }
 
     /**
-     * 根据时间戳获取月份
+     * 根据毫秒时间戳，获取每月份中的天
      *
-     * @param millis
+     * @param millisecond
      * @return
      */
-    public static int millis2Month(final long millis) {
+    public static int getMonth(long millisecond) {
         Calendar cd = Calendar.getInstance();
-        cd.setTimeInMillis(millis);
-        return cd.get(Calendar.MONTH) + 1;//月份是从0开始计算的，所以需要加1
+        cd.setTimeInMillis(millisecond);
+        //月份是从0开始计算的，所以需要加1
+        return cd.get(Calendar.MONTH) + 1;
     }
 
     /**
-     * 根据时间戳获取月份中的天数
+     * 根据毫秒时间戳，获取月份中的天
      *
-     * @param millis
+     * @param millisecond 毫秒
      * @return
      */
-    public static int millis2DayOfMonth(final long millis) {
+    public static int getDay(long millisecond) {
         Calendar cd = Calendar.getInstance();
-        cd.setTimeInMillis(millis);
+        cd.setTimeInMillis(millisecond);
         return cd.get(Calendar.DAY_OF_MONTH);
     }
 
     /**
-     * 时间戳转换星期字符串
+     * 根据毫秒值获取日期名称
      *
-     * @param time
-     * @return
+     * @param millisecond 毫秒时间戳
+     * @return 星期名称
      */
-    public static String millis2Week(long time) {
-
+    public static String getWeekName(long millisecond) {
         Calendar cd = Calendar.getInstance();
-        cd.setTime(new Date(time));
-
-        int week = cd.get(Calendar.DAY_OF_WEEK); //获取星期
-
+        cd.setTime(new Date(millisecond));
+        int week = cd.get(Calendar.DAY_OF_WEEK);
         String weekString;
         switch (week) {
             case Calendar.SUNDAY:
@@ -167,9 +165,7 @@ public final class TimeHelp {
             default:
                 weekString = "周六";
                 break;
-
         }
-
         return weekString;
     }
 
