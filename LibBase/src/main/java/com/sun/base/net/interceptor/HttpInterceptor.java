@@ -8,7 +8,6 @@ import com.sun.base.util.LogHelper;
 import java.io.IOException;
 
 import okhttp3.FormBody;
-import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -55,17 +54,19 @@ public class HttpInterceptor implements Interceptor {
             LogHelper.d("Http", "| RequestParams:{" + sb.toString() + "}");
             LogHelper.d("Http", fullUrl.toString());
         }
-        Headers headers = request.headers();
-        int size = headers.size();
-        StringBuilder headerSb = new StringBuilder();
-        for (int i = 0; i < size; i++) {
-            headerSb.append(headers.name(i)).append("=").append(headers.value(i));
-            if (i < size - 1) {
-                headerSb.append("&");
-            }
-        }
+
 //        //打印http的header
+//        Headers headers = request.headers();
+//        int size = headers.size();
+//        StringBuilder headerSb = new StringBuilder();
+//        for (int i = 0; i < size; i++) {
+//            headerSb.append(headers.name(i)).append("=").append(headers.value(i));
+//            if (i < size - 1) {
+//                headerSb.append("&");
+//            }
+//        }
 //        LogHelper.d("Http", " header-->" + headerSb);
+
         Response response = chain.proceed(request);
         ResponseBody responseBody = response.body();
         assert responseBody != null;
@@ -73,9 +74,6 @@ public class HttpInterceptor implements Interceptor {
         String content = responseBody.string();
         content = TextUtils.isEmpty(content) ? " 返回结果为空" : content;
         LogHelper.d("Http", url + content);
-        return response
-                .newBuilder()
-                .body(ResponseBody.create(mediaType, content))
-                .build();
+        return response.newBuilder().body(ResponseBody.create(mediaType, content)).build();
     }
 }
