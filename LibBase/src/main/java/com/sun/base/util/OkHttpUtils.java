@@ -7,7 +7,7 @@ import android.content.Context;
 
 import com.sun.base.net.cookie.CookiesManager;
 import com.sun.base.net.interceptor.HeaderInterceptor;
-import com.sun.base.net.interceptor.LogInterceptor;
+import com.sun.base.net.interceptor.HttpInterceptor;
 
 import java.io.File;
 import java.net.CookieManager;
@@ -82,7 +82,7 @@ class OkHttpUtils {
             if (interceptor != null) {
                 builder.addInterceptor(interceptor);
             }
-            builder.addInterceptor(new LogInterceptor());
+            builder.addInterceptor(new HttpInterceptor());
             mOkHttpClient = builder.build();
         }
         return mOkHttpClient;

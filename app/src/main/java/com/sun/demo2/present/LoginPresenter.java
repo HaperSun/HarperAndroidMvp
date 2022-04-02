@@ -4,10 +4,13 @@ package com.sun.demo2.present;
 import com.sun.base.net.MvpSafetyObserver;
 import com.sun.base.net.NetWork;
 import com.sun.base.net.exception.ApiException;
+import com.sun.base.net.response.Response;
 import com.sun.base.presenter.BasePresenter;
-import com.sun.demo2.iview.LoginView;
+import com.sun.demo2.iview.ILoginView;
 import com.sun.demo2.manager.LoginManager;
 import com.sun.demo2.model.response.LoginResponse;
+
+import java.util.Map;
 
 import retrofit2.adapter.rxjava2.Result;
 
@@ -17,9 +20,9 @@ import retrofit2.adapter.rxjava2.Result;
  * @note: 登陆
  */
 
-public class LoginPresenter extends BasePresenter<LoginView> {
+public class LoginPresenter extends BasePresenter<ILoginView> {
 
-    public LoginPresenter(LoginView view) {
+    public LoginPresenter(ILoginView view) {
         super(view);
     }
 
@@ -27,7 +30,6 @@ public class LoginPresenter extends BasePresenter<LoginView> {
      * 登录请求
      */
     public void getLoginInfo(String loginName, String password) {
-        mView.get().onAtLoginStart();
         NetWork.getInstance()
                 .commonSendRequest(LoginManager.getLoginInfo(loginName, password))
                 .subscribe(new MvpSafetyObserver<Result<LoginResponse>>(mView) {
@@ -49,5 +51,30 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 });
     }
 
+
+    /**
+     * 获取隐患列表数据
+     */
+    public void getRiskList(Map<String, String> map) {
+        NetWork.getInstance()
+                .commonSendRequest(LoginManager.getRiskList(map))
+                .subscribe(new MvpSafetyObserver<Result<Response>>(mView) {
+                    @Override
+                    protected void onSuccess(Result<Response> result) {
+                        assert result.response() != null;
+                        mView.get().onGetRiskListReturned(result.response().body());
+                    }
+
+                    @Override
+                    protected void onDone() {
+
+                    }
+
+                    @Override
+                    public void onError(ApiException e) {
+                        mView.get().onGetRiskListError(e);
+                    }
+                });
+    }
 
 }

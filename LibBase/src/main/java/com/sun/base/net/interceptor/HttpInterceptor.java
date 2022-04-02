@@ -21,7 +21,7 @@ import okhttp3.ResponseBody;
  * @note:
  */
 
-public class LogInterceptor implements Interceptor {
+public class HttpInterceptor implements Interceptor {
 
 
     public static final String TAG = "LogInterceptor";
