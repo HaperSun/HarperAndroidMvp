@@ -47,7 +47,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="label,allowBackup,supportsRtl,icon">
-        <activity android:name=".activity.ViewModelActivity"></activity>
+        <activity android:name=".activity.PictureSplicingActivity"></activity>
+        <activity android:name=".activity.ViewModelActivity" />
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
