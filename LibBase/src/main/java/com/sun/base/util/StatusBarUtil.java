@@ -77,7 +77,8 @@ public class StatusBarUtil {
      * @return
      */
     public static boolean isLightStatusBarSupported() {
-        if (Build.MODEL.contains("TB3-850F")) {//联想学生机适配下
+        if (Build.MODEL.contains("TB3-850F")) {
+            //联想学生机适配下
             return false;
         }
         return isMIUI() || isFlyme() || Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
@@ -90,7 +91,8 @@ public class StatusBarUtil {
      * @return
      */
     public static boolean isStatusBarPositionNotOnTop() {
-        if (Build.MODEL.contains("EBEN")) {//E人E本状态栏在屏幕下方
+        if (Build.MODEL.contains("EBEN")) {
+            //E人E本状态栏在屏幕下方
             return true;
         }
         return false;
@@ -175,6 +177,37 @@ public class StatusBarUtil {
         // 获得状态栏高度
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         return context.getResources().getDimensionPixelSize(resourceId);
+    }
+
+    /**
+     * 设置沉浸式状态栏
+     *
+     * @param window                window
+     * @param statusBarColorIsWhite 状态栏的图标和字体颜色是否是白色
+     */
+    public static void setImmersiveStatusBar(Window window, boolean statusBarColorIsWhite) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //5.0及以上
+            View decorView = window.getDecorView();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //4.4到5.0
+            WindowManager.LayoutParams localLayoutParams = window.getAttributes();
+            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+        }
+        //修改字体颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //android6.0以后可以对状态栏文字颜色和图标进行修改
+            if (statusBarColorIsWhite) {
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            } else {
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
+        }
     }
 
 }

@@ -47,8 +47,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="label,allowBackup,supportsRtl,icon">
-        <activity android:name=".activity.PictureSplicingActivity"></activity>
-        <activity android:name=".activity.ViewModelActivity" />
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -141,6 +139,15 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activity.LifeStudyActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.PictureSplicingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CommonAppTheme"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ViewModelActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

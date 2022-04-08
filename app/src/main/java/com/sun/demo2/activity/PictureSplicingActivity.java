@@ -11,6 +11,7 @@ import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.dialog.BottomDialogFragment;
 import com.sun.base.util.LogHelper;
 import com.sun.base.util.PermissionUtil;
+import com.sun.base.util.StatusBarUtil;
 import com.sun.common.bean.MagicInt;
 import com.sun.common.toast.ToastHelper;
 import com.sun.demo2.R;
@@ -28,6 +29,7 @@ import java.io.IOException;
 public class PictureSplicingActivity extends BaseMvpActivity {
 
     private ActivityPictureSplicingBinding mBind;
+    private ViewGroup mRelativeLayout;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, PictureSplicingActivity.class);
@@ -41,7 +43,9 @@ public class PictureSplicingActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
+        StatusBarUtil.setImmersiveStatusBar(getWindow(),true);
         mBind = (ActivityPictureSplicingBinding) mViewDataBinding;
+        mRelativeLayout = mBind.container;
     }
 
     @Override
@@ -62,21 +66,15 @@ public class PictureSplicingActivity extends BaseMvpActivity {
         });
     }
 
-    /**
-     * 将布局直接转成图片（弃用）
-     */
-    private ViewGroup relativeLayout;
-
     private Bitmap saveLayoutAsImg() {
-        relativeLayout = $(R.id.container);
-        relativeLayout.setDrawingCacheEnabled(true);
-        relativeLayout.buildDrawingCache();
-        return relativeLayout.getDrawingCache();
+        mRelativeLayout.setDrawingCacheEnabled(true);
+        mRelativeLayout.buildDrawingCache();
+        return mRelativeLayout.getDrawingCache();
     }
 
     @Override
     protected void onDestroy() {
-        relativeLayout.destroyDrawingCache();
+        mRelativeLayout.destroyDrawingCache();
         super.onDestroy();
     }
 

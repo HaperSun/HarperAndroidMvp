@@ -21,17 +21,17 @@ public class ApplicationObserver implements LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onStart(){
-        ToastHelper.showCommonToast("ON_START");
+//        ToastHelper.showCommonToast("ON_START");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void onResume(){
-        ToastHelper.showCommonToast("ON_RESUME");
+//        ToastHelper.showCommonToast("ON_RESUME");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     public void onPause(){
-        ToastHelper.showCommonToast("ON_PAUSE");
+//        ToastHelper.showCommonToast("ON_PAUSE");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
