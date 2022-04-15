@@ -132,7 +132,7 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
         XYMarkerView mv = new XYMarkerView(this, xAxisFormatter);
         mv.setChartView(mBind.chart); // For bounds control
         mBind.chart.setMarker(mv); // Set the marker to the chart
-        setData(12, 50);
+        setData(4, 50);
     }
 
     private void setData(int count, float range) {

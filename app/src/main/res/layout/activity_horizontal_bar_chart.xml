@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <com.github.mikephil.charting.charts.HorizontalBarChart xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp300"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/dp20"
+        tools:context=".activity.HorizontalBarChartActivity">
+
+    </com.github.mikephil.charting.charts.HorizontalBarChart>
+</layout>

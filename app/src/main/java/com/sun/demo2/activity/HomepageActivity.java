@@ -112,6 +112,8 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("在App内浏览PDF、docx文件");
         titles.add("Lifecycle的示范");
         titles.add("图片拼接");
+        titles.add("Horizontal Bar Charts 横向单柱状图");
+        titles.add("带边线的饼状图 Pie Charts");
         return titles;
     }
 
@@ -197,6 +199,12 @@ public class HomepageActivity extends BaseMvpActivity {
                     break;
                 case 12:
                     PictureSplicingActivity.start(mContext);
+                    break;
+                case 13:
+                    HorizontalBarChartActivity.start(mContext);
+                    break;
+                case 14:
+                    PiePolylineChartActivity.start(mContext);
                     break;
                 default:
                     break;
