@@ -114,6 +114,10 @@ dependencies {
     implementation target.umsdk_share_wx
     implementation target.wechat_opensdk
 
+    implementation 'com.tencent.map.geolocation:TencentLocationSdk-openplatform:7.2.6'
+    implementation 'com.tencent.map:tencent-map-vector-sdk:4.4.7'
+    implementation 'pub.devrel:easypermissions:2.0.1'
+
     api project(':LibBase')
     api project(':LibDb')
     api project(':LibChart')

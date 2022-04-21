@@ -114,6 +114,8 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("图片拼接");
         titles.add("Horizontal Bar Charts 横向单柱状图");
         titles.add("带边线的饼状图 Pie Charts");
+        titles.add("腾讯地图");
+        titles.add("腾讯地图  地图内置定位标及定位标点击");
         return titles;
     }
 
@@ -205,6 +207,12 @@ public class HomepageActivity extends BaseMvpActivity {
                     break;
                 case 14:
                     PiePolylineChartActivity.start(mContext);
+                    break;
+                case 15:
+                    SearchBasicActivity.start(mContext);
+                    break;
+                case 16:
+                    TenMapActivity.start(mContext);
                     break;
                 default:
                     break;
