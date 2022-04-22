@@ -70,31 +70,31 @@ public class HomepageActivity extends BaseMvpActivity {
             UpdateAppDialogFragment.newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(),
                     isDownloaded, updateInfo.isForceUpdate()).show(getSupportFragmentManager(), "UpdateAppDialogFragment");
         });
-       UpdateService.addOnCheckUpdateListener(new UpdateService.OnCheckUpdateListener() {
-           @Override
-           public void onNewVersionFounded(GetUpdateInfoResponse.DataBean updateInfo, boolean isDownloaded) {
-               UpdateAppDialogFragment updateAppDialogFragment = UpdateAppDialogFragment
-                       .newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(), isDownloaded,
-                               updateInfo.isForceUpdate());
-               updateAppDialogFragment.show(getSupportFragmentManager(), "UpdateAppDialogFragment");
-               updateAppDialogFragment.setUpdateHintDialogListener(new UpdateAppDialogFragment.UpdateAppDialogListener() {
-                   @Override
-                   public void onCancelDownloadClick(View view) {
-                       //doNothing
-                   }
+        UpdateService.addOnCheckUpdateListener(new UpdateService.OnCheckUpdateListener() {
+            @Override
+            public void onNewVersionFounded(GetUpdateInfoResponse.DataBean updateInfo, boolean isDownloaded) {
+                UpdateAppDialogFragment updateAppDialogFragment = UpdateAppDialogFragment
+                        .newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(), isDownloaded,
+                                updateInfo.isForceUpdate());
+                updateAppDialogFragment.show(getSupportFragmentManager(), "UpdateAppDialogFragment");
+                updateAppDialogFragment.setUpdateHintDialogListener(new UpdateAppDialogFragment.UpdateAppDialogListener() {
+                    @Override
+                    public void onCancelDownloadClick(View view) {
+                        //doNothing
+                    }
 
-                   @Override
-                   public void onDownloadError(boolean isNeedFinish) {
-                       //doNothing
-                   }
-               });
-           }
+                    @Override
+                    public void onDownloadError(boolean isNeedFinish) {
+                        //doNothing
+                    }
+                });
+            }
 
-           @Override
-           public void onNoNewVersionFounded(ApiException e) {
+            @Override
+            public void onNoNewVersionFounded(ApiException e) {
 
-           }
-       });
+            }
+        });
     }
 
     private List<String> getTitles() {
@@ -116,6 +116,7 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("带边线的饼状图 Pie Charts");
         titles.add("腾讯地图");
         titles.add("腾讯地图  地图内置定位标及定位标点击");
+        titles.add("LineChart  多条目折线图");
         return titles;
     }
 
@@ -213,6 +214,9 @@ public class HomepageActivity extends BaseMvpActivity {
                     break;
                 case 16:
                     TenMapActivity.start(mContext);
+                    break;
+                case 17:
+                    MultiLineChartActivity.start(mContext);
                     break;
                 default:
                     break;
