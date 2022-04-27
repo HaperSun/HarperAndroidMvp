@@ -46,9 +46,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="label,allowBackup,supportsRtl,icon">
-        <activity android:name=".activity.MultiLineChartActivity"></activity>
-        <activity android:name=".activity.SupportMapFragmentActivity" />
-        <activity android:name=".activity.SearchBasicActivity" />
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -162,6 +159,30 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activity.TenMapActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.bd.FaceDetectActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.MultiLineChartActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.SupportMapFragmentActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.SearchBasicActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.bd.DetectLoginActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.bd.RegisterActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

@@ -12,7 +12,7 @@ LibChart代码来自github中优秀的chart项目，仅供学习参考。
 
 
 key 文件查看：
-F:\MyGit\Demo02\key>keytool -list -v -keystore key名称.jks
+F:\MyGit\Demo02\key>keytool -list -v -keystore Harper_demo2.jks
 
 
 名称                    版本号          API等级           发布时间              BuildVersion

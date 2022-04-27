@@ -123,4 +123,5 @@ dependencies {
     api project(':LibChart')
     api project(':LibImg')
     api project(':LibRichText')
+    api project(':LibBdFace')
 }
