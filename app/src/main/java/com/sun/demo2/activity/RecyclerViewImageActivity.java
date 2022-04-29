@@ -74,8 +74,7 @@ public class RecyclerViewImageActivity extends BaseMvpActivity {
     private void getData() {
         List<ImgItemBean> itemBeans = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            itemBeans.add(new ImgItemBean("https://qiniu.fxgkpt.com/hycg/1639356784663.jpg",
-                    "https://pic.ntimg.cn/file/20180211/7259105_125622777789_2.jpg"));
+            itemBeans.add(new ImgItemBean("https://qiniu.fxgkpt.com/hycg/1639356784663.jpg"));
         }
         getDataSuccess(itemBeans);
     }
@@ -133,8 +132,7 @@ public class RecyclerViewImageActivity extends BaseMvpActivity {
                 ImgItemBean bean = (ImgItemBean) mItems.get(position).object;
                 if (bean != null){
                     ImgLoader.getInstance().loadImage(bean.getImg1(), holder.mIv1);
-                    ImgLoader.getInstance().loadImage(bean.getImg2(), holder.mIv2);
-                    holder.itemView.setOnClickListener(v -> ImagePreviewActivity.actionStart(mContext, bean.getImg1(), bean.getImg2()));
+                    holder.itemView.setOnClickListener(v -> ImagePreviewActivity.actionStart(mContext, bean.getImg1()));
                 }
             }
         }
@@ -151,12 +149,10 @@ public class RecyclerViewImageActivity extends BaseMvpActivity {
 
         class Holder extends RecyclerView.ViewHolder {
             ImageView mIv1;
-            ImageView mIv2;
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
                 mIv1 = itemView.findViewById(R.id.img_1);
-                mIv2 = itemView.findViewById(R.id.img_2);
             }
         }
     }
