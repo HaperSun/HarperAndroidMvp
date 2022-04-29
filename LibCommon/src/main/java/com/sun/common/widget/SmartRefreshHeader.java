@@ -63,7 +63,7 @@ public class SmartRefreshHeader extends RelativeLayout implements RefreshHeader 
     protected RefreshKernel mRefreshKernel;
     protected SpinnerStyle mSpinnerStyle = SpinnerStyle.Translate;
     protected DateFormat mFormat = new SimpleDateFormat(REFRESH_HEADER_LAST_TIME, Locale.CHINA);
-    protected int mFinishDuration = 500;
+    protected int mFinishDuration = 2000;
     protected int mBackgroundColor;
     protected boolean mEnableLastTime = true;
     protected AnimationDrawable frameAnim;
@@ -95,16 +95,14 @@ public class SmartRefreshHeader extends RelativeLayout implements RefreshHeader 
         frameAnim = (AnimationDrawable) ContextCompat.getDrawable(mContext, R.drawable.refresh);
         frameAnim2 = (AnimationDrawable) ContextCompat.getDrawable(mContext, R.drawable.refresh_end);
         LayoutInflater.from(context).inflate(R.layout.grass_header_layout, this);
-        mLastUpdateText = findViewById(R.id.mLastUpdateText);
-        mArrowView = findViewById(R.id.mArrowView);
+        mLastUpdateText = findViewById(R.id.tv_update_time);
+        mArrowView = findViewById(R.id.iv_animation);
         @SuppressLint("CustomViewStyleable")
         TypedArray ta = context.obtainStyledAttributes(attrs, com.scwang.smartrefresh.layout.R.styleable.ClassicsHeader);
         mFinishDuration = ta.getInt(com.scwang.smartrefresh.layout.R.styleable.ClassicsHeader_srlFinishDuration, mFinishDuration);
         mEnableLastTime = ta.getBoolean(com.scwang.smartrefresh.layout.R.styleable.ClassicsHeader_srlEnableLastTime, mEnableLastTime);
         mSpinnerStyle = SpinnerStyle.values[ta.getInt(com.scwang.smartrefresh.layout.R.styleable.ClassicsHeader_srlClassicsSpinnerStyle, mSpinnerStyle.ordinal)];
-
         mLastUpdateText.setVisibility(mEnableLastTime ? VISIBLE : GONE);
-
         if (ta.hasValue(com.scwang.smartrefresh.layout.R.styleable.ClassicsHeader_srlDrawableArrow)) {
             mArrowView.setImageDrawable(ta.getDrawable(com.scwang.smartrefresh.layout.R.styleable.ClassicsHeader_srlDrawableArrow));
         } else {

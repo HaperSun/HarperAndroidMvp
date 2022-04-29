@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingTop="18dp"
-    android:paddingBottom="5dp">
+    android:gravity="center"
+    android:layout_marginTop="@dimen/dp40"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/mLastUpdateText"
+        android:id="@+id/tv_update_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:includeFontPadding="false"
-        android:maxLines="1"
         android:textColor="@color/color_999999"
-        android:textSize="@dimen/sp14"/>
+        android:textSize="@dimen/sp14" />
 
     <ImageView
-        android:id="@+id/mArrowView"
+        android:id="@+id/iv_animation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="0dp"
         android:scaleType="fitXY"
-        tools:ignore="ContentDescription"/>
+        tools:ignore="ContentDescription" />
 </LinearLayout>
