@@ -44,6 +44,12 @@ android {
 }
 
 dependencies {
+    //VLayout 是阿里出品的基础 UI 框架
+    api('com.alibaba.android:vlayout:1.0.4@aar') {
+        transitive = true
+        exclude group: 'com.android.support'
+    }
+    api target.smart_refresh
     api target.appcompat
     api target.annotation
     api target.eventbus

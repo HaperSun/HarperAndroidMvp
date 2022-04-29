@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/smart_refresh_layout"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fadingEdge="none"
         app:srlAccentColor="@color/color_666666"
         app:srlEnableAutoLoadMore="@bool/auto_load"
         app:srlEnableFooterFollowWhenLoadFinished="false"
-        app:srlPrimaryColor="@color/color_eee"
-        tools:context=".activity.RecyclerViewImageActivity">
+        app:srlPrimaryColor="@color/color_eee">
 
         <com.sun.common.widget.SmartRefreshHeader
             android:layout_width="match_parent"

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="false"  >
+    <!-- 定义一个动画帧，Drawable为img0，持续时间70毫秒 -->
+    <item android:drawable="@mipmap/loading13" android:duration="30" />
+    <item android:drawable="@mipmap/loading14" android:duration="70" />
+    <item android:drawable="@mipmap/loading15" android:duration="70" />
+    <item android:drawable="@mipmap/loading16" android:duration="70" />
+    <item android:drawable="@mipmap/loading17" android:duration="70" />
+    <item android:drawable="@mipmap/loading18" android:duration="70" />
+    <item android:drawable="@mipmap/loading19" android:duration="70" />
+    <item android:drawable="@mipmap/loading20" android:duration="70" />
+    <item android:drawable="@mipmap/loading21" android:duration="70" />
+    <item android:drawable="@mipmap/loading23" android:duration="70" />
+    <item android:drawable="@mipmap/loading23" android:duration="35" />
+</animation-list>

@@ -116,6 +116,7 @@ public class PiePolylineChartActivity extends BaseMvpActivity {
         dataSet.setValueLinePart2Length(0.4f);
         dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
         PieData data = new PieData(dataSet);
+        //v3.1.0需要用有参数的构造方法才能显示百分比 data.setValueFormatter(new PercentFormatter(bind.chart));
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
         //设置Label值的颜色

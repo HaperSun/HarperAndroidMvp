@@ -3,6 +3,7 @@ package com.sun.common.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.res.Configuration;
 
 import com.sun.common.BuildConfig;
 import com.sun.common.bean.AppConfig;
@@ -34,7 +35,7 @@ public abstract class AppUtil {
     /**
      * 获取服务端地址
      *
-     * @return
+     * @return String
      */
     public static String getServerUrl() {
         return mAppConfig.baseUrl;
@@ -43,7 +44,7 @@ public abstract class AppUtil {
     /**
      * 是否是测试环境
      *
-     * @return
+     * @return boolean
      */
     public static boolean isTestApi() {
         return BuildConfig.DEBUG;
@@ -86,4 +87,15 @@ public abstract class AppUtil {
         }
         return false;
     }
+
+    /**
+     * 判断是否平板设备
+     *
+     * @return true:平板,false:手机
+     */
+    public static boolean isTabletDevice() {
+        return (mAppConfig.ctx.getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
 }

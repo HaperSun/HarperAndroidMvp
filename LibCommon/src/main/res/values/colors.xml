@@ -7,8 +7,10 @@
     <color name="grey">#0f1b1b1b</color>
     <color name="color_C0E8FD">#C0E8FD</color>
     <color name="color_101010">#101010</color>
+    <color name="color_666666">#666666</color>
     <color name="color_999999">#999999</color>
     <color name="color_f0f0f0">#f0f0f0</color>
     <color name="color_1d1b1b">#1d1b1b</color>
     <color name="colorAccent">#08a1ef</color>
+    <color name="color_eee">#eee</color>
 </resources>

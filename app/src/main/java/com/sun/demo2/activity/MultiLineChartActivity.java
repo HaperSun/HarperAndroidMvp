@@ -85,8 +85,9 @@ public class MultiLineChartActivity extends BaseMvpActivity {
         xAxis.setDrawGridLines(false);
 //        xAxis.setLabelCount(3);
 //        xAxis.setTypeface(tfLight);
-        xAxis.setGranularity(1f);
-        xAxis.setCenterAxisLabels(true);
+        xAxis.setGranularity(0f);
+        //x轴的label是否居中
+        xAxis.setCenterAxisLabels(false);
 //        xAxis.setValueFormatter((value, axis) -> String.valueOf((int) value));
 
         YAxis leftAxis = chart.getAxisLeft();
@@ -97,6 +98,7 @@ public class MultiLineChartActivity extends BaseMvpActivity {
         leftAxis.setAxisMinimum(0f);
         chart.getAxisRight().setEnabled(false);
         chart.getLegend().setEnabled(true);
+        chart.getAxisLeft().setAxisMaximum(100);
 
 //        chart.setDrawGridBackground(false);
 //        chart.getDescription().setEnabled(false);

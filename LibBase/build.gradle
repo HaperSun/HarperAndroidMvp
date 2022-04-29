@@ -41,10 +41,6 @@ dependencies {
     api target.tbs
     implementation target.glide
     api target.zxing
-    api('com.alibaba.android:vlayout:1.0.4@aar') {
-        transitive = true
-        exclude group: 'com.android.support'
-    }
     implementation project(':LibDb')
     api target.commons_lang
     api project(':LibCommon')
