@@ -63,7 +63,7 @@ public class SmartRefreshHeader extends RelativeLayout implements RefreshHeader 
     protected RefreshKernel mRefreshKernel;
     protected SpinnerStyle mSpinnerStyle = SpinnerStyle.Translate;
     protected DateFormat mFormat = new SimpleDateFormat(REFRESH_HEADER_LAST_TIME, Locale.CHINA);
-    protected int mFinishDuration = 2000;
+    protected int mFinishDuration = 500;
     protected int mBackgroundColor;
     protected boolean mEnableLastTime = true;
     protected AnimationDrawable frameAnim;

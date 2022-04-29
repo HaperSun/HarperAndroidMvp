@@ -121,7 +121,7 @@ public class RecyclerViewImageActivity extends BaseMvpActivity {
                 case AnyItem.TYPE2:
                     return new FooterHolder(LayoutInflater.from(context).inflate(R.layout.item_footer_layout, parent, false));
                 default:
-                    return new EmptyHolder(LayoutInflater.from(context).inflate(R.layout.item_empty, parent, false));
+                    return new EmptyHolder(LayoutInflater.from(context).inflate(R.layout.item_empty_layout, parent, false));
             }
         }
 
