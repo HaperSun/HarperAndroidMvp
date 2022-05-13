@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@color/page_base_color"
+        tools:context=".activity.bd.FaceHomepageActivity">
+
+        <RelativeLayout
+            android:id="@+id/relative_suc_head"
+            android:layout_width="@dimen/dp200"
+            android:layout_height="@dimen/dp220"
+            android:layout_centerInParent="true">
+
+            <com.sun.face.view.CircleImageView
+                android:id="@+id/circle_head"
+                android:layout_centerInParent="true"
+                android:layout_width="@dimen/dp200"
+                android:layout_height="@dimen/dp200" />
+
+            <ImageView
+                android:id="@+id/image_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="invisible"
+                android:src="@mipmap/icon_mask_success"/>
+
+            <ImageView
+                android:id="@+id/image_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:src="@mipmap/icon_success_star"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/but_start_setting"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:layout_margin="@dimen/dp15"
+            android:layout_above="@+id/but_start_detect"
+            android:background="@drawable/success_button_recollect_selector"
+            android:text="人脸识别（设置）"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/but_start_detect"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:layout_margin="@dimen/dp15"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/success_button_recollect_selector"
+            android:text="开始人脸识别"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</layout>

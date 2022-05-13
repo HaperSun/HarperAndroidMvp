@@ -12,4 +12,5 @@
     <string name="loading_image_failed">图片加载失败！</string>
     <string name="no_more">没有更多了~</string>
     <string name="no_content_now">暂时没有内容~~</string>
+    <string name="save">保存</string>
 </resources>

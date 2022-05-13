@@ -34,7 +34,7 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class BaseActivity extends AppCompatActivity implements IBaseView, IBaseActivity {
 
-    protected final String TAG = this.getClass().getName();
+    protected final String TAG = this.getClass().getSimpleName();
 
     protected FragmentManager fragmentManager;
 

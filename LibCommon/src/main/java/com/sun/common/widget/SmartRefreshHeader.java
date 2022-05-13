@@ -127,7 +127,8 @@ public class SmartRefreshHeader extends RelativeLayout implements RefreshHeader 
             setPrimaryColors(0, accentColor);
         }
         ta.recycle();
-        try {//try 不能删除-否则会出现兼容性问题
+        try {
+            //try 不能删除-否则会出现兼容性问题
             if (context instanceof FragmentActivity) {
                 FragmentManager manager = ((FragmentActivity) context).getSupportFragmentManager();
                 List<Fragment> fragments = manager.getFragments();
@@ -139,7 +140,7 @@ public class SmartRefreshHeader extends RelativeLayout implements RefreshHeader 
         } catch (Throwable e) {
             e.printStackTrace();
         }
-        KEY_LAST_UPDATE_TIME += context.getClass().getName();
+        KEY_LAST_UPDATE_TIME += context.getClass().getSimpleName();
         mShared = context.getSharedPreferences("ClassicsHeader", Context.MODE_PRIVATE);
         setLastUpdateTime(new Date(mShared.getLong(KEY_LAST_UPDATE_TIME, System.currentTimeMillis())));
     }

@@ -5,6 +5,7 @@
     <color name="transparent">#00000000</color>
     <color name="translucent">#80000000</color>
     <color name="grey">#0f1b1b1b</color>
+    <color name="page_base_color">#f9f9f9</color>
     <color name="color_C0E8FD">#C0E8FD</color>
     <color name="color_101010">#101010</color>
     <color name="color_666666">#666666</color>
@@ -12,5 +13,8 @@
     <color name="color_f0f0f0">#f0f0f0</color>
     <color name="color_1d1b1b">#1d1b1b</color>
     <color name="colorAccent">#08a1ef</color>
+    <color name="blue">#00BAF2</color>
     <color name="color_eee">#eee</color>
+    <color name="color_CCCCCC">#CCCCCC</color>
+    <color name="color_9EA0A3">#9EA0A3</color>
 </resources>

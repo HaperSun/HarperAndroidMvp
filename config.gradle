@@ -19,12 +19,8 @@ app.umeng_app_key = "6193821ce014255fcb7d1395"
 * 人脸识别 接口 https://aip.baidubce.com/rest/2.0/face/v3/search
 * 人脸注册 接口 https://aip.baidubce.com/rest/2.0/face/v3/faceset/user/add
 */
-app.bd_api_key = "TDTx4G8Wp3YfzeREPcNBqrGD"
-app.bd_secret_key = "auvQ8bP83FuSe8b6bGOj10BMyOGeyvxv"
 app.bd_license_id = "android-harper-cj-face-android"
 app.bd_license_file_name = "idl-license.face-android"
-app.bd_group_id = "26062776"
-
 
 config.app = app
 

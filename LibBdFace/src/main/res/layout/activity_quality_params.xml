@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/page_base_color"
+        tools:context=".QualityParamsActivity">
+
+        <RelativeLayout
+            android:id="@+id/agreement_layout"
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+            <ImageView
+                android:id="@+id/btn_quality_param_return"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="13dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:src="@drawable/setting_image_close_selector" />
+
+            <TextView
+                android:id="@+id/text_params_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:text="@string/save"
+                android:textColor="@color/color_9EA0A3"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp05"
+            android:layout_below="@id/agreement_layout"
+            android:background="#d8d8d8" />
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp20"
+                android:paddingEnd="@dimen/dp20"
+                android:paddingBottom="@dimen/dp15">
+
+                <!--最小光照值-->
+                <LinearLayout
+                    android:id="@+id/relative_min_illum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_layout_top_round"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp10">
+
+                    <TextView
+                        android:id="@+id/text_min_illum"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:text="@string/setting_params_min_illum"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <com.sun.face.view.AmountView
+                        android:id="@+id/amount_min_illum"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp15" />
+                </LinearLayout>
+
+                <!--最大光照值-->
+                <LinearLayout
+                    android:id="@+id/relative_max_illum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_layout_top_round"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp10">
+
+                    <TextView
+                        android:id="@+id/text_max_illum"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:text="@string/setting_params_max_illum"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <com.sun.face.view.AmountView
+                        android:id="@+id/amount_max_illum"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp15" />
+                </LinearLayout>
+
+                <!--模糊度-->
+                <LinearLayout
+                    android:id="@+id/relative_blur"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_layout_top_round"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp10">
+
+                    <TextView
+                        android:id="@+id/text_blur"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:text="@string/setting_params_blur"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <com.sun.face.view.AmountView
+                        android:id="@+id/amount_blur"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp15" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_occlu_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:layout_marginBottom="@dimen/dp20"
+                    android:text="@string/setting_occlu_tips"
+                    android:textColor="@color/color_9EA0A3"
+                    android:textSize="14sp" />
+
+                <!--左眼-->
+                <LinearLayout
+                    android:id="@+id/relative_left_eye"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_layout_top_round"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp10">
+
+                    <TextView
+                        android:id="@+id/text_left_eye"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:text="@string/setting_params_left_eye"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <com.sun.face.view.AmountView
+                        android:id="@+id/amount_left_eye"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp15" />
+                </LinearLayout>
+
+                <!--右眼-->
+                <LinearLayout
+                    android:id="@+id/relative_right_eye"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_layout_top_round"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp10">
+
+                    <TextView
+                        android:id="@+id/text_right_eye"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:text="@string/setting_params_right_eye"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <com.sun.face.view.AmountView
+                        android:id="@+id/amount_right_eye"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp15" />
+                </LinearLayout>
+
+                <!--鼻子-->
+                <LinearLayout
+                    android:id="@+id/relative_nose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_layout_top_round"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp10">
+
+                    <TextView
+                        android:id="@+id/text_nose"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:text="@string/setting_params_nose"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <com.sun.face.view.AmountView
+                        android:id="@+id/amount_nose"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp15" />
+                </LinearLayout>
+
+                <!--嘴巴-->
+                <LinearLayout
+                    android:id="@+id/relative_mouth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_layout_top_round"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp10">
+
+                    <TextView
+                        android:id="@+id/text_mouth"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:text="@string/setting_params_mouth"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <com.sun.face.view.AmountView
+                        android:id="@+id/amount_mouth"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp15" />
+                </LinearLayout>
+
+                <!--左脸颊-->
+                <LinearLayout
+                    android:id="@+id/relative_left_cheek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_layout_top_round"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp10">
+
+                    <TextView
+                        android:id="@+id/text_left_cheek"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:text="@string/setting_params_left_cheek"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <com.sun.face.view.AmountView
+                        android:id="@+id/amount_left_cheek"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp15" />
+                </LinearLayout>
+
+                <!--右脸颊-->
+                <LinearLayout
+                    android:id="@+id/relative_right_cheek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_layout_top_round"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp10">
+
+                    <TextView
+                        android:id="@+id/text_right_cheek"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:text="@string/setting_params_right_cheek"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <com.sun.face.view.AmountView
+                        android:id="@+id/amount_right_cheek"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp15" />
+                </LinearLayout>
+
+                <!--下巴-->
+                <LinearLayout
+                    android:id="@+id/relative_chin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_layout_top_round"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp10">
+
+                    <TextView
+                        android:id="@+id/text_chin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:text="@string/setting_params_chin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <com.sun.face.view.AmountView
+                        android:id="@+id/amount_chin"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp15" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_headpose_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:layout_marginBottom="@dimen/dp20"
+                    android:text="@string/setting_headpose_tips"
+                    android:textColor="@color/color_9EA0A3"
+                    android:textSize="14sp" />
+
+                <!--俯仰角-->
+                <LinearLayout
+                    android:id="@+id/relative_pitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_layout_top_round"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp10">
+
+                    <TextView
+                        android:id="@+id/text_pitch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:text="@string/setting_params_pitch"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <com.sun.face.view.AmountView
+                        android:id="@+id/amount_pitch"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp15" />
+                </LinearLayout>
+
+                <!--左右角-->
+                <LinearLayout
+                    android:id="@+id/relative_yaw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_layout_top_round"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp10">
+
+                    <TextView
+                        android:id="@+id/text_yaw"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:text="@string/setting_params_yaw"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <com.sun.face.view.AmountView
+                        android:id="@+id/amount_yaw"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp15" />
+                </LinearLayout>
+
+                <!--旋转角-->
+                <LinearLayout
+                    android:id="@+id/relative_roll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_layout_top_round"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp10">
+
+                    <TextView
+                        android:id="@+id/text_roll"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:layout_weight="1"
+                        android:text="@string/setting_params_roll"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <com.sun.face.view.AmountView
+                        android:id="@+id/amount_roll"
+                        android:layout_width="@dimen/dp200"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp15" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_default"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:layout_marginBottom="@dimen/dp20"
+                    android:background="@drawable/setting_layout_bottom_round"
+                    android:padding="@dimen/dp15"
+                    android:text="@string/setting_default_normal"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <View
+            android:id="@+id/view_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#7000"
+            android:visibility="gone" />
+    </RelativeLayout>
+</layout>

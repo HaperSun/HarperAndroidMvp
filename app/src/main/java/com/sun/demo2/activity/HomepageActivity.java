@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.net.exception.ApiException;
 import com.sun.demo2.R;
-import com.sun.demo2.activity.bd.DetectLoginActivity;
-import com.sun.demo2.activity.bd.RegisterActivity;
+import com.sun.demo2.activity.bd.FaceHomepageActivity;
 import com.sun.demo2.databinding.ActivityHomepageBinding;
 import com.sun.demo2.event.UpgradeApkDownloadSuccessEvent;
 import com.sun.demo2.update.UpdateService;
@@ -119,8 +118,7 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("腾讯地图");
         titles.add("腾讯地图  地图内置定位标及定位标点击");
         titles.add("LineChart  多条目折线图");
-        titles.add("baidu  注册face");
-        titles.add("baidu  识别face");
+        titles.add("baidu  人脸识别");
         return titles;
     }
 
@@ -223,10 +221,9 @@ public class HomepageActivity extends BaseMvpActivity {
                     MultiLineChartActivity.start(mContext);
                     break;
                 case 18:
-                    RegisterActivity.start(mContext);
+                    FaceHomepageActivity.start(mContext);
                     break;
                 case 19:
-                    DetectLoginActivity.start(mContext);
                     break;
                 default:
                     break;

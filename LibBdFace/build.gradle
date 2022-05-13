@@ -22,15 +22,15 @@ android {
         sourceCompatibility build_version.version_java
         targetCompatibility build_version.version_java
     }
+    //启动dataBinding
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
     implementation target.appcompat
-    api fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    compile files('libs/facesdk.jar')
-    compile files('libs/baidu_license.jar')
-    compile files('libs/ast.jar')
+    implementation target.material
+    api (fileTree(dir: 'libs'))
     implementation project(':LibBase')
 }
