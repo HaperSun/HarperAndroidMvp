@@ -3,11 +3,18 @@ package com.sun.demo2.activity.bd;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 import com.baidu.idl.face.platform.FaceStatusNewEnum;
 import com.baidu.idl.face.platform.model.ImageInfo;
 import com.sun.face.FaceLiveActivity;
+import com.sun.face.manager.APIService;
+import com.sun.face.manager.OnResultListener;
+import com.sun.face.model.FaceError;
+import com.sun.face.model.RegResult;
 import com.sun.face.util.FaceBitmapSaveUtils;
 import com.sun.face.view.TimeoutDialog;
 
@@ -17,6 +24,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author: Harper
+ * @date: 2022/5/17
+ * @note: 人脸采集
+ */
 public class FaceLiveExpendActivity extends FaceLiveActivity implements TimeoutDialog.OnTimeoutDialogClickListener {
 
     private TimeoutDialog mTimeoutDialog;
@@ -62,13 +74,13 @@ public class FaceLiveExpendActivity extends FaceLiveActivity implements TimeoutD
                 return Float.valueOf(score2).compareTo(Float.valueOf(score1));
             });
             // 获取抠图中的加密或非加密的base64
-//            int secType = mFaceConfig.getSecType();
-//            String base64;
-//            if (secType == 0) {
-//                base64 = list1.get(0).getValue().getBase64();
-//            } else {
-//                base64 = list1.get(0).getValue().getSecBase64();
-//            }
+            int secType = mFaceConfig.getSecType();
+            String base64;
+            if (secType == 0) {
+                base64 = list1.get(0).getValue().getBase64();
+            } else {
+                base64 = list1.get(0).getValue().getSecBase64();
+            }
         }
         // 将原图集合中的图片按照质量降序排序，最终选取质量最优的一张原图图片
         if (imageSrcMap != null && imageSrcMap.size() > 0) {
@@ -82,14 +94,18 @@ public class FaceLiveExpendActivity extends FaceLiveActivity implements TimeoutD
                 return Float.valueOf(score2).compareTo(Float.valueOf(score1));
             });
             bmpStr = list2.get(0).getValue().getBase64();
-            // 获取原图中的加密或非加密的base64
-//            int secType = mFaceConfig.getSecType();
-//            String base64;
-//            if (secType == 0) {
-//                base64 = mBmpStr;
-//            } else {
-//                base64 = list2.get(0).getValue().getBase64();
-//            }
+            //请求网络
+            APIService.getInstance().record(new OnResultListener<RegResult>() {
+                @Override
+                public void onResult(@NonNull RegResult result) {
+                    Log.i("result", "->" + result.getJsonRes());
+                }
+
+                @Override
+                public void onError(FaceError error) {
+                    Log.i("error", "->error");
+                }
+            }, "",  "", bmpStr);
         }
         // 页面跳转
         FaceBitmapSaveUtils.getInstance().setBitmap(bmpStr);

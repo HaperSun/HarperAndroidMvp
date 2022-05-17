@@ -15,11 +15,14 @@ import com.sun.face.manager.QualityConfigManager;
 import com.sun.face.model.FaceConst;
 import com.sun.face.model.QualityConfig;
 import com.sun.face.util.FaceSpUtil;
-
+/**
+ * @author: Harper
+ * @date: 2022/5/13
+ * @note: 质量控制页面
+ */
 public class QualityControlActivity extends BaseMvpActivity implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
 
-    private static final String TAG = QualityControlActivity.class.getSimpleName();
     private String mSelectQuality;
     private Context mContext;
     private FaceSpUtil mFaceSpUtil;

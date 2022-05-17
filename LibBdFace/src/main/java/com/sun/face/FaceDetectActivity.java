@@ -57,16 +57,16 @@ public class FaceDetectActivity extends BaseMvpActivity implements SurfaceHolder
     protected SurfaceHolder mSurfaceHolder;
     // 人脸信息
     protected FaceConfig mFaceConfig;
-    protected IDetectStrategy mIDetectStrategy;
+    protected IDetectStrategy iDetectStrategy;
     // 显示Size
-    private Rect mPreviewRect = new Rect();
+    private final Rect mPreviewRect = new Rect();
     protected int mDisplayWidth = 0;
     protected int mDisplayHeight = 0;
     protected int mSurfaceWidth = 0;
     protected int mSurfaceHeight = 0;
     // 状态标识
     protected volatile boolean mIsEnableSound = true;
-    protected HashMap<String, String> mBase64ImageMap = new HashMap<String, String>();
+    protected HashMap<String, String> mBase64ImageMap = new HashMap<>();
     protected boolean mIsCreateSurface = false;
     protected volatile boolean mIsCompletion = false;
     // 相机
@@ -119,8 +119,8 @@ public class FaceDetectActivity extends BaseMvpActivity implements SurfaceHolder
         bind.detectSound.setOnClickListener(v -> {
             mIsEnableSound = !mIsEnableSound;
             bind.detectSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2 : R.drawable.collect_image_voice_selector);
-            if (mIDetectStrategy != null) {
-                mIDetectStrategy.setDetectStrategySoundEnable(mIsEnableSound);
+            if (iDetectStrategy != null) {
+                iDetectStrategy.setDetectStrategySoundEnable(mIsEnableSound);
             }
         });
         if (mBase64ImageMap != null) {
@@ -152,8 +152,8 @@ public class FaceDetectActivity extends BaseMvpActivity implements SurfaceHolder
 
     @Override
     public void onPause() {
-        if (mIDetectStrategy != null) {
-            mIDetectStrategy.reset();
+        if (iDetectStrategy != null) {
+            iDetectStrategy.reset();
         }
         super.onPause();
         VolumeUtils.unRegisterVolumeReceiver(this, mVolumeReceiver);
@@ -180,8 +180,8 @@ public class FaceDetectActivity extends BaseMvpActivity implements SurfaceHolder
                 int cv = am.getStreamVolume(AudioManager.STREAM_MUSIC);
                 mIsEnableSound = cv > 0;
                 bind.detectSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2 : R.mipmap.icon_titlebar_voice1);
-                if (mIDetectStrategy != null) {
-                    mIDetectStrategy.setDetectStrategySoundEnable(mIsEnableSound);
+                if (iDetectStrategy != null) {
+                    iDetectStrategy.setDetectStrategySoundEnable(mIsEnableSound);
                 }
             }
         } catch (Exception ex) {
@@ -242,8 +242,8 @@ public class FaceDetectActivity extends BaseMvpActivity implements SurfaceHolder
         // 设置后无效，camera.setDisplayOrientation方法有效
         mCameraParam.set("rotation", degree);
         mPreviewDegree = degree;
-        if (mIDetectStrategy != null) {
-            mIDetectStrategy.setPreviewDegree(degree);
+        if (iDetectStrategy != null) {
+            iDetectStrategy.setPreviewDegree(degree);
         }
         Point point = CameraPreviewUtils.getBestPreview(mCameraParam,
                 new Point(mDisplayWidth, mDisplayHeight));
@@ -284,9 +284,9 @@ public class FaceDetectActivity extends BaseMvpActivity implements SurfaceHolder
         if (mSurfaceHolder != null) {
             mSurfaceHolder.removeCallback(this);
         }
-        if (mIDetectStrategy != null) {
-            mIDetectStrategy.reset();
-            mIDetectStrategy = null;
+        if (iDetectStrategy != null) {
+            iDetectStrategy.reset();
+            iDetectStrategy = null;
         }
     }
 
@@ -350,15 +350,15 @@ public class FaceDetectActivity extends BaseMvpActivity implements SurfaceHolder
         if (mIsCompletion) {
             return;
         }
-        if (mIDetectStrategy == null && bind.detectFaceRound.getRound() > 0) {
-            mIDetectStrategy = FaceSDKManager.getInstance().getDetectStrategyModule();
-            mIDetectStrategy.setPreviewDegree(mPreviewDegree);
-            mIDetectStrategy.setDetectStrategySoundEnable(mIsEnableSound);
+        if (iDetectStrategy == null && bind.detectFaceRound.getRound() > 0) {
+            iDetectStrategy = FaceSDKManager.getInstance().getDetectStrategyModule();
+            iDetectStrategy.setPreviewDegree(mPreviewDegree);
+            iDetectStrategy.setDetectStrategySoundEnable(mIsEnableSound);
             Rect detectRect = FaceDetectRoundView.getPreviewDetectRect(mDisplayWidth, mPreviewHight, mPreviewWidth);
-            mIDetectStrategy.setDetectStrategyConfig(mPreviewRect, detectRect, this);
+            iDetectStrategy.setDetectStrategyConfig(mPreviewRect, detectRect, this);
         }
-        if (mIDetectStrategy != null) {
-            mIDetectStrategy.detectStrategy(data);
+        if (iDetectStrategy != null) {
+            iDetectStrategy.detectStrategy(data);
         }
     }
 

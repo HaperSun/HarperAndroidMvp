@@ -24,10 +24,14 @@ import org.json.JSONObject;
 
 import java.io.File;
 
+/**
+ * @author: Harper
+ * @date: 2022/5/13
+ * @note: 质量参数页面
+ */
 public class QualityParamsActivity extends BaseMvpActivity implements View.OnClickListener,
         SelectDialog.OnSelectDialogClickListener {
 
-    private static final String TAG = QualityParamsActivity.class.getSimpleName();
     private FaceConfig mConfig;
     private float mMinIllum;
     private float mMaxIllum;
@@ -230,15 +234,13 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
                 showMessageDialog(R.string.dialog_is_save_modify, R.string.dialog_tips3, R.string.dialog_button_exit,
                         R.string.dialog_button_save, FaceConst.DIALOG_SAVE_CUSTOM_MODIFY);
             } else {
-                showMessageDialog(R.string.dialog_is_save_custom,
-                        R.string.dialog_tips1, R.string.dialog_button_exit,
+                showMessageDialog(R.string.dialog_is_save_custom, R.string.dialog_tips1, R.string.dialog_button_exit,
                         R.string.dialog_button_save_custom, FaceConst.DIALOG_SAVE_RETURN_BUTTON);
             }
         } else if (vId == R.id.text_save) {
             // 如果参数未改动
             if (judgeIsModified()) {
-                showMessageDialog(R.string.dialog_is_save_custom,
-                        R.string.dialog_tips1, R.string.cancel,
+                showMessageDialog(R.string.dialog_is_save_custom, R.string.dialog_tips1, R.string.cancel,
                         R.string.dialog_button_save_custom, FaceConst.DIALOG_SAVE_SAVE_BUTTON);
             }
         } else if (vId == R.id.text_default) {
@@ -255,8 +257,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
                 } else if (title.contains("严格")) {
                     id = R.string.dialog_is_high_default;
                 }
-                showMessageDialog(id, R.string.dialog_tips2, R.string.cancel,
-                        R.string.dialog_button_default, FaceConst.DIALOG_RESET_DEFAULT);
+                showMessageDialog(id, R.string.dialog_tips2, R.string.cancel, R.string.dialog_button_default, FaceConst.DIALOG_RESET_DEFAULT);
             }
         }
     }

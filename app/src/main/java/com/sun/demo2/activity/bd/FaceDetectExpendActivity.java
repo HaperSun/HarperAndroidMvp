@@ -17,7 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FaceDetectExpendActivity extends FaceDetectActivity implements TimeoutDialog.OnTimeoutDialogClickListener{
+/**
+ * @author: Harper
+ * @date: 2022/5/17
+ * @note: 人脸快速识别
+ */
+public class FaceDetectExpendActivity extends FaceDetectActivity implements TimeoutDialog.OnTimeoutDialogClickListener {
 
     private TimeoutDialog mTimeoutDialog;
 
@@ -43,6 +48,7 @@ public class FaceDetectExpendActivity extends FaceDetectActivity implements Time
 
     /**
      * 获取最优图片
+     *
      * @param imageCropMap 抠图集合
      * @param imageSrcMap  原图集合
      */

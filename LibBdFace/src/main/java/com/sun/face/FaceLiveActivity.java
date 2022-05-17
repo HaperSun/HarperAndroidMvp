@@ -70,9 +70,11 @@ public class FaceLiveActivity extends BaseMvpActivity implements SurfaceHolder.C
     public View mViewBg;
     // 人脸信息
     protected FaceConfig mFaceConfig;
-    protected ILivenessStrategy mILivenessStrategy;
-    // 显示Size
-    private Rect mPreviewRect = new Rect();
+    protected ILivenessStrategy iLiveNessStrategy;
+    /**
+     * 显示Size
+     */
+    private final Rect mPreviewRect = new Rect();
     protected int mDisplayWidth = 0;
     protected int mDisplayHeight = 0;
     protected int mSurfaceWidth = 0;
@@ -94,7 +96,6 @@ public class FaceLiveActivity extends BaseMvpActivity implements SurfaceHolder.C
     private AnimationDrawable mAnimationDrawable;
     private LivenessTypeEnum mLivenessType = null;
     private ActivityFaceLivenessBinding bind;
-
 
     @Override
     public int layoutId() {
@@ -135,8 +136,8 @@ public class FaceLiveActivity extends BaseMvpActivity implements SurfaceHolder.C
             mIsEnableSound = !mIsEnableSound;
             bind.livenessSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2
                     : R.drawable.collect_image_voice_selector);
-            if (mILivenessStrategy != null) {
-                mILivenessStrategy.setLivenessStrategySoundEnable(mIsEnableSound);
+            if (iLiveNessStrategy != null) {
+                iLiveNessStrategy.setLivenessStrategySoundEnable(mIsEnableSound);
             }
         });
         addImageView();
@@ -196,8 +197,8 @@ public class FaceLiveActivity extends BaseMvpActivity implements SurfaceHolder.C
 
     @Override
     public void onPause() {
-        if (mILivenessStrategy != null) {
-            mILivenessStrategy.reset();
+        if (iLiveNessStrategy != null) {
+            iLiveNessStrategy.reset();
         }
         VolumeUtils.unRegisterVolumeReceiver(this, mVolumeReceiver);
         mVolumeReceiver = null;
@@ -227,8 +228,8 @@ public class FaceLiveActivity extends BaseMvpActivity implements SurfaceHolder.C
                 mIsEnableSound = cv > 0;
                 bind.livenessSound.setImageResource(mIsEnableSound
                         ? R.mipmap.icon_titlebar_voice2 : R.mipmap.icon_titlebar_voice1);
-                if (mILivenessStrategy != null) {
-                    mILivenessStrategy.setLivenessStrategySoundEnable(mIsEnableSound);
+                if (iLiveNessStrategy != null) {
+                    iLiveNessStrategy.setLivenessStrategySoundEnable(mIsEnableSound);
                 }
             }
         } catch (Exception ex) {
@@ -294,8 +295,8 @@ public class FaceLiveActivity extends BaseMvpActivity implements SurfaceHolder.C
         mPreviewHight = point.y;
         // Log.e(TAG, "x = " + mPreviewWidth + " y = " + mPreviewHight);
         // Preview 768,432
-        if (mILivenessStrategy != null) {
-            mILivenessStrategy.setPreviewDegree(degree);
+        if (iLiveNessStrategy != null) {
+            iLiveNessStrategy.setPreviewDegree(degree);
         }
         mPreviewRect.set(0, 0, mPreviewHight, mPreviewWidth);
         mCameraParam.setPreviewSize(mPreviewWidth, mPreviewHight);
@@ -329,8 +330,8 @@ public class FaceLiveActivity extends BaseMvpActivity implements SurfaceHolder.C
         if (mSurfaceHolder != null) {
             mSurfaceHolder.removeCallback(this);
         }
-        if (mILivenessStrategy != null) {
-            mILivenessStrategy = null;
+        if (iLiveNessStrategy != null) {
+            iLiveNessStrategy = null;
         }
     }
 
@@ -394,15 +395,15 @@ public class FaceLiveActivity extends BaseMvpActivity implements SurfaceHolder.C
         if (mIsCompletion) {
             return;
         }
-        if (mILivenessStrategy == null) {
-            mILivenessStrategy = FaceSDKManager.getInstance().getLivenessStrategyModule(this);
-            mILivenessStrategy.setPreviewDegree(mPreviewDegree);
-            mILivenessStrategy.setLivenessStrategySoundEnable(mIsEnableSound);
+        if (iLiveNessStrategy == null) {
+            iLiveNessStrategy = FaceSDKManager.getInstance().getLivenessStrategyModule(this);
+            iLiveNessStrategy.setPreviewDegree(mPreviewDegree);
+            iLiveNessStrategy.setLivenessStrategySoundEnable(mIsEnableSound);
             Rect detectRect = FaceDetectRoundView.getPreviewDetectRect(mDisplayWidth, mPreviewHight, mPreviewWidth);
-            mILivenessStrategy.setLivenessStrategyConfig(mFaceConfig.getLivenessTypeList(), mPreviewRect,
+            iLiveNessStrategy.setLivenessStrategyConfig(mFaceConfig.getLivenessTypeList(), mPreviewRect,
                     detectRect, this);
         }
-        mILivenessStrategy.livenessStrategy(data);
+        iLiveNessStrategy.livenessStrategy(data);
     }
 
     @Override
