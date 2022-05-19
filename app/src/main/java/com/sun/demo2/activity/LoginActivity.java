@@ -189,6 +189,6 @@ public class LoginActivity extends BaseMvpActivity implements ILoginView, NetSta
 
     @Override
     public void onGetRiskListError(ApiException e) {
-        System.out.print(e);
+        System.out.print(e.getDisplayMessage());
     }
 }

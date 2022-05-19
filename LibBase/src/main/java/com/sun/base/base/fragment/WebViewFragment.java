@@ -29,29 +29,29 @@ import com.sun.base.util.LogHelper;
 public class WebViewFragment extends BaseMvpFragment {
 
     protected WebViewX mWebViewX;
-    private ProgressBar mProgressBar;//加载进度条
-    private View mWebLoadFailContainer;//网页加载失败显示
-    /**
-     * 收到错误消息后，onPageStart，mFinishCount加载的序号
-     */
+    //加载进度条
+    private ProgressBar mProgressBar;
+    //网页加载失败显示
+    private View mWebLoadFailContainer;
+    //收到错误消息后，onPageStart，mFinishCount加载的序号
     private int mFailStartNum = -1;
     private int mFailFinishNum = -1;
-    /**
-     * 当前onPageStart序号，每次调用后+1
-     */
+    //当前onPageStart序号，每次调用后+1
     private int mStartCount = 0;
-    /**
-     * 当前onPageFinish序号
-     */
+    //当前onPageFinish序号
     private int mFinishCount = 0;
     private boolean mHasEnterPageFinished;
-    private int mRedirectedCount = 0;//记录302重定向数量的
+    //记录302重定向数量的
+    private int mRedirectedCount = 0;
     private OnInitViewCompleteListener mOnInitViewCompleteListener;
     private OnWebLoadCompleteListener mOnWebLoadCompleteListener;
     private OnWebScrollBottomListener mOnWebScrollBottomListener;
-    public String mUrl;//要加载的url
-    public boolean mNeedSupportZoom = false;//是否支持缩放
-    public boolean mShowProgressBar = false;//是否展示进度条
+    //要加载的url
+    public String mUrl;
+    //是否支持缩放
+    public boolean mNeedSupportZoom = false;
+    //是否展示进度条
+    public boolean mShowProgressBar = false;
 
     @Override
     public int layoutId() {

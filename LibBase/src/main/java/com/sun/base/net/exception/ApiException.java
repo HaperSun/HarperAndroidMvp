@@ -8,7 +8,7 @@ import android.text.TextUtils;
  * @note:
  */
 public class ApiException extends Exception {
-    private int code;
+    private final int code;
     private String displayMessage;
 
     public ApiException(Throwable throwable, int code) {
