@@ -28,38 +28,6 @@ public interface IBaseView {
     void addDisposable(Disposable disposable);
 
     /**
-     * 显示进度条
-     *
-     * @param flag    是否可取消
-     * @param message 要显示的信息
-     */
-    void showProgress(boolean flag, String message);
-
-    /**
-     * 显示可取消的进度条
-     *
-     * @param message 要显示的信息
-     */
-    void showProgress(String message);
-
-    /**
-     * 显示可取消的无文字进度条
-     */
-    void showProgress();
-
-    /**
-     * 显示无文字进度条
-     *
-     * @param flag 是否可取消
-     */
-    void showProgress(boolean flag);
-
-    /**
-     * 隐藏进度条
-     */
-    void hideProgress();
-
-    /**
      * 根据资源文件id弹出toast
      *
      * @param resId 资源文件id

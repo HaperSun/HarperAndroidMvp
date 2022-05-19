@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -25,7 +26,6 @@ public class LoadingDialog extends Dialog {
 
     private ImageView mIvLoading;
     private TextView mTvTitle;
-    private RotateAnimation mRotateAnimation;
 
     private boolean isCanceledOnTouchOutside = false;
     private boolean isCancelable = false;
@@ -78,14 +78,22 @@ public class LoadingDialog extends Dialog {
     public void setTitle(CharSequence title) {
         this.title = title;
         if (isShowing()) {
-            mTvTitle.setText(title);
+            if (TextUtils.isEmpty(title)){
+                mTvTitle.setVisibility(View.GONE);
+            }else {
+                mTvTitle.setVisibility(View.VISIBLE);
+                mTvTitle.setText(title);
+            }
         }
     }
 
     @Override
     public void show() {
         super.show();
-        if (!TextUtils.isEmpty(title)) {
+        if (TextUtils.isEmpty(title)){
+            mTvTitle.setVisibility(View.GONE);
+        }else {
+            mTvTitle.setVisibility(View.VISIBLE);
             mTvTitle.setText(title);
         }
         startAnimation();
@@ -96,17 +104,17 @@ public class LoadingDialog extends Dialog {
      */
     private void startAnimation() {
         mIvLoading.measure(0, 0);
-        mRotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF,
-                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        mRotateAnimation.setInterpolator(new LinearInterpolator());
-        mRotateAnimation.setDuration(1000);
-        mRotateAnimation.setRepeatCount(-1);
-        mIvLoading.startAnimation(mRotateAnimation);
+        RotateAnimation rotateAnimation = new RotateAnimation(0, 360,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setInterpolator(new LinearInterpolator());
+        rotateAnimation.setDuration(1000);
+        rotateAnimation.setRepeatCount(-1);
+        mIvLoading.startAnimation(rotateAnimation);
     }
 
     public static class Builder {
 
-        private LoadingDialog mLoadingDialog;
+        private final LoadingDialog mLoadingDialog;
 
         public Builder(Context context) {
             mLoadingDialog = new LoadingDialog(context);

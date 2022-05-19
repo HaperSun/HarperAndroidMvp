@@ -18,9 +18,8 @@ import java.util.Set;
 /**
  * @author: Harper
  * @date: 2021/11/12
- * @note:
+ * @note: 基于MVP模式对BaseActivity进行封装
  */
-
 public abstract class BaseMvpActivity extends BaseActivity implements IAddPresenterView {
 
     private Set<BasePresenter> mPresenters;

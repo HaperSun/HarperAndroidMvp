@@ -14,7 +14,6 @@ import com.sun.img.preview.ImagePreviewActivity;
  */
 public class TestWebViewFragment extends WebViewFragment {
 
-    private static final String TAG = TestWebViewFragment.class.getName();
     private static final String ANSWER_LIST_URL = "/answersDetail";
 
     public static TestWebViewFragment newInstance() {

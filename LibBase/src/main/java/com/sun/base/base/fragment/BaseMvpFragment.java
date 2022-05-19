@@ -21,8 +21,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 新建Presenter 需调用{@link #addPresenter(BasePresenter)} <br/>
- * A simple {@link androidx.fragment.app.Fragment} subclass.
+ * @author: Harper
+ * @date: 2022/5/18
+ * @note: 基于MVP模式对BaseFragment进行封装
  */
 public abstract class BaseMvpFragment extends BaseFragment implements IAddPresenterView {
 
@@ -68,9 +69,10 @@ public abstract class BaseMvpFragment extends BaseFragment implements IAddPresen
         return mRootView;
     }
 
-    public void initBundle() { }
+    public void initBundle() {
+    }
 
-    private void initMultiClick(){
+    private void initMultiClick() {
         if (!setMotionEventSplittingEnabled() && mRootView instanceof ViewGroup) {
             //设置不可以多点点击
             CommonUtils.setMotionEventSplittingEnabled((ViewGroup) mRootView, false);

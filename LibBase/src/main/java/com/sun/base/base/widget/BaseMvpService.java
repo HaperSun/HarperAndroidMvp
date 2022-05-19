@@ -62,31 +62,6 @@ public class BaseMvpService extends Service implements IAddPresenterView {
     }
 
     @Override
-    public void showProgress(boolean flag, String message) {
-
-    }
-
-    @Override
-    public void showProgress(String message) {
-
-    }
-
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void showProgress(boolean flag) {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
-    }
-
-    @Override
     public void showToast(int resId) {
 
     }

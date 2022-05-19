@@ -19,20 +19,17 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 /**
- * A simple {@link androidx.fragment.app.Fragment} subclass.
- *  解决 Can not perform this action  after onSaveInstanceState
- * 参考类 ResolveShowBugDialogFragment
+ * @author: Harper
+ * @date: 2022/5/18
+ * @note: fragment 基类
  */
 public abstract class BaseFragment extends BaseDialogFragment implements IBaseView, IBaseFragment {
 
-
     protected final String TAG = getClass().getSimpleName();
-
     protected BaseActivity mActivity;
-
     // 一次性对象容器
     private CompositeDisposable mCompositeDisposable;
-
+    protected LoadingDialog mLoadingDialog;
 
     public BaseFragment() {
         // Required empty public constructor
@@ -62,41 +59,6 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
      */
     private boolean getStatus() {
         return (isAdded() && !isRemoving());
-    }
-
-    @Override
-    public void showProgress(boolean flag, String message) {
-        if (getStatus()) {
-            BaseActivity activity = getBaseActivity();
-            if (activity != null) {
-                activity.showProgress(flag, message);
-            }
-        }
-    }
-
-    @Override
-    public void showProgress(String message) {
-        showProgress(true, message);
-    }
-
-    @Override
-    public void showProgress() {
-        showProgress(true);
-    }
-
-    @Override
-    public void showProgress(boolean flag) {
-        showProgress(flag, "正在处理，请稍后...");
-    }
-
-    @Override
-    public void hideProgress() {
-        if (getStatus()) {
-            BaseActivity activity = getBaseActivity();
-            if (activity != null) {
-                activity.hideProgress();
-            }
-        }
     }
 
     @Override
@@ -134,7 +96,7 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
      *
      * @param resId
      */
-    protected void showToastSucType(int resId) {
+    protected void showToastSuccess(int resId) {
         if (getStatus()) {
             BaseActivity activity = getBaseActivity();
             if (activity != null) {
@@ -148,7 +110,7 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
      *
      * @param msg
      */
-    protected void showToastSucType(String msg) {
+    protected void showToastSuccess(String msg) {
         if (getStatus()) {
             BaseActivity activity = getBaseActivity();
             if (activity != null) {
@@ -162,7 +124,7 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
      *
      * @param msg
      */
-    protected void showLongToastSucType(String msg) {
+    protected void showLongToastSuccess(String msg) {
         if (getStatus()) {
             BaseActivity activity = getBaseActivity();
             if (activity != null) {
@@ -185,7 +147,6 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
 
     @Override
     public void close() {
-
     }
 
     @Subscribe
@@ -193,37 +154,35 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
         // do nothing
     }
 
-    protected LoadingDialog mDefaultLoadingDialog;
-
-    protected void dismissDefaultLoadingDialog() {
-        if (mDefaultLoadingDialog != null && mDefaultLoadingDialog.isShowing()) {
-            mDefaultLoadingDialog.dismiss();
+    protected void dismissLoadingDialog() {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
         }
     }
 
-    protected void showDefaultLoadingDialog(CharSequence title) {
-        if (mDefaultLoadingDialog == null) {
-            mDefaultLoadingDialog = new LoadingDialog.Builder(getActivity())
+    protected void showLoadingDialog(CharSequence title) {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new LoadingDialog.Builder(getActivity())
                     .setCanceledOnTouchOutside(false)
                     .setCancelable(false)
                     .build();
         }
-        mDefaultLoadingDialog.setTitle(title);
-        mDefaultLoadingDialog.show();
+        mLoadingDialog.setTitle(title);
+        mLoadingDialog.show();
     }
 
-    protected void showDefaultLoadingDialog(@StringRes int titleResId) {
-        showDefaultLoadingDialog(getString(titleResId));
+    protected void showLoadingDialog(@StringRes int titleResId) {
+        showLoadingDialog(getString(titleResId));
     }
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         // 放弃异步请求，可根据需求修改代码执行位置
         if (mCompositeDisposable != null) {
             mCompositeDisposable.dispose();
             mCompositeDisposable = null;
         }
+        super.onDestroyView();
     }
 
     @Override

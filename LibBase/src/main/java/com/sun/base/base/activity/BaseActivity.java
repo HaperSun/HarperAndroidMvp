@@ -1,6 +1,5 @@
 package com.sun.base.base.activity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -22,6 +21,7 @@ import com.sun.base.util.CommonUtils;
 import com.sun.common.toast.CustomToast;
 import com.sun.common.toast.ToastHelper;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -30,27 +30,34 @@ import io.reactivex.disposables.Disposable;
 /**
  * @author: Harper
  * @date: 2021/11/16
- * @note: activity 的基类
+ * @note: activity 基类
  */
 public abstract class BaseActivity extends AppCompatActivity implements IBaseView, IBaseActivity {
 
     protected final String TAG = this.getClass().getSimpleName();
-
-    protected FragmentManager fragmentManager;
-
-    protected ProgressDialog mProgressDialog;
-
-    protected boolean needClickHideSoftInput = true;
-
-    /**
-     * 一次性对象容器
-     */
+    protected FragmentManager mFragmentManager;
+    //如果点击空白处不需要立即隐藏键盘，则给该变量赋值false
+    public boolean needClickHideSoftInput = true;
+    //一次性对象容器
     private CompositeDisposable mCompositeDisposable;
+    protected LoadingDialog mLoadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fragmentManager = getSupportFragmentManager();
+        mFragmentManager = getSupportFragmentManager();
+        if (enableEventBus()) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    /**
+     * 是否支持EventBus
+     *
+     * @return 支持EventBus
+     */
+    protected boolean enableEventBus() {
+        return false;
     }
 
     /**
@@ -78,6 +85,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
     /**
      * 判定是否需要隐藏
+     *
      * @param v
      * @param ev
      * @return
@@ -90,62 +98,21 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         if (v instanceof EditText) {
             int[] l = {0, 0};
             v.getLocationInWindow(l);
-            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left
-                    + v.getWidth();
-            return !(ev.getX() > left && ev.getX() < right && ev.getY() > top
-                    && ev.getY() < bottom);
+            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left + v.getWidth();
+            return !(ev.getX() > left && ev.getX() < right && ev.getY() > top && ev.getY() < bottom);
         }
         return false;
     }
 
     /**
      * 隐藏软键盘
+     *
      * @param token
      */
     private void hideSoftInput(IBinder token) {
         if (token != null) {
             InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             manager.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
-
-    @Override
-    public void showProgress(boolean flag, String message) {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            mProgressDialog.setCancelable(flag);
-            mProgressDialog.setCanceledOnTouchOutside(false);
-            mProgressDialog.setMessage(message);
-        } else {
-            mProgressDialog.setMessage(message);
-        }
-        mProgressDialog.show();
-    }
-
-    @Override
-    public void showProgress(String message) {
-        showProgress(true, message);
-    }
-
-    @Override
-    public void showProgress() {
-        showProgress(true);
-    }
-
-    @Override
-    public void showProgress(boolean flag) {
-        showProgress(flag, "正在处理，请稍后...");
-    }
-
-    @Override
-    public void hideProgress() {
-        if (mProgressDialog == null) {
-            return;
-        }
-
-        if (mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
         }
     }
 
@@ -225,7 +192,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        if (!disableOnSaveInstanceState()) {//注释掉，解决内存不足回来一些奇怪问题
+        //注释掉，解决内存不足回来一些奇怪问题
+        if (!disableOnSaveInstanceState()) {
             super.onSaveInstanceState(outState);
         }
     }
@@ -238,8 +206,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     protected boolean disableOnSaveInstanceState() {
         return true;
     }
-
-    protected LoadingDialog mLoadingDialog;
 
     protected void dismissLoadingDialog() {
         if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
@@ -270,6 +236,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     protected void onDestroy() {
         if (mCompositeDisposable != null) {
             mCompositeDisposable.dispose();
+        }
+        if (enableEventBus()) {
+            EventBus.getDefault().register(this);
         }
         super.onDestroy();
     }
