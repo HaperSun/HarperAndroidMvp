@@ -19,8 +19,8 @@ import com.sun.common.widget.FooterHolder;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityRecyclerViewImageBinding;
 import com.sun.demo2.model.ImgItemBean;
-import com.sun.img.img.ImgLoader;
-import com.sun.img.preview.ImagePreviewActivity;
+import com.sun.media.img.ImgLoader;
+import com.sun.media.preview.ImagePreviewActivity;
 
 import java.util.ArrayList;
 import java.util.List;

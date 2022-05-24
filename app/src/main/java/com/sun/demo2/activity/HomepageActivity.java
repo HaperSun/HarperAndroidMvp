@@ -119,6 +119,7 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("腾讯地图  地图内置定位标及定位标点击");
         titles.add("LineChart  多条目折线图");
         titles.add("baidu  人脸识别");
+        titles.add("视频播放");
         return titles;
     }
 
@@ -224,6 +225,7 @@ public class HomepageActivity extends BaseMvpActivity {
                     FaceHomepageActivity.start(mContext);
                     break;
                 case 19:
+                    VideoPlayerActivity.start(mContext);
                     break;
                 default:
                     break;

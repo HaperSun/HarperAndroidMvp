@@ -22,8 +22,8 @@ import com.sun.demo2.iview.ILoginView;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.present.LoginPresenter;
 import com.sun.demo2.sp.LoginInfoSp;
-import com.sun.img.img.ImgLoader;
-import com.sun.img.preview.ImagePreviewActivity;
+import com.sun.media.img.ImgLoader;
+import com.sun.media.preview.ImagePreviewActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,5 +1,7 @@
 package com.sun.demo2.activity.bd;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,6 +20,7 @@ import com.baidu.idl.face.platform.listener.IInitCallback;
 import com.baidu.idl.face.platform.utils.Base64Utils;
 import com.baidu.idl.face.platform.utils.DensityUtils;
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.common.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityFaceHomepageBinding;
 import com.sun.face.FaceDetectSettingActivity;
@@ -25,8 +28,9 @@ import com.sun.face.manager.QualityConfigManager;
 import com.sun.face.model.FaceConst;
 import com.sun.face.model.FaceInitBean;
 import com.sun.face.model.QualityConfig;
-import com.sun.face.util.FaceSpUtil;
 import com.sun.face.util.FaceBitmapSaveUtils;
+import com.sun.face.util.FaceSpUtil;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 public class FaceHomepageActivity extends BaseMvpActivity implements View.OnClickListener{
 
@@ -60,6 +64,7 @@ public class FaceHomepageActivity extends BaseMvpActivity implements View.OnClic
 
     @Override
     public void initData() {
+        requestPermission();
         boolean success = setFaceConfig();
         if (!success) {
             showToast("初始化失败 = json配置文件解析出错");
@@ -91,10 +96,19 @@ public class FaceHomepageActivity extends BaseMvpActivity implements View.OnClic
                 });
     }
 
+    @SuppressLint("CheckResult")
+    private void requestPermission() {
+        new RxPermissions(this).request(Manifest.permission.CAMERA).subscribe(aBoolean -> {
+            if (!aBoolean) {
+                ToastHelper.showCommonToast("请在设置中手动打开相机权限！");
+            }
+        });
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // 释放
+        // 有多处人脸识别时，不要随便释放，否则会出现莫名其妙的bug
         FaceSDKManager.getInstance().release();
         FaceBitmapSaveUtils.getInstance().release();
     }

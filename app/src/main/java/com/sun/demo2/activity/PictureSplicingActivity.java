@@ -51,7 +51,7 @@ public class PictureSplicingActivity extends BaseMvpActivity {
     @Override
     public void initData() {
         mBind.container.setOnClickListener(v -> {
-            new BottomDialogFragment.Builder().addDialogItem(new BottomDialogFragment.DialogItem(getResources().getString(com.sun.img.R.string.save_to_album),
+            new BottomDialogFragment.Builder().addDialogItem(new BottomDialogFragment.DialogItem(getResources().getString(com.sun.media.R.string.save_to_album),
                     view1 -> {
                         if (PermissionUtil.checkStorage()) {
                             saveImage();
