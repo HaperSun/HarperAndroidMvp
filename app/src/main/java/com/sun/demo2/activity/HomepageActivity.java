@@ -120,6 +120,7 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("LineChart  多条目折线图");
         titles.add("baidu  人脸识别");
         titles.add("视频播放");
+        titles.add("仿照百度地图的上层地址列表的上拉、下拉的拖动效果");
         return titles;
     }
 
@@ -226,6 +227,9 @@ public class HomepageActivity extends BaseMvpActivity {
                     break;
                 case 19:
                     VideoPlayerActivity.start(mContext);
+                    break;
+                case 20:
+                    CustomScrollLayoutActivity.start(mContext);
                     break;
                 default:
                     break;

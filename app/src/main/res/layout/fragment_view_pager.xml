@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/bg_girl"
+            android:scaleType="centerCrop" />
+
+        <com.sun.common.widget.ScrollLayout
+            android:id="@+id/scroll_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.sun.common.widget.ScrollTextView
+                    android:id="@+id/scroll_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="上滑展开更多列表"
+                    android:textColor="#000000"
+                    android:textSize="12dp" />
+
+                <Button
+                    android:id="@+id/news"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40"
+                    android:background="#0f0"
+                    android:gravity="center"
+                    android:text="新闻"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <com.sun.common.widget.ScrollRecyclerView
+                android:id="@+id/scroll_recycler_view"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:overScrollMode="never" />
+        </com.sun.common.widget.ScrollLayout>
+
+        <RelativeLayout
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp40"
+            android:background="@color/colorPrimary"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="@dimen/dp60"
+                android:layout_height="match_parent"
+                android:padding="@dimen/dp10"
+                android:src="@mipmap/icon_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="ScrollLayout"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp19" />
+        </RelativeLayout>
+    </FrameLayout>
+</layout>

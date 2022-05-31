@@ -46,7 +46,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="label,allowBackup,supportsRtl,icon">
-        <activity android:name=".activity.VideoPlayerActivity"></activity>
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -186,6 +185,11 @@
             android:name=".activity.bd.FaceLiveExpendActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.CustomScrollLayoutActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".activity.VideoPlayerActivity" />
 
         <service android:name=".observer.MyLocationService" />
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="@dimen/dp131"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_rec_corner_dp17_blue">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/dp10"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+</FrameLayout>
