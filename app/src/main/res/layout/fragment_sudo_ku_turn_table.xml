@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <com.sun.demo2.view.widget.LuckyMonkeyPanelView
+            android:id="@+id/lucky_panel"
+            android:layout_width="@dimen/dp300"
+            android:layout_height="@dimen/dp300"
+            android:layout_gravity="center" />
+
+        <ImageView
+            android:id="@+id/id_draw_btn"
+            android:layout_width="@dimen/dp90"
+            android:layout_height="@dimen/dp90"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_lucky_draw_btn_selector" />
+    </FrameLayout>
+</layout>

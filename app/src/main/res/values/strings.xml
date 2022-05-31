@@ -24,4 +24,13 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!--幸运转盘-->
+    <string name="iphone_8">iPhone 8</string>
+    <string name="lucky_bead">周大福转运珠</string>
+    <string name="beats_headset">Beats 耳机</string>
+    <string name="xiaomi_scales">小米体重秤</string>
+    <string name="baofeng_vr_glasses">暴风魔镜VR眼镜</string>
+    <string name="iqiyi_month_card">爱奇艺月卡会员</string>
+    <string name="iqiyi_month_card_no">爱奇艺月卡激活码</string>
 </resources>
