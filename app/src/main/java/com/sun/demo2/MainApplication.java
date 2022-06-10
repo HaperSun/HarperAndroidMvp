@@ -12,7 +12,6 @@ import com.sun.base.net.NetWork;
 import com.sun.base.service.IAccountService;
 import com.sun.base.service.ServiceFactory;
 import com.sun.base.util.LogHelper;
-import com.sun.base.util.RetrofitUtils;
 import com.sun.base.util.XRichEditorUtil;
 import com.sun.common.bean.AppConfig;
 import com.sun.common.util.AppUtil;
@@ -48,7 +47,6 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         ctx = MainApplication.this;
         AppUtil.init(getBaseConfig());
         NetWork.init();
-        RetrofitUtils.initRetrofit();
         //初始化LogUtil,默认debug模式可打印所有级别的log
         LogHelper.init();
         //初始化图片加载组件

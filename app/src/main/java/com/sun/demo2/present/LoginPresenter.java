@@ -31,7 +31,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
      */
     public void getLoginInfo(String loginName, String password) {
         NetWork.getInstance()
-                .commonSendRequest(LoginManager.getLoginInfo(loginName, password))
+                .sendRequest(LoginManager.getLoginInfo(loginName, password))
                 .subscribe(new MvpSafetyObserver<Result<LoginResponse>>(mView) {
                     @Override
                     protected void onSuccess(Result<LoginResponse> result) {
@@ -57,7 +57,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
      */
     public void getRiskList(Map<String, String> map) {
         NetWork.getInstance()
-                .commonSendRequest(LoginManager.getRiskList(map))
+                .sendRequest(LoginManager.getRiskList(map))
                 .subscribe(new MvpSafetyObserver<Result<Response>>(mView) {
                     @Override
                     protected void onSuccess(Result<Response> result) {
@@ -76,5 +76,4 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                     }
                 });
     }
-
 }

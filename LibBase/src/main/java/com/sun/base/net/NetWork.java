@@ -23,13 +23,14 @@ public class NetWork extends RetrofitUtils {
 
     public static void init() {
         instance = new NetWork();
+        RetrofitUtils.initRetrofit();
     }
 
     public static NetWork getInstance(){
         return instance;
     }
 
-    public <T extends Response> Observable<Result<T>> commonSendRequest
+    public <T extends Response> Observable<Result<T>> sendRequest
             (Observable<Result<T>> observable) {
         return observable.map(new ServerResultFunc<>())
                 .onErrorResumeNext(new HttpResultFunc<>())

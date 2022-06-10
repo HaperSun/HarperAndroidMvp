@@ -30,39 +30,29 @@ import okhttp3.OkHttpClient;
 
 /**
  * @author: Harper
- * @date:   2021/11/12
+ * @date: 2021/11/12
  * @note:
  */
 class OkHttpUtils {
 
-    public static final String TAG = "OkHttp3Utils";
-
     private static OkHttpClient mOkHttpClient;
 
-    //设置缓存目录
-    private static File cacheDirectory ;
-
-
     /**
-     * 获取OkHttpClient对象
+     * 获取OkHttpClient对象，默认带有http和header拦截器
      *
-     * @param context
-     * @param interceptor
-     *
-     * @return
+     * @param context     上下文
+     * @param interceptor 其他拦截器
+     * @return OkHttpClient
      */
     public static OkHttpClient getOkHttpClient(Context context, Interceptor interceptor) {
-
-        if(context == null){
+        if (context == null) {
             throw new RuntimeException("must init NetWorks first before use it!!!");
         }
-
         if (!(context instanceof Application)) {
             context = context.getApplicationContext();
         }
-
-        // 配置缓存
-        cacheDirectory = new File(context.getCacheDir().getAbsolutePath(), "Cache");
+        //配置缓存  设置缓存目录
+        File cacheDirectory = new File(context.getCacheDir().getAbsolutePath(), "Cache");
         Cache cache = new Cache(cacheDirectory, 10 * 1024 * 1024);
 
         if (null == mOkHttpClient) {
@@ -78,7 +68,7 @@ class OkHttpUtils {
                     .readTimeout(30, TimeUnit.SECONDS)
                     .cache(cache)
                     .hostnameVerifier(new TrustAllHostnameVerifier())
-                    .sslSocketFactory(createSSLSocketFactory());
+                    .sslSocketFactory(createSslSocketFactory());
             if (interceptor != null) {
                 builder.addInterceptor(interceptor);
             }
@@ -89,16 +79,16 @@ class OkHttpUtils {
     }
 
     @SuppressLint("TrulyRandom")
-    private static SSLSocketFactory createSSLSocketFactory() {
-        SSLSocketFactory sSLSocketFactory = null;
+    private static SSLSocketFactory createSslSocketFactory() {
+        SSLSocketFactory sslSocketFactory = null;
         try {
             SSLContext sc = SSLContext.getInstance("TLS");
             sc.init(null, new TrustManager[]{new TrustAllManager()},
                     new SecureRandom());
-            sSLSocketFactory = sc.getSocketFactory();
+            sslSocketFactory = sc.getSocketFactory();
         } catch (Exception ignored) {
         }
-        return sSLSocketFactory;
+        return sslSocketFactory;
     }
 
     public static class TrustAllManager implements X509TrustManager {

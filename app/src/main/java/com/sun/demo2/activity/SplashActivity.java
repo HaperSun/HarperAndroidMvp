@@ -1,7 +1,6 @@
 package com.sun.demo2.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,7 +25,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private final IHandler mHandler = new IHandler(this);
     private FrameLayout mRootLayout;
-    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +38,6 @@ public class SplashActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_splash);
         mRootLayout = findViewById(R.id.root_layout);
-        mContext = this;
         //为了解决有时按HOME键再回来会重启问题
         boolean isActivityTaskRoot = isActivityTaskRoot();
         if (!isActivityTaskRoot) {

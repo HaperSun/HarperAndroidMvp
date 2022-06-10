@@ -12,9 +12,13 @@ import java.security.MessageDigest;
 import okhttp3.internal.Util;
 import okio.Buffer;
 
+/**
+ * @author: Harper
+ * @date: 2022/6/2
+ * @note: copied from OKHttp
+ */
+public class OkHttpHelp {
 
-// copied from OKHttp
-public class OkHttpUtil {
     private static final char[] HEX_DIGITS = {'0', '1', '2', '3',
             '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 

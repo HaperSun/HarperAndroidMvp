@@ -13,6 +13,8 @@ import com.sun.demo2.MainApplication;
  */
 public class LoginInfoSp extends AbstractSharePreferenceOperate<String> {
 
+    private static final String KEY = LoginInfoSp.class.getSimpleName();
+
     @Override
     protected SharedPreferences getSharedPreferences() {
         return SPHelper.getHomeworkSharedPreferences(MainApplication.getContext());
@@ -20,7 +22,7 @@ public class LoginInfoSp extends AbstractSharePreferenceOperate<String> {
 
     @Override
     protected String getKey() {
-        return "LOGIN_INFO";
+        return KEY;
     }
 
     @Override

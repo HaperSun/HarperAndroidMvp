@@ -74,7 +74,7 @@ public class Base64RequestBody extends RequestBody {
 
                 sb.append("&");
             }
-            String key = OkHttpUtil.canonicalize(this.key, FORM_ENCODE_SET, false, false);
+            String key = OkHttpHelp.canonicalize(this.key, FORM_ENCODE_SET, false, false);
             sink.writeUtf8(key);
             sink.writeByte('=');
 
@@ -98,7 +98,7 @@ public class Base64RequestBody extends RequestBody {
                 Log.i("APIService", "Base64RequestBody buf:" + Arrays.toString(buf));
                 byte[] base = Base64.encode(buf, Base64.NO_WRAP);
 
-                sink.writeUtf8(OkHttpUtil.canonicalize(new String(base), FORM_ENCODE_SET, false, false));
+                sink.writeUtf8(OkHttpHelp.canonicalize(new String(base), FORM_ENCODE_SET, false, false));
                 // sink.writeUtf8(Util.canonicalize(new String(base),
                 // FORM_ENCODE_SET, false, false));
 
@@ -111,7 +111,7 @@ public class Base64RequestBody extends RequestBody {
                 // sink.flush();
                 // }
 
-                sb.append(OkHttpUtil.canonicalize(new String(base), FORM_ENCODE_SET, false, false));
+                sb.append(OkHttpHelp.canonicalize(new String(base), FORM_ENCODE_SET, false, false));
 
                 // }
                 if (num < fileMap.size()) {
