@@ -27,7 +27,7 @@ config.app = app
 //关于服务端的地址配置
 def server = [:]
 //测试环境
-server.urlTest = "\"https://indoor.yunweizhi.net\""
+server.urlTest = "\"https://测试环境地址前缀\""
 //现网环境
 server.urlRelease = "\"https://现网环境地址前缀\""
 //测试环境_H5
