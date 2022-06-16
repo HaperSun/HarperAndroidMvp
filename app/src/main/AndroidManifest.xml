@@ -189,6 +189,10 @@
             android:name=".activity.CustomScrollLayoutActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.WechatAddressBookActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity android:name=".activity.VideoPlayerActivity" />
 
         <service android:name=".observer.MyLocationService" />

@@ -1,14 +1,15 @@
-package com.sun.demo2.custom;
+package com.sun.demo2.view.custom;
 
 import com.github.mikephil.charting.charts.BarLineChartBase;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 /**
- * Created by philipp on 02/06/16.
+ * @author: Harper
+ * @date: 2022/6/16
+ * @note: MPAndroidChart
  */
-public class DayAxisValueFormatter implements IAxisValueFormatter
-{
+public class DayAxisValueFormatter implements IAxisValueFormatter {
 
     private final String[] mMonths = new String[]{
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"

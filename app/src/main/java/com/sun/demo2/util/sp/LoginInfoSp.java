@@ -1,4 +1,4 @@
-package com.sun.demo2.sp;
+package com.sun.demo2.util.sp;
 
 import android.content.SharedPreferences;
 

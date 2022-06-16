@@ -1,12 +1,16 @@
-package com.sun.demo2.custom;
+package com.sun.demo2.view.custom;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.text.DecimalFormat;
 
-public class MyAxisValueFormatter implements IAxisValueFormatter
-{
+/**
+ * @author: Harper
+ * @date: 2022/6/16
+ * @note: MPAndroidChart
+ */
+public class MyAxisValueFormatter implements IAxisValueFormatter {
 
     private final DecimalFormat mFormat;
 

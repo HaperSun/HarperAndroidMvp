@@ -41,6 +41,7 @@ dependencies {
     api target.tbs
     implementation target.glide
     api target.zxing
+
     implementation project(':LibDb')
     api target.commons_lang
     api project(':LibCommon')

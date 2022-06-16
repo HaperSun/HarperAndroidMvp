@@ -21,7 +21,7 @@ import com.sun.demo2.databinding.ActivityLoginBinding;
 import com.sun.demo2.iview.ILoginView;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.present.LoginPresenter;
-import com.sun.demo2.sp.LoginInfoSp;
+import com.sun.demo2.util.sp.LoginInfoSp;
 import com.sun.picture.activity.PicturePreviewActivity;
 import com.sun.picture.img.ImgLoader;
 

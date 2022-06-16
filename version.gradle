@@ -36,7 +36,10 @@ version.xUtil = "3.5.1"    //xUtil
 version.zxing = "3.3.0" //zxing
 version.lifecycle_extensions = "2.2.0" //lifecycle-extensions
 version.smart_refresh = "1.1.0-alpha-31" //smartRefresh
-
+//腾讯地图
+version.tencentLocationSdk ="7.2.6"
+version.tencent_map_vector ="4.4.7"
+version.easypermissions ="2.0.1"
 
 def target = [:]
 target.appcompat = "androidx.appcompat:appcompat:$version.appcompat"
@@ -76,6 +79,10 @@ target.rxandroid = "io.reactivex.rxjava2:rxandroid:$version.rxandroid"
 target.converter_gson = "com.squareup.retrofit2:converter-gson:$version.converter_gson"
 target.logger = "com.orhanobut:logger:$version.logger"
 target.adapter_rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$version.adapter_rxjava2"
+//腾讯地图
+target.tencentLocationSdk = "com.tencent.map.geolocation:TencentLocationSdk-openplatform:$version.tencentLocationSdk"
+target.tencent_map_vector = "com.tencent.map:tencent-map-vector-sdk:$version.tencent_map_vector"
+target.easypermissions = "pub.devrel:easypermissions:$version.easypermissions"
 
 ext.target = target
 
