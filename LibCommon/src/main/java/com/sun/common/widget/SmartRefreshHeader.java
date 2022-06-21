@@ -35,7 +35,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.sun.common.R;
-import com.sun.common.util.AppUtil;
 import com.sun.common.util.ScreenUtil;
 
 import java.text.DateFormat;
@@ -109,7 +108,7 @@ public class SmartRefreshHeader extends RelativeLayout implements RefreshHeader 
             mArrowView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.loading0));
         }
         mArrowView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.loading0));
-        int tvSize = AppUtil.isTabletDevice() ? ScreenUtil.dp2px(mContext, 9) : ScreenUtil.dp2px(mContext, 5);
+        int tvSize = ScreenUtil.isTabletDevice() ? ScreenUtil.dp2px(9) : ScreenUtil.dp2px(5);
         if (ta.hasValue(com.scwang.smartrefresh.layout.R.styleable.ClassicsHeader_srlTextSizeTime)) {
             mLastUpdateText.setTextSize(TypedValue.COMPLEX_UNIT_PX, ta.getDimensionPixelSize(com.scwang.smartrefresh.layout.R.styleable.ClassicsHeader_srlTextSizeTime, tvSize));
         } else {
@@ -384,7 +383,7 @@ public class SmartRefreshHeader extends RelativeLayout implements RefreshHeader 
     }
 
     public SmartRefreshHeader setTextTimeMarginTop(float dp) {
-        return setTextTimeMarginTopPx(ScreenUtil.dp2px(mContext, dp));
+        return setTextTimeMarginTopPx(ScreenUtil.dp2px(dp));
     }
 
     public SmartRefreshHeader setTextTimeMarginTopPx(int px) {
@@ -395,7 +394,7 @@ public class SmartRefreshHeader extends RelativeLayout implements RefreshHeader 
     }
 
     public SmartRefreshHeader setDrawableMarginRight(float dp) {
-        return setDrawableMarginRightPx(ScreenUtil.dp2px(mContext, dp));
+        return setDrawableMarginRightPx(ScreenUtil.dp2px(dp));
     }
 
     public SmartRefreshHeader setDrawableMarginRightPx(int px) {
@@ -405,7 +404,7 @@ public class SmartRefreshHeader extends RelativeLayout implements RefreshHeader 
     }
 
     public SmartRefreshHeader setDrawableSize(float dp) {
-        return setDrawableSizePx(ScreenUtil.dp2px(mContext, dp));
+        return setDrawableSizePx(ScreenUtil.dp2px(dp));
     }
 
     public SmartRefreshHeader setDrawableSizePx(int px) {
@@ -415,7 +414,7 @@ public class SmartRefreshHeader extends RelativeLayout implements RefreshHeader 
     }
 
     public SmartRefreshHeader setDrawableArrowSize(float dp) {
-        return setDrawableArrowSizePx(ScreenUtil.dp2px(mContext, dp));
+        return setDrawableArrowSizePx(ScreenUtil.dp2px(dp));
     }
 
     public SmartRefreshHeader setDrawableArrowSizePx(int px) {
@@ -427,7 +426,7 @@ public class SmartRefreshHeader extends RelativeLayout implements RefreshHeader 
     }
 
     public SmartRefreshHeader setDrawableProgressSize(float dp) {
-        return setDrawableProgressSizePx(ScreenUtil.dp2px(mContext, dp));
+        return setDrawableProgressSizePx(ScreenUtil.dp2px(dp));
     }
 
     public SmartRefreshHeader setDrawableProgressSizePx(int px) {

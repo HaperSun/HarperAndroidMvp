@@ -22,8 +22,8 @@ import com.sun.demo2.iview.ILoginView;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.present.LoginPresenter;
 import com.sun.demo2.util.sp.LoginInfoSp;
-import com.sun.picture.activity.PicturePreviewActivity;
-import com.sun.picture.img.ImgLoader;
+import com.sun.img.activity.ImgPreviewActivity;
+import com.sun.img.img.ImgLoader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +75,7 @@ public class LoginActivity extends BaseMvpActivity implements ILoginView, NetSta
         String img1 = "https://qiniu.fxgkpt.com/hycg/1639356784663.jpg";
         String img2 = "http://pic.ntimg.cn/file/20180211/7259105_125622777789_2.jpg";
         ImgLoader.getInstance().loadImage(img2, binding.imgView);
-        binding.imgView.setOnClickListener(v -> PicturePreviewActivity.actionStart(mContext, img2));
+        binding.imgView.setOnClickListener(v -> ImgPreviewActivity.actionStart(mContext, img2));
         listTest();
     }
 

@@ -73,7 +73,7 @@ public class TransformationScale extends ImageViewTarget<Bitmap> {
             target.setLayoutParams(params);
             view.setImageBitmap(changeBitmapSize(resource, imageViewWidth, imageHeight));
         } else {
-            XRichEditorUtil.showFailPic(context, target, root, isLocalUpload);
+            XRichEditorUtil.showFailPic(target, root, isLocalUpload);
         }
     }
 

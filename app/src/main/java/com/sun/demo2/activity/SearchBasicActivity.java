@@ -10,7 +10,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,12 +33,12 @@ import com.tencent.tencentmap.mapsdk.maps.model.MarkerOptions;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+/**
+ * @author: Harper
+ * @date: 2022/6/21
+ * @note: 腾讯地图搜索
+ */
 public class SearchBasicActivity extends SupportMapFragmentActivity {
-
-    public static void start(Context context) {
-        Intent intent = new Intent(context, SearchBasicActivity.class);
-        context.startActivity(intent);
-    }
 
     private EditText etSearch;
     private Button btnSearch;
@@ -47,6 +46,11 @@ public class SearchBasicActivity extends SupportMapFragmentActivity {
     private SuggestionAdapter suggestionAdapter;
     private final int MSG_SUGGESTION = 10000;
     private final MyHandler handler = new MyHandler(this);
+
+    public static void start(Context context) {
+        Intent intent = new Intent(context, SearchBasicActivity.class);
+        context.startActivity(intent);
+    }
 
     private static class MyHandler extends Handler {
         private final WeakReference<SearchBasicActivity> mActivity;
@@ -79,37 +83,23 @@ public class SearchBasicActivity extends SupportMapFragmentActivity {
         lvSuggesion = (ListView) findViewById(R.id.lv_suggestions);
 
         etSearch.addTextChangedListener(textWatcher);
-        etSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                // TODO Auto-generated method stub
-                if (!etSearch.hasFocus()) {
-                    lvSuggesion.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        lvSuggesion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // TODO Auto-generated method stub
-                etSearch.removeTextChangedListener(textWatcher);
-                CharSequence cs = ((TextView)view.findViewById(R.id.label)).getText();
-                etSearch.setText(cs);
+        etSearch.setOnFocusChangeListener((v, hasFocus) -> {
+            // TODO Auto-generated method stub
+            if (!etSearch.hasFocus()) {
                 lvSuggesion.setVisibility(View.GONE);
-                etSearch.addTextChangedListener(textWatcher);
             }
         });
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                searchPoi();
-            }
+        lvSuggesion.setOnItemClickListener((parent, view, position, id) -> {
+            // TODO Auto-generated method stub
+            etSearch.removeTextChangedListener(textWatcher);
+            CharSequence cs = ((TextView)view.findViewById(R.id.label)).getText();
+            etSearch.setText(cs);
+            lvSuggesion.setVisibility(View.GONE);
+            etSearch.addTextChangedListener(textWatcher);
         });
+
+        btnSearch.setOnClickListener(view -> searchPoi());
     }
 
     final TextWatcher textWatcher = new TextWatcher() {
@@ -290,7 +280,7 @@ public class SearchBasicActivity extends SupportMapFragmentActivity {
             ViewHolder viewHolder;
             if (convertView == null) {
                 convertView = View.inflate(SearchBasicActivity.this,
-                        R.layout.suggestion_list_item, null);
+                        R.layout.item_suggestion_list, null);
                 viewHolder = new ViewHolder();
                 viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.label);
                 viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.desc);

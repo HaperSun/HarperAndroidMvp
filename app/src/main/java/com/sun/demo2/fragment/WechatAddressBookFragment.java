@@ -6,7 +6,7 @@ import com.sun.base.base.fragment.BaseMvpFragment;
 import com.sun.demo2.R;
 import com.sun.demo2.adapter.AddressBookAdapter;
 import com.sun.demo2.databinding.FragmentWechatAddressBookBinding;
-import com.sun.demo2.model.AddressBookBean;
+import com.sun.demo2.model.AddressBook1Bean;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
 public class WechatAddressBookFragment extends BaseMvpFragment {
 
     private FragmentWechatAddressBookBinding bind;
-    private List<AddressBookBean> mBeans;
+    private List<AddressBook1Bean> mBeans;
 
     public static WechatAddressBookFragment getInstance() {
         WechatAddressBookFragment fragment = new WechatAddressBookFragment();
@@ -47,8 +47,7 @@ public class WechatAddressBookFragment extends BaseMvpFragment {
 
     @Override
     public void initData() {
-        AddressBookBean bookBean= new AddressBookBean();
-        mBeans = bookBean.getData();
+        mBeans = AddressBook1Bean.getData();
         AddressBookAdapter adapter = new AddressBookAdapter();
         adapter.setAdapterData(mBeans);
         bind.recyclerView.setAdapter(adapter);

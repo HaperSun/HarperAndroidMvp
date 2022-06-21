@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.WechatAddressBookActivity">
+        tools:context=".activity.AddressBookActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -15,7 +15,7 @@
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-        <com.sun.demo2.util.SideBar
+        <com.sun.demo2.view.widget.SideBar
             android:id="@+id/side_bar"
             android:layout_width="@dimen/dp100"
             android:layout_height="match_parent"

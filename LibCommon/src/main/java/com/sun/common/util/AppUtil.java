@@ -3,7 +3,6 @@ package com.sun.common.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.content.res.Configuration;
 
 import com.sun.common.BuildConfig;
 import com.sun.common.bean.AppConfig;
@@ -87,15 +86,4 @@ public abstract class AppUtil {
         }
         return false;
     }
-
-    /**
-     * 判断是否平板设备
-     *
-     * @return true:平板,false:手机
-     */
-    public static boolean isTabletDevice() {
-        return (mAppConfig.ctx.getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-    }
-
 }

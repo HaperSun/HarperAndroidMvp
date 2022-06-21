@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.demo2.R;
-import com.sun.demo2.model.AddressBookBean;
+import com.sun.demo2.model.AddressBook1Bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +23,9 @@ import java.util.List;
  */
 public class AddressBookAdapter extends RecyclerView.Adapter<AddressBookAdapter.Holder> {
 
-    private List<AddressBookBean> mBeans = new ArrayList<>();
+    private List<AddressBook1Bean> mBeans = new ArrayList<>();
 
-    public void setAdapterData(List<AddressBookBean> beans) {
+    public void setAdapterData(List<AddressBook1Bean> beans) {
         this.mBeans = beans;
     }
 
@@ -38,17 +38,17 @@ public class AddressBookAdapter extends RecyclerView.Adapter<AddressBookAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, final int position) {
-        final AddressBookBean addressBookBean = mBeans.get(position);
-        holder.tvName.setText(addressBookBean.getName());
-        holder.tvHeader.setImageResource(addressBookBean.getHeaderid());
-        String mark = addressBookBean.getStart();
+        final AddressBook1Bean addressBook1Bean = mBeans.get(position);
+        holder.tvName.setText(addressBook1Bean.getName());
+        holder.tvHeader.setImageResource(addressBook1Bean.getHeaderid());
+        String mark = addressBook1Bean.getStart();
         if (position == getPosition(mark)) {
             holder.llLetter.setVisibility(View.VISIBLE);
-            holder.tvLetter.setText(addressBookBean.getStart());
+            holder.tvLetter.setText(addressBook1Bean.getStart());
         } else {
             holder.llLetter.setVisibility(View.GONE);
         }
-        if (position != getItemCount() - 1 && addressBookBean.getStart().equalsIgnoreCase(mBeans.get(position + 1).getStart())) {
+        if (position != getItemCount() - 1 && addressBook1Bean.getStart().equalsIgnoreCase(mBeans.get(position + 1).getStart())) {
             holder.viewSplit.setVisibility(View.VISIBLE);
         } else {
             holder.viewSplit.setVisibility(View.GONE);

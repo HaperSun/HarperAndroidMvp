@@ -55,7 +55,7 @@ public class XRichEditorUtil {
 
                                 @Override
                                 public void onLoadFailed(Drawable errorDrawable) {
-                                    showFailPic(applicationContext, imageView, root, isLocalUpload);
+                                    showFailPic(imageView, root, isLocalUpload);
 
                                 }
                             }
@@ -80,12 +80,12 @@ public class XRichEditorUtil {
         }
     }
 
-    public static void showFailPic(Context context, ImageView imageView, View root, boolean isLocalUpload) {
+    public static void showFailPic(ImageView imageView, View root, boolean isLocalUpload) {
         if (root instanceof RelativeLayout) {
             LinearLayout.LayoutParams llparams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.dp2px(context, 194));
+                    LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.dp2px(194));
             if (!isLocalUpload) {
-                llparams.bottomMargin = ScreenUtil.dp2px(context, 17);
+                llparams.bottomMargin = ScreenUtil.dp2px(17);
             }
             root.setLayoutParams(llparams);
             root.setBackgroundColor(Color.parseColor("#F2F2F2"));

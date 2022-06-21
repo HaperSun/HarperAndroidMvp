@@ -27,5 +27,4 @@ public class AnyItem {
         this.type = type;
         this.object = object;
     }
-
 }

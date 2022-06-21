@@ -64,8 +64,8 @@ public class ScrollLayout extends ViewGroup {
 
     private void init(Context context) {
         touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
-        slideSlop = ScreenUtil.dp2px(context, 45);
-        offsetB = ScreenUtil.dp2px(context, 40);
+        slideSlop = ScreenUtil.dp2px(45);
+        offsetB = ScreenUtil.dp2px(40);
         animator = ValueAnimator.ofFloat(0f, 1f);
         animator.setDuration(200);
         animator.setInterpolator(new LinearInterpolator());
@@ -121,7 +121,7 @@ public class ScrollLayout extends ViewGroup {
         width = MeasureSpec.getSize(widthMeasureSpec);
         height = MeasureSpec.getSize(heightMeasureSpec);
         //界面下边显示出来的子View的高度
-        int childDefaultHeight = ScreenUtil.dp2px(getContext(), 210);
+        int childDefaultHeight = ScreenUtil.dp2px(210);
         offsetY = height - childDefaultHeight;
         offsetExtend = offsetY - offsetB;
         //负数 向下移动到剩下40dp的高度

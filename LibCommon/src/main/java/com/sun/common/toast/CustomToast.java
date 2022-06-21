@@ -52,7 +52,7 @@ public class CustomToast extends Toast {
         ivType = view.findViewById(R.id.custom_toast_type);
         tvTitle = view.findViewById(R.id.custom_toast_title);
         //用来解决Toast宽度不能固定的问题
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ScreenUtil.dp2px(context,140),
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ScreenUtil.dp2px(140),
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         tvTitle.setLayoutParams(lp);
         setGravity(Gravity.CENTER,0,0);

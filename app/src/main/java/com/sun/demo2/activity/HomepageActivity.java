@@ -121,7 +121,7 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("baidu  人脸识别");
         titles.add("视频播放");
         titles.add("仿照百度地图的上层地址列表的上拉、下拉的拖动效果");
-        titles.add("仿微信通讯录效果");
+        titles.add("仿通讯录效果");
         return titles;
     }
 
@@ -233,7 +233,7 @@ public class HomepageActivity extends BaseMvpActivity {
                     CustomScrollLayoutActivity.start(mContext);
                     break;
                 case 21:
-                    WechatAddressBookActivity.start(mContext);
+                    AddressBookActivity.start(mContext);
                     break;
                 default:
                     break;

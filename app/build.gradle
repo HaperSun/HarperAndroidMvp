@@ -123,7 +123,7 @@ dependencies {
     api project(':LibBase')
     api project(':LibDb')
     api project(':LibChart')
-    api project(':LibPicture')
+    api project(':LibImg')
     api project(':LibRichText')
     api project(':LibBdFace')
 
