@@ -119,6 +119,8 @@ dependencies {
     implementation target.easypermissions
     //中文转为拼音
     implementation files('libs/pinyin4j-2.5.0.jar')
+    //webSocket
+    implementation target.webSocket
 
     api project(':LibBase')
     api project(':LibDb')

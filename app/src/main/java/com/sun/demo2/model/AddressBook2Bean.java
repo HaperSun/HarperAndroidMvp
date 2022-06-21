@@ -28,10 +28,6 @@ public class AddressBook2Bean implements Serializable, Comparable<AddressBook2Be
     public String pyName;
     public char firstLetter;
 
-
-    public AddressBook2Bean() {
-    }
-
     public AddressBook2Bean(String name, int headerid) {
         this.headerid = headerid;
         this.name = name;

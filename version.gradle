@@ -40,6 +40,7 @@ version.smart_refresh = "1.1.0-alpha-31" //smartRefresh
 version.tencentLocationSdk ="7.2.6"
 version.tencent_map_vector ="4.4.7"
 version.easypermissions ="2.0.1"
+version.webSocket ="1.5.1"  //webSocket
 
 def target = [:]
 target.appcompat = "androidx.appcompat:appcompat:$version.appcompat"
@@ -83,6 +84,8 @@ target.adapter_rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$version.adapte
 target.tencentLocationSdk = "com.tencent.map.geolocation:TencentLocationSdk-openplatform:$version.tencentLocationSdk"
 target.tencent_map_vector = "com.tencent.map:tencent-map-vector-sdk:$version.tencent_map_vector"
 target.easypermissions = "pub.devrel:easypermissions:$version.easypermissions"
+//webSocket
+target.webSocket = "org.java-websocket:Java-WebSocket:$version.webSocket"
 
 ext.target = target
 

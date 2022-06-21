@@ -29,13 +29,9 @@ public class AddressBook1Bean implements Serializable, Comparable<AddressBook1Be
     //首字母
     private String start;
 
-    public AddressBook1Bean() {
-    }
-
     public AddressBook1Bean(String name, int headerid) {
         this.headerid = headerid;
         this.name = name;
-//        pinyin = Cn2Spell.getPinYin(name);
         pinyin = PinYinUtil.getInstance().getPinYin(name);
         start = pinyin.substring(0, 1).toUpperCase();
         if (!start.matches("[A-Z]")) {

@@ -122,6 +122,7 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("视频播放");
         titles.add("仿照百度地图的上层地址列表的上拉、下拉的拖动效果");
         titles.add("仿通讯录效果");
+        titles.add("WebSocket使用");
         return titles;
     }
 
@@ -234,6 +235,9 @@ public class HomepageActivity extends BaseMvpActivity {
                     break;
                 case 21:
                     AddressBookActivity.start(mContext);
+                    break;
+                case 22:
+                    WebSocketActivity.start(mContext);
                     break;
                 default:
                     break;
