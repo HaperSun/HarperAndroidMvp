@@ -63,7 +63,7 @@ public class VideoModel {
     /**
      * VIDEO 不同清晰度的URL链接
      */
-    public List<VideoPlayerURL> multiVideoURLs;
+    public List<VideoPlayerUrl> multiVideoURLs;
     public int playDefaultIndex; // 指定多码率情况下，默认播放的连接Index
     public VipWatchModel vipWatchModel = null;
 
@@ -75,12 +75,23 @@ public class VideoModel {
      */
     public DynamicWaterConfig dynamicWaterConfig = null;
 
-    public static class VideoPlayerURL {
+    public VideoModel() {
+    }
 
-        public VideoPlayerURL() {
+    public VideoModel(String title, String videoUrl, String placeholderImage, int duration) {
+        this.title = title;
+        this.videoURL = videoUrl;
+        this.placeholderImage = placeholderImage;
+        this.duration = duration;
+    }
+
+    public static class VideoPlayerUrl {
+
+        public VideoPlayerUrl() {
+
         }
 
-        public VideoPlayerURL(String title, String url) {
+        public VideoPlayerUrl(String title, String url) {
             this.title = title;
             this.url = url;
         }

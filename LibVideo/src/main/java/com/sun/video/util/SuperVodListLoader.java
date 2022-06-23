@@ -268,7 +268,7 @@ public class SuperVodListLoader {
                                     model.videoURL = urlList.getJSONObject(model.playDefaultIndex).optString("url", "");
                                     for (int j = 0; j < urlList.length(); j++) {
                                         JSONObject urlItem = urlList.getJSONObject(j);
-                                        model.multiVideoURLs.add(new VideoModel.VideoPlayerURL(urlItem.optString("title", ""), urlItem.optString("url", "")));
+                                        model.multiVideoURLs.add(new VideoModel.VideoPlayerUrl(urlItem.optString("title", ""), urlItem.optString("url", "")));
                                     }
                                 }
 

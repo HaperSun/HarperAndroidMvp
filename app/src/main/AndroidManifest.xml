@@ -198,7 +198,14 @@
             android:name=".activity.WebSocketActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".activity.AudioActivity" />
+        <activity
+            android:name=".activity.ClickVideoPlayActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullScreen"
+            android:windowSoftInputMode="stateHidden"
+            tools:ignore="LockedOrientationActivity" />
 
         <service android:name=".observer.MyLocationService" />
 

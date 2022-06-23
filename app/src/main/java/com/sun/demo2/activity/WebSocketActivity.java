@@ -12,7 +12,7 @@ import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityWebSocketBinding;
 import com.sun.demo2.model.AddressBook1Bean;
 import com.sun.demo2.model.response.LoginResponse;
-import com.sun.video.ui.activity.VideoPlayerActivity;
+import com.sun.video.ui.activity.VideoPlayActivity;
 import com.sun.video.ui.activity.FeedVideoActivity;
 import com.sun.video.ui.activity.ShortVideoActivity;
 
@@ -167,7 +167,7 @@ public class WebSocketActivity extends BaseMvpActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_super:
-                VideoPlayerActivity.start(mContext);
+                VideoPlayActivity.start(mContext);
                 break;
             case R.id.tv_short:
                 ShortVideoActivity.start(mContext);

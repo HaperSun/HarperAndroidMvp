@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.common.toast.ToastHelper;
@@ -169,8 +168,6 @@ public class FeedVideoActivity extends BaseMvpActivity implements FeedViewCallBa
     protected void onResume() {
         super.onResume();
         bind.feedView.onResume();
-        //添加屏幕常亮
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (mIsFullScreen) {
             //隐藏虚拟按键，并且全屏
             View decorView = getWindow().getDecorView();
@@ -192,8 +189,6 @@ public class FeedVideoActivity extends BaseMvpActivity implements FeedViewCallBa
     protected void onPause() {
         super.onPause();
         bind.feedView.onPause();
-        //清楚屏幕常亮
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     @Override

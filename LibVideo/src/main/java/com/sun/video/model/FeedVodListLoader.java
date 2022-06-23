@@ -202,7 +202,7 @@ public class FeedVodListLoader {
                             Collections.sort(videoQualityList); // 码率从高到底排序
                             for(int i = 0;i < videoQualityList.size();i++) {
                                 VideoQuality videoQuality = videoQualityList.get(i);
-                                videoModel.multiVideoURLs.add(new VideoModel.VideoPlayerURL(videoQuality.title,videoQuality.url));
+                                videoModel.multiVideoURLs.add(new VideoModel.VideoPlayerUrl(videoQuality.title,videoQuality.url));
                             }
                         }
                         listener.onSuccess(videoModel);
@@ -269,7 +269,7 @@ public class FeedVodListLoader {
 
         if (videoModel.multiVideoURLs != null) {
             superPlayerModelV3.multiURLs = new ArrayList<>();
-            for (VideoModel.VideoPlayerURL modelURL : videoModel.multiVideoURLs) {
+            for (VideoModel.VideoPlayerUrl modelURL : videoModel.multiVideoURLs) {
                 superPlayerModelV3.multiURLs.add(new SuperPlayerModel.SuperPlayerURL(modelURL.url, modelURL.title));
             }
         }

@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.video.R;
-import com.sun.video.databinding.ActivityVidoPalyerBinding;
+import com.sun.video.databinding.ActivityVidoPalyBinding;
 import com.sun.video.model.SuperPlayerDef;
 import com.sun.video.model.SuperPlayerModel;
 import com.sun.video.ui.view.SuperPlayerView;
@@ -15,26 +15,26 @@ import com.sun.video.ui.view.SuperPlayerView;
 /**
  * @author: Harper
  * @date: 2022/6/23
- * @note:
+ * @note: 视频播放
  */
-public class VideoPlayerActivity extends BaseMvpActivity implements SuperPlayerView.OnSuperPlayerViewCallback {
+public class VideoPlayActivity extends BaseMvpActivity implements SuperPlayerView.OnSuperPlayerViewCallback {
 
-    private ActivityVidoPalyerBinding bind;
+    private ActivityVidoPalyBinding bind;
     private boolean mIsFullScreen = false;
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, VideoPlayerActivity.class);
+        Intent intent = new Intent(context, VideoPlayActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     public int layoutId() {
-        return R.layout.activity_vido_palyer;
+        return R.layout.activity_vido_paly;
     }
 
     @Override
     public void initView() {
-        bind = (ActivityVidoPalyerBinding) mViewDataBinding;
+        bind = (ActivityVidoPalyBinding) mViewDataBinding;
     }
 
     @Override
@@ -45,8 +45,8 @@ public class VideoPlayerActivity extends BaseMvpActivity implements SuperPlayerV
 
     private void startPlayVideo() {
         SuperPlayerModel playerModel = new SuperPlayerModel();
-        playerModel.url = "http://1500005830.vod2.myqcloud.com/43843ec0vodtranscq1500005830/3afba900387702294394228858/adp.10.m3u8";
-        playerModel.placeholderImage = "http://1500005830.vod2.myqcloud.com/43843ec0vodtranscq1500005830/3afba900387702294394228858/coverBySnapshot/coverBySnapshot_10_0.jpg";
+        playerModel.url = "http://1252463788.vod2.myqcloud.com/95576ef5vodtransgzp1252463788/287432344564972819219071668/master_playlist.m3u8";
+        playerModel.placeholderImage = "http://1252463788.vod2.myqcloud.com/e12fcc4dvodgzp1252463788/287432344564972819219071668/4564972819212551204.jpeg";
         playerModel.title = "小直播 - 主播连麦";
         bind.superPlayerView.playWithModel(playerModel);
     }
@@ -73,7 +73,7 @@ public class VideoPlayerActivity extends BaseMvpActivity implements SuperPlayerV
     @Override
     public void onClickWindowCloseBtn() {
         //点击小窗模式下返回按钮
-        close();
+        onBackPressed();
         //可以开始浮窗模式播放
 //        showFloatWindow();
     }
@@ -100,6 +100,15 @@ public class VideoPlayerActivity extends BaseMvpActivity implements SuperPlayerV
     @Override
     public void onError(int code) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mIsFullScreen){
+            bind.superPlayerView.switchPlayMode(SuperPlayerDef.PlayerMode.WINDOW);
+        }else {
+            close();
+        }
     }
 
     /**

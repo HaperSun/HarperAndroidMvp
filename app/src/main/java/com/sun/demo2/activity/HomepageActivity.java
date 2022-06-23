@@ -119,7 +119,7 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("腾讯地图  地图内置定位标及定位标点击");
         titles.add("LineChart  多条目折线图");
         titles.add("baidu  人脸识别");
-        titles.add("视频播放");
+        titles.add("RecyclerView中点播视频");
         titles.add("仿照百度地图的上层地址列表的上拉、下拉的拖动效果");
         titles.add("仿通讯录效果");
         titles.add("WebSocket使用");
@@ -228,7 +228,7 @@ public class HomepageActivity extends BaseMvpActivity {
                     FaceHomepageActivity.start(mContext);
                     break;
                 case 19:
-                    AudioActivity.start(mContext);
+                    ClickVideoPlayActivity.start(mContext);
                     break;
                 case 20:
                     CustomScrollLayoutActivity.start(mContext);

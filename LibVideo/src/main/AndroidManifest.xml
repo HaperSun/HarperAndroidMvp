@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name=".ui.activity.VideoPlayerActivity"
+            android:name=".ui.activity.VideoPlayActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
