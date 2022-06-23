@@ -42,6 +42,7 @@ version.tencent_map_vector ="4.4.7"
 version.easypermissions ="2.0.1"
 version.webSocket ="1.5.1"  //webSocket
 
+
 def target = [:]
 target.appcompat = "androidx.appcompat:appcompat:$version.appcompat"
 target.material = "com.google.android.material:material:$version.material"
@@ -86,6 +87,8 @@ target.tencent_map_vector = "com.tencent.map:tencent-map-vector-sdk:$version.ten
 target.easypermissions = "pub.devrel:easypermissions:$version.easypermissions"
 //webSocket
 target.webSocket = "org.java-websocket:Java-WebSocket:$version.webSocket"
+//腾讯播放器
+
 
 ext.target = target
 

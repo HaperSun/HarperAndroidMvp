@@ -3,13 +3,18 @@ package com.sun.demo2.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.util.CollectionUtil;
 import com.sun.demo2.R;
+import com.sun.demo2.databinding.ActivityWebSocketBinding;
 import com.sun.demo2.model.AddressBook1Bean;
 import com.sun.demo2.model.response.LoginResponse;
+import com.sun.video.ui.activity.VideoPlayerActivity;
+import com.sun.video.ui.activity.FeedVideoActivity;
+import com.sun.video.ui.activity.ShortVideoActivity;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.java_websocket.WebSocket;
@@ -31,8 +36,10 @@ import java.util.concurrent.TimeUnit;
  * @date: 2022/6/21
  * @note: WebSocket使用
  */
-public class WebSocketActivity extends BaseMvpActivity {
+public class WebSocketActivity extends BaseMvpActivity implements View.OnClickListener {
 
+    private ActivityWebSocketBinding bind;
+    private Context mContext;
     private ScheduledExecutorService mExecutorService;
     private WebSocketClient mSocketClient;
     private boolean mIsStartTimer;
@@ -49,6 +56,8 @@ public class WebSocketActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
+        mContext = this;
+        bind = (ActivityWebSocketBinding) mViewDataBinding;
         if (mExecutorService == null) {
             mExecutorService = new ScheduledThreadPoolExecutor(1,
                     new BasicThreadFactory.Builder().namingPattern(TAG).daemon(true).build());
@@ -97,6 +106,9 @@ public class WebSocketActivity extends BaseMvpActivity {
 
     @Override
     public void initData() {
+        bind.tvSuper.setOnClickListener(this);
+        bind.tvShort.setOnClickListener(this);
+        bind.tvFeed.setOnClickListener(this);
         startTimer(getSocketRequestStr(AddressBook1Bean.getData()));
     }
 
@@ -149,5 +161,22 @@ public class WebSocketActivity extends BaseMvpActivity {
             }
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_super:
+                VideoPlayerActivity.start(mContext);
+                break;
+            case R.id.tv_short:
+                ShortVideoActivity.start(mContext);
+                break;
+            case R.id.tv_feed:
+                FeedVideoActivity.start(mContext);
+                break;
+            default:
+                break;
+        }
     }
 }

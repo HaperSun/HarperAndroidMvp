@@ -198,7 +198,7 @@
             android:name=".activity.WebSocketActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".activity.VideoPlayerActivity" />
+        <activity android:name=".activity.AudioActivity" />
 
         <service android:name=".observer.MyLocationService" />
 

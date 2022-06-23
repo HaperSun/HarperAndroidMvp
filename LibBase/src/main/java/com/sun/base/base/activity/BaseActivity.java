@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.IdRes;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.sun.base.base.iview.IBaseActivity;
@@ -20,9 +21,6 @@ import com.sun.base.base.widget.LoadingDialog;
 import com.sun.base.util.CommonUtils;
 import com.sun.common.toast.CustomToast;
 import com.sun.common.toast.ToastHelper;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -34,7 +32,6 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class BaseActivity extends AppCompatActivity implements IBaseView, IBaseActivity {
 
-    protected final String TAG = this.getClass().getSimpleName();
     protected FragmentManager mFragmentManager;
     //如果点击空白处不需要立即隐藏键盘，则给该变量赋值false
     public boolean needClickHideSoftInput = true;
@@ -46,18 +43,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFragmentManager = getSupportFragmentManager();
-        if (enableEventBus()) {
-            EventBus.getDefault().register(this);
-        }
-    }
-
-    /**
-     * 是否支持EventBus
-     *
-     * @return 支持EventBus
-     */
-    protected boolean enableEventBus() {
-        return false;
     }
 
     /**
@@ -172,18 +157,13 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
     @Override
     public void close() {
-        finish();
+        ActivityCompat.finishAfterTransition(this);
     }
 
 
     @Override
     public void beforeSetContentView(Bundle savedInstanceState) {
-        // 暂不做任何事，重写是因为不是每个界面都需要在设置布局之前有操作
-    }
-
-    @Subscribe
-    public void eventBusDefault(Object o) {
-        // do nothing
+        //暂不做任何事，重写是因为不是每个界面都需要在设置布局之前有操作
     }
 
     public <T extends View> T $(@IdRes int id) {
@@ -233,17 +213,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     }
 
     @Override
-    protected void onDestroy() {
-        if (mCompositeDisposable != null) {
-            mCompositeDisposable.dispose();
-        }
-        if (enableEventBus()) {
-            EventBus.getDefault().register(this);
-        }
-        super.onDestroy();
-    }
-
-    @Override
     public Context getContext() {
         return this;
     }
@@ -254,5 +223,13 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
             mCompositeDisposable = new CompositeDisposable();
         }
         mCompositeDisposable.add(disposable);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mCompositeDisposable != null) {
+            mCompositeDisposable.dispose();
+        }
+        super.onDestroy();
     }
 }

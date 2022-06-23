@@ -5,15 +5,11 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
+import com.sun.base.base.activity.BaseActivity;
 import com.sun.base.base.iview.IBaseFragment;
 import com.sun.base.base.iview.IBaseView;
-import com.sun.base.base.activity.BaseActivity;
 import com.sun.base.base.widget.LoadingDialog;
 import com.sun.base.dialog.BaseDialogFragment;
-
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -25,7 +21,6 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class BaseFragment extends BaseDialogFragment implements IBaseView, IBaseFragment {
 
-    protected final String TAG = getClass().getSimpleName();
     protected BaseActivity mActivity;
     // 一次性对象容器
     private CompositeDisposable mCompositeDisposable;
@@ -38,18 +33,7 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (enableEventBus()) {
-            EventBus.getDefault().register(this);
-        }
-    }
-
-    /**
-     * 是否支持EventBus
-     *
-     * @return 支持EventBus
-     */
-    protected boolean enableEventBus() {
-        return false;
+        mActivity = getBaseActivity();
     }
 
     /**
@@ -64,72 +48,54 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
     @Override
     public void showToast(int resId) {
         if (getStatus()) {
-            BaseActivity activity = getBaseActivity();
-            if (activity != null) {
-                activity.showToast(resId);
-            }
+            mActivity.showToast(resId);
         }
     }
 
     @Override
-    public void showToast(String msg) {
+    public void showToast(String s) {
         if (getStatus()) {
-            BaseActivity activity = getBaseActivity();
-            if (activity != null) {
-                activity.showToast(msg);
-            }
+            mActivity.showToast(s);
         }
     }
 
     @Override
-    public void showLongToast(String msg) {
+    public void showLongToast(String s) {
         if (getStatus()) {
-            BaseActivity activity = getBaseActivity();
-            if (activity != null) {
-                activity.showLongToast(msg);
-            }
+            mActivity.showLongToast(s);
         }
     }
 
     /**
      * 显示Toast，对勾类型
      *
-     * @param resId
+     * @param resId 字符串id
      */
     protected void showToastSuccess(int resId) {
         if (getStatus()) {
-            BaseActivity activity = getBaseActivity();
-            if (activity != null) {
-                activity.showToastSuccess(resId);
-            }
+            mActivity.showToastSuccess(resId);
         }
     }
 
     /**
      * 显示Toast，对勾类型
      *
-     * @param msg
+     * @param s 字符串
      */
-    protected void showToastSuccess(String msg) {
+    protected void showToastSuccess(String s) {
         if (getStatus()) {
-            BaseActivity activity = getBaseActivity();
-            if (activity != null) {
-                activity.showToastSuccess(msg);
-            }
+            mActivity.showToastSuccess(s);
         }
     }
 
     /**
      * 显示Toast，对勾类型
      *
-     * @param msg
+     * @param s 字符串
      */
-    protected void showLongToastSuccess(String msg) {
+    protected void showLongToastSuccess(String s) {
         if (getStatus()) {
-            BaseActivity activity = getBaseActivity();
-            if (activity != null) {
-                activity.showLongToastSuccess(msg);
-            }
+            mActivity.showLongToastSuccess(s);
         }
     }
 
@@ -147,11 +113,7 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
 
     @Override
     public void close() {
-    }
 
-    @Subscribe
-    public void eventBusDefault(Object o) {
-        // do nothing
     }
 
     protected void dismissLoadingDialog() {
@@ -176,6 +138,14 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
     }
 
     @Override
+    public void addDisposable(Disposable disposable) {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = new CompositeDisposable();
+        }
+        mCompositeDisposable.add(disposable);
+    }
+
+    @Override
     public void onDestroyView() {
         // 放弃异步请求，可根据需求修改代码执行位置
         if (mCompositeDisposable != null) {
@@ -183,21 +153,5 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
             mCompositeDisposable = null;
         }
         super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        if (enableEventBus()) {
-            EventBus.getDefault().unregister(this);
-        }
-        super.onDestroy();
-    }
-
-    @Override
-    public void addDisposable(Disposable disposable) {
-        if (mCompositeDisposable == null) {
-            mCompositeDisposable = new CompositeDisposable();
-        }
-        mCompositeDisposable.add(disposable);
     }
 }

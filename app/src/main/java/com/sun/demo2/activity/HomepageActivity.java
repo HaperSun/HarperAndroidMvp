@@ -228,7 +228,7 @@ public class HomepageActivity extends BaseMvpActivity {
                     FaceHomepageActivity.start(mContext);
                     break;
                 case 19:
-                    VideoPlayerActivity.start(mContext);
+                    AudioActivity.start(mContext);
                     break;
                 case 20:
                     CustomScrollLayoutActivity.start(mContext);

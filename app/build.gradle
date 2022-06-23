@@ -122,11 +122,11 @@ dependencies {
     //webSocket
     implementation target.webSocket
 
-    api project(':LibBase')
-    api project(':LibDb')
-    api project(':LibChart')
-    api project(':LibImg')
-    api project(':LibRichText')
-    api project(':LibBdFace')
-
+    implementation project(':LibBase')
+    implementation project(':LibDb')
+    implementation project(':LibChart')
+    implementation project(':LibImg')
+    implementation project(':LibRichText')
+    implementation project(':LibBdFace')
+    implementation project(':LibVideo')
 }

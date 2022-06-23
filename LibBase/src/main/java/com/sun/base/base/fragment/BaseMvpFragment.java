@@ -12,10 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-
-import com.sun.base.presenter.BasePresenter;
 import com.sun.base.base.iview.IAddPresenterView;
+import com.sun.base.presenter.BasePresenter;
 import com.sun.base.util.CommonUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +29,7 @@ import java.util.Set;
  */
 public abstract class BaseMvpFragment extends BaseFragment implements IAddPresenterView {
 
+    protected final String TAG = getClass().getSimpleName();
     private Set<BasePresenter> mPresenters;
     protected View mRootView;
     public ViewDataBinding mViewDataBinding;
@@ -35,10 +38,27 @@ public abstract class BaseMvpFragment extends BaseFragment implements IAddPresen
         // Required empty public constructor
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mViewDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false);
+        mRootView = mViewDataBinding.getRoot();
+        initBundle();
+        if (enableEventBus()) {
+            EventBus.getDefault().register(this);
+        }
+        initView();
+        initData();
+        //设置不可以多点点击
+        if (!enableMultiClick() && mRootView instanceof ViewGroup) {
+            //设置不可以多点点击
+            CommonUtils.setMotionEventSplittingEnabled((ViewGroup) mRootView, false);
+        }
+        return mRootView;
+    }
+
     /**
      * 子类每次new一个presenter的时候，请调用此方法
-     *
-     * @param presenter
      */
     @Override
     public void addPresenter(BasePresenter presenter) {
@@ -50,37 +70,42 @@ public abstract class BaseMvpFragment extends BaseFragment implements IAddPresen
         }
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mActivity = getBaseActivity();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mViewDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false);
-        mRootView = mViewDataBinding.getRoot();
-        initBundle();
-        initView();
-        initData();
-        //设置不可以多点点击
-        initMultiClick();
-        return mRootView;
-    }
-
     public void initBundle() {
+
     }
 
-    private void initMultiClick() {
-        if (!setMotionEventSplittingEnabled() && mRootView instanceof ViewGroup) {
-            //设置不可以多点点击
-            CommonUtils.setMotionEventSplittingEnabled((ViewGroup) mRootView, false);
-        }
+    /**
+     * 如果子类需要接收EventBus，返回true即可
+     *
+     * @return boolean
+     */
+    protected boolean enableEventBus() {
+        return false;
+    }
+
+    /**
+     * 默认不可多点点击，子类若要支持多点点击，返回true即可
+     *
+     * @return boolean
+     */
+    protected boolean enableMultiClick() {
+        return false;
+    }
+
+    public <T extends View> T $(@IdRes int id) {
+        return mRootView.findViewById(id);
+    }
+
+    @Subscribe
+    public void eventBusDefault(Object object) {
+        //为了防止activity注册了eventBus，但没有加有@Subscribe注解的方法导致崩溃
     }
 
     @Override
     public void onDestroy() {
+        if (enableEventBus()) {
+            EventBus.getDefault().unregister(this);
+        }
         if (mPresenters != null) {
             for (BasePresenter presenter : mPresenters) {
                 presenter.clearView();
@@ -88,18 +113,5 @@ public abstract class BaseMvpFragment extends BaseFragment implements IAddPresen
             mPresenters = null;
         }
         super.onDestroy();
-    }
-
-    public <T extends View> T $(@IdRes int id) {
-        return mRootView.findViewById(id);
-    }
-
-    /**
-     * 是否可以多点点击 子类可以复写该方法 默认不可多点点击
-     *
-     * @return
-     */
-    protected boolean setMotionEventSplittingEnabled() {
-        return false;
     }
 }

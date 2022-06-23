@@ -22,10 +22,20 @@ android {
         sourceCompatibility build_version.version_java
         targetCompatibility build_version.version_java
     }
+
+    //启动dataBinding
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation target.appcompat
     implementation target.material
     implementation target.constraintlayout
+    implementation target.glide
+
+    implementation project(':LibDanmaku')
+    implementation project(':LibBase')
 }
