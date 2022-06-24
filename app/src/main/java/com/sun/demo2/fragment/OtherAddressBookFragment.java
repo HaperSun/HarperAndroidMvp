@@ -89,7 +89,7 @@ public class OtherAddressBookFragment extends BaseMvpFragment implements FastInd
 
     @Override
     public void onCharSelected(char c) {
-        bind.tvBig.setText(c+"");
+        bind.tvBig.setText(c + "");
         bind.tvBig.setVisibility(View.VISIBLE);
         mHandler.removeCallbacks(mRunnable);
         mHandler.postDelayed(mRunnable, 400);
@@ -168,7 +168,9 @@ public class OtherAddressBookFragment extends BaseMvpFragment implements FastInd
                         userHolder = (UserHolder) convertView.getTag();
                     }
                     AddressBook2Bean bean = (AddressBook2Bean) item.object;
-                    userHolder.tvName.setText(bean.getName());
+                    String name = bean.getName();
+                    userHolder.tvName.setText(name);
+                    userHolder.tvName.setOnClickListener(v -> showToast(name));
                 }
                 break;
             }

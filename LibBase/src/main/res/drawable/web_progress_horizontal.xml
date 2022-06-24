@@ -34,10 +34,10 @@
 
                 <gradient
                     android:angle="270"
-                    android:centerColor="@color/colorAccent"
+                    android:centerColor="@color/cl_Accent"
                     android:centerY="0.75"
-                    android:endColor="@color/colorAccent"
-                    android:startColor="@color/colorAccent"/>
+                    android:endColor="@color/cl_Accent"
+                    android:startColor="@color/cl_Accent"/>
             </shape>
         </clip>
     </item>

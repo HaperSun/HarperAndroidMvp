@@ -1,4 +1,4 @@
-package com.sun.base.util;
+package com.sun.base.status;
 
 import android.app.Activity;
 import android.content.Context;
@@ -77,10 +77,6 @@ public class StatusBarUtil {
      * @return
      */
     public static boolean isLightStatusBarSupported() {
-        if (Build.MODEL.contains("TB3-850F")) {
-            //联想学生机适配下
-            return false;
-        }
         return isMIUI() || isFlyme() || Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 

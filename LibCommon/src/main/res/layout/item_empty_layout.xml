@@ -11,6 +11,6 @@
         android:drawableTop="@mipmap/icon_no_data"
         android:text="@string/no_content_now"
         android:drawablePadding="@dimen/dp10"
-        android:textColor="@color/color_999999"
+        android:textColor="@color/cl_999999"
         android:textSize="@dimen/sp18" />
 </FrameLayout>

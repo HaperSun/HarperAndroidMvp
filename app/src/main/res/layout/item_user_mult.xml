@@ -16,11 +16,11 @@
         android:paddingEnd="@dimen/dp35"
         android:paddingBottom="@dimen/dp12"
         android:text=""
-        android:textColor="@color/cl101010"
+        android:textColor="@color/cl_101010"
         android:textSize="@dimen/sp18" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/cleee" />
+        android:background="@color/cl_eee" />
 </LinearLayout>

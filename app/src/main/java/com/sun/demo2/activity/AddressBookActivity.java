@@ -36,6 +36,11 @@ public class AddressBookActivity extends BaseMvpActivity {
     }
 
     @Override
+    protected boolean enableScreenOff() {
+        return true;
+    }
+
+    @Override
     public int layoutId() {
         return R.layout.activity_address_book;
     }

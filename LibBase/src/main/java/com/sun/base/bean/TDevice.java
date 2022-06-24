@@ -389,21 +389,17 @@ public class TDevice {
     }
 
     public static void setFullScreen(Activity activity) {
-        WindowManager.LayoutParams params = activity.getWindow()
-                .getAttributes();
+        WindowManager.LayoutParams params = activity.getWindow().getAttributes();
         params.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         activity.getWindow().setAttributes(params);
-        activity.getWindow().addFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
     public static void cancelFullScreen(Activity activity) {
-        WindowManager.LayoutParams params = activity.getWindow()
-                .getAttributes();
+        WindowManager.LayoutParams params = activity.getWindow().getAttributes();
         params.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
         activity.getWindow().setAttributes(params);
-        activity.getWindow().clearFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
     public static PackageInfo getPackageInfo(String pckName) {

@@ -27,7 +27,7 @@
         android:layout_marginLeft="@dimen/dp40"
         android:layout_marginRight="@dimen/dp40"
         android:gravity="center"
-        android:textColor="@color/color_1d1b1b"
+        android:textColor="@color/cl_1d1b1b"
         android:textSize="@dimen/sp18"
         android:textStyle="bold"
         tools:text="测试头部布局" />

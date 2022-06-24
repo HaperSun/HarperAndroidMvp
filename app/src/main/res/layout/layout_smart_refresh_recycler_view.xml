@@ -6,10 +6,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fadingEdge="none"
-        app:srlAccentColor="@color/color_666666"
+        app:srlAccentColor="@color/cl_666666"
         app:srlEnableAutoLoadMore="@bool/auto_load"
         app:srlEnableFooterFollowWhenLoadFinished="false"
-        app:srlPrimaryColor="@color/color_eee">
+        app:srlPrimaryColor="@color/cl_eee">
 
         <com.sun.common.widget.SmartRefreshHeader
             android:layout_width="match_parent"

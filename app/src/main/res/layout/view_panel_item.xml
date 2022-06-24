@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/item_image"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/clb99d79"
+        android:textColor="@color/cl_b99d79"
         android:textSize="@dimen/sp11" />
 
     <View

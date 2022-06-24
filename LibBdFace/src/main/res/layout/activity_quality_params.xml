@@ -40,7 +40,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
                 android:text="@string/save"
-                android:textColor="@color/color_9EA0A3"
+                android:textColor="@color/cl_9EA0A3"
                 android:textSize="18sp" />
         </RelativeLayout>
 
@@ -151,7 +151,7 @@
                     android:layout_marginTop="@dimen/dp20"
                     android:layout_marginBottom="@dimen/dp20"
                     android:text="@string/setting_occlu_tips"
-                    android:textColor="@color/color_9EA0A3"
+                    android:textColor="@color/cl_9EA0A3"
                     android:textSize="14sp" />
 
                 <!--左眼-->
@@ -343,7 +343,7 @@
                     android:layout_marginTop="@dimen/dp20"
                     android:layout_marginBottom="@dimen/dp20"
                     android:text="@string/setting_headpose_tips"
-                    android:textColor="@color/color_9EA0A3"
+                    android:textColor="@color/cl_9EA0A3"
                     android:textSize="14sp" />
 
                 <!--俯仰角-->

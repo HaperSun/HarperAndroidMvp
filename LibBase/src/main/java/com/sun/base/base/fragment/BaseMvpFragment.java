@@ -41,9 +41,12 @@ public abstract class BaseMvpFragment extends BaseFragment implements IAddPresen
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //获取ViewDataBinding
         mViewDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false);
         mRootView = mViewDataBinding.getRoot();
+        //处理fragment的Bundle
         initBundle();
+        //是否接收EventBus消息
         if (enableEventBus()) {
             EventBus.getDefault().register(this);
         }

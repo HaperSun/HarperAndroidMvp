@@ -74,7 +74,7 @@
                 android:layout_marginRight="15dp"
                 android:drawableRight="@mipmap/icon_setting_quality_enter"
                 android:text="@string/setting_quality_enter_params_txt"
-                android:textColor="@color/color_9EA0A3"
+                android:textColor="@color/cl_9EA0A3"
                 android:textSize="16sp"
                 android:visibility="gone" />
         </RelativeLayout>
@@ -114,7 +114,7 @@
                 android:layout_marginRight="15dp"
                 android:drawableRight="@mipmap/icon_setting_quality_enter"
                 android:text="@string/setting_quality_enter_params_txt"
-                android:textColor="@color/color_9EA0A3"
+                android:textColor="@color/cl_9EA0A3"
                 android:textSize="16sp"
                 android:visibility="gone" />
         </RelativeLayout>
@@ -154,7 +154,7 @@
                 android:layout_marginRight="15dp"
                 android:drawableRight="@mipmap/icon_setting_quality_enter"
                 android:text="@string/setting_quality_enter_params_txt"
-                android:textColor="@color/color_9EA0A3"
+                android:textColor="@color/cl_9EA0A3"
                 android:textSize="16sp"
                 android:visibility="gone" />
         </RelativeLayout>
@@ -194,7 +194,7 @@
                 android:layout_marginRight="15dp"
                 android:drawableRight="@mipmap/icon_setting_quality_enter"
                 android:text="@string/setting_quality_enter_params_txt"
-                android:textColor="@color/color_9EA0A3"
+                android:textColor="@color/cl_9EA0A3"
                 android:textSize="16sp"
                 android:visibility="gone" />
         </RelativeLayout>
@@ -207,7 +207,7 @@
             android:layout_alignLeft="@id/relative_custom"
             android:layout_marginTop="24dp"
             android:text="@string/setting_quality_tip1_txt"
-            android:textColor="@color/color_9EA0A3"
+            android:textColor="@color/cl_9EA0A3"
             android:textSize="14sp" />
 
         <TextView
@@ -218,7 +218,7 @@
             android:layout_alignLeft="@id/relative_custom"
             android:layout_marginTop="8dp"
             android:text="@string/setting_quality_tip2_txt"
-            android:textColor="@color/color_9EA0A3"
+            android:textColor="@color/cl_9EA0A3"
             android:textSize="14sp" />
     </RelativeLayout>
 </layout>

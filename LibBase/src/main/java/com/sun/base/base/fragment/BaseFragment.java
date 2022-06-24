@@ -113,7 +113,7 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
 
     @Override
     public void close() {
-
+        mActivity.close();
     }
 
     protected void dismissLoadingDialog() {

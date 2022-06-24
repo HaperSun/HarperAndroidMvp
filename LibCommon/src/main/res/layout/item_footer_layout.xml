@@ -12,6 +12,6 @@
         android:maxLines="1"
         android:padding="12.5dp"
         android:text="@string/no_more"
-        android:textColor="@color/color_999999"
+        android:textColor="@color/cl_999999"
         android:textSize="@dimen/sp18"/>
 </FrameLayout>

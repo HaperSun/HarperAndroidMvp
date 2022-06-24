@@ -57,7 +57,7 @@
                     android:layout_marginTop="20dp"
                     android:textSize="14sp"
                     android:text="@string/setting_prompt_txt"
-                    android:textColor="@color/color_101010" />
+                    android:textColor="@color/cl_101010" />
 
                 <!--语音播报开关-->
                 <RelativeLayout
@@ -79,7 +79,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
                         android:text="@string/setting_announcements_txt"
-                        android:textColor="@color/color_101010"
+                        android:textColor="@color/cl_101010"
                         android:textSize="18sp" />
 
                     <Switch
@@ -127,7 +127,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
                         android:textSize="18sp"
-                        android:textColor="@color/color_9EA0A3"
+                        android:textColor="@color/cl_9EA0A3"
                         android:drawableRight="@mipmap/icon_setting_quality_enter"
                         android:text="正常" />
                 </RelativeLayout>

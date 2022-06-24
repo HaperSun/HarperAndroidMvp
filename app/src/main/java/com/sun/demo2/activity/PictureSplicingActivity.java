@@ -11,7 +11,7 @@ import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.dialog.BottomDialogFragment;
 import com.sun.base.util.LogHelper;
 import com.sun.base.util.PermissionUtil;
-import com.sun.base.util.StatusBarUtil;
+import com.sun.base.status.StatusBarUtil;
 import com.sun.common.bean.MagicInt;
 import com.sun.common.toast.ToastHelper;
 import com.sun.demo2.R;

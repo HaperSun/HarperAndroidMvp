@@ -8,9 +8,11 @@ import android.view.WindowManager;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.sun.base.base.iview.IAddPresenterView;
 import com.sun.base.presenter.BasePresenter;
 import com.sun.base.util.CommonUtils;
+import com.sun.base.status.StatusBarUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,36 +30,55 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
     protected final String TAG = this.getClass().getSimpleName();
     private Set<BasePresenter> mPresenters;
     public ViewDataBinding mViewDataBinding;
+    protected int mStatusBarColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!enableScreenOff()){
+        if (!enableScreenOff()) {
             //让屏幕保持不暗不关闭
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
         beforeSetContentView(savedInstanceState);
         //android6.0以后可以对状态栏文字颜色和图标进行修改
-        if (!enableStatusBarDark()){
-            changeStatusBarTxtAndImgColor();
-        }
+        initStatusBarColor();
+        //获取ViewDataBinding
         mViewDataBinding = DataBindingUtil.setContentView(this, layoutId());
+        //处理activity的Intent
         initIntent();
+        //是否接收EventBus消息
         if (enableEventBus()) {
             EventBus.getDefault().register(this);
         }
         initView();
         initData();
         //设置不可以多点点击
-        if (!enableMultiClick()){
+        if (!enableMultiClick()) {
             CommonUtils.setMotionEventSplittingEnabled(findViewById(android.R.id.content), false);
+        }
+    }
+
+    private void initStatusBarColor() {
+        if (!enableStatusBarDark()) {
+            if (StatusBarUtil.isLightStatusBarSupported()) {
+                //将StatusBar的文字和图片设置成深色的
+                changeStatusBarTxtAndImgColor();
+            }
+        } else {
+            try {
+                if (mStatusBarColor != 0) {
+                    StatusBarCompat.setStatusBarColor(this, mStatusBarColor);
+                }
+            } catch (Exception e) {
+                showToast("mStatusBarColor赋值异常~");
+            }
         }
     }
 
     /**
      * 子类每次new一个presenter的时候，请调用此方法
      *
-     * @param presenter
+     * @param presenter presenter
      */
     @Override
     public void addPresenter(BasePresenter presenter) {
@@ -112,8 +133,8 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
 
     private void changeStatusBarTxtAndImgColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            //设置了这个属性，状态栏的图标以深色绘制
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
     }
 
@@ -124,7 +145,7 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
 
     @Override
     protected void onDestroy() {
-        if (!enableScreenOff()){
+        if (!enableScreenOff()) {
             //让屏幕保持不暗不关闭
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }

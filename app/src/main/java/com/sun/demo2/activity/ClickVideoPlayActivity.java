@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.sun.base.base.activity.BaseMvpActivity;
@@ -46,6 +47,12 @@ public class ClickVideoPlayActivity extends BaseMvpActivity implements SwipeRefr
     @Override
     public int layoutId() {
         return R.layout.activity_click_video_play;
+    }
+
+    @Override
+    protected boolean enableStatusBarDark() {
+        mStatusBarColor = ContextCompat.getColor(this, R.color.cl_14233D);
+        return true;
     }
 
     @Override
@@ -165,9 +172,11 @@ public class ClickVideoPlayActivity extends BaseMvpActivity implements SwipeRefr
 
     @Override
     public void onBackPressed() {
-        if (mIsFullScreen){
+        if (mIsFullScreen) {
             bind.superPlayerView.switchPlayMode(SuperPlayerDef.PlayerMode.WINDOW);
-        }else {
+            //当从全屏模式返回窗口模式时，SuperPlayerView会clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+            //导致activity中的theme设置失效，需要重新设置下
+        } else {
             close();
         }
     }
