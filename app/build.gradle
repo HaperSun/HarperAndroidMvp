@@ -131,4 +131,5 @@ dependencies {
     implementation project(':LibRichText')
     implementation project(':LibBdFace')
     implementation project(':LibVideo')
+    implementation project(':LibEmoji')
 }

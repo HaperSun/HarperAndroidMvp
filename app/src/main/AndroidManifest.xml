@@ -205,6 +205,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ExpandableTextActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
 
         <service android:name=".observer.MyLocationService" />
 

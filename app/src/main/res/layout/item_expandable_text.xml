@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sun.emoji.ExpandableTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/expandable_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp10"
+    android:layout_marginBottom="@dimen/dp10"
+    android:textColor="@color/black"
+    android:textSize="@dimen/sp20"
+    app:etv_MaxLinesOnShrink="2" />

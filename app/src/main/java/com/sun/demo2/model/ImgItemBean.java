@@ -7,17 +7,17 @@ package com.sun.demo2.model;
  */
 public class ImgItemBean {
 
-    private String img1;
+    private String img;
 
-    public ImgItemBean(String img1) {
-        this.img1 = img1;
+    public ImgItemBean(String img) {
+        this.img = img;
     }
 
-    public String getImg1() {
-        return img1;
+    public String getImg() {
+        return img;
     }
 
-    public void setImg1(String img1) {
-        this.img1 = img1;
+    public void setImg(String img) {
+        this.img = img;
     }
 }
