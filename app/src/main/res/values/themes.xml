@@ -15,17 +15,13 @@
     </style>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimaryVariant">@color/white</item>
-        <!--避免设置StatusBar文本和图标颜色后，StatusBar失去高度-->
-        <item name="android:fitsSystemWindows">true</item>
         <!-- 设置StatusBar颜色. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <!--表示内容区不延伸到状态栏或底部导航栏，该属性生效前提是：状态栏(StatusBar)或导航栏(NavigationBar)透明并且没有标题栏-->
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!--        <item name="android:windowFullscreen">true</item>-->
-        <!--        <item name="android:windowNoTitle">true</item>-->
-        <!--        <item name="android:navigationBarColor">@android:color/transparent</item>-->
         <item name="android:windowBackground">@mipmap/bg_splash</item>
     </style>
 
@@ -45,4 +41,8 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MusicTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
 </resources>

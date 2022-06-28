@@ -1,4 +1,4 @@
-package com.sun.demo2.view.widget;
+package com.sun.luck.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.sun.demo2.R;
-import com.sun.demo2.iview.ItemView;
+import com.sun.luck.R;
+import com.sun.luck.i.ItemView;
 
 
 public class LuckyMonkeyPanelItemView extends RelativeLayout implements ItemView {

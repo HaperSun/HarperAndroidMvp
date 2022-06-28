@@ -122,8 +122,9 @@ public class HomepageActivity extends BaseMvpActivity {
         titles.add("RecyclerView中点播视频");
         titles.add("仿照百度地图的上层地址列表的上拉、下拉的拖动效果");
         titles.add("仿通讯录效果");
-        titles.add("WebSocket使用");
+        titles.add("WebSocket使用和腾讯视频播放器");
         titles.add("可展开的TextView实例");
+        titles.add("DrawerLayout+toolBar和音频播放");
         return titles;
     }
 
@@ -149,9 +150,7 @@ public class HomepageActivity extends BaseMvpActivity {
         @Override
         public void onBindViewHolder(@NonNull Holder holder, int position) {
             holder.mTitleTextView.setText(mTitles.get(position));
-            holder.itemView.setOnClickListener(v -> {
-                doClick(position);
-            });
+            holder.itemView.setOnClickListener(v -> doClick(position));
         }
 
         @Override
@@ -242,6 +241,9 @@ public class HomepageActivity extends BaseMvpActivity {
                     break;
                 case 23:
                     ExpandableTextActivity.start(mContext);
+                    break;
+                case 24:
+                    MusicListActivity.start(mContext);
                     break;
                 default:
                     break;

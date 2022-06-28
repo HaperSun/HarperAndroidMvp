@@ -16,7 +16,7 @@ import com.sun.demo2.adapter.ViewPagerAdapter;
 import com.sun.demo2.databinding.ActivityCustomScrollLayoutBinding;
 import com.sun.demo2.fragment.CircleTurntableFragment;
 import com.sun.demo2.fragment.SudokuTurnTableFragment;
-import com.sun.demo2.fragment.ViewPagerFragment;
+import com.sun.demo2.fragment.CustomScrollLayoutFragment;
 import com.sun.demo2.view.dialog.PeoplePopupWindow;
 
 import java.util.ArrayList;
@@ -80,7 +80,7 @@ public class CustomScrollLayoutActivity extends BaseMvpActivity implements Peopl
         titles.add("圆盘抽奖");
         titles.add("幸运转盘");
         List<BaseMvpFragment> fragments = new ArrayList<>();
-        fragments.add(ViewPagerFragment.getInstance());
+        fragments.add(CustomScrollLayoutFragment.getInstance());
         fragments.add(CircleTurntableFragment.getInstance());
         fragments.add(SudokuTurnTableFragment.getInstance());
         ViewPagerAdapter adapter = ViewPagerAdapter.create(getSupportFragmentManager(), this, titles, fragments);

@@ -23,13 +23,13 @@ import java.util.ArrayList;
  * @date 2022/5/31
  * note:
  */
-public class ViewPagerFragment extends BaseMvpFragment {
+public class CustomScrollLayoutFragment extends BaseMvpFragment {
 
     private FragmentViewPagerBinding bind;
     private ArrayList<String> mList;
 
-    public static ViewPagerFragment getInstance() {
-        ViewPagerFragment fragment = new ViewPagerFragment();
+    public static CustomScrollLayoutFragment getInstance() {
+        CustomScrollLayoutFragment fragment = new CustomScrollLayoutFragment();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
         return fragment;

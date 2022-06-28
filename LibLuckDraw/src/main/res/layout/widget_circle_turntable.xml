@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:parentTag="android.widget.FrameLayout">
+
+    <ImageView
+        android:id="@+id/iv_lucky_turntable"
+        android:layout_width="@dimen/dp300"
+        android:layout_height="@dimen/dp300"
+        android:layout_gravity="center"
+        android:src="@mipmap/bg_lucky_turntable" />
+
+    <ImageView
+        android:id="@+id/iv_start_btn"
+        android:layout_width="@dimen/dp100"
+        android:layout_height="@dimen/dp100"
+        android:layout_gravity="center"
+        android:src="@mipmap/bg_lucky_go" />
+</merge>

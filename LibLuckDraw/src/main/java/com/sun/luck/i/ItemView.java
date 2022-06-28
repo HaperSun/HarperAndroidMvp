@@ -1,4 +1,4 @@
-package com.sun.demo2.iview;
+package com.sun.luck.i;
 
 
 public interface ItemView {

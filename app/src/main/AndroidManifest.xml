@@ -46,7 +46,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="label,allowBackup,supportsRtl,icon">
-
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -208,6 +207,11 @@
         <activity
             android:name=".activity.ExpandableTextActivity"
             android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.MusicListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MusicTheme"
             tools:ignore="LockedOrientationActivity" />
 
         <service android:name=".observer.MyLocationService" />

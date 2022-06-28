@@ -1,22 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:luckDrawView="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:overScrollMode="never">
 
-        <ImageView
-            android:id="@+id/id_lucky_turntable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@mipmap/bg_lucky_turntable" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp100"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/id_start_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@mipmap/bg_lucky_go" />
-    </FrameLayout>
+            <com.sun.luck.view.CircleTurntableView
+                android:id="@+id/circle_turntable_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:gravity="center"
+                android:text="自定义模式"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16" />
+
+            <com.sun.luck.view.LuckDrawView
+                android:id="@+id/luck_draw_view1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                luckDrawView:colors="@array/colors"
+                luckDrawView:deses="@array/names"
+                luckDrawView:goImg="@mipmap/node"
+                luckDrawView:huanImg="@mipmap/yuanhuan"
+                luckDrawView:icons="@array/icons"
+                luckDrawView:minTimes="3"
+                luckDrawView:textColor="#FF0000"
+                luckDrawView:type="1"
+                luckDrawView:typenum="7"
+                luckDrawView:vartime="75" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:gravity="center"
+                android:text="暴力模式-只配置底盘"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16" />
+
+            <com.sun.luck.view.LuckDrawView
+                android:id="@+id/luck_draw_view2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                luckDrawView:mainImg="@mipmap/bg_lucky_draw_all"
+                luckDrawView:minTimes="3"
+                luckDrawView:type="2"
+                luckDrawView:typenum="7"
+                luckDrawView:vartime="75" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:gravity="center"
+                android:text="用户通过代码来设置这些属性"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16" />
+
+            <com.sun.luck.view.LuckDrawView
+                android:id="@+id/luck_draw_view3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                luckDrawView:typenum="-1" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

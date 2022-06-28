@@ -1,4 +1,4 @@
-package com.sun.demo2.view.widget;
+package com.sun.luck.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -9,8 +9,8 @@ import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.sun.demo2.R;
-import com.sun.demo2.iview.ItemView;
+import com.sun.luck.R;
+import com.sun.luck.i.ItemView;
 
 
 public class LuckyMonkeyPanelView extends FrameLayout {

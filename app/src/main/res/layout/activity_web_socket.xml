@@ -17,7 +17,7 @@
             android:background="@color/purple_200"
             android:layout_marginTop="@dimen/dp10"
             android:padding="@dimen/dp10"
-            android:text="点播"
+            android:text="全屏播放"
             android:textColor="@color/black"
             android:textSize="@dimen/sp16" />
 

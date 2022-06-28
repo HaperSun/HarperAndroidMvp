@@ -1,17 +1,21 @@
 package com.sun.demo2.fragment;
 
-import android.content.Context;
+
+import android.animation.ValueAnimator;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 
 import com.sun.base.base.fragment.BaseMvpFragment;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.FragmentCircleTurntableBinding;
+import com.sun.luck.i.RotateListener;
+import com.sun.luck.view.LuckDrawView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -21,16 +25,7 @@ import java.util.Random;
  */
 public class CircleTurntableFragment extends BaseMvpFragment {
 
-    private Context mContext;
     private FragmentCircleTurntableBinding bind;
-    private Animation mStartAnimation;
-    private Animation mEndAnimation;
-    private boolean isRunning;
-    //奖品级别，0代表没有
-    private int mPrizeGrade = 6;
-    private int mItemCount = 3;
-    //奖品在转盘中的位置(到达一等奖的距离)
-    private final int[] mPrizePosition = {0, 4, 2, 1, 5, 3};
 
     public static CircleTurntableFragment getInstance() {
         CircleTurntableFragment fragment = new CircleTurntableFragment();
@@ -46,95 +41,129 @@ public class CircleTurntableFragment extends BaseMvpFragment {
 
     @Override
     public void initView() {
-        mContext = getContext();
         bind = (FragmentCircleTurntableBinding) mViewDataBinding;
-        bind.idStartBtn.setOnClickListener(v -> {
-            // 未抽过奖并有抽奖的机会
-            if (!isRunning) {
-                isRunning = true;
-                mStartAnimation.reset();
-                bind.idLuckyTurntable.startAnimation(mStartAnimation);
-                if (mEndAnimation != null) {
-                    mEndAnimation.cancel();
-                }
-                new Handler().postDelayed(() -> endAnimation(), 2000);
-            }
-        });
     }
 
     @Override
     public void initData() {
-        mStartAnimation = AnimationUtils.loadAnimation(mContext, R.anim.rotate_anim);
-        mStartAnimation.setAnimationListener(new Animation.AnimationListener() {
+        bind.circleTurntableView.initData(2, 6);
+        bind.circleTurntableView.setOnResultListener(position -> showToast("您抽中的奖品等级是：" + position));
+
+        bind.luckDrawView1.setRotateListener(new RotateListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
+            public void rotateEnd(int position, String des) {
+                showToast("结束了 " + position + "   " + des);
             }
 
             @Override
-            public void onAnimationEnd(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-    }
-
-    /**
-     * 结束动画，慢慢停止转动，抽中的奖品定格在指针指向的位置
-     */
-    private void endAnimation() {
-        int position = mPrizePosition[mPrizeGrade - 1];
-        float toDegreeMin = 360 / mItemCount * (position - 0.5f) + 1;
-        Random random = new Random();
-        int randomInt = random.nextInt(360 / mItemCount - 1);
-        //5周 + 偏移量
-        float toDegree = toDegreeMin + randomInt + 360 * 5;
-        // 按中心点旋转 toDegree度
-        // 参数：旋转的开始角度、旋转的结束角度、X轴的伸缩模式、X坐标的伸缩值、Y轴的伸缩模式、Y坐标的伸缩值
-        mEndAnimation = new RotateAnimation(0, toDegreeMin, Animation.RELATIVE_TO_SELF,
-                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        // 设置旋转时间
-        mEndAnimation.setDuration(3000);
-        // 设置重复次数
-        mEndAnimation.setRepeatCount(0);
-        // 动画执行完后是否停留在执行完的状态
-        mEndAnimation.setFillAfter(true);
-        // 动画播放的速度
-        mEndAnimation.setInterpolator(new DecelerateInterpolator());
-        mEndAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
+            public void rotating(ValueAnimator valueAnimator) {
 
             }
 
             @Override
-            public void onAnimationEnd(Animation animation) {
-                isRunning = false;
-                showToast("富光350ml水杯");
-                stopAnimation();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
+            public void rotateBefore(ImageView goImg) {
+                int position = new Random().nextInt(7) + 1;
+                bind.luckDrawView1.startRotate(position);
             }
         });
-        bind.idLuckyTurntable.startAnimation(mEndAnimation);
-        mStartAnimation.cancel();
+
+        bind.luckDrawView2.setRotateListener(new RotateListener() {
+            @Override
+            public void rotateEnd(int position, String des) {
+                showToast("结束了 位置：" + position + "   描述：" + des);
+            }
+
+            @Override
+            public void rotating(ValueAnimator valueAnimator) {
+
+            }
+
+            @Override
+            public void rotateBefore(ImageView goImg) {
+                //模拟位置
+                int position = new Random().nextInt(7) + 1;
+                bind.luckDrawView2.startRotate(position);
+            }
+        });
+        setThird();
     }
 
-
-    /**
-     * 停止动画（异常情况，没有奖品）
-     */
-    private void stopAnimation() {
-        //转盘停止回到初始状态
-        if (isRunning) {
-            mStartAnimation.cancel();
-            bind.idLuckyTurntable.clearAnimation();
-            isRunning = false;
+    private void setThird() {
+        /**
+         * 新增使用代码设置属性的方式
+         *
+         * 请注意：
+         *  使用这种方式需要在引入布局文件的时候在布局文件中设置mTypeNums = -1 来告诉我你现在要用代码传入这些属性
+         *  使用这种方式需要在引入布局文件的时候在布局文件中设置mTypeNums = -1 来告诉我你现在要用代码传入这些属性
+         *  使用这种方式需要在引入布局文件的时候在布局文件中设置mTypeNums = -1 来告诉我你现在要用代码传入这些属性
+         *
+         *  重要的事情说三遍
+         *
+         *  例如
+         *  <com.cretin.www.wheelsruflibrary.view.WheelSurfView
+         *      android:id="@+id/wheelSurfView2"
+         *      android:layout_width="match_parent"
+         *      android:layout_height="match_parent"
+         *      wheelSurfView:typenum="-1"
+         *      android:layout_margin="20dp">
+         *
+         *  然后调用setConfig()方法来设置你的属性
+         *
+         * 请注意：
+         *  你在传入所有的图标文件之后需要调用 WheelSurfView.rotateBitmaps() 此方法来处理一下你传入的图片
+         *  你在传入所有的图标文件之后需要调用 WheelSurfView.rotateBitmaps() 此方法来处理一下你传入的图片
+         *  你在传入所有的图标文件之后需要调用 WheelSurfView.rotateBitmaps() 此方法来处理一下你传入的图片
+         *
+         *  重要的事情说三遍
+         *
+         * 请注意：
+         *  .setmColors(colors)
+         *  .setmDeses(des)
+         *  .setmIcons(mListBitmap)
+         *  这三个方法中的参数长度必须一致 否则会报运行时异常
+         */
+        //颜色
+        Integer[] colors = new Integer[]{Color.parseColor("#fef9f7"), Color.parseColor("#fbc6a9")
+                , Color.parseColor("#ffdecc"), Color.parseColor("#fbc6a9")
+                , Color.parseColor("#ffdecc"), Color.parseColor("#fbc6a9")
+                , Color.parseColor("#ffdecc")};
+        //文字
+        String[] des = new String[]{"王 者 皮 肤", "1 8 0 积 分", "L O L 皮 肤", "谢 谢 参 与", "2 8 积 分", "微 信 红 包", "5 Q 币"};
+        //图标
+        List<Bitmap> mListBitmap = new ArrayList<>();
+        for ( int i = 0; i < colors.length; i++ ) {
+            mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.iphone));
         }
+        //主动旋转一下图片
+        mListBitmap = LuckDrawView.rotateBitmaps(mListBitmap);
+
+        //获取第三个视图
+        LuckDrawView.Builder build = new LuckDrawView.Builder()
+                .setmColors(colors)
+                .setmDeses(des)
+                .setmIcons(mListBitmap)
+                .setmType(1)
+                .setmTypeNum(7)
+                .build();
+        bind.luckDrawView3.setConfig(build);
+        bind.luckDrawView3.setRotateListener(new RotateListener() {
+            @Override
+            public void rotateEnd(int position, String des) {
+                showToast("结束了 位置：" + position + "   描述：" + des);
+            }
+
+            @Override
+            public void rotating(ValueAnimator valueAnimator) {
+
+            }
+
+            @Override
+            public void rotateBefore(ImageView goImg) {
+                //模拟位置
+                int position = new Random().nextInt(7) + 1;
+                bind.luckDrawView3.startRotate(position);
+            }
+        });
     }
+
 }

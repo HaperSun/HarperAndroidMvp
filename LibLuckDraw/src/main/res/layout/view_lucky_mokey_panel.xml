@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.sun.demo2.view.widget.LuckyMonkeyPanelItemView
+            <com.sun.luck.view.LuckyMonkeyPanelItemView
                 android:id="@+id/item1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-            <com.sun.demo2.view.widget.LuckyMonkeyPanelItemView
+            <com.sun.luck.view.LuckyMonkeyPanelItemView
                 android:id="@+id/item2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-            <com.sun.demo2.view.widget.LuckyMonkeyPanelItemView
+            <com.sun.luck.view.LuckyMonkeyPanelItemView
                 android:id="@+id/item3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.sun.demo2.view.widget.LuckyMonkeyPanelItemView
+            <com.sun.luck.view.LuckyMonkeyPanelItemView
                 android:id="@+id/item4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-            <com.sun.demo2.view.widget.LuckyMonkeyPanelItemView
+            <com.sun.luck.view.LuckyMonkeyPanelItemView
                 android:id="@+id/item6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.sun.demo2.view.widget.LuckyMonkeyPanelItemView
+            <com.sun.luck.view.LuckyMonkeyPanelItemView
                 android:id="@+id/item7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-            <com.sun.demo2.view.widget.LuckyMonkeyPanelItemView
+            <com.sun.luck.view.LuckyMonkeyPanelItemView
                 android:id="@+id/item8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-            <com.sun.demo2.view.widget.LuckyMonkeyPanelItemView
+            <com.sun.luck.view.LuckyMonkeyPanelItemView
                 android:id="@+id/item9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

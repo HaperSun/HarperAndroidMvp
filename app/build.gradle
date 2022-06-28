@@ -132,4 +132,5 @@ dependencies {
     implementation project(':LibBdFace')
     implementation project(':LibVideo')
     implementation project(':LibEmoji')
+    implementation project(':LibLuckDraw')
 }
