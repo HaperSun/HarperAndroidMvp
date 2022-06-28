@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
  * @date: 2022/4/2
  * @note: 时间常量
  */
-public final class TimeConstants {
+public final class TimeConstant {
     public static final int MSEC = 1;
     public static final int SEC = 1000;
     public static final int MIN = 60000;

@@ -44,11 +44,11 @@ import java.util.TreeMap;
  * @date: 2021/11/12
  * @note:
  */
-public class CommonUtils {
+public class CommonUtil {
 
-    private static final String TAG = CommonUtils.class.getName();
+    private static final String TAG = CommonUtil.class.getSimpleName();
 
-    private CommonUtils() {
+    private CommonUtil() {
         throw new UnsupportedOperationException("CommonUtils不能被构造");
     }
 
@@ -362,7 +362,7 @@ public class CommonUtils {
     private static void setListViewMotionEventSplittingEnabled(boolean enabled, ListView listView) {
         int headerViewsCount = listView.getHeaderViewsCount();
         if (headerViewsCount > 0) {
-            ArrayList<ListView.FixedViewInfo> mHeaderViewInfos = ReflectUtils.reflect(listView).field("mHeaderViewInfos").get();
+            ArrayList<ListView.FixedViewInfo> mHeaderViewInfos = ReflectUtil.reflect(listView).field("mHeaderViewInfos").get();
             if (!CollectionUtil.isEmpty(mHeaderViewInfos)) {
                 for (ListView.FixedViewInfo fixedViewInfo : mHeaderViewInfos) {
                     View fixedViewInfoView = fixedViewInfo.view;
@@ -374,7 +374,7 @@ public class CommonUtils {
         }
         int footerViewsCount = listView.getFooterViewsCount();
         if (footerViewsCount > 0) {
-            ArrayList<ListView.FixedViewInfo> mFooterViewInfos = ReflectUtils.reflect(listView).field("mFooterViewInfos").get();
+            ArrayList<ListView.FixedViewInfo> mFooterViewInfos = ReflectUtil.reflect(listView).field("mFooterViewInfos").get();
             if (!CollectionUtil.isEmpty(mFooterViewInfos)) {
                 for (ListView.FixedViewInfo fixedViewInfo : mFooterViewInfos) {
                     View fixedViewInfoView = fixedViewInfo.view;

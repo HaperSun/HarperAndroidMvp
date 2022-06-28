@@ -14,7 +14,7 @@ import com.sun.base.net.service.DownloadService;
 import com.sun.base.net.service.UploadService;
 import com.sun.base.net.vo.MultiUploadRequest;
 import com.sun.base.util.FileUtil;
-import com.sun.base.util.RetrofitUtils;
+import com.sun.base.util.RetrofitUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,7 +40,7 @@ import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 import retrofit2.adapter.rxjava2.Result;
 
-public class NetWorks extends RetrofitUtils {
+public class NetWorks extends RetrofitUtil {
 
     //设缓存有效期为1天
     protected static final long CACHE_STALE_SEC = 60 * 60 * 24;

@@ -18,7 +18,7 @@ import androidx.fragment.app.FragmentManager;
 import com.sun.base.base.iview.IBaseActivity;
 import com.sun.base.base.iview.IBaseView;
 import com.sun.base.base.widget.LoadingDialog;
-import com.sun.base.util.CommonUtils;
+import com.sun.base.util.CommonUtil;
 import com.sun.common.toast.CustomToast;
 import com.sun.common.toast.ToastHelper;
 
@@ -53,7 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         try {
             if (ev.getAction() == MotionEvent.ACTION_DOWN) {
                 //判断是否快速点击，避免重复点击
-                if (CommonUtils.isFastDoubleClick()) {
+                if (CommonUtil.isFastDoubleClick()) {
                     return true;
                 }
                 View view = getCurrentFocus();

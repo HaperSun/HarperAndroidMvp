@@ -74,7 +74,7 @@ public class TimerActivity extends BaseMvpActivity implements View.OnClickListen
         }
         if (mExecutorService == null) {
             mExecutorService = new ScheduledThreadPoolExecutor(1,
-                    new BasicThreadFactory.Builder().namingPattern(TimerActivity.class.getName()).daemon(true).build());
+                    new BasicThreadFactory.Builder().namingPattern(TAG).daemon(true).build());
         }
         startTimer();
         startEse();

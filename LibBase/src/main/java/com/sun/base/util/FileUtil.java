@@ -33,7 +33,7 @@ import java.util.UUID;
  */
 public class FileUtil {
 
-    private static final String TAG = FileUtil.class.getName();
+    private static final String TAG = FileUtil.class.getSimpleName();
 
     private FileUtil() {
         throw new RuntimeException("You cannot initialize me!");
@@ -541,7 +541,7 @@ public class FileUtil {
     public static void saveNetImgToAlbum(Context context, String imgUrl, Bitmap bitmap) {
         //图片后缀
         String ext;
-        if (StringUtils.isWebUrlString(imgUrl)) {
+        if (StringUtil.isWebUrlString(imgUrl)) {
             ext = MimeTypeMap.getFileExtensionFromUrl(imgUrl);
         } else {
             ext = FileUtil.getExtension(imgUrl);

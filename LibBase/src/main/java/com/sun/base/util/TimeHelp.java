@@ -199,7 +199,7 @@ public final class TimeHelp {
      */
     public static boolean isToday(final long millis) {
         long wee = getWeeOfToday();
-        return millis >= wee && millis < wee + TimeConstants.DAY;
+        return millis >= wee && millis < wee + TimeConstant.DAY;
     }
 
     /**
@@ -209,8 +209,8 @@ public final class TimeHelp {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isYesterday(final long millis) {
-        long wee = getWeeOfToday() - TimeConstants.DAY;
-        return millis >= wee && millis < wee + TimeConstants.DAY;
+        long wee = getWeeOfToday() - TimeConstant.DAY;
+        return millis >= wee && millis < wee + TimeConstant.DAY;
     }
 
     /**
@@ -220,8 +220,8 @@ public final class TimeHelp {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isTomorrow(final long millis) {
-        long wee = getWeeOfToday() + TimeConstants.DAY;
-        return millis >= wee && millis < wee + TimeConstants.DAY;
+        long wee = getWeeOfToday() + TimeConstant.DAY;
+        return millis >= wee && millis < wee + TimeConstant.DAY;
     }
 
     /**

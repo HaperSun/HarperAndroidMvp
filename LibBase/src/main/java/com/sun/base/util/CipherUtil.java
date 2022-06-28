@@ -17,7 +17,7 @@ import javax.crypto.spec.IvParameterSpec;
  */
 public class CipherUtil {
 
-    private static final String TAG = CipherUtil.class.getName();
+    private static final String TAG = CipherUtil.class.getSimpleName();
 
     private CipherUtil() {
         throw new RuntimeException("you cannot new CipherUtil!");

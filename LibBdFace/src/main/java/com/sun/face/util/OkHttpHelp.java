@@ -91,7 +91,7 @@ public class OkHttpHelp {
             if (alreadyEncoded
                     && (codePoint == '\t' || codePoint == '\n' || codePoint == '\f' || codePoint == '\r')) {
                 // TODO Skip this character.
-                Log.d(Util.class.getName(), "codePoint:" + codePoint);
+                Log.d(Util.class.getSimpleName(), "codePoint:" + codePoint);
                 // TODO delete this
             } else if (codePoint == '+' && plusIsSpace) {
                 // Encode '+' as '%2B' since we permit ' ' to be encoded as either '+' or '%20'.

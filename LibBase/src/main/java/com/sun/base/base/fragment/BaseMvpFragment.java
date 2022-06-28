@@ -14,7 +14,7 @@ import androidx.databinding.ViewDataBinding;
 
 import com.sun.base.base.iview.IAddPresenterView;
 import com.sun.base.presenter.BasePresenter;
-import com.sun.base.util.CommonUtils;
+import com.sun.base.util.CommonUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -55,7 +55,7 @@ public abstract class BaseMvpFragment extends BaseFragment implements IAddPresen
         //设置不可以多点点击
         if (!enableMultiClick() && mRootView instanceof ViewGroup) {
             //设置不可以多点点击
-            CommonUtils.setMotionEventSplittingEnabled((ViewGroup) mRootView, false);
+            CommonUtil.setMotionEventSplittingEnabled((ViewGroup) mRootView, false);
         }
         return mRootView;
     }

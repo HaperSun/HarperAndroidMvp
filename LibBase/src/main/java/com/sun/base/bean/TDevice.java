@@ -46,7 +46,7 @@ import androidx.core.content.FileProvider;
 
 import com.sun.base.R;
 import com.sun.base.util.LogHelper;
-import com.sun.base.util.StringUtils;
+import com.sun.base.util.StringUtil;
 import com.sun.base.util.ToastUtil;
 import com.sun.common.toast.ToastHelper;
 import com.sun.common.util.AppUtil;
@@ -887,7 +887,7 @@ public class TDevice {
         int nType = networkInfo.getType();
         if (nType == ConnectivityManager.TYPE_MOBILE) {
             String extraInfo = networkInfo.getExtraInfo();
-            if (!StringUtils.isEmpty(extraInfo)) {
+            if (!StringUtil.isEmpty(extraInfo)) {
                 if (extraInfo.toLowerCase().equals("cmnet")) {
                     netType = NETTYPE_CMNET;
                 } else {

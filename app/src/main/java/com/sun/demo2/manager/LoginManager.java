@@ -2,7 +2,7 @@ package com.sun.demo2.manager;
 
 import com.sun.base.net.response.Response;
 import com.sun.base.util.GetRequestUtil;
-import com.sun.base.util.RetrofitUtils;
+import com.sun.base.util.RetrofitUtil;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.service.LoginService;
 import com.sun.demo2.update.model.GetUpdateInfoResponse;
@@ -28,7 +28,7 @@ public class LoginManager {
 
     private static LoginService getLoginService() {
         if (mLoginService == null) {
-            mLoginService = RetrofitUtils.getRetrofit().create(LoginService.class);
+            mLoginService = RetrofitUtil.getRetrofit().create(LoginService.class);
         }
         return mLoginService;
     }

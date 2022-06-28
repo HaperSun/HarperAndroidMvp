@@ -16,7 +16,7 @@ import org.greenrobot.greendao.query.QueryBuilder;
  */
 public class UserInfoManager {
 
-    public static final String TAG = UserInfoManager.class.getName();
+    public static final String TAG = UserInfoManager.class.getSimpleName();
 
     @SuppressLint("StaticFieldLeak")
     private static volatile UserInfoManager sInstance = null;

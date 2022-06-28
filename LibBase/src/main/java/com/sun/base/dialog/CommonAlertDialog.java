@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.sun.base.R;
-import com.sun.base.util.CommonUtils;
+import com.sun.base.util.CommonUtil;
 
 
 /**
@@ -73,7 +73,7 @@ public class CommonAlertDialog extends Dialog {
         });
         if (!mSetMotionEventSplittingEnabled) {
             //设置不可以多点点击
-            CommonUtils.setMotionEventSplittingEnabled(findViewById(android.R.id.content), false);
+            CommonUtil.setMotionEventSplittingEnabled(findViewById(android.R.id.content), false);
         }
         if (!mIsDim) {
             //背景不要变暗

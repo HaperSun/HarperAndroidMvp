@@ -11,7 +11,7 @@ import com.baidu.idl.face.platform.FaceConfig;
 import com.baidu.idl.face.platform.FaceSDKManager;
 import com.baidu.idl.face.platform.utils.FileUtils;
 import com.sun.base.base.activity.BaseMvpActivity;
-import com.sun.base.util.StringUtils;
+import com.sun.base.util.StringUtil;
 import com.sun.common.toast.ToastHelper;
 import com.sun.face.databinding.ActivityQualityParamsBinding;
 import com.sun.face.model.FaceConst;
@@ -96,7 +96,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
         bind.amountMinIllum.setInterval(1);
         bind.amountMinIllum.setQuality(AmountView.QUALITY_ILLUM);
         bind.amountMinIllum.setOnAmountChangeListener((view, amount) -> {
-            mMinIllum = StringUtils.parseFloat(amount);
+            mMinIllum = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // maxIllum
@@ -106,7 +106,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
         bind.amountMaxIllum.setInterval(1);
         bind.amountMaxIllum.setQuality(AmountView.QUALITY_ILLUM);
         bind.amountMaxIllum.setOnAmountChangeListener((view, amount) -> {
-            mMaxIllum = StringUtils.parseFloat(amount);
+            mMaxIllum = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // blur
@@ -116,7 +116,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
         bind.amountBlur.setInterval(0.05f);
         bind.amountBlur.setQuality(AmountView.QUALITY_BLUR);
         bind.amountBlur.setOnAmountChangeListener((view, amount) -> {
-            mBlur = StringUtils.parseFloat(amount);
+            mBlur = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // left_eye
@@ -126,7 +126,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
         bind.amountLeftEye.setInterval(0.05f);
         bind.amountLeftEye.setQuality(AmountView.QUALITY_OCCLU);
         bind.amountLeftEye.setOnAmountChangeListener((view, amount) -> {
-            mLeftEye = StringUtils.parseFloat(amount);
+            mLeftEye = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // right_eye
@@ -136,7 +136,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
         bind.amountRightEye.setInterval(0.05f);
         bind.amountRightEye.setQuality(AmountView.QUALITY_OCCLU);
         bind.amountRightEye.setOnAmountChangeListener((view, amount) -> {
-            mRightEye = StringUtils.parseFloat(amount);
+            mRightEye = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // nose
@@ -146,7 +146,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
         bind.amountNose.setInterval(0.05f);
         bind.amountNose.setQuality(AmountView.QUALITY_OCCLU);
         bind.amountNose.setOnAmountChangeListener((view, amount) -> {
-            mNose = StringUtils.parseFloat(amount);
+            mNose = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // mouth
@@ -156,7 +156,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
         bind.amountMouth.setInterval(0.05f);
         bind.amountMouth.setQuality(AmountView.QUALITY_OCCLU);
         bind.amountMouth.setOnAmountChangeListener((view, amount) -> {
-            mMouth = StringUtils.parseFloat(amount);
+            mMouth = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // left_cheek
@@ -166,7 +166,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
         bind.amountLeftCheek.setInterval(0.05f);
         bind.amountLeftCheek.setQuality(AmountView.QUALITY_OCCLU);
         bind.amountLeftCheek.setOnAmountChangeListener((view, amount) -> {
-            mLeftCheek = StringUtils.parseFloat(amount);
+            mLeftCheek = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // right_cheek
@@ -176,7 +176,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
         bind.amountRightCheek.setInterval(0.05f);
         bind.amountRightCheek.setQuality(AmountView.QUALITY_OCCLU);
         bind.amountRightCheek.setOnAmountChangeListener((view, amount) -> {
-            mRightCheek = StringUtils.parseFloat(amount);
+            mRightCheek = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // chin
@@ -186,7 +186,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
         bind.amountChin.setInterval(0.05f);
         bind.amountChin.setQuality(AmountView.QUALITY_OCCLU);
         bind.amountChin.setOnAmountChangeListener((view, amount) -> {
-            mChin = StringUtils.parseFloat(amount);
+            mChin = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // pitch
@@ -196,7 +196,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
         bind.amountPitch.setInterval(1);
         bind.amountPitch.setQuality(AmountView.QUALITY_HEADPOSE);
         bind.amountPitch.setOnAmountChangeListener((view, amount) -> {
-            mPitch = StringUtils.parseInt(amount);
+            mPitch = StringUtil.parseInt(amount);
             modifyViewColor();
         });
         // yaw
@@ -206,7 +206,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
         bind.amountYaw.setInterval(1);
         bind.amountYaw.setQuality(AmountView.QUALITY_HEADPOSE);
         bind.amountYaw.setOnAmountChangeListener((view, amount) -> {
-            mYaw = StringUtils.parseInt(amount);
+            mYaw = StringUtil.parseInt(amount);
             modifyViewColor();
         });
         // roll
@@ -216,7 +216,7 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
         bind.amountRoll.setInterval(1);
         bind.amountRoll.setQuality(AmountView.QUALITY_HEADPOSE);
         bind.amountRoll.setOnAmountChangeListener((view, amount) -> {
-            mRoll = StringUtils.parseInt(amount);
+            mRoll = StringUtil.parseInt(amount);
             modifyViewColor();
         });
     }

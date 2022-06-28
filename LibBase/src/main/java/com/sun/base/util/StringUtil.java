@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  * @date:   2021/11/12
  * @note: 字符串操作工具包
  */
-public class StringUtils {
+public class StringUtil {
     private final static Pattern emailer = Pattern
             .compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
     private final static Pattern passworder = Pattern.compile("^[\\w\\d]{6,}");
@@ -260,7 +260,7 @@ public class StringUtils {
         }
 
         String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
-        String currentData = StringUtils.getDataTime("MM-dd");
+        String currentData = StringUtil.getDataTime("MM-dd");
         int currentDay = toInt(currentData.substring(3));
         int currentMoth = toInt(currentData.substring(0, 2));
 
@@ -427,7 +427,7 @@ public class StringUtils {
     }
 
     public static String timestamp2DateStr(String timestamp, SimpleDateFormat sdf) {
-        if (StringUtils.isEmpty(timestamp) || "null".equals(timestamp)) {
+        if (StringUtil.isEmpty(timestamp) || "null".equals(timestamp)) {
             timestamp = "0";
         }
         return sdf.format(new Date(Long.parseLong(timestamp) * 1000));
@@ -845,7 +845,7 @@ public class StringUtils {
      * 解析题库中 <img></img>标签 <br/> <br/>
      */
     public static String dealImg(String src) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringUtil.isEmpty(src)) {
             return "";
         }
         StringBuilder stringBuilder = new StringBuilder();

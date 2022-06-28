@@ -22,17 +22,17 @@ import java.util.Map;
  * @see <a/>开源项目<a href="https://github.com/Blankj/AndroidUtilCode">AndroidUtilCode</a>
  * 工具类<a href="https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ReflectUtils.java">ReflectUtils.java</a>
  */
-public class ReflectUtils {
+public class ReflectUtil {
 
     private final Class<?> type;
 
     private final Object object;
 
-    private ReflectUtils(final Class<?> type) {
+    private ReflectUtil(final Class<?> type) {
         this(type, type);
     }
 
-    private ReflectUtils(final Class<?> type, Object object) {
+    private ReflectUtil(final Class<?> type, Object object) {
         this.type = type;
         this.object = object;
     }
@@ -45,10 +45,10 @@ public class ReflectUtils {
      * Reflect the class.
      *
      * @param className The name of class.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtil} instance
      * @throws ReflectException if reflect unsuccessfully
      */
-    public static ReflectUtils reflect(final String className)
+    public static ReflectUtil reflect(final String className)
             throws ReflectException {
         return reflect(forName(className));
     }
@@ -58,10 +58,10 @@ public class ReflectUtils {
      *
      * @param className   The name of class.
      * @param classLoader The loader of class.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtil} instance
      * @throws ReflectException if reflect unsuccessfully
      */
-    public static ReflectUtils reflect(final String className, final ClassLoader classLoader)
+    public static ReflectUtil reflect(final String className, final ClassLoader classLoader)
             throws ReflectException {
         return reflect(forName(className, classLoader));
     }
@@ -70,24 +70,24 @@ public class ReflectUtils {
      * Reflect the class.
      *
      * @param clazz The class.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtil} instance
      * @throws ReflectException if reflect unsuccessfully
      */
-    public static ReflectUtils reflect(final Class<?> clazz)
+    public static ReflectUtil reflect(final Class<?> clazz)
             throws ReflectException {
-        return new ReflectUtils(clazz);
+        return new ReflectUtil(clazz);
     }
 
     /**
      * Reflect the class.
      *
      * @param object The object.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtil} instance
      * @throws ReflectException if reflect unsuccessfully
      */
-    public static ReflectUtils reflect(final Object object)
+    public static ReflectUtil reflect(final Object object)
             throws ReflectException {
-        return new ReflectUtils(object == null ? Object.class : object.getClass(), object);
+        return new ReflectUtil(object == null ? Object.class : object.getClass(), object);
     }
 
     private static Class<?> forName(String className) {
@@ -113,9 +113,9 @@ public class ReflectUtils {
     /**
      * Create and initialize a new instance.
      *
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtil} instance
      */
-    public ReflectUtils newInstance() {
+    public ReflectUtil newInstance() {
         return newInstance(new Object[0]);
     }
 
@@ -123,9 +123,9 @@ public class ReflectUtils {
      * Create and initialize a new instance.
      *
      * @param args The args.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtil} instance
      */
-    public ReflectUtils newInstance(Object... args) {
+    public ReflectUtil newInstance(Object... args) {
         Class<?>[] types = getArgsType(args);
         try {
             Constructor<?> constructor = type().getDeclaredConstructor(types);
@@ -147,7 +147,9 @@ public class ReflectUtils {
     }
 
     private Class<?>[] getArgsType(final Object... args) {
-        if (args == null) return new Class[0];
+        if (args == null) {
+            return new Class[0];
+        }
         Class<?>[] result = new Class[args.length];
         for (int i = 0; i < args.length; i++) {
             Object value = args[i];
@@ -177,9 +179,9 @@ public class ReflectUtils {
         });
     }
 
-    private ReflectUtils newInstance(final Constructor<?> constructor, final Object... args) {
+    private ReflectUtil newInstance(final Constructor<?> constructor, final Object... args) {
         try {
-            return new ReflectUtils(
+            return new ReflectUtil(
                     constructor.getDeclaringClass(),
                     accessible(constructor).newInstance(args)
             );
@@ -196,12 +198,12 @@ public class ReflectUtils {
      * Get the field.
      *
      * @param name The name of field.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtil} instance
      */
-    public ReflectUtils field(final String name) {
+    public ReflectUtil field(final String name) {
         try {
             Field field = getField(name);
-            return new ReflectUtils(field.getType(), field.get(object));
+            return new ReflectUtil(field.getType(), field.get(object));
         } catch (IllegalAccessException e) {
             throw new ReflectException(e);
         }
@@ -212,9 +214,9 @@ public class ReflectUtils {
      *
      * @param name  The name of field.
      * @param value The value.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtil} instance
      */
-    public ReflectUtils field(String name, Object value) {
+    public ReflectUtil field(String name, Object value) {
         try {
             Field field = getField(name);
             field.set(object, unwrap(value));
@@ -255,8 +257,8 @@ public class ReflectUtils {
     }
 
     private Object unwrap(Object object) {
-        if (object instanceof ReflectUtils) {
-            return ((ReflectUtils) object).get();
+        if (object instanceof ReflectUtil) {
+            return ((ReflectUtil) object).get();
         }
         return object;
     }
@@ -269,10 +271,10 @@ public class ReflectUtils {
      * Invoke the method.
      *
      * @param name The name of method.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtil} instance
      * @throws ReflectException if reflect unsuccessfully
      */
-    public ReflectUtils method(final String name) throws ReflectException {
+    public ReflectUtil method(final String name) throws ReflectException {
         return method(name, new Object[0]);
     }
 
@@ -281,10 +283,10 @@ public class ReflectUtils {
      *
      * @param name The name of method.
      * @param args The args.
-     * @return the single {@link ReflectUtils} instance
+     * @return the single {@link ReflectUtil} instance
      * @throws ReflectException if reflect unsuccessfully
      */
-    public ReflectUtils method(final String name, final Object... args) throws ReflectException {
+    public ReflectUtil method(final String name, final Object... args) throws ReflectException {
         Class<?>[] types = getArgsType(args);
         try {
             Method method = exactMethod(name, types);
@@ -299,7 +301,7 @@ public class ReflectUtils {
         }
     }
 
-    private ReflectUtils method(final Method method, final Object obj, final Object... args) {
+    private ReflectUtil method(final Method method, final Object obj, final Object... args) {
         try {
             accessible(method);
             if (method.getReturnType() == void.class) {
@@ -404,7 +406,9 @@ public class ReflectUtils {
     }
 
     private <T extends AccessibleObject> T accessible(T accessible) {
-        if (accessible == null) return null;
+        if (accessible == null) {
+            return null;
+        }
         if (accessible instanceof Member) {
             Member member = (Member) accessible;
             if (Modifier.isPublic(member.getModifiers())
@@ -412,7 +416,9 @@ public class ReflectUtils {
                 return accessible;
             }
         }
-        if (!accessible.isAccessible()) accessible.setAccessible(true);
+        if (!accessible.isAccessible()) {
+            accessible.setAccessible(true);
+        }
         return accessible;
     }
 
@@ -524,7 +530,7 @@ public class ReflectUtils {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof ReflectUtils && object.equals(((ReflectUtils) obj).get());
+        return obj instanceof ReflectUtil && object.equals(((ReflectUtil) obj).get());
     }
 
     @Override

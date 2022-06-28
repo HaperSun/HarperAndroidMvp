@@ -22,7 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.sun.base.R;
-import com.sun.base.util.CommonUtils;
+import com.sun.base.util.CommonUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -108,7 +108,7 @@ public class BottomDialogFragment extends DialogFragment {
         }
         if (!mSetMotionEventSplittingEnabled) {
             //设置不可以多点点击
-            CommonUtils.setMotionEventSplittingEnabled($(android.R.id.content), false);
+            CommonUtil.setMotionEventSplittingEnabled($(android.R.id.content), false);
         }
         return dialog;
     }

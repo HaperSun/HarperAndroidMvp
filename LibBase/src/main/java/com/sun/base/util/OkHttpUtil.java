@@ -33,7 +33,7 @@ import okhttp3.OkHttpClient;
  * @date: 2021/11/12
  * @note:
  */
-class OkHttpUtils {
+class OkHttpUtil {
 
     private static OkHttpClient mOkHttpClient;
 

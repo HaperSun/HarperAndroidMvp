@@ -15,7 +15,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
-public abstract class RetrofitUtils {
+public abstract class RetrofitUtil {
 
     private static final String TAG = "RetrofitUtils";
 
@@ -41,7 +41,7 @@ public abstract class RetrofitUtils {
     public static void initRetrofit(Context context, Interceptor interceptor) {
 
         if (null == mOkHttpClient) {
-            mOkHttpClient = OkHttpUtils.getOkHttpClient(context, interceptor);
+            mOkHttpClient = OkHttpUtil.getOkHttpClient(context, interceptor);
         }
 
         API_SERVER = AppUtil.getServerUrl();

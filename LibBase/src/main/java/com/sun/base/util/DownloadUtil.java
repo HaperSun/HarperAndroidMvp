@@ -24,7 +24,7 @@ import okhttp3.Response;
  */
 public class DownloadUtil {
 
-    public static final String TAG = DownloadUtil.class.getName();
+    public static final String TAG = DownloadUtil.class.getSimpleName();
 
     /**
      * 下载失败

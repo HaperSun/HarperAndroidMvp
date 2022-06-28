@@ -2,7 +2,7 @@ package com.sun.base.net;
 
 import com.sun.base.net.exception.ExceptionEngine;
 import com.sun.base.net.response.Response;
-import com.sun.base.util.RetrofitUtils;
+import com.sun.base.util.RetrofitUtil;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -17,13 +17,13 @@ import retrofit2.adapter.rxjava2.Result;
  * @date:   2021/11/16
  * @note:
  */
-public class NetWork extends RetrofitUtils {
+public class NetWork extends RetrofitUtil {
 
     private static NetWork instance;
 
     public static void init() {
         instance = new NetWork();
-        RetrofitUtils.initRetrofit();
+        RetrofitUtil.initRetrofit();
     }
 
     public static NetWork getInstance(){

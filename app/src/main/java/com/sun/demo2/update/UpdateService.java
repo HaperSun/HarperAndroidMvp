@@ -42,7 +42,7 @@ import java.util.List;
  */
 public class UpdateService extends BaseMvpService implements IGetUpdateInfoView {
 
-    private static final String TAG = UpdateService.class.getName();
+    private static final String TAG = UpdateService.class.getSimpleName();
     private static final String EXTRA_CMD = "cmd";
     public static final int CMD_CHECK_UPDATE = 1;
     public static final int CMD_START_DOWNLOAD = 2;

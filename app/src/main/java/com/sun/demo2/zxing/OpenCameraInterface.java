@@ -21,7 +21,7 @@ import android.util.Log;
 
 public class OpenCameraInterface {
 
-	private static final String TAG = OpenCameraInterface.class.getName();
+	private static final String TAG = OpenCameraInterface.class.getSimpleName();
 
 	/**
 	 * Opens the requested camera with {@link Camera#open(int)}, if one exists.

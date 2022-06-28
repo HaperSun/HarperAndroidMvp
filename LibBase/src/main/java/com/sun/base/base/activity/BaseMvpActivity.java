@@ -11,7 +11,7 @@ import androidx.databinding.ViewDataBinding;
 import com.githang.statusbar.StatusBarCompat;
 import com.sun.base.base.iview.IAddPresenterView;
 import com.sun.base.presenter.BasePresenter;
-import com.sun.base.util.CommonUtils;
+import com.sun.base.util.CommonUtil;
 import com.sun.base.status.StatusBarUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -54,7 +54,7 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
         initData();
         //设置不可以多点点击
         if (!enableMultiClick()) {
-            CommonUtils.setMotionEventSplittingEnabled(findViewById(android.R.id.content), false);
+            CommonUtil.setMotionEventSplittingEnabled(findViewById(android.R.id.content), false);
         }
     }
 

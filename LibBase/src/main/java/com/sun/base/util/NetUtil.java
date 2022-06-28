@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * @date: 2021/12/30
  * @note:
  */
-public class NetUtils {
+public class NetUtil {
     /**
      * 判断当前网络是否可用
      *

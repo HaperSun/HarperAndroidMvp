@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sun.base.util.CommonUtils;
+import com.sun.base.util.CommonUtil;
 import com.sun.demo2.R;
 
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class PeoplePopupWindow extends PopupWindow {
             SelectBean bean = mBeans.get(position);
             holder.tvName.setText(bean.getName());
             boolean select = bean.isSelected();
-            CommonUtils.setViewBackground(holder.ivSelect, select ? R.mipmap.icon_selected : R.mipmap.icon_unselect);
+            CommonUtil.setViewBackground(holder.ivSelect, select ? R.mipmap.icon_selected : R.mipmap.icon_unselect);
             holder.itemView.setOnClickListener(v -> {
                 if (mPopupWindowListener != null) {
                     doItemClick(position);
