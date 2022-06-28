@@ -26,27 +26,18 @@ import java.util.regex.Pattern;
 
 /**
  * @author: Harper
- * @date:   2021/11/12
+ * @date: 2021/11/12
  * @note: 字符串操作工具包
  */
 public class StringUtil {
-    private final static Pattern emailer = Pattern
-            .compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
+
+    private final static Pattern emailer = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
     private final static Pattern passworder = Pattern.compile("^[\\w\\d]{6,}");
-
-    private final static Pattern IMG = Pattern
-            .compile(".*?(gif|jpeg|png|jpg|bmp|JPEG|PNG|JPG|BMP|GIF)");
-
-    private final static Pattern URL = Pattern
-            .compile("^(https|http)://.*?$(net|com|.com.cn|org|me|)");
-
+    private final static Pattern IMG = Pattern.compile(".*?(gif|jpeg|png|jpg|bmp|JPEG|PNG|JPG|BMP|GIF)");
+    private final static Pattern URL = Pattern.compile("^(https|http)://.*?$(net|com|.com.cn|org|me|)");
     private final static Pattern number = Pattern.compile("^[-+]?(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)$");
-
     private final static Pattern tel = Pattern.compile("^((13[0-9])|(14[0-9])|(15([0-9]|[5-9]))|(18[0-9]))\\d{8}$");
-
     private final static Pattern END = Pattern.compile("face_[0-9]{1,}");
-
-
     /**
      * 正则表达式，用来判断消息内是否有表情 <br/>
      */
@@ -153,46 +144,38 @@ public class StringUtil {
      * @param sdate
      * @return
      */
-    public static String friendly_time(String sdate) {
+    public static String friendlyTime(String sdate) {
         Date time;
-
         if (TimeZoneUtil.isInEasternEightZones()) {
             time = toDate(sdate);
         } else {
             time = TimeZoneUtil.transformTime(toDate(sdate),
                     TimeZone.getTimeZone("GMT+08"), TimeZone.getDefault());
         }
-
         if (time == null) {
             return "Unknown";
         }
         String ftime;
         Calendar cal = Calendar.getInstance();
-
         // 判断是否是同一天
         String curDate = dateFormater.get().format(cal.getTime());
         String paramDate = dateFormater.get().format(time);
         if (curDate.equals(paramDate)) {
             int hour = (int) ((cal.getTimeInMillis() - time.getTime()) / 3600000);
             if (hour == 0) {
-                ftime = Math.max(
-                        (cal.getTimeInMillis() - time.getTime()) / 60000, 1)
-                        + "分钟前";
+                ftime = Math.max((cal.getTimeInMillis() - time.getTime()) / 60000, 1) + "分钟前";
             } else {
                 ftime = hour + "小时前";
             }
             return ftime;
         }
-
         long lt = time.getTime() / 86400000;
         long ct = cal.getTimeInMillis() / 86400000;
         int days = (int) (ct - lt);
         if (days == 0) {
             int hour = (int) ((cal.getTimeInMillis() - time.getTime()) / 3600000);
             if (hour == 0) {
-                ftime = Math.max(
-                        (cal.getTimeInMillis() - time.getTime()) / 60000, 1)
-                        + "分钟前";
+                ftime = Math.max((cal.getTimeInMillis() - time.getTime()) / 60000, 1) + "分钟前";
             } else {
                 ftime = hour + "小时前";
             }
@@ -227,48 +210,27 @@ public class StringUtil {
      */
     public static boolean isDoc(String fileName) {
         boolean result = false;
-
         if (!isEmpty(fileName)) {
             fileName = fileName.toLowerCase();
-            result = fileName.endsWith(".doc")
-                    || fileName.endsWith(".docx")
-                    || fileName.endsWith("ppt")
-                    || fileName.endsWith("pptx")
-                    || fileName.endsWith("xlsx")
-                    || fileName.endsWith("xls");
+            result = fileName.endsWith(".doc") || fileName.endsWith(".docx") || fileName.endsWith("ppt")
+                    || fileName.endsWith("pptx") || fileName.endsWith("xlsx") || fileName.endsWith("xls");
         }
         return result;
     }
 
-    /**
-     * 若数字< 10 ，则在前面加个0 <br/>
-     */
-    public static String friendlyStr(int source) {
-        String result;
-        if (source < 10) {
-            result = "0" + source;
-        } else {
-            result = String.valueOf(source);
-        }
-        return result;
-    }
-
-    public static String friendly_time2(String sdate) {
+    public static String friendlyTime2(String sdate) {
         String res = "";
         if (isEmpty(sdate)) {
             return "";
         }
-
         String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
         String currentData = StringUtil.getDataTime("MM-dd");
         int currentDay = toInt(currentData.substring(3));
         int currentMoth = toInt(currentData.substring(0, 2));
-
         int sMoth = toInt(sdate.substring(5, 7));
         int sDay = toInt(sdate.substring(8, 10));
         int sYear = toInt(sdate.substring(0, 4));
         Date dt = new Date(sYear, sMoth - 1, sDay - 1);
-
         if (sDay == currentDay && sMoth == currentMoth) {
             res = "今天 / " + weekDays[getWeekOfDate(new Date())];
         } else if (sDay == currentDay + 1 && sMoth == currentMoth) {
@@ -283,7 +245,6 @@ public class StringUtil {
             }
             res += sDay + " / " + weekDays[getWeekOfDate(dt)];
         }
-
         return res;
     }
 
@@ -294,7 +255,7 @@ public class StringUtil {
      * @param timestamp
      * @return
      */
-    public static String friendly_time(long timestamp) {
+    public static String friendlyTime3(long timestamp) {
         StringBuilder result = new StringBuilder();
         if (timestamp < 60) {
             return result.append("不到1分钟").toString();
@@ -315,7 +276,6 @@ public class StringUtil {
                 result.append(hours).append("小时");
             }
         }
-
         if (timestamp - (days * 24 * 60 * 60 + hours * 60 * 60) <= 0) {
             return result.append("0分").toString();
         }
@@ -329,45 +289,48 @@ public class StringUtil {
      *
      * @param time 毫秒位单位
      */
-    public static String friendly_time_second(long time) {
+    public static String friendlyTimeSecond(long time) {
         StringBuilder result = new StringBuilder();
         if (time <= 0) {
             return result.append("00").append(":").append("00").append(":").append("00").toString();
         }
         time /= 1000;
         int hours = (int) (time / (60 * 60));
-        result.append(getDualNumber(hours)).append(":");
+        result.append(int2String(hours)).append(":");
         if (time - (hours * 60 * 60) <= 0) {
             return result.append("00").append(":").toString();
         }
         int minutes = (int) ((time - (hours * 60 * 60)) / 60);
-        result.append(getDualNumber(minutes)).append(":");
+        result.append(int2String(minutes)).append(":");
         int seconds = (int) (time - hours * 60 * 60 - minutes * 60);
-        result.append(getDualNumber(seconds));
+        result.append(int2String(seconds));
         return result.toString();
     }
 
-    public static String new_friendly_time_second(long time) {
+    public static String newFriendlyTimeSecond(long time) {
         StringBuilder result = new StringBuilder();
         if (time <= 0) {
             return result.append("0秒").toString();
         }
         int hours = (int) (time / (60 * 60));
-        if (hours > 0) {//大于一小时
+        if (hours > 0) {
+            //大于一小时
             result.append(hours).append("小时");
         }
-
-        if (hours > 0) {//大于一小时  则计算分  0 分 0秒都可显示
-            int minutes = (int) ((time - (hours * 60 * 60)) / 60);
+        int minutes = (int) ((time - (hours * 60 * 60)) / 60);
+        if (hours > 0) {
+            //大于一小时  则计算分  0 分 0秒都可显示
             result.append(minutes).append("分");
             int seconds = (int) (time - hours * 60 * 60 - minutes * 60);
             result.append(seconds).append("秒");
-        } else { // 不大于一小时  则不显示0分
-            int minutes = (int) ((time - (hours * 60 * 60)) / 60);
-            if (minutes > 0) {//满1分钟  显示分
+        } else {
+            // 不大于一小时  则不显示0分
+            if (minutes > 0) {
+                //满1分钟  显示分
                 result.append(minutes).append("分");
             }
-            int seconds = (int) (time - hours * 60 * 60 - minutes * 60);//秒数必显示
+            //秒数必显示
+            int seconds = (int) (time - hours * 60 * 60 - minutes * 60);
             result.append(seconds).append("秒");
         }
         return result.toString();
@@ -443,23 +406,18 @@ public class StringUtil {
      * @author 火蚁 2015-2-9 下午4:50:06
      */
     public static long calDateDifferent(String dete1, String date2) {
-
         long diff = 0;
-
         Date d1;
         Date d2;
-
         try {
             d1 = dateFormater.get().parse(dete1);
             d2 = dateFormater.get().parse(date2);
-
             // 毫秒ms
             diff = d2.getTime() - d1.getTime();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return diff / 1000;
     }
 
@@ -473,7 +431,6 @@ public class StringUtil {
         if (input == null || "".equals(input) || input.toLowerCase().equals("null")) {
             return true;
         }
-
         for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
             if (c != ' ' && c != '\t' && c != '\r' && c != '\n') {
@@ -525,16 +482,18 @@ public class StringUtil {
     /**
      * 字符串转整数
      *
-     * @param str
-     * @param defValue
+     * @param s
      * @return
      */
-    public static int toInt(String str, int defValue) {
-        try {
-            return Integer.parseInt(str);
-        } catch (Exception e) {
+    public static int string2Int(String s) {
+        if (!TextUtils.isEmpty(s)) {
+            try {
+                return Integer.parseInt(s);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        return defValue;
+        return 0;
     }
 
     /**
@@ -547,19 +506,22 @@ public class StringUtil {
         if (obj == null) {
             return 0;
         }
-        return toInt(obj.toString(), 0);
+        return string2Int(obj.toString());
     }
 
     /**
      * 对象转整数
      *
-     * @param obj
+     * @param s
      * @return 转换异常返回 0
      */
-    public static long toLong(String obj) {
-        try {
-            return Long.parseLong(obj);
-        } catch (Exception e) {
+    public static long string2Long(String s) {
+        if (!TextUtils.isEmpty(s)) {
+            try {
+                return Long.parseLong(s);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return 0;
     }
@@ -567,13 +529,16 @@ public class StringUtil {
     /**
      * 字符串转布尔值
      *
-     * @param b
+     * @param s
      * @return 转换异常返回 false
      */
-    public static boolean toBool(String b) {
-        try {
-            return Boolean.parseBoolean(b);
-        } catch (Exception e) {
+    public static boolean string2Bool(String s) {
+        if (!TextUtils.isEmpty(s)) {
+            try {
+                return Boolean.parseBoolean(s);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }
@@ -582,16 +547,13 @@ public class StringUtil {
         if (ints == null) {
             return null;
         }
-        String[] strs = new String[ints.length];
+        String[] s = new String[ints.length];
         for (int i = 0; i < ints.length; i++) {
-            strs[i] = String.valueOf(ints[i]);
+            s[i] = String.valueOf(ints[i]);
         }
-        return strs;
+        return s;
     }
 
-    public static String getString(String s) {
-        return s == null ? "" : s;
-    }
 
     /**
      * 将一个InputStream流转换成字符串
@@ -600,16 +562,16 @@ public class StringUtil {
      * @return
      */
     public static String toConvertString(InputStream is) {
-        StringBuffer res = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         InputStreamReader isr = null;
         BufferedReader read = null;
         try {
-            isr = new InputStreamReader(is,"UTF-8");
+            isr = new InputStreamReader(is, "UTF-8");
             read = new BufferedReader(isr);
             String line;
             line = read.readLine();
             while (line != null) {
-                res.append(line).append("<br>");
+                sb.append(line).append("<br>");
                 line = read.readLine();
             }
         } catch (IOException e) {
@@ -619,7 +581,7 @@ public class StringUtil {
             FileUtil.close(read);
             FileUtil.close(is);
         }
-        return res.toString();
+        return sb.toString();
     }
 
     /***
@@ -630,25 +592,16 @@ public class StringUtil {
      * @param str   截取的字符串
      * @return
      */
-    public static String getSubString(int start, int num, String str) {
+    public static String subString(int start, int num, String str) {
         if (str == null) {
             return "";
         }
-        int leng = str.length();
-        if (start < 0) {
-            start = 0;
+        try {
+           return str.substring(start, start + num);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        if (start > leng) {
-            start = leng;
-        }
-        if (num < 0) {
-            num = 1;
-        }
-        int end = start + num;
-        if (end > leng) {
-            end = leng;
-        }
-        return str.substring(start, end);
+        return "";
     }
 
     /**
@@ -870,7 +823,7 @@ public class StringUtil {
      * @param url
      * @return
      */
-    public static String getHttpFileName(String url) {
+    public static String getFileNameFromUrl(String url) {
         String result = "";
         String[] strs = url.split("/");
         if (strs.length > 0) {
@@ -879,13 +832,10 @@ public class StringUtil {
         return result;
     }
 
-    public static boolean isTelNumber(String telNumber) {
+    public static boolean isPhoneNumber(String a) {
         boolean result = false;
-
-        if (isEmpty(telNumber)) {
-            result = false;
-        } else {
-            Matcher matcher = tel.matcher(telNumber);
+        if (!isEmpty(a)) {
+            Matcher matcher = tel.matcher(a);
             if (matcher.matches()) {
                 result = true;
             }
@@ -893,64 +843,47 @@ public class StringUtil {
         return result;
     }
 
-    public static String getIntFromFloat(float avgScore) {
-        DecimalFormat decimalFormat = new DecimalFormat("##0.00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
+    public static String float2String(float avgScore) {
+        //构造方法的字符格式这里如果小数不足2位,会以0补足.
+        DecimalFormat decimalFormat = new DecimalFormat("##0.00");
         String p = decimalFormat.format(avgScore);
         if (p.indexOf(".") > 0) {
-            p = p.replaceAll("0+?$", "");//去掉后面无用的零
-            p = p.replaceAll("[.]$", "");//如小数点后面全是零则去掉小数点
+            //去掉后面无用的零
+            p = p.replaceAll("0+?$", "");
+            //如小数点后面全是零则去掉小数点
+            p = p.replaceAll("[.]$", "");
         }
         return p;
     }
 
-    public static String getDualNumber(int index) {
-        if (index < 10) {
-            return "0" + String.valueOf(index);
-        } else {
-            return String.valueOf(index);
-        }
-    }
-
     /**
-     * 判断两个字符串大小
+     * 将数字转成字符串，小于10的数字前面加0
+     *
+     * @param a 数字
+     * @return
      */
-    public static int compareTo(String s1, String s2) {
-        int len1 = s1.length();
-        int len2 = s2.length();
-        int lim = Math.min(len1, len2);
-        char[] charS1 = s1.toCharArray();
-        char[] charS2 = s2.toCharArray();
-        int k = 0;
-        while (k < lim) {
-            char c1 = charS1[k];
-            char c2 = charS2[k];
-            if (c1 != c2) {
-                return c1 - c2;
-            }
-            k++;
-        }
-        return len1 - len2;
+    public static String int2String(int a) {
+        return a < 10 ? "0" + a : String.valueOf(a);
     }
 
     /**
      * 去除字符串中的空白字符，包括空格、制表符、换页符
      *
-     * @param str 源字符串
-     *
+     * @param s 源字符串
      * @return 返回去除所有空白字符的字符串
      */
-    public static String trimAllWhitespace(String str) {
-        if (str == null) {
+    public static String trimAllWhitespace(String s) {
+        if (s == null) {
             return null;
         }
-        int len = str.length();
+        int len = s.length();
         if (len == 0) {
-            return str;
+            return s;
         }
         char[] dest = new char[len];
         int destPos = 0;
         for (int i = 0; i < len; ++i) {
-            char c = str.charAt(i);
+            char c = s.charAt(i);
             if (!Character.isWhitespace(c)) {
                 dest[destPos++] = c;
             }
@@ -961,72 +894,68 @@ public class StringUtil {
     /**
      * 移除文本尾部的空格
      *
-     * @param content 原文本内容
+     * @param s 原文本内容
      * @return 返回移除文本尾部空格后的内容
      */
-    public static String trimTailWhiteSpace(String content) {
-        if (TextUtils.isEmpty(content)) {
+    public static String trimTailWhiteSpace(String s) {
+        if (TextUtils.isEmpty(s)) {
             return "";
         }
-        content = content.replaceAll("\\s*$", "");
-        return content;
+        return s.replaceAll("\\s*$", "");
     }
 
     /**
      * 比较两个字符串是否相等（如果有一方为null，另一方为空字符串，也认为是相等）
      *
-     * @param left
-     * @param right
+     * @param a a
+     * @param b b
      * @return
      */
-    public static boolean emptyNullEquals(String left, String right) {
-        if (left == null) {
-            return TextUtils.isEmpty(right);
+    public static boolean emptyNullEquals(String a, String b) {
+        if (a == null) {
+            return TextUtils.isEmpty(b);
         }
-        if (right == null) {
-            return TextUtils.isEmpty(left);
+        if (b == null) {
+            return TextUtils.isEmpty(a);
         }
-        return TextUtils.equals(left, right);
+        return TextUtils.equals(a, b);
     }
 
-
-    /**
-     * 获取名字
-     *
-     * @return 名字
-     */
-    public static String getName(String name, String desStr) {
-        return name.contains(desStr) ? name : name + desStr;
-    }
 
     /**
      * @param targetStr 要处理的字符串
      * @description 切割字符串，将文本和img标签碎片化，如"ab<img>cd"转换为"ab"、"<img>"、"cd"
      */
     public static List<String> cutStringByImgTag(String targetStr) {
-        List<String> splitTextList = new ArrayList<String>();
-        Pattern pattern = Pattern.compile("<img.*?src=\\\"(.*?)\\\".*?>");
-        Matcher matcher = pattern.matcher(targetStr);
-        int lastIndex = 0;
-        while (matcher.find()) {
-            if (matcher.start() > lastIndex) {
-                splitTextList.add(targetStr.substring(lastIndex, matcher.start()));
+        List<String> splitTextList = new ArrayList<>();
+        if (!TextUtils.isEmpty(targetStr) && targetStr.contains("img")) {
+            Pattern pattern = Pattern.compile("<img.*?src=\\\"(.*?)\\\".*?>");
+            Matcher matcher = pattern.matcher(targetStr);
+            int lastIndex = 0;
+            while (matcher.find()) {
+                if (matcher.start() > lastIndex) {
+                    splitTextList.add(targetStr.substring(lastIndex, matcher.start()));
+                }
+                splitTextList.add(targetStr.substring(matcher.start(), matcher.end()));
+                lastIndex = matcher.end();
             }
-            splitTextList.add(targetStr.substring(matcher.start(), matcher.end()));
-            lastIndex = matcher.end();
-        }
-        if (lastIndex != targetStr.length()) {
-            splitTextList.add(targetStr.substring(lastIndex, targetStr.length()));
+            if (lastIndex != targetStr.length()) {
+                splitTextList.add(targetStr.substring(lastIndex));
+            }
         }
         return splitTextList;
     }
 
     /**
      * 获取img标签中的src值
+     *
      * @param content
      * @return
      */
-    public static String getImgSrc(String content){
+    public static String getImgSrc(String content) {
+        if (TextUtils.isEmpty(content) || !content.contains("img")) {
+            return content;
+        }
         String str_src = null;
         //目前img标签标示有3种表达式
         //<img alt="" src="1.jpg"/>   <img alt="" src="1.jpg"></img>     <img alt="" src="1.jpg">
@@ -1038,7 +967,6 @@ public class StringUtil {
             while (result_img) {
                 //获取到匹配的<img />标签中的内容
                 String str_img = m_img.group(2);
-
                 //开始匹配<img />标签中的src
                 Pattern p_src = Pattern.compile("(src|SRC)=(\"|\')(.*?)(\"|\')");
                 Matcher m_src = p_src.matcher(str_img);
@@ -1046,7 +974,6 @@ public class StringUtil {
                     str_src = m_src.group(3);
                 }
                 //结束匹配<img />标签中的src
-
                 //匹配content中是否存在下一个<img />标签，有则继续以上步骤匹配<img />标签中的src
                 result_img = m_img.find();
             }
@@ -1056,8 +983,9 @@ public class StringUtil {
 
     /**
      * 关键字高亮显示
-     * @param target  需要高亮的关键字
-     * @param text	     需要显示的文字
+     *
+     * @param target 需要高亮的关键字
+     * @param text   需要显示的文字
      * @return spannable 处理完后的结果，记得不要toString()，否则没有效果
      * SpannableStringBuilder textString = TextUtilTools.highlight(item.getItemName(), KnowledgeActivity.searchKey);
      * vHolder.tv_itemName_search.setText(textString);
@@ -1069,7 +997,8 @@ public class StringUtil {
         Pattern p = Pattern.compile(target);
         Matcher m = p.matcher(text);
         while (m.find()) {
-            span = new ForegroundColorSpan(Color.parseColor("#EE5C42"));// 需要重复！
+            // 需要重复！
+            span = new ForegroundColorSpan(Color.parseColor("#EE5C42"));
             spannable.setSpan(span, m.start(), m.end(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
@@ -1078,30 +1007,45 @@ public class StringUtil {
 
     /**
      * 从html文本中提取图片地址，或者文本内容
-     * @param html 传入html文本
+     *
+     * @param html       传入html文本
      * @param isGetImage true获取图片，false获取文本
      * @return
      */
-    public static ArrayList<String> getTextFromHtml(String html, boolean isGetImage){
+    public static ArrayList<String> getTextFromHtml(String html, boolean isGetImage) {
         ArrayList<String> imageList = new ArrayList<>();
         ArrayList<String> textList = new ArrayList<>();
         //根据img标签分割出图片和字符串
         List<String> list = cutStringByImgTag(html);
-        for (int i = 0; i < list.size(); i++) {
-            String text = list.get(i);
-            if (text.contains("<img") && text.contains("src=")) {
-                //从img标签中获取图片地址
-                String imagePath = getImgSrc(text);
-                imageList.add(imagePath);
-            } else {
-                textList.add(text);
+        if (CollectionUtil.notEmpty(list)) {
+            for (int i = 0; i < list.size(); i++) {
+                String text = list.get(i);
+                if (!TextUtils.isEmpty(text)) {
+                    if (text.contains("<img") && text.contains("src=")) {
+                        //从img标签中获取图片地址
+                        String imagePath = getImgSrc(text);
+                        imageList.add(imagePath);
+                    } else {
+                        textList.add(text);
+                    }
+                }
             }
         }
-        //判断是获取图片还是文本
+        //是获取图片还是获取文本
         if (isGetImage) {
             return imageList;
         } else {
             return textList;
         }
+    }
+
+    /**
+     * 将String中null转成""
+     *
+     * @param s 文本
+     * @return 文本
+     */
+    public static String formatString(String s) {
+        return TextUtils.isEmpty(s) ? "" : s;
     }
 }
