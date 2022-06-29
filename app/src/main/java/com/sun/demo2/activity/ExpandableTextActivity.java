@@ -2,14 +2,10 @@ package com.sun.demo2.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.common.adapter.BaseAdapter;
+import com.sun.common.adapter.BaseViewHolder;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityExpandableTextBinding;
 import com.sun.emoji.ExpandableTextView;
@@ -56,36 +52,45 @@ public class ExpandableTextActivity extends BaseMvpActivity {
         beans.add("黄奕在参加综艺节目时，就曾透露说，琼瑶选演员的时候，对于哭戏是比较注重的，哭戏好看的话那么会更加的入戏，也才能进入琼瑶的眼。在琼瑶阿姨看来，会演戏的人就必须拥有哭感，双眼中必须能够包含泪水的，既要让泪水饱含在眼睛中，又不能流在脸部，整一个过程可以达到楚楚可怜的状态。");
         beans.add("黄奕在参加综艺节目时，就曾透露说，琼瑶选演员的时候，对于哭戏是比较注重的，哭戏好看的话那么会更加的入戏，也才能进入琼瑶的眼。在琼瑶阿姨看来，会演戏的人就必须拥有哭感，双眼中必须能够包含泪水的，既要让泪水饱含在眼睛中，又不能流在脸部，整一个过程可以达到楚楚可怜的状态。");
         Adapter adapter = new Adapter();
+        //adapter设置数据
+        adapter.setNewData(beans);
         bind.recyclerView.setAdapter(adapter);
+        //item的子view点击事件
+        adapter.setOnItemChildClickListener((adapter1, view, position) -> {
+            int viewId = view.getId();
+            if (viewId == R.id.expandable_text) {
+                showToast(beans.get(position));
+            }
+        });
+        //item的子view长点击事件
+        adapter.setOnItemChildLongClickListener((adapter2, view, position) -> {
+            int viewId = view.getId();
+            if (viewId == R.id.expandable_text) {
+                showToast(beans.get(position));
+            }
+            return false;
+        });
+        //item的点击事件
+        adapter.setOnItemClickListener((adapter3, view, position) -> {
+            int viewId = view.getId();
+            if (viewId == R.id.expandable_text) {
+                showToast(beans.get(position));
+            }
+        });
     }
 
-    class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
+    class Adapter extends BaseAdapter<String, BaseViewHolder> {
 
-        @NonNull
-        @Override
-        public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_expandable_text, parent, false);
-            return new Holder(view);
+        public Adapter() {
+            super(R.layout.item_expandable_text);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull Holder holder, int position) {
-            holder.textView.setText(beans.get(position));
-        }
-
-        @Override
-        public int getItemCount() {
-            return beans.size();
-        }
-
-        class Holder extends RecyclerView.ViewHolder {
-
-            ExpandableTextView textView;
-
-            public Holder(@NonNull View itemView) {
-                super(itemView);
-                textView = itemView.findViewById(R.id.expandable_text);
-            }
+        protected void convert(BaseViewHolder helper, String item) {
+            ExpandableTextView textView = helper.getView(R.id.expandable_text);
+            textView.setText(item);
+            helper.addOnClickListener(R.id.expandable_text);
+            helper.addOnLongClickListener(R.id.expandable_text);
         }
     }
 }
