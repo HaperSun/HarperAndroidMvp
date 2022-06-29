@@ -11,7 +11,7 @@ import com.sun.base.net.response.Response;
 import com.sun.base.net.state.NetStateChangeObserver;
 import com.sun.base.net.state.NetworkStateChangeReceiver;
 import com.sun.base.net.state.NetworkUtil;
-import com.sun.base.util.TimeHelp;
+import com.sun.base.util.TimeUtil;
 import com.sun.common.toast.CustomToast;
 import com.sun.common.toast.ToastHelper;
 import com.sun.db.entity.UserInfo;
@@ -183,7 +183,7 @@ public class LoginActivity extends BaseMvpActivity implements ILoginView, NetSta
     @Override
     public void onGetRiskListReturned(Response response) {
         mTime = System.currentTimeMillis() - mTime;
-        String time = TimeHelp.getFormatDeadLineTime(mTime);
+        String time = TimeUtil.long2StringMs(mTime);
         System.out.print(time);
     }
 

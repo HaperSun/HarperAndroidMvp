@@ -541,7 +541,7 @@ public class FileUtil {
     public static void saveNetImgToAlbum(Context context, String imgUrl, Bitmap bitmap) {
         //图片后缀
         String ext;
-        if (StringUtil.isWebUrlString(imgUrl)) {
+        if (StringUtil.isNetUrl(imgUrl)) {
             ext = MimeTypeMap.getFileExtensionFromUrl(imgUrl);
         } else {
             ext = FileUtil.getExtension(imgUrl);

@@ -1,24 +1,23 @@
 package com.sun.base.util;
 
-import androidx.annotation.IntDef;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 /**
  * @author: Harper
  * @date: 2022/4/2
  * @note: 时间常量
  */
-public final class TimeConstant {
-    public static final int MSEC = 1;
-    public static final int SEC = 1000;
-    public static final int MIN = 60000;
-    public static final int HOUR = 3600000;
-    public static final int DAY = 86400000;
+public interface TimeConstant {
 
-    @IntDef({MSEC, SEC, MIN, HOUR, DAY})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Unit {
-    }
+    String YMD_HMS = "yyyy-MM-dd HH:mm:ss";
+    String YMD_HM = "yyyy-MM-dd HH:mm";
+    String YMD = "yyyy-MM-dd";
+    String HMS = "HH:mm:ss";
+    String MD = "MM-dd";
+    String HM = "HH:mm";
+    String MS = "mm:ss";
+
+    int MSEC = 1;
+    int SEC = 1000;
+    int MIN = 60000;
+    int HOUR = 3600000;
+    int DAY = 86400000;
 }

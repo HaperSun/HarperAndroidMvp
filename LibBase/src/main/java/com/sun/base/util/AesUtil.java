@@ -11,9 +11,9 @@ import javax.crypto.spec.SecretKeySpec;
  * @date: 2022/6/28
  * @note: AES 加解密
  */
-public class AESUtils {
-    private static final String TAG = "AESUtils";
+public class AesUtil {
 
+    private static final String TAG = AesUtil.class.getSimpleName();
     private static final String ENCODING = "utf-8";
     private static final String ALGORITHM = "AES";
     private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
@@ -68,5 +68,5 @@ public class AESUtils {
         return null;
     }
 
-    private AESUtils() {}
+    private AesUtil() {}
 }

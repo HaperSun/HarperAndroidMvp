@@ -7,14 +7,12 @@ import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
-import android.util.Patterns;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,100 +42,6 @@ public class StringUtil {
     public final static String face_regrex = "\\[face_(([1-9]|[1-6]\\d)|(70|71))\\]";
     public final static Pattern face = Pattern.compile(face_regrex);
 
-    private final static ThreadLocal<SimpleDateFormat> dateFormater = new ThreadLocal<SimpleDateFormat>() {
-        @Override
-        protected SimpleDateFormat initialValue() {
-            return new SimpleDateFormat("yyyy-MM-dd");
-        }
-    };
-
-    private final static ThreadLocal<SimpleDateFormat> timeFormater = new ThreadLocal<SimpleDateFormat>() {
-        @Override
-        protected SimpleDateFormat initialValue() {
-            return new SimpleDateFormat("HH:mm:ss");
-        }
-    };
-
-    private final static ThreadLocal<SimpleDateFormat> dateFormater2 = new ThreadLocal<SimpleDateFormat>() {
-        @Override
-        protected SimpleDateFormat initialValue() {
-            return new SimpleDateFormat("yyyyMMddHHmmss");
-        }
-    };
-
-    /**
-     * 判断字符串是否是网络连接地址
-     *
-     * @param url
-     * @return
-     */
-    public static boolean isWebUrlString(String url) {
-        if (TextUtils.isEmpty(url)) {
-            return false;
-        }
-        return Patterns.WEB_URL.matcher(url).matches();
-    }
-
-    public static String nullToNone(String s) {
-        String result = "";
-        if (s != null) {
-            result = s;
-        }
-        return result;
-    }
-
-    /**
-     * 将字符串转位日期类型
-     *
-     * @param sdate
-     * @return
-     */
-    public static Date toDate(String sdate) {
-        return toDate(sdate, dateFormater.get());
-    }
-
-    public static Date toDate(String sdate, SimpleDateFormat dateFormater) {
-        try {
-            return dateFormater.parse(sdate);
-        } catch (ParseException e) {
-            return null;
-        }
-    }
-
-    public static String getStrDate(long times) {
-        return dateFormater2.get().format(new Date(times));
-    }
-
-    public static String getDateString(Date date) {
-        return dateFormater.get().format(date);
-    }
-
-    public static String getTimeString(Date date) {
-        if (date == null) {
-            return "未知";
-        }
-        return getTimeString(date.getTime());
-    }
-
-    public static String getTimeString(long timestamp) {
-        if (timestamp < 0) {
-            return "未知";
-        }
-        return timeFormater.get().format(new Date(timestamp));
-    }
-
-    /**
-     * 格式化时间
-     *
-     * @param timestamp
-     * @param pattern   例如"yyyy-MM-dd HH:mm"
-     * @return
-     */
-    public static String getFormatTime(long timestamp, String pattern) {
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        return formatter.format(timestamp);
-    }
-
     /**
      * 以友好的方式显示时间
      *
@@ -147,9 +51,9 @@ public class StringUtil {
     public static String friendlyTime(String sdate) {
         Date time;
         if (TimeZoneUtil.isInEasternEightZones()) {
-            time = toDate(sdate);
+            time = TimeUtil.string2Date(sdate, TimeConstant.YMD);
         } else {
-            time = TimeZoneUtil.transformTime(toDate(sdate),
+            time = TimeZoneUtil.transformTime(TimeUtil.string2Date(sdate, TimeConstant.YMD),
                     TimeZone.getTimeZone("GMT+08"), TimeZone.getDefault());
         }
         if (time == null) {
@@ -158,8 +62,8 @@ public class StringUtil {
         String ftime;
         Calendar cal = Calendar.getInstance();
         // 判断是否是同一天
-        String curDate = dateFormater.get().format(cal.getTime());
-        String paramDate = dateFormater.get().format(time);
+        String curDate = TimeUtil.getDateFormatYmd().format(cal.getTime());
+        String paramDate = TimeUtil.getDateFormatYmd().format(time);
         if (curDate.equals(paramDate)) {
             int hour = (int) ((cal.getTimeInMillis() - time.getTime()) / 3600000);
             if (hour == 0) {
@@ -192,7 +96,7 @@ public class StringUtil {
         } else if (days > 3 * 31 && days <= 4 * 31) {
             ftime = "3个月前";
         } else {
-            ftime = dateFormater.get().format(time);
+            ftime = TimeUtil.getDateFormatYmd().format(time);
         }
         return ftime;
     }
@@ -225,11 +129,11 @@ public class StringUtil {
         }
         String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
         String currentData = StringUtil.getDataTime("MM-dd");
-        int currentDay = toInt(currentData.substring(3));
-        int currentMoth = toInt(currentData.substring(0, 2));
-        int sMoth = toInt(sdate.substring(5, 7));
-        int sDay = toInt(sdate.substring(8, 10));
-        int sYear = toInt(sdate.substring(0, 4));
+        int currentDay = string2Int(currentData.substring(3));
+        int currentMoth = string2Int(currentData.substring(0, 2));
+        int sMoth = string2Int(sdate.substring(5, 7));
+        int sDay = string2Int(sdate.substring(8, 10));
+        int sYear = string2Int(sdate.substring(0, 4));
         Date dt = new Date(sYear, sMoth - 1, sDay - 1);
         if (sDay == currentDay && sMoth == currentMoth) {
             res = "今天 / " + weekDays[getWeekOfDate(new Date())];
@@ -281,29 +185,6 @@ public class StringUtil {
         }
         int minutes = (int) ((timestamp - (days * 24 * 60 * 60 + hours * 60 * 60)) / 60);
         result.append(minutes).append("分");
-        return result.toString();
-    }
-
-    /**
-     * HH:mm:ss <br/>
-     *
-     * @param time 毫秒位单位
-     */
-    public static String friendlyTimeSecond(long time) {
-        StringBuilder result = new StringBuilder();
-        if (time <= 0) {
-            return result.append("00").append(":").append("00").append(":").append("00").toString();
-        }
-        time /= 1000;
-        int hours = (int) (time / (60 * 60));
-        result.append(int2String(hours)).append(":");
-        if (time - (hours * 60 * 60) <= 0) {
-            return result.append("00").append(":").toString();
-        }
-        int minutes = (int) ((time - (hours * 60 * 60)) / 60);
-        result.append(int2String(minutes)).append(":");
-        int seconds = (int) (time - hours * 60 * 60 - minutes * 60);
-        result.append(int2String(seconds));
         return result.toString();
     }
 
@@ -360,11 +241,11 @@ public class StringUtil {
      */
     public static boolean isToday(String sdate) {
         boolean b = false;
-        Date time = toDate(sdate);
+        Date time = TimeUtil.string2Date(sdate, TimeConstant.YMD);
         Date today = new Date();
         if (time != null) {
-            String nowDate = dateFormater.get().format(today);
-            String timeDate = dateFormater.get().format(time);
+            String nowDate = TimeUtil.getDateFormatYmd().format(today);
+            String timeDate = TimeUtil.getDateFormatYmd().format(time);
             if (nowDate.equals(timeDate)) {
                 b = true;
             }
@@ -379,23 +260,15 @@ public class StringUtil {
      */
     public static long getToday() {
         Calendar cal = Calendar.getInstance();
-        String curDate = dateFormater.get().format(cal.getTime());
+        String curDate = TimeUtil.getDateFormatYmd().format(cal.getTime());
         curDate = curDate.replace("-", "");
         return Long.parseLong(curDate);
     }
 
     public static String getCurTimeStr() {
         Calendar cal = Calendar.getInstance();
-        return dateFormater.get().format(cal.getTime());
+        return TimeUtil.getDateFormatYmd().format(cal.getTime());
     }
-
-    public static String timestamp2DateStr(String timestamp, SimpleDateFormat sdf) {
-        if (StringUtil.isEmpty(timestamp) || "null".equals(timestamp)) {
-            timestamp = "0";
-        }
-        return sdf.format(new Date(Long.parseLong(timestamp) * 1000));
-    }
-
 
     /***
      * 计算两个时间差，返回的是的秒s
@@ -410,8 +283,8 @@ public class StringUtil {
         Date d1;
         Date d2;
         try {
-            d1 = dateFormater.get().parse(dete1);
-            d2 = dateFormater.get().parse(date2);
+            d1 = TimeUtil.getDateFormatYmd().parse(dete1);
+            d2 = TimeUtil.getDateFormatYmd().parse(date2);
             // 毫秒ms
             diff = d2.getTime() - d1.getTime();
 
@@ -472,7 +345,7 @@ public class StringUtil {
      * @param str
      * @return
      */
-    public static boolean isUrl(String str) {
+    public static boolean isNetUrl(String str) {
         if (str == null || str.trim().length() == 0) {
             return false;
         }
@@ -494,19 +367,6 @@ public class StringUtil {
             }
         }
         return 0;
-    }
-
-    /**
-     * 对象转整数
-     *
-     * @param obj
-     * @return 转换异常返回 0
-     */
-    public static int toInt(Object obj) {
-        if (obj == null) {
-            return 0;
-        }
-        return string2Int(obj.toString());
     }
 
     /**
@@ -558,10 +418,10 @@ public class StringUtil {
     /**
      * 将一个InputStream流转换成字符串
      *
-     * @param is
+     * @param is 流
      * @return
      */
-    public static String toConvertString(InputStream is) {
+    public static String inputStream2String(InputStream is) {
         StringBuilder sb = new StringBuilder();
         InputStreamReader isr = null;
         BufferedReader read = null;

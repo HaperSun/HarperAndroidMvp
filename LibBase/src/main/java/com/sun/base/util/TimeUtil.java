@@ -20,100 +20,122 @@ import java.util.Locale;
  * 工具类
  * https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/TimeUtils.java
  */
-public final class TimeHelp {
+public final class TimeUtil {
 
     /**
      * 一天的ms数
      */
     public static final long TIME_DAY = 24 * 60 * 60 * 1000L;
 
-    private static DateFormat getDateFormatYmdHms() {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-    }
-
-    private static DateFormat getDateFormatYmd() {
-        return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-    }
-
-    /**
-     * 格式化截止时间显示
-     *
-     * @param deadLine 截止时间时间戳，精确到ms
-     * @return String
-     */
-    public static String getFormatDeadLineTime(long deadLine) {
-        //截止时间始终显示"MM月dd日 HH:mm"
-        return TimeHelp.formatTime(deadLine, "mm:ss");
-    }
-
-    private TimeHelp() {
+    private TimeUtil() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
+    private static DateFormat getDateFormatYmdHms() {
+        return new SimpleDateFormat(TimeConstant.YMD_HMS, Locale.getDefault());
+    }
+
+    public static DateFormat getDateFormatYmd() {
+        return new SimpleDateFormat(TimeConstant.YMD, Locale.getDefault());
+    }
+
     /**
-     * Milliseconds to the formatted time string.
-     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
+     * Millisecond to the formatted time string.
      *
-     * @param millis The milliseconds.
+     * @param millisecond 毫秒
+     * @return <p>The pattern is {@code mm:ss}.</p>
+     */
+    public static String long2StringMs(long millisecond) {
+        return long2String(millisecond, TimeConstant.MS);
+    }
+
+    /**
+     * Millisecond to the formatted time string.
+     *
+     * @param millisecond 毫秒
+     * @return <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
+     */
+    public static String long2String(final long millisecond) {
+        if (millisecond <= 0) {
+            return "未知";
+        }
+        return long2String(millisecond, getDateFormatYmdHms());
+    }
+
+    /**
+     * Millisecond to the formatted time string.
+     *
+     * @param millisecond 毫秒
+     * @return <p>The pattern is {@code yyyy-MM-dd}.</p>
+     */
+    public static String long2StringYmd(final long millisecond) {
+        return long2String(millisecond, getDateFormatYmd());
+    }
+
+    /**
+     * Millisecond to the formatted time string.
+     *
+     * @param millisecond The millisecond.
+     * @param format      The format.
      * @return the formatted time string
      */
-    public static String formatTime(final long millis) {
-        return formatTime(millis, getDateFormatYmdHms());
-    }
-
-    public static String millisToString(final long millis) {
-        return formatTime(millis, getDateFormatYmd());
+    public static String long2String(final long millisecond, @NonNull final DateFormat format) {
+        return format.format(new Date(millisecond));
     }
 
     /**
-     * 将字符串转为时间戳
+     * String to the formatted time millisecond.
      *
-     * @param dateString
-     * @param pattern
-     * @return
+     * @param pattern <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
+     *                <p>The pattern is {@code yyyy-MM-dd HH:mm}.</p>
+     *                <p>The pattern is {@code yyyy-MM-dd}.</p>
+     * @param s       time
+     * @return millisecond
      */
-    public static long string2Millis(String dateString, String pattern) {
+    public static long string2Long(String s, String pattern) {
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
         Date date = new Date();
         try {
-            date = dateFormat.parse(dateString);
+            date = dateFormat.parse(s);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        assert date != null;
         return date.getTime();
     }
 
     /**
-     * Milliseconds to the formatted time string.
-     *
-     * @param millis The milliseconds.
-     * @param format The format.
-     * @return the formatted time string
-     */
-    public static String formatTime(final long millis, @NonNull final DateFormat format) {
-        return format.format(new Date(millis));
-    }
-
-    /**
-     * 毫秒转化成字符串时间戳
+     * Millisecond to the formatted time string.
      *
      * @param millisecond 毫秒值
-     * @param formatStr   字符串时间戳格式
-     * @return
+     * @param pattern     <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
+     *                    <p>The pattern is {@code yyyy-MM-dd HH:mm}.</p>
+     *                    <p>The pattern is {@code yyyy-MM-dd}.</p>
+     * @return the formatted time string
      */
-    public static String formatTime(long millisecond, @NonNull String formatStr) {
+    public static String long2String(long millisecond, @NonNull String pattern) {
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat format = new SimpleDateFormat(formatStr);
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
         return format.format(new Date(millisecond));
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    public static Date string2Date(String s, String pattern){
+        try {
+            return new SimpleDateFormat(pattern).parse(s);
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     /**
      * 根据毫秒时间戳，获取每月份中的天
      *
-     * @param millisecond
-     * @return
+     * @param millisecond 毫秒值
+     * @return int month
      */
-    public static int getMonth(long millisecond) {
+    public static int getMonthByLong(long millisecond) {
         Calendar cd = Calendar.getInstance();
         cd.setTimeInMillis(millisecond);
         //月份是从0开始计算的，所以需要加1
@@ -123,10 +145,10 @@ public final class TimeHelp {
     /**
      * 根据毫秒时间戳，获取月份中的天
      *
-     * @param millisecond 毫秒
-     * @return
+     * @param millisecond 毫秒值
+     * @return int day
      */
-    public static int getDay(long millisecond) {
+    public static int getDayByLong(long millisecond) {
         Calendar cd = Calendar.getInstance();
         cd.setTimeInMillis(millisecond);
         return cd.get(Calendar.DAY_OF_MONTH);
@@ -135,10 +157,10 @@ public final class TimeHelp {
     /**
      * 根据毫秒值获取日期名称
      *
-     * @param millisecond 毫秒时间戳
+     * @param millisecond 毫秒值
      * @return 星期名称
      */
-    public static String getWeekName(long millisecond) {
+    public static String getWeekNameByLong(long millisecond) {
         Calendar cd = Calendar.getInstance();
         cd.setTime(new Date(millisecond));
         int week = cd.get(Calendar.DAY_OF_WEEK);
@@ -177,6 +199,9 @@ public final class TimeHelp {
      * @return the formatted time string
      */
     public static String date2String(final Date date) {
+        if (date == null) {
+            return "未知";
+        }
         return date2String(date, getDateFormatYmdHms());
     }
 
@@ -194,64 +219,64 @@ public final class TimeHelp {
     /**
      * Return whether it is today.
      *
-     * @param millis The milliseconds.
+     * @param millisecond The millisecond.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isToday(final long millis) {
-        long wee = getWeeOfToday();
-        return millis >= wee && millis < wee + TimeConstant.DAY;
+    public static boolean isToday(final long millisecond) {
+        long wee = getFirstTimeOfToday();
+        return millisecond >= wee && millisecond < wee + TimeConstant.DAY;
     }
 
     /**
      * Return whether it is yesterday.
      *
-     * @param millis The milliseconds.
+     * @param millisecond The millisecond.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isYesterday(final long millis) {
-        long wee = getWeeOfToday() - TimeConstant.DAY;
-        return millis >= wee && millis < wee + TimeConstant.DAY;
+    public static boolean isYesterday(final long millisecond) {
+        long wee = getFirstTimeOfToday() - TimeConstant.DAY;
+        return millisecond >= wee && millisecond < wee + TimeConstant.DAY;
     }
 
     /**
      * Return whether it is tomorrow.
      *
-     * @param millis The milliseconds.
+     * @param millisecond The millisecond.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isTomorrow(final long millis) {
-        long wee = getWeeOfToday() + TimeConstant.DAY;
-        return millis >= wee && millis < wee + TimeConstant.DAY;
+    public static boolean isTomorrow(final long millisecond) {
+        long wee = getFirstTimeOfToday() + TimeConstant.DAY;
+        return millisecond >= wee && millisecond < wee + TimeConstant.DAY;
     }
 
     /**
      * Return whether it is this year.
      *
-     * @param millis The milliseconds.
+     * @param millisecond The milliseconds.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isThisYear(final long millis) {
+    public static boolean isThisYear(final long millisecond) {
         Calendar now = Calendar.getInstance();
-        return isYear(millis, now.get(Calendar.YEAR));
+        return isYear(millisecond, now.get(Calendar.YEAR));
     }
 
     /**
      * Return whether it is the year.
      *
-     * @param millis The milliseconds.
-     * @param year   Which year
+     * @param millisecond The millisecond.
+     * @param year        check year
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean isYear(final long millis, final int year) {
+    public static boolean isYear(final long millisecond, final int year) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(millis);
+        calendar.setTimeInMillis(millisecond);
         return calendar.get(Calendar.YEAR) == year;
     }
 
     /**
-     * Return today wee milliseconds.
+     * 获取当天的第一个时间戳
      */
-    public static long getWeeOfToday() {
+    public static long getFirstTimeOfToday() {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.SECOND, 0);
@@ -263,12 +288,12 @@ public final class TimeHelp {
     /**
      * 获取指定时间戳当天最小的时间戳，eg:传进来的时间戳代表的是2019-02-12 09:30:33 那么返回的是2019-02-12 00:00:00
      *
-     * @param timeStamp 指定时间戳
+     * @param millisecond 指定时间戳
      * @return
      */
-    public static long getMinTime(long timeStamp) {
+    public static long getFirstTimeByLong(long millisecond) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timeStamp);
+        calendar.setTimeInMillis(millisecond);
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -279,28 +304,12 @@ public final class TimeHelp {
     }
 
     /**
-     * 获取今天的最小时间戳 即0时0分0秒
-     *
-     * @return
-     */
-    public static long getTodayMinTime() {
-        long current = System.currentTimeMillis();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(current);
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        calendar.set(year, month, day, 0, 0, 0);
-        return calendar.getTimeInMillis();
-    }
-
-    /**
      * 获取昨天的最小时间戳
      *
      * @return
      */
     public static long getYesterdayMinTime() {
-        return (getTodayMinTime() - TIME_DAY);
+        return (getFirstTimeOfToday() - TIME_DAY);
     }
 
     /**
@@ -309,6 +318,6 @@ public final class TimeHelp {
      * @return
      */
     public static long getTomorrowMaxTime() {
-        return (getTodayMinTime() + 2 * TIME_DAY);
+        return (getFirstTimeOfToday() + 2 * TIME_DAY);
     }
 }
