@@ -43,6 +43,12 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="MusicTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowAnimationStyle">@style/default_animation_down</item>
+    </style>
+
+    <!--只有上一页面退出时有动画-->
+    <style name="default_animation_down" mce_bogus="1" parent="@android:style/Animation.Activity">
+        <item name="android:activityCloseEnterAnimation">@anim/activity_down_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_down_out</item>
     </style>
 </resources>

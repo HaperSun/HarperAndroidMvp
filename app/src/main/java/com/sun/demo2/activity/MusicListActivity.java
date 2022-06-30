@@ -1,17 +1,19 @@
 package com.sun.demo2.activity;
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.core.content.ContextCompat;
 
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.base.status.StatusBarUtil;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityMusicListBinding;
 
@@ -23,6 +25,7 @@ import com.sun.demo2.databinding.ActivityMusicListBinding;
 public class MusicListActivity extends BaseMvpActivity implements View.OnLongClickListener {
 
     private ActivityMusicListBinding bind;
+    private Context mContext;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, MusicListActivity.class);
@@ -42,11 +45,20 @@ public class MusicListActivity extends BaseMvpActivity implements View.OnLongCli
     @SuppressLint("WrongConstant")
     @Override
     public void initView() {
+        mContext = this;
         bind = (ActivityMusicListBinding) mViewDataBinding;
         bind.ivMusic.setOnClickListener(v -> bind.drawerLayout.openDrawer(Gravity.END));
         bind.tvLeft.setOnClickListener(v -> bind.drawerLayout.closeDrawer(Gravity.START));
         bind.tvRight.setOnClickListener(v -> bind.drawerLayout.closeDrawer(Gravity.END));
         bind.ivMusic.setOnLongClickListener(this);
+        initStatusBar();
+    }
+
+    private void initStatusBar() {
+        StatusBarUtil.setColorNoTranslucentForDrawerLayout(this, bind.drawerLayout, ContextCompat.getColor(mContext, R.color.light_pink));
+        ViewGroup.LayoutParams layoutParams = bind.viewStatus.getLayoutParams();
+        layoutParams.height = StatusBarUtil.getStatusBarHeight(mContext);
+        bind.viewStatus.setLayoutParams(layoutParams);
     }
 
     @Override
