@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="BaseAdapter_data_binding_support" type="id"/>
-    <item name="BaseAdapter_dragging_support" type="id"/>
-    <item name="BaseAdapter_swiping_support" type="id"/>
-    <item name="BaseAdapter_view_holder_support" type="id"/>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <item name="BaseAdapter_data_binding_support" type="id" />
+    <item name="BaseAdapter_dragging_support" type="id" />
+    <item name="BaseAdapter_swiping_support" type="id" />
+    <item name="BaseAdapter_view_holder_support" type="id" />
+
+    <!--SwitchButton-->
+    <style name="SwitchButtonMD" ns1:ignore="ResourceName">
+        <item name="kswThumbDrawable">@drawable/ksw_md_thumb</item>
+        <item name="kswBackColor">@color/ksw_md_back_color</item>
+        <item name="kswThumbRangeRatio">1.45</item>
+        <item name="kswThumbMarginLeft">-16dp</item>
+        <item name="kswThumbMarginTop">-14dp</item>
+        <item name="kswThumbMarginRight">-16dp</item>
+        <item name="kswThumbMarginBottom">-14dp</item>
+        <item name="kswThumbWidth">@dimen/dp42</item>
+        <item name="kswThumbHeight">@dimen/dp42</item>
+    </style>
 </resources>

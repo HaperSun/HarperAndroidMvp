@@ -31,10 +31,7 @@ android {
 }
 
 dependencies {
-    implementation target.appcompat
-    implementation target.material
-    implementation target.constraintlayout
-    api target.glide
     implementation target.photoView
+
     implementation project(':LibBase')
 }

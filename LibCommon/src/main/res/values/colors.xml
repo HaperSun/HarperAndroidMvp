@@ -28,9 +28,19 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="color_3B3B3B">#3B3B3B</color>
-    <color name="color_AFAFAF">#AFAFAF</color>
+    <color name="cl_3B3B3B">#3B3B3B</color>
+    <color name="cl_AFAFAF">#AFAFAF</color>
     <color name="light_pink">#FFB6C1</color>
     <color name="cl_b99d79">#b99d79</color>
     <color name="cl_666">#666</color>
+    <color name="cl_333244">#333244</color>
+    <color name="cl_555771">#555771</color>
+    <color name="cl_33019285">#33019285</color>
+    <color name="cl_1E000000">#1E000000</color>
+    <color name="cl_019285">#019285</color>
+    <color name="cl_aaaaaa">#aaaaaa</color>
+    <color name="cl_ececec">#ececec</color>
+    <color name="cl_33000000">#33000000</color>
+    <color name="cl_48495f">#48495f</color>
+    <color name="cl_00ddb6">#00ddb6</color>
 </resources>

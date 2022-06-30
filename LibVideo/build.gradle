@@ -32,10 +32,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
-    implementation target.appcompat
-    implementation target.material
-    implementation target.constraintlayout
-    implementation target.glide
 
     implementation project(':LibDanmaku')
     implementation project(':LibBase')

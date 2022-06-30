@@ -99,8 +99,9 @@ android {
 }
 
 dependencies {
-    implementation target.appcompat
-    implementation target.material
+    //引入libs中的aar文件(下拉菜单MaterialSpinner)
+    implementation (fileTree(dir: 'libs'))
+
     implementation target.constraintlayout
     implementation target.multidex
     implementation target.palette
@@ -125,7 +126,6 @@ dependencies {
     implementation target.webSocket
 
     implementation project(':LibBase')
-    implementation project(':LibDb')
     implementation project(':LibChart')
     implementation project(':LibImg')
     implementation project(':LibRichText')

@@ -25,6 +25,5 @@ android {
 }
 
 dependencies {
-    implementation target.appcompat
     implementation project(':LibCommon')
 }

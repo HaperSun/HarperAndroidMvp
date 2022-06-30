@@ -46,8 +46,11 @@ dependencies {
         transitive = true
         exclude group: 'com.android.support'
     }
-    api target.smart_refresh
+
     api target.appcompat
+    api target.material
+    api target.constraintlayout
+    api target.smart_refresh
     api target.annotation
     api target.eventbus
     api target.andpermission

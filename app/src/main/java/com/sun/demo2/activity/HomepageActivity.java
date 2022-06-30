@@ -2,16 +2,13 @@ package com.sun.demo2.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.net.exception.ApiException;
+import com.sun.common.adapter.BaseAdapter;
+import com.sun.common.adapter.BaseViewHolder;
 import com.sun.demo2.R;
 import com.sun.demo2.activity.bd.FaceHomepageActivity;
 import com.sun.demo2.databinding.ActivityHomepageBinding;
@@ -34,7 +31,6 @@ import java.util.List;
 public class HomepageActivity extends BaseMvpActivity {
 
     private Context mContext;
-    private List<String> mTitles;
     private ActivityHomepageBinding mBinding;
 
     public static void start(Context context) {
@@ -55,10 +51,123 @@ public class HomepageActivity extends BaseMvpActivity {
     @Override
     public void initData() {
         mContext = HomepageActivity.this;
-        mTitles = getTitles();
-        Adapter adapter = new Adapter();
-        mBinding.recyclerView.setAdapter(adapter);
+        setAdapter();
+        //App更新
         initUpdateService();
+    }
+
+    private void setAdapter() {
+        List<String> beans = new ArrayList<>();
+        beans.add("GreenDao在登录成功后，的一个使用实例");
+        beans.add("Bar Charts 单柱状图");
+        beans.add("Bar Charts 双柱状图");
+        beans.add("Pie Charts 饼状图");
+        beans.add("RecyclerView中的EditText");
+        beans.add("图片倒影处理");
+        beans.add("图片取色并融入背景色效果");
+        beans.add("测试在列表中的图片加载");
+        beans.add("webView的封装");
+        beans.add("计时器");
+        beans.add("在App内浏览PDF、docx文件");
+        beans.add("Lifecycle的示范");
+        beans.add("图片拼接");
+        beans.add("Horizontal Bar Charts 横向单柱状图");
+        beans.add("带边线的饼状图 Pie Charts");
+        beans.add("腾讯地图");
+        beans.add("腾讯地图  地图内置定位标及定位标点击");
+        beans.add("LineChart  多条目折线图");
+        beans.add("baidu  人脸识别");
+        beans.add("RecyclerView中点播视频");
+        beans.add("仿照百度地图的上层地址列表的上拉、下拉的拖动效果");
+        beans.add("仿通讯录效果");
+        beans.add("WebSocket使用和腾讯视频播放器");
+        beans.add("可展开的TextView实例");
+        beans.add("DrawerLayout+toolBar和音频播放");
+        Adapter adapter = new Adapter(R.layout.adapter_main_recycler_view, beans);
+        mBinding.recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener((adapter1, view, position) -> doClick(position));
+    }
+
+    private void doClick(int position) {
+        switch (position) {
+            case 0:
+                LoginActivity.start(mContext);
+                break;
+            case 1:
+                BarChartBasicActivity.start(mContext);
+                break;
+            case 2:
+                BarChartMultiActivity.start(mContext);
+                break;
+            case 3:
+                PieChartsBasicActivity.start(mContext);
+                break;
+            case 4:
+                EditTextInRecyclerViewActivity.start(mContext);
+                break;
+            case 5:
+                InvertedImageActivity.start(mContext);
+                break;
+            case 6:
+                PickingPictureActivity.start(mContext);
+                break;
+            case 7:
+                RecyclerViewImageActivity.start(mContext);
+                break;
+            case 8:
+                WebViewActivity.start(mContext);
+                break;
+            case 9:
+                TimerActivity.start(mContext);
+                break;
+            case 10:
+                TbsReaderActivity.start(mContext);
+                break;
+            case 11:
+                LifeStudyActivity.start(mContext);
+                break;
+            case 12:
+                PictureSplicingActivity.start(mContext);
+                break;
+            case 13:
+                HorizontalBarChartActivity.start(mContext);
+                break;
+            case 14:
+                PiePolylineChartActivity.start(mContext);
+                break;
+            case 15:
+                SearchBasicActivity.start(mContext);
+                break;
+            case 16:
+                TenMapActivity.start(mContext);
+                break;
+            case 17:
+                MultiLineChartActivity.start(mContext);
+                break;
+            case 18:
+                FaceHomepageActivity.start(mContext);
+                break;
+            case 19:
+                ClickVideoPlayActivity.start(mContext);
+                break;
+            case 20:
+                CustomScrollLayoutActivity.start(mContext);
+                break;
+            case 21:
+                AddressBookActivity.start(mContext);
+                break;
+            case 22:
+                WebSocketActivity.start(mContext);
+                break;
+            case 23:
+                ExpandableTextActivity.start(mContext);
+                break;
+            case 24:
+                MusicListActivity.start(mContext);
+                break;
+            default:
+                break;
+        }
     }
 
     private void initUpdateService() {
@@ -98,34 +207,17 @@ public class HomepageActivity extends BaseMvpActivity {
         });
     }
 
-    private List<String> getTitles() {
-        List<String> titles = new ArrayList<>();
-        titles.add("GreenDao在登录成功后，的一个使用实例");
-        titles.add("Bar Charts 单柱状图");
-        titles.add("Bar Charts 双柱状图");
-        titles.add("Pie Charts 饼状图");
-        titles.add("RecyclerView中的EditText");
-        titles.add("图片倒影处理");
-        titles.add("图片取色并融入背景色效果");
-        titles.add("测试在列表中的图片加载");
-        titles.add("webView的封装");
-        titles.add("计时器");
-        titles.add("在App内浏览PDF、docx文件");
-        titles.add("Lifecycle的示范");
-        titles.add("图片拼接");
-        titles.add("Horizontal Bar Charts 横向单柱状图");
-        titles.add("带边线的饼状图 Pie Charts");
-        titles.add("腾讯地图");
-        titles.add("腾讯地图  地图内置定位标及定位标点击");
-        titles.add("LineChart  多条目折线图");
-        titles.add("baidu  人脸识别");
-        titles.add("RecyclerView中点播视频");
-        titles.add("仿照百度地图的上层地址列表的上拉、下拉的拖动效果");
-        titles.add("仿通讯录效果");
-        titles.add("WebSocket使用和腾讯视频播放器");
-        titles.add("可展开的TextView实例");
-        titles.add("DrawerLayout+toolBar和音频播放");
-        return titles;
+    class Adapter extends BaseAdapter<String, BaseViewHolder> {
+
+        public Adapter(int layoutResId, List<String> data) {
+            super(layoutResId, data);
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper, String item) {
+            TextView textView = helper.getView(R.id.tv_title);
+            textView.setText(item);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -135,119 +227,5 @@ public class HomepageActivity extends BaseMvpActivity {
                 .newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(), true,
                         updateInfo.isForceUpdate())
                 .show(getSupportFragmentManager(), "UpdateHintDialogFragment");
-    }
-
-    class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
-
-        @NonNull
-        @Override
-        public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_main_recycler_view,
-                    parent, false);
-            return new Holder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull Holder holder, int position) {
-            holder.mTitleTextView.setText(mTitles.get(position));
-            holder.itemView.setOnClickListener(v -> doClick(position));
-        }
-
-        @Override
-        public int getItemCount() {
-            return mTitles.size();
-        }
-
-        class Holder extends RecyclerView.ViewHolder {
-
-            TextView mTitleTextView;
-
-            public Holder(View itemView) {
-                super(itemView);
-                mTitleTextView = itemView.findViewById(R.id.adapter_title_text);
-            }
-        }
-
-        private void doClick(int position) {
-            switch (position) {
-                case 0:
-                    LoginActivity.start(mContext);
-                    break;
-                case 1:
-                    BarChartBasicActivity.start(mContext);
-                    break;
-                case 2:
-                    BarChartMultiActivity.start(mContext);
-                    break;
-                case 3:
-                    PieChartsBasicActivity.start(mContext);
-                    break;
-                case 4:
-                    EditTextInRecyclerViewActivity.start(mContext);
-                    break;
-                case 5:
-                    InvertedImageActivity.start(mContext);
-                    break;
-                case 6:
-                    PickingPictureActivity.start(mContext);
-                    break;
-                case 7:
-                    RecyclerViewImageActivity.start(mContext);
-                    break;
-                case 8:
-                    WebViewActivity.start(mContext);
-                    break;
-                case 9:
-                    TimerActivity.start(mContext);
-                    break;
-                case 10:
-                    TbsReaderActivity.start(mContext);
-                    break;
-                case 11:
-                    LifeStudyActivity.start(mContext);
-                    break;
-                case 12:
-                    PictureSplicingActivity.start(mContext);
-                    break;
-                case 13:
-                    HorizontalBarChartActivity.start(mContext);
-                    break;
-                case 14:
-                    PiePolylineChartActivity.start(mContext);
-                    break;
-                case 15:
-                    SearchBasicActivity.start(mContext);
-                    break;
-                case 16:
-                    TenMapActivity.start(mContext);
-                    break;
-                case 17:
-                    MultiLineChartActivity.start(mContext);
-                    break;
-                case 18:
-                    FaceHomepageActivity.start(mContext);
-                    break;
-                case 19:
-                    ClickVideoPlayActivity.start(mContext);
-                    break;
-                case 20:
-                    CustomScrollLayoutActivity.start(mContext);
-                    break;
-                case 21:
-                    AddressBookActivity.start(mContext);
-                    break;
-                case 22:
-                    WebSocketActivity.start(mContext);
-                    break;
-                case 23:
-                    ExpandableTextActivity.start(mContext);
-                    break;
-                case 24:
-                    MusicListActivity.start(mContext);
-                    break;
-                default:
-                    break;
-            }
-        }
     }
 }

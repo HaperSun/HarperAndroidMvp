@@ -20,7 +20,6 @@ import java.util.List;
  */
 public class ExpandableTextActivity extends BaseMvpActivity {
 
-    private List<String> beans;
     private ActivityExpandableTextBinding bind;
 
     public static void start(Context context) {
@@ -40,7 +39,7 @@ public class ExpandableTextActivity extends BaseMvpActivity {
 
     @Override
     public void initData() {
-        beans = new ArrayList<>();
+        List<String> beans = new ArrayList<>();
         beans.add("大家肯定都看过琼瑶剧吧，琼瑶的作品一直都有很独特的文风，清新脱俗的爱情故事，使得她的众多作品都深受大家喜欢，在中国电视剧行业自成一体。能够被选中琼瑶剧的女主，在颜值方面肯定是过关的，虽然琼瑶的三观不行，但是看美女的眼光一直都很高，普遍颜值在娱乐圈里都是比较出众的。");
         beans.add("大家肯定都看过琼瑶剧吧，琼瑶的作品一直都有很独特的文风，清新脱俗的爱情故事，使得她的众多作品都深受大家喜欢，在中国电视剧行业自成一体。能够被选中琼瑶剧的女主，在颜值方面肯定是过关的，虽然琼瑶的三观不行，但是看美女的眼光一直都很高，普遍颜值在娱乐圈里都是比较出众的。");
         beans.add("不难发现，在琼瑶剧里，大部分的女主人都有很清透的眼睛，大眼睛能够让你在电视剧中看起来更有神态感，可以从整体上优化长相。大眼睛最大的好处就是能够让整一个脸部看起来更加的美感，可以协调五官增加颜值，表演起来会更加的生动，更能够带入到剧情中。");
@@ -51,10 +50,10 @@ public class ExpandableTextActivity extends BaseMvpActivity {
         beans.add("现在大家一直都认为瓜子脸就很好看，实际上在那个年代真正的美人，不一定需要有这些特征，反倒是能够让人一眼就记住的人，才是真正的美。琼瑶剧中大部分的女主角，脸颊两边会过高一些，眼神是很深邃的，整体给人一种很温婉素雅的感觉，即使不上妆，容貌方面也很突出");
         beans.add("黄奕在参加综艺节目时，就曾透露说，琼瑶选演员的时候，对于哭戏是比较注重的，哭戏好看的话那么会更加的入戏，也才能进入琼瑶的眼。在琼瑶阿姨看来，会演戏的人就必须拥有哭感，双眼中必须能够包含泪水的，既要让泪水饱含在眼睛中，又不能流在脸部，整一个过程可以达到楚楚可怜的状态。");
         beans.add("黄奕在参加综艺节目时，就曾透露说，琼瑶选演员的时候，对于哭戏是比较注重的，哭戏好看的话那么会更加的入戏，也才能进入琼瑶的眼。在琼瑶阿姨看来，会演戏的人就必须拥有哭感，双眼中必须能够包含泪水的，既要让泪水饱含在眼睛中，又不能流在脸部，整一个过程可以达到楚楚可怜的状态。");
-        Adapter adapter = new Adapter();
-        //adapter设置数据
-        adapter.setNewData(beans);
+        Adapter adapter = new Adapter(R.layout.item_expandable_text, beans);
         bind.recyclerView.setAdapter(adapter);
+        //adapter重新设置数据
+        adapter.setNewData(beans);
         //item的子view点击事件
         adapter.setOnItemChildClickListener((adapter1, view, position) -> {
             int viewId = view.getId();
@@ -70,7 +69,7 @@ public class ExpandableTextActivity extends BaseMvpActivity {
             }
             return false;
         });
-        //item的点击事件
+        //item的点击事件（和子view的点击事件不可同时用哦）
         adapter.setOnItemClickListener((adapter3, view, position) -> {
             int viewId = view.getId();
             if (viewId == R.id.expandable_text) {
@@ -81,8 +80,8 @@ public class ExpandableTextActivity extends BaseMvpActivity {
 
     class Adapter extends BaseAdapter<String, BaseViewHolder> {
 
-        public Adapter() {
-            super(R.layout.item_expandable_text);
+        public Adapter(int layoutResId, List<String> data) {
+            super(layoutResId, data);
         }
 
         @Override

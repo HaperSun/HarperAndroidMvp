@@ -26,6 +26,5 @@ android {
 }
 
 dependencies {
-    implementation target.appcompat
-    implementation target.material
+    implementation project(':LibCommon')
 }

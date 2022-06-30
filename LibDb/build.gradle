@@ -39,8 +39,6 @@ android {
 }
 
 dependencies {
-    implementation target.appcompat
-    implementation target.material
     api target.greendao
     api target.generator
     implementation project(':LibCommon')

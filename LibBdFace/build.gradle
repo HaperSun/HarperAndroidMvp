@@ -29,8 +29,7 @@ android {
 }
 
 dependencies {
-    implementation target.appcompat
-    implementation target.material
     api (fileTree(dir: 'libs'))
+
     implementation project(':LibBase')
 }

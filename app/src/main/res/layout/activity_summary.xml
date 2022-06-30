@@ -31,8 +31,8 @@
                 android:layout_height="wrap_content"
                 app:rt_editor_image_bottom="10"
                 app:rt_editor_image_height="0"
-                app:rt_editor_text_color="@color/color_3B3B3B"
-                app:rt_editor_text_hint_color="@color/color_AFAFAF"
+                app:rt_editor_text_color="@color/cl_3B3B3B"
+                app:rt_editor_text_hint_color="@color/cl_AFAFAF"
                 app:rt_editor_text_init_hint="请填写您的回答"
                 app:rt_editor_text_line_space="0dp"
                 app:rt_editor_text_size="@dimen/sp16"/>
@@ -42,8 +42,8 @@
                 android:layout_height="wrap_content"
                 app:rt_view_image_bottom="10"
                 app:rt_view_image_height="0"
-                app:rt_view_text_color="@color/color_3B3B3B"
-                app:rt_view_text_hint_color="@color/color_AFAFAF"
+                app:rt_view_text_color="@color/cl_3B3B3B"
+                app:rt_view_text_hint_color="@color/cl_AFAFAF"
                 app:rt_view_text_line_space="0dp"
                 app:rt_view_text_size="@dimen/sp14"/>
         </LinearLayout>
