@@ -206,6 +206,7 @@
         <activity
             android:name=".activity.ExpandableTextActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/MusicTheme"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activity.MusicListActivity"

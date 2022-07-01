@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import java.io.File;
@@ -35,6 +36,7 @@ public class StatusBarUtil {
     private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
     private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
     private static final String KEY_MIUI_INTERNAL_STORAGE = "ro.miui.internal.storage";
+    private static final String TAG_STATUS_BAR = "TAG_STATUS_BAR";
 
     /**
      * 是否是MIUI设备
@@ -327,6 +329,92 @@ public class StatusBarUtil {
         statusBarView.setLayoutParams(params);
         statusBarView.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
         return statusBarView;
+    }
+
+    /**
+     * Set the status bar's color.
+     *
+     * @param activity The activity.
+     * @param color    The status bar's color.
+     */
+    public static View setStatusBarColor(@NonNull final AppCompatActivity activity, @ColorInt final int color) {
+        return setStatusBarColor(activity, color, false);
+    }
+
+    /**
+     * Set the status bar's color.
+     *
+     * @param activity The activity.
+     * @param color    The status bar's color.
+     * @param isDecor  True to add fake status bar in DecorView,
+     *                 false to add fake status bar in ContentView.
+     */
+    public static View setStatusBarColor(@NonNull final AppCompatActivity activity, @ColorInt final int color, final boolean isDecor) {
+        transparentStatusBar(activity);
+        return applyStatusBarColor(activity, color, isDecor);
+    }
+
+    private static void transparentStatusBar(final AppCompatActivity activity) {
+        Window window = activity.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        int option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int vis = window.getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            window.getDecorView().setSystemUiVisibility(option | vis);
+        } else {
+            window.getDecorView().setSystemUiVisibility(option);
+        }
+        window.setStatusBarColor(Color.TRANSPARENT);
+    }
+
+    private static View applyStatusBarColor(final AppCompatActivity activity,
+                                            final int color,
+                                            boolean isDecor) {
+        ViewGroup parent = isDecor ?
+                (ViewGroup) activity.getWindow().getDecorView() :
+                (ViewGroup) activity.findViewById(android.R.id.content);
+        View fakeStatusBarView = parent.findViewWithTag(TAG_STATUS_BAR);
+        if (fakeStatusBarView != null) {
+            if (fakeStatusBarView.getVisibility() == View.GONE) {
+                fakeStatusBarView.setVisibility(View.VISIBLE);
+            }
+            fakeStatusBarView.setBackgroundColor(color);
+        } else {
+            fakeStatusBarView = createStatusBarView(activity, color);
+            parent.addView(fakeStatusBarView);
+        }
+        return fakeStatusBarView;
+    }
+
+    /**
+     * Set the status bar's light mode.
+     *
+     * @param activity    The activity.
+     * @param isLightMode True to set status bar light mode, false otherwise.
+     */
+    public static void setStatusBarLightMode(@NonNull final AppCompatActivity activity, final boolean isLightMode) {
+        setStatusBarLightMode(activity.getWindow(), isLightMode);
+    }
+
+    /**
+     * Set the status bar's light mode.
+     *
+     * @param window      The window.
+     * @param isLightMode True to set status bar light mode, false otherwise.
+     */
+    public static void setStatusBarLightMode(@NonNull final Window window, final boolean isLightMode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decorView = window.getDecorView();
+            if (decorView != null) {
+                int vis = decorView.getSystemUiVisibility();
+                if (isLightMode) {
+                    vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                } else {
+                    vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                }
+                decorView.setSystemUiVisibility(vis);
+            }
+        }
     }
 
 }

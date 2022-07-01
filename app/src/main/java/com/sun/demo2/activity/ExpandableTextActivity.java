@@ -1,9 +1,13 @@
 package com.sun.demo2.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.view.Gravity;
 
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.base.status.StatusBarUtil;
 import com.sun.common.adapter.BaseAdapter;
 import com.sun.common.adapter.BaseViewHolder;
 import com.sun.demo2.R;
@@ -28,6 +32,11 @@ public class ExpandableTextActivity extends BaseMvpActivity {
     }
 
     @Override
+    protected boolean enableStatusBarDark() {
+        return true;
+    }
+
+    @Override
     public int layoutId() {
         return R.layout.activity_expandable_text;
     }
@@ -35,10 +44,22 @@ public class ExpandableTextActivity extends BaseMvpActivity {
     @Override
     public void initView() {
         bind = (ActivityExpandableTextBinding) mViewDataBinding;
+        initStatus();
     }
 
+    private void initStatus() {
+        StatusBarUtil.setStatusBarColor(this, Color.TRANSPARENT);
+        StatusBarUtil.setStatusBarLightMode(this, true);
+    }
+
+    @SuppressLint("WrongConstant")
     @Override
     public void initData() {
+        bind.ivMenu.setOnClickListener(v -> bind.drawerLayout.openDrawer(Gravity.START));
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
         List<String> beans = new ArrayList<>();
         beans.add("大家肯定都看过琼瑶剧吧，琼瑶的作品一直都有很独特的文风，清新脱俗的爱情故事，使得她的众多作品都深受大家喜欢，在中国电视剧行业自成一体。能够被选中琼瑶剧的女主，在颜值方面肯定是过关的，虽然琼瑶的三观不行，但是看美女的眼光一直都很高，普遍颜值在娱乐圈里都是比较出众的。");
         beans.add("大家肯定都看过琼瑶剧吧，琼瑶的作品一直都有很独特的文风，清新脱俗的爱情故事，使得她的众多作品都深受大家喜欢，在中国电视剧行业自成一体。能够被选中琼瑶剧的女主，在颜值方面肯定是过关的，虽然琼瑶的三观不行，但是看美女的眼光一直都很高，普遍颜值在娱乐圈里都是比较出众的。");
