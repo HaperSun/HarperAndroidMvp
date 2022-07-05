@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Harper</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
-    <string name="app_name">Harper</string>
     <string name="copied_to_pasteboard">已复制到粘贴板</string>
     <string name="loading_failed_please_try_again">加载失败，请重试！</string>
     <string name="loading">正在加载…</string>
@@ -13,4 +13,5 @@
     <string name="no_more">没有更多了~</string>
     <string name="no_content_now">暂时没有内容~~</string>
     <string name="save">保存</string>
+    <string name="exit_application">是否退出应用？</string>
 </resources>

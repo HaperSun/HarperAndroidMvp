@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:lines="1"
                 android:text="@string/superplayer_test_video"
-                android:textColor="@color/superplayer_white"
+                android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>
     </RelativeLayout>

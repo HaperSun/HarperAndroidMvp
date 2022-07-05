@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/feed_page_bg"
+        android:background="@color/cl_14233D"
         android:orientation="vertical"
         tools:context=".ui.activity.FeedVideoActivity">
 
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/app_feed_title"
-                android:textColor="@color/superplayer_white"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
         </RelativeLayout>
 
@@ -37,6 +37,6 @@
             android:id="@+id/feed_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/superplayer_white" />
+            android:background="@color/white" />
     </LinearLayout>
 </layout>

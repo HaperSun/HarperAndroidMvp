@@ -132,7 +132,7 @@ public class RecyclerViewImageActivity extends BaseMvpActivity {
                 ImgItemBean bean = (ImgItemBean) mItems.get(position).object;
                 if (bean != null){
                     ImgLoader.getInstance().loadImage(bean.getImg(), holder.mIv1);
-                    holder.itemView.setOnClickListener(v -> ImgPreviewActivity.actionStart(mContext, bean.getImg()));
+                    holder.itemView.setOnClickListener(v -> ImgPreviewActivity.start(mContext, bean.getImg()));
                 }
             }
         }

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * @author: Harper
@@ -30,17 +31,26 @@ import java.util.regex.Pattern;
 public class StringUtil {
 
     private final static Pattern emailer = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
-    private final static Pattern passworder = Pattern.compile("^[\\w\\d]{6,}");
     private final static Pattern IMG = Pattern.compile(".*?(gif|jpeg|png|jpg|bmp|JPEG|PNG|JPG|BMP|GIF)");
     private final static Pattern URL = Pattern.compile("^(https|http)://.*?$(net|com|.com.cn|org|me|)");
     private final static Pattern number = Pattern.compile("^[-+]?(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)$");
-    private final static Pattern tel = Pattern.compile("^((13[0-9])|(14[0-9])|(15([0-9]|[5-9]))|(18[0-9]))\\d{8}$");
-    private final static Pattern END = Pattern.compile("face_[0-9]{1,}");
     /**
      * 正则表达式，用来判断消息内是否有表情 <br/>
      */
     public final static String face_regrex = "\\[face_(([1-9]|[1-6]\\d)|(70|71))\\]";
     public final static Pattern face = Pattern.compile(face_regrex);
+    /**
+     * ^ 匹配输入字符串开始的位置
+     * \d 匹配一个或多个数字，其中 \ 要转义，所以是 \\d
+     * $ 匹配输入字符串结尾的位置
+     */
+    private static final Pattern HK_PATTERN = Pattern.compile("^(5|6|8|9)\\d{7}$");
+    private static final Pattern CHINA_PATTERN =
+            Pattern.compile("^((12[0-9])|(13[0-9])|(14[0,1,4-9])|(15[0-3,5-9])|(16[2,5,6,7])|(17[0-8])|(18[0-9])|(19[0-3,5-9]))\\d{8}$");
+    /**
+     * 密码正则
+     */
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,32}$");
 
     /**
      * 以友好的方式显示时间
@@ -573,13 +583,6 @@ public class StringUtil {
         }
     }
 
-    /**
-     * 是否是6位以上  数字字母组合 <br/>
-     */
-    public static boolean isPasswordValid(String password) {
-        return passworder.matcher(password).find();
-    }
-
     public static void main(String[] args) {
         System.out.println(getFloatToIntString("3.33"));
     }
@@ -688,17 +691,6 @@ public class StringUtil {
         String[] strs = url.split("/");
         if (strs.length > 0) {
             result = strs[strs.length - 1];
-        }
-        return result;
-    }
-
-    public static boolean isPhoneNumber(String a) {
-        boolean result = false;
-        if (!isEmpty(a)) {
-            Matcher matcher = tel.matcher(a);
-            if (matcher.matches()) {
-                result = true;
-            }
         }
         return result;
     }
@@ -853,7 +845,6 @@ public class StringUtil {
     public static SpannableStringBuilder highlight(String text, String target) {
         SpannableStringBuilder spannable = new SpannableStringBuilder(text);
         CharacterStyle span = null;
-
         Pattern p = Pattern.compile(target);
         Matcher m = p.matcher(text);
         while (m.find()) {
@@ -907,5 +898,46 @@ public class StringUtil {
      */
     public static String formatString(String s) {
         return TextUtils.isEmpty(s) ? "" : s;
+    }
+
+    /**
+     * 大陆号码或香港号码均可
+     */
+    public static boolean isLegalPhone(String s) throws PatternSyntaxException {
+        return isLegalChinaPhone(s) || isLegalHkPhone(s);
+    }
+
+    /**
+     * 大陆手机号码11位数，匹配格式：前三位固定格式+后8位任意数
+     * 此方法中前三位格式有：
+     * 13+任意数
+     * 145,147,149
+     * 15+除4的任意数(不要写^4，这样的话字母也会被认为是正确的)
+     * 166
+     * 17+3,5,6,7,8
+     * 18+任意数
+     * 198,199
+     */
+    public static boolean isLegalChinaPhone(String s) throws PatternSyntaxException {
+        Matcher m = CHINA_PATTERN.matcher(s);
+        return m.matches();
+    }
+
+    /**
+     * 香港手机号码8位数，5|6|8|9开头+7位任意数
+     */
+    public static boolean isLegalHkPhone(String s) throws PatternSyntaxException {
+        Matcher m = HK_PATTERN.matcher(s);
+        return m.matches();
+    }
+
+    /**
+     * 是否是6位以上  数字字母组合 <br/>
+     */
+    public static boolean isLegalPassword(String s) throws PatternSyntaxException {
+        if (TextUtils.isEmpty(s)) {
+            return false;
+        }
+        return PASSWORD_PATTERN.matcher(s).matches();
     }
 }

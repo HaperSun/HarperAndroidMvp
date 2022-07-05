@@ -39,7 +39,7 @@ version.smart_refresh = "1.1.0-alpha-31" //smartRefresh
 //腾讯地图
 version.tencentLocationSdk ="7.2.6"
 version.tencent_map_vector ="4.4.7"
-version.easypermissions ="2.0.1"
+version.easypermissions ="3.0.0" // 使用 Android X 的应用添加该依赖3.0.0,使用 Android Support Library 支持库 , 添加该依赖2.0.1
 version.webSocket ="1.5.1"  //webSocket
 
 

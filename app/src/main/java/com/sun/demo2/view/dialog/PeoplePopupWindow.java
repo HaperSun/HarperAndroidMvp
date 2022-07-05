@@ -85,7 +85,7 @@ public class PeoplePopupWindow extends PopupWindow {
             SelectBean bean = mBeans.get(position);
             holder.tvName.setText(bean.getName());
             boolean select = bean.isSelected();
-            CommonUtil.setViewBackground(holder.ivSelect, select ? R.mipmap.icon_selected : R.mipmap.icon_unselect);
+            CommonUtil.setViewBackground(holder.ivSelect, select ? R.mipmap.ic_rec_blue_selected : R.mipmap.ic_rec_grey_unselect);
             holder.itemView.setOnClickListener(v -> {
                 if (mPopupWindowListener != null) {
                     doItemClick(position);

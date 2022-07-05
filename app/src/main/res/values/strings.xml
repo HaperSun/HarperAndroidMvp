@@ -1,4 +1,5 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
     <string name="app_name">Harper</string>
     <string name="download_address">下载地址</string>
     <string name="download">下载</string>
@@ -15,13 +16,8 @@
     <string name="downloading">下载中…</string>
     <string name="start">开始</string>
     <string name="end">结束</string>
-    <string name="title_activity_ten_map">TenMapActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="input_user_account">请输入用户账号</string>
+    <string name="account_not_exist">账号不存在</string>
+    <string name="input_user_password">请输入用户密码</string>
+    <string name="logging">登录中…</string>
 </resources>

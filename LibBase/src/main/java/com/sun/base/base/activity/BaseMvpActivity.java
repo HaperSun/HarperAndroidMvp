@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
@@ -67,7 +68,7 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
         } else {
             try {
                 if (mStatusBarColor != 0) {
-                    StatusBarCompat.setStatusBarColor(this, mStatusBarColor);
+                    StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, mStatusBarColor));
                 }
             } catch (Exception e) {
                 showToast("mStatusBarColor赋值异常~");

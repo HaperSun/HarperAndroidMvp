@@ -22,7 +22,7 @@
         android:layout_toRightOf="@+id/feed_detail_holder_img"
         android:ellipsize="end"
         android:lines="1"
-        android:textColor="@color/superplayer_white"
+        android:textColor="@color/white"
         android:textSize="16sp" />
 
     <TextView

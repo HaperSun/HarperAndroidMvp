@@ -43,14 +43,20 @@ public class ImgPreviewActivity extends BaseMvpActivity {
     private ArrayList<ImageItem> mImgItems;
     private boolean mNeedAnim;
 
+    @Override
+    protected boolean enableStatusBarDark() {
+        mStatusBarColor = R.color.black;
+        return true;
+    }
+
     /**
      * 外部启动当前页面
      *
      * @param context
      * @param imgUrls 图片url 可以是本地文件路径，也可以是网络地址
      */
-    public static void actionStart(Context context, String... imgUrls) {
-        actionStart(context, true, imgUrls);
+    public static void start(Context context, String... imgUrls) {
+        start(context, true, imgUrls);
     }
 
     /**
@@ -60,8 +66,8 @@ public class ImgPreviewActivity extends BaseMvpActivity {
      * @param needAnim 是否需要动画
      * @param imgUrls  图片url 可以是本地文件路径，也可以是网络地址
      */
-    public static void actionStart(Context context, boolean needAnim, String... imgUrls) {
-        actionStart(context, 0, needAnim, imgUrls);
+    public static void start(Context context, boolean needAnim, String... imgUrls) {
+        start(context, 0, needAnim, imgUrls);
     }
 
     /**
@@ -71,8 +77,8 @@ public class ImgPreviewActivity extends BaseMvpActivity {
      * @param pagerPosition 初始进来位置，从0开始计数
      * @param imgUrls       图片url 可以是本地文件路径，也可以是网络地址
      */
-    public static void actionStart(Context context, int pagerPosition, String... imgUrls) {
-        actionStart(context, pagerPosition, true, imgUrls);
+    public static void start(Context context, int pagerPosition, String... imgUrls) {
+        start(context, pagerPosition, true, imgUrls);
     }
 
     /**
@@ -83,10 +89,10 @@ public class ImgPreviewActivity extends BaseMvpActivity {
      * @param needAnim      是否需要动画
      * @param imgUrls       图片url 可以是本地文件路径，也可以是网络地址
      */
-    public static void actionStart(Context context, int pagerPosition, boolean needAnim, String... imgUrls) {
+    public static void start(Context context, int pagerPosition, boolean needAnim, String... imgUrls) {
         List<String> imgUrlArray = new ArrayList<>();
         Collections.addAll(imgUrlArray, imgUrls);
-        actionStart(context, pagerPosition, imgUrlArray, needAnim);
+        start(context, pagerPosition, imgUrlArray, needAnim);
     }
 
     /**
@@ -95,8 +101,8 @@ public class ImgPreviewActivity extends BaseMvpActivity {
      * @param context
      * @param imgUrls 预览图片url数组 可以是本地文件路径，也可以是网络地址
      */
-    public static void actionStart(Context context, List<String> imgUrls) {
-        actionStart(context, 0, imgUrls);
+    public static void start(Context context, List<String> imgUrls) {
+        start(context, 0, imgUrls);
     }
 
     /**
@@ -106,8 +112,8 @@ public class ImgPreviewActivity extends BaseMvpActivity {
      * @param pagerPosition 初始进来位置，从0开始计数
      * @param imgUrls       预览图片url数组 可以是本地文件路径，也可以是网络地址
      */
-    public static void actionStart(Context context, int pagerPosition, List<String> imgUrls) {
-        actionStart(context, pagerPosition, imgUrls, true);
+    public static void start(Context context, int pagerPosition, List<String> imgUrls) {
+        start(context, pagerPosition, imgUrls, true);
     }
 
     /**
@@ -118,13 +124,13 @@ public class ImgPreviewActivity extends BaseMvpActivity {
      * @param imgUrls       预览图片url数组 可以是本地文件路径，也可以是网络地址
      * @param needAnim      是否需要动画
      */
-    public static void actionStart(Context context, int pagerPosition, List<String> imgUrls, boolean needAnim) {
+    public static void start(Context context, int pagerPosition, List<String> imgUrls, boolean needAnim) {
         int size = imgUrls.size();
         ImageItem[] imgItems = new ImageItem[size];
         for (int i = 0; i < size; i++) {
             imgItems[i] = new ImageItem(null, imgUrls.get(i));
         }
-        actionStartImageItem(context, pagerPosition, needAnim, imgItems);
+        startImageItem(context, pagerPosition, needAnim, imgItems);
     }
 
     /**
@@ -133,8 +139,8 @@ public class ImgPreviewActivity extends BaseMvpActivity {
      * @param context
      * @param imgItems 预览图片数组 可以是本地文件路径，也可以是网络地址
      */
-    public static void actionStartImageItem(Context context, ImageItem... imgItems) {
-        actionStartImageItem(context, true, imgItems);
+    public static void startImageItem(Context context, ImageItem... imgItems) {
+        startImageItem(context, true, imgItems);
     }
 
     /**
@@ -144,8 +150,8 @@ public class ImgPreviewActivity extends BaseMvpActivity {
      * @param needAnim 是否需要动画
      * @param imgItems 预览图片数组 可以是本地文件路径，也可以是网络地址
      */
-    public static void actionStartImageItem(Context context, boolean needAnim, ImageItem... imgItems) {
-        actionStartImageItem(context, 0, needAnim, imgItems);
+    public static void startImageItem(Context context, boolean needAnim, ImageItem... imgItems) {
+        startImageItem(context, 0, needAnim, imgItems);
     }
 
     /**
@@ -155,8 +161,8 @@ public class ImgPreviewActivity extends BaseMvpActivity {
      * @param pagerPosition 初始进来位置，从0开始计数
      * @param imgItems      预览图片数组 可以是本地文件路径，也可以是网络地址
      */
-    public static void actionStartImageItem(Context context, int pagerPosition, ImageItem... imgItems) {
-        actionStartImageItem(context, pagerPosition, true, imgItems);
+    public static void startImageItem(Context context, int pagerPosition, ImageItem... imgItems) {
+        startImageItem(context, pagerPosition, true, imgItems);
     }
 
     /**
@@ -167,7 +173,7 @@ public class ImgPreviewActivity extends BaseMvpActivity {
      * @param needAnim      是否需要动画
      * @param imgItems      预览图片数组 可以是本地文件路径，也可以是网络地址
      */
-    public static void actionStartImageItem(Context context, int pagerPosition, boolean needAnim, ImageItem... imgItems) {
+    public static void startImageItem(Context context, int pagerPosition, boolean needAnim, ImageItem... imgItems) {
         Intent intent = new Intent(context, ImgPreviewActivity.class);
         intent.putExtra(EXTRA_IMAGE_INDEX, pagerPosition);
         intent.putExtra(EXTRA_IMAGE_ITEMS, imgItems);
@@ -187,8 +193,8 @@ public class ImgPreviewActivity extends BaseMvpActivity {
      * @param pagerPosition 初始进来位置，从0开始计数
      * @param imgItems      预览图片数组 可以是本地文件路径，也可以是网络地址
      */
-    public static void actionStartImageItem(Context context, int pagerPosition, List<ImageItem> imgItems) {
-        actionStartImageItem(context, pagerPosition, imgItems, true);
+    public static void startImageItem(Context context, int pagerPosition, List<ImageItem> imgItems) {
+        startImageItem(context, pagerPosition, imgItems, true);
     }
 
     /**
@@ -199,7 +205,7 @@ public class ImgPreviewActivity extends BaseMvpActivity {
      * @param imgItems      预览图片数组 可以是本地文件路径，也可以是网络地址
      * @param needAnim      是否需要动画
      */
-    public static void actionStartImageItem(Context context, int pagerPosition, List<ImageItem> imgItems, boolean needAnim) {
+    public static void startImageItem(Context context, int pagerPosition, List<ImageItem> imgItems, boolean needAnim) {
         Intent intent = new Intent(context, ImgPreviewActivity.class);
         intent.putExtra(EXTRA_IMAGE_INDEX, pagerPosition);
         if (imgItems != null) {
@@ -223,7 +229,7 @@ public class ImgPreviewActivity extends BaseMvpActivity {
             super.onBackPressed();
             return;
         }
-        finish();
+        close();
         //中心缩小退出
         overridePendingTransition(0, R.anim.scale_out);
     }

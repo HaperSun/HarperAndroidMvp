@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 
 import com.sun.base.dialog.BaseDialogFragment;
 import com.sun.base.util.PermissionUtil;
-import com.sun.common.bean.MagicInt;
 import com.sun.common.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.sun.demo2.update.UpdateService;
@@ -140,24 +139,20 @@ public class UpdateAppDialogFragment extends BaseDialogFragment implements Updat
         mTvCancel.setOnClickListener(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        if (PermissionUtil.checkStorage()){
-            doClick(v);
-        }else {
-            PermissionUtil.requestStorage(getActivity(),state -> {
-                if (state == MagicInt.ONE){
-                    doClick(v);
-                }
-            });
-        }
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    private void doClick(View v){
         switch (v.getId()) {
             case R.id.tv_update_now:
-                clickUpdate();
+                if (PermissionUtil.checkWriteStorage()) {
+                    clickUpdate();
+                } else {
+                    PermissionUtil.requestWriteStorage(getActivity(), state -> {
+                        if (state) {
+                            clickUpdate();
+                        }
+                    });
+                }
                 break;
             case R.id.tv_cancel:
                 clickCancel(v);

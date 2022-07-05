@@ -8,7 +8,7 @@
     <LinearLayout
         android:id="@+id/superplayer_rl_top"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/superplayer_media_controller_view_height"
+        android:layout_height="@dimen/player_media_controller_view_height"
         android:background="@drawable/superplayer_top_shadow"
         android:gravity="left"
         android:paddingLeft="20dp"
@@ -128,7 +128,7 @@
             android:layout_marginLeft="5.0dip"
             android:layout_marginRight="5.0dip"
             android:layout_weight="1.0"
-            app:psb_backgroundColor="@color/superplayer_biz_audio_progress_second"
+            app:psb_backgroundColor="@color/cl_6b6666"
             app:psb_max="100"
             app:psb_progress="0"
             app:psb_progressColor="#FF584C"

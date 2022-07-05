@@ -33,7 +33,7 @@ public class MyLocationObserver implements LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     private void startGetLocation() {
-        ToastHelper.showCommonToast("start Location");
+        ToastHelper.showToast("start Location");
         mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         mLocationListener = new MyLocationListener();
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -44,7 +44,7 @@ public class MyLocationObserver implements LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     private void stopGetLocation() {
-        ToastHelper.showCommonToast("stop Location");
+        ToastHelper.showToast("stop Location");
         mLocationManager.removeUpdates(mLocationListener);
     }
 
@@ -52,7 +52,7 @@ public class MyLocationObserver implements LifecycleObserver {
 
         @Override
         public void onLocationChanged(@NonNull Location location) {
-            ToastHelper.showCommonToast("Location Changed:" + location.toString());
+            ToastHelper.showToast("Location Changed:" + location.toString());
         }
 
         @Override

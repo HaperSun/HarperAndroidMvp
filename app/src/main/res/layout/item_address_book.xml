@@ -36,7 +36,7 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:layout_margin="5dp"
-                android:src="@mipmap/avatar" />
+                android:src="@mipmap/ic_avatar" />
 
             <TextView
                 android:id="@+id/tv_name"

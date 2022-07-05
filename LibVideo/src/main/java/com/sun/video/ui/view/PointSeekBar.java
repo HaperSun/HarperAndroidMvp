@@ -123,8 +123,8 @@ public class PointSeekBar extends RelativeLayout {
 
     private void init(AttributeSet attrs) {
         setWillNotDraw(false);
-        int progressColor = getResources().getColor(R.color.superplayer_default_progress_color);
-        int backgroundColor = getResources().getColor(R.color.superplayer_default_progress_background_color);
+        int progressColor = getResources().getColor(R.color.cl_FF4081);
+        int backgroundColor = getResources().getColor(R.color.cl_BBBBBB);
         if (attrs != null) {
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.SuperPlayerTCPointSeekBar);
             mThumbDrawable = a.getDrawable(R.styleable.SuperPlayerTCPointSeekBar_psb_thumbBackground);

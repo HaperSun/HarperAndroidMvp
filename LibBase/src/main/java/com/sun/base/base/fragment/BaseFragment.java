@@ -71,9 +71,9 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
      *
      * @param resId 字符串id
      */
-    protected void showToastSuccess(int resId) {
+    protected void showSuccessToast(int resId) {
         if (getStatus()) {
-            mActivity.showToastSuccess(resId);
+            mActivity.showSuccessToast(resId);
         }
     }
 
@@ -82,9 +82,9 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
      *
      * @param s 字符串
      */
-    protected void showToastSuccess(String s) {
+    protected void showSuccessToast(String s) {
         if (getStatus()) {
-            mActivity.showToastSuccess(s);
+            mActivity.showSuccessToast(s);
         }
     }
 
@@ -93,9 +93,43 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
      *
      * @param s 字符串
      */
-    protected void showLongToastSuccess(String s) {
+    protected void showLongSuccessToast(String s) {
         if (getStatus()) {
-            mActivity.showLongToastSuccess(s);
+            mActivity.showLongSuccessToast(s);
+        }
+    }
+
+
+    /**
+     * 显示Toast，感叹号类型
+     *
+     * @param resId 字符串id
+     */
+    protected void showFailToast(int resId) {
+        if (getStatus()) {
+            mActivity.showFailToast(resId);
+        }
+    }
+
+    /**
+     * 显示Toast，感叹号类型
+     *
+     * @param s 字符串
+     */
+    protected void showFailToast(String s) {
+        if (getStatus()) {
+            mActivity.showFailToast(s);
+        }
+    }
+
+    /**
+     * 显示Toast，感叹号类型
+     *
+     * @param s 字符串
+     */
+    protected void showLongFailToast(String s) {
+        if (getStatus()) {
+            mActivity.showLongFailToast(s);
         }
     }
 

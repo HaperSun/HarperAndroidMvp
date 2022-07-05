@@ -16,23 +16,19 @@ import com.tencent.tencentmap.mapsdk.maps.model.LatLng;
 
 public class SupportMapFragmentActivity extends AppCompatActivity {
 
-    /**
-     * SDK提供了SupportMapFragment这个类来加载地图，这个类的方便之处就在于不用手动管理内存
-     */
-
-    private FragmentManager fm;
     protected TencentMap tencentMap;
-    private SupportMapFragment supportMapFragment;
     protected UiSettings mapUiSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support_map_fragment);
-
         //创建tencentMap地图对象，可以完成对地图的几乎所有操作
-        fm = getSupportFragmentManager();
-        supportMapFragment = (SupportMapFragment) fm.findFragmentById(R.id.map_frag);
+        /**
+         * SDK提供了SupportMapFragment这个类来加载地图，这个类的方便之处就在于不用手动管理内存
+         */
+        FragmentManager fm = getSupportFragmentManager();
+        SupportMapFragment supportMapFragment = (SupportMapFragment) fm.findFragmentById(R.id.map_frag);
         tencentMap = supportMapFragment.getMap();
         mapUiSettings = tencentMap.getUiSettings();
         //对地图操作类进行操作

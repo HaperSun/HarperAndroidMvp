@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="@color/superplayer_super_vod_vtt_bg">
+    android:background="@color/cl_7E000000">
 
     <TextView
         android:id="@+id/superplayer_tv_title"
@@ -11,7 +11,7 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="@string/superplayer_sharpness"
-        android:textColor="@color/superplayer_white"
+        android:textColor="@color/white"
         android:textSize="14dp" />
 
     <ListView

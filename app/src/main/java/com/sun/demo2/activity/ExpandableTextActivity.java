@@ -99,7 +99,7 @@ public class ExpandableTextActivity extends BaseMvpActivity {
         });
     }
 
-    class Adapter extends BaseAdapter<String, BaseViewHolder> {
+    static class Adapter extends BaseAdapter<String, BaseViewHolder> {
 
         public Adapter(int layoutResId, List<String> data) {
             super(layoutResId, data);

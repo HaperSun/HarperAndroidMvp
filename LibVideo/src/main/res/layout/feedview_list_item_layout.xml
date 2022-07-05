@@ -30,7 +30,7 @@
             android:ellipsize="end"
             android:gravity="left"
             android:lines="1"
-            android:textColor="@color/superplayer_white"
+            android:textColor="@color/white"
             android:textSize="14sp" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="8dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/superplayer_black" />
+            android:background="@color/black" />
     </RelativeLayout>
 
     <com.sun.video.ui.view.FeedPlayerView
@@ -60,6 +60,6 @@
         android:layout_height="200dp"
         android:layout_above="@+id/feed_list_item_describe_layout"
         android:layout_margin="8dp"
-        android:background="@color/superplayer_black" />
+        android:background="@color/black" />
 
 </RelativeLayout>

@@ -30,5 +30,5 @@
     <View
         android:layout_width="1px"
         android:layout_height="match_parent"
-        android:background="@color/horizontal_vertical" />
+        android:background="@color/cl_8f8f8f" />
 </merge>

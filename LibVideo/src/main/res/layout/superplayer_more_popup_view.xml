@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/superplayer_super_vod_vtt_bg"
+    android:background="@color/cl_7E000000"
     android:padding="20dp">
 
     <LinearLayout
@@ -25,7 +25,7 @@
                 android:layout_gravity="center"
                 android:paddingRight="20dp"
                 android:text="@string/superplayer_sound"
-                android:textColor="@color/superplayer_white"
+                android:textColor="@color/white"
                 android:textSize="14dp" />
 
             <ImageView
@@ -67,7 +67,7 @@
                 android:layout_gravity="center"
                 android:paddingRight="20dp"
                 android:text="@string/superplayer_brightness"
-                android:textColor="@color/superplayer_white"
+                android:textColor="@color/white"
                 android:textSize="14dp" />
 
             <ImageView
@@ -109,7 +109,7 @@
                 android:layout_gravity="center"
                 android:paddingRight="10dp"
                 android:text="@string/superplayer_multi_speed_playback"
-                android:textColor="@color/superplayer_white"
+                android:textColor="@color/white"
                 android:textSize="14dp" />
 
             <RadioGroup
@@ -175,7 +175,7 @@
                 android:layout_gravity="center"
                 android:paddingRight="10dp"
                 android:text="@string/superplayer_mirror"
-                android:textColor="@color/superplayer_white"
+                android:textColor="@color/white"
                 android:textSize="14dp" />
 
             <Switch
@@ -203,7 +203,7 @@
                 android:layout_gravity="center"
                 android:paddingRight="10dp"
                 android:text="@string/superplayer_hardware_Acceleration"
-                android:textColor="@color/superplayer_white"
+                android:textColor="@color/white"
                 android:textSize="14dp" />
 
             <Switch

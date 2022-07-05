@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/superplayer_transparent" />
+        android:background="@color/transparent" />
 
     <SeekBar
         android:id="@+id/seekbar_short_video"

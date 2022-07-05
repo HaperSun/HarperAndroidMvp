@@ -563,13 +563,13 @@ public class FileUtil {
         try {
             fos = new FileOutputStream(saveFile);
             bitmap.compress(isPng ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG, 100, fos);
-            ToastHelper.showCommonToast("图片已保存至" + saveFileDir.getAbsolutePath() + "文件夹");
+            ToastHelper.showToast("图片已保存至" + saveFileDir.getAbsolutePath() + "文件夹");
             //发广播更新图库
             Uri uri = Uri.fromFile(saveFile);
             context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
         } catch (Exception e) {
             LogHelper.e(TAG, "saveImage Exception!", e);
-            ToastHelper.showCommonToast("图片保存失败！");
+            ToastHelper.showToast("图片保存失败！");
         } finally {
             if (fos != null) {
                 try {

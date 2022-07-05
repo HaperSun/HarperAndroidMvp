@@ -3,6 +3,6 @@
     android:shape="rectangle">
 
     <corners android:radius="20dp" />
-    <solid android:color="@color/superplayer_vipwatch_yellow_color" />
+    <solid android:color="@color/cl_F4E096" />
 
 </shape>

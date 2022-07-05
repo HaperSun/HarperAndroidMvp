@@ -126,27 +126,27 @@ public class AddressBook2Bean implements Serializable, Comparable<AddressBook2Be
 
     public static List<AddressBook2Bean> getData(){
         List<AddressBook2Bean> beans = new ArrayList<>();
-        beans.add(new AddressBook2Bean("丽丽", R.mipmap.avatar));
-        beans.add(new AddressBook2Bean("妈妈", R.mipmap.app_logo));
-        beans.add(new AddressBook2Bean("爸爸", R.mipmap.avatar));
-        beans.add(new AddressBook2Bean("#xx", R.mipmap.avatar));
-        beans.add(new AddressBook2Bean("虹猫", R.mipmap.avatar));
-        beans.add(new AddressBook2Bean("蓝兔", R.mipmap.avatar));
-        beans.add(new AddressBook2Bean("阿牛", R.mipmap.avatar));
-        beans.add(new AddressBook2Bean("CK", R.mipmap.app_logo));
-        beans.add(new AddressBook2Bean("灯虎", R.mipmap.avatar));
-        beans.add(new AddressBook2Bean("尔康", R.mipmap.avatar));
-        beans.add(new AddressBook2Bean("凡哥", R.mipmap.app_logo));
-        beans.add(new AddressBook2Bean("Gr", R.mipmap.avatar));
-        beans.add(new AddressBook2Bean("123阿斯顿", R.mipmap.avatar));
-        beans.add(new AddressBook2Bean("Ri本", R.mipmap.avatar));
-        beans.add(new AddressBook2Bean("ii啥", R.mipmap.avatar));
-        beans.add(new AddressBook2Bean("杰哥", R.mipmap.app_logo));
-        beans.add(new AddressBook2Bean("凯奇", R.mipmap.app_logo));
-        beans.add(new AddressBook2Bean("楠楠", R.mipmap.app_logo));
-        beans.add(new AddressBook2Bean("哦哦", R.mipmap.app_logo));
-        beans.add(new AddressBook2Bean("皮皮", R.mipmap.app_logo));
-        beans.add(new AddressBook2Bean("钱德勒", R.mipmap.app_logo));
+        beans.add(new AddressBook2Bean("丽丽", R.mipmap.ic_avatar));
+        beans.add(new AddressBook2Bean("妈妈", R.mipmap.ic_app_logo));
+        beans.add(new AddressBook2Bean("爸爸", R.mipmap.ic_avatar));
+        beans.add(new AddressBook2Bean("#xx", R.mipmap.ic_avatar));
+        beans.add(new AddressBook2Bean("虹猫", R.mipmap.ic_avatar));
+        beans.add(new AddressBook2Bean("蓝兔", R.mipmap.ic_avatar));
+        beans.add(new AddressBook2Bean("阿牛", R.mipmap.ic_avatar));
+        beans.add(new AddressBook2Bean("CK", R.mipmap.ic_app_logo));
+        beans.add(new AddressBook2Bean("灯虎", R.mipmap.ic_avatar));
+        beans.add(new AddressBook2Bean("尔康", R.mipmap.ic_avatar));
+        beans.add(new AddressBook2Bean("凡哥", R.mipmap.ic_app_logo));
+        beans.add(new AddressBook2Bean("Gr", R.mipmap.ic_avatar));
+        beans.add(new AddressBook2Bean("123阿斯顿", R.mipmap.ic_avatar));
+        beans.add(new AddressBook2Bean("Ri本", R.mipmap.ic_avatar));
+        beans.add(new AddressBook2Bean("ii啥", R.mipmap.ic_avatar));
+        beans.add(new AddressBook2Bean("杰哥", R.mipmap.ic_app_logo));
+        beans.add(new AddressBook2Bean("凯奇", R.mipmap.ic_app_logo));
+        beans.add(new AddressBook2Bean("楠楠", R.mipmap.ic_app_logo));
+        beans.add(new AddressBook2Bean("哦哦", R.mipmap.ic_app_logo));
+        beans.add(new AddressBook2Bean("皮皮", R.mipmap.ic_app_logo));
+        beans.add(new AddressBook2Bean("钱德勒", R.mipmap.ic_app_logo));
         Collections.sort(beans);
         return beans;
     }

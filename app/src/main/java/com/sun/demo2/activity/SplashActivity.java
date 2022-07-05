@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.sun.common.UiHandler;
 import com.sun.demo2.R;
@@ -25,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private final IHandler mHandler = new IHandler(this);
     private FrameLayout mRootLayout;
+    private boolean mIsActivityTaskRoot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +41,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         mRootLayout = findViewById(R.id.root_layout);
         //为了解决有时按HOME键再回来会重启问题
-        boolean isActivityTaskRoot = isActivityTaskRoot();
-        if (!isActivityTaskRoot) {
-            finish();
+        mIsActivityTaskRoot = isActivityTaskRoot();
+        if (!mIsActivityTaskRoot) {
+            ActivityCompat.finishAfterTransition(this);
             return;
         }
         setFullScreen();
@@ -107,7 +109,7 @@ public class SplashActivity extends AppCompatActivity {
                 return;
             }
             if (0 == msg.what) {
-                HomepageActivity.start(activity);
+                LoginActivity.start(activity);
                 activity.finish();
             }
         }

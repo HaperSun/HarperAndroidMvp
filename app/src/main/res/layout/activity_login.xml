@@ -1,57 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical"
         tools:context=".activity.LoginActivity">
 
-        <TextView
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/purple_200"
-            android:layout_marginTop="@dimen/dp10"
-            android:padding="@dimen/dp10"
-            android:text="模拟登陆"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp16" />
-
-        <TextView
-            android:id="@+id/custom_toast"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp10"
-            android:background="@color/purple_200"
-            android:padding="@dimen/dp10"
-            android:text="自定义Toast"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp16" />
-
-        <TextView
-            android:id="@+id/common_toast"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp10"
-            android:background="@color/purple_200"
-            android:padding="@dimen/dp10"
-            android:text="普通的Toast"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp16" />
-
         <ImageView
-            android:id="@+id/img_view"
-            android:layout_width="@dimen/dp300"
-            android:layout_height="@dimen/dp200"
-            android:layout_marginTop="@dimen/dp10"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/ic_login_back"
+            android:scaleType="fitXY" />
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp10" />
-    </LinearLayout>
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/dp30">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_avatar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="34dp"
+                android:background="@mipmap/bg_grey_edit"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="16sp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@mipmap/ic_user_grey" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/cl_A0A0A0" />
+
+                <EditText
+                    android:id="@+id/et_account"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/input_user_account"
+                    android:textColor="@color/cl_202020"
+                    android:textColorHint="@color/cl_A0A0A0"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/iv_clear_account"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="6dp"
+                    android:src="@mipmap/ic_clean_edit" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/bg_grey_edit"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="16sp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@mipmap/ic_grey_lock" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/cl_A0A0A0" />
+
+                <EditText
+                    android:id="@+id/et_password"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请输入密码"
+                    android:inputType="textPassword"
+                    android:textColor="@color/cl_202020"
+                    android:textColorHint="@color/cl_A0A0A0"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/iv_switch_password"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="6dp"
+                    android:src="@mipmap/ic_show_psw_press" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp16"
+                android:background="@drawable/success_button_recollect_selector"
+                android:text="登录"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </RelativeLayout>
 </layout>

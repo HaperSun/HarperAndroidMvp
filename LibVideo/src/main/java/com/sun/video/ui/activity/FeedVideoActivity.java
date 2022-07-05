@@ -6,7 +6,6 @@ import android.os.Build;
 import android.view.View;
 
 import com.sun.base.base.activity.BaseMvpActivity;
-import com.sun.common.toast.ToastHelper;
 import com.sun.video.R;
 import com.sun.video.databinding.ActivityFeedVideoBinding;
 import com.sun.video.i.FeedViewCallBack;
@@ -39,6 +38,7 @@ public class FeedVideoActivity extends BaseMvpActivity implements FeedViewCallBa
 
     @Override
     protected boolean enableStatusBarDark() {
+        mStatusBarColor = R.color.cl_14233D;
         return true;
     }
 
@@ -136,7 +136,7 @@ public class FeedVideoActivity extends BaseMvpActivity implements FeedViewCallBa
                 if (isDestroyed()) {
                     return;
                 }
-                ToastHelper.showCommonToast("暂未获取到数据");
+                showToast("暂未获取到数据");
             }
         });
     }

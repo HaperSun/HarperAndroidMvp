@@ -104,21 +104,21 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     @Override
     public void showToast(int resId) {
         if (!isFinishing()) {
-            ToastHelper.showCommonToast(getString(resId));
+            ToastHelper.showToast(getString(resId));
         }
     }
 
     @Override
-    public void showToast(String msg) {
+    public void showToast(String s) {
         if (!isFinishing()) {
-            ToastHelper.showCommonToast(msg);
+            ToastHelper.showToast(s);
         }
     }
 
     @Override
-    public void showLongToast(String msg) {
+    public void showLongToast(String s) {
         if (!isFinishing()) {
-            ToastHelper.showCommonToast(msg, Toast.LENGTH_LONG);
+            ToastHelper.showToast(s, Toast.LENGTH_LONG);
         }
     }
 
@@ -127,7 +127,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      *
      * @param resId
      */
-    public void showToastSuccess(int resId) {
+    public void showSuccessToast(int resId) {
         if (!isFinishing()) {
             ToastHelper.showCustomToast(resId, CustomToast.CORRECT);
         }
@@ -136,22 +136,55 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     /**
      * 显示Toast，对勾类型
      *
-     * @param msg
+     * @param s
      */
-    public void showToastSuccess(String msg) {
+    public void showSuccessToast(String s) {
         if (!isFinishing()) {
-            ToastHelper.showCustomToast(msg, CustomToast.CORRECT);
+            ToastHelper.showCustomToast(s, CustomToast.CORRECT);
         }
     }
 
     /**
      * 显示Toast，对勾类型
      *
-     * @param msg
+     * @param s
      */
-    public void showLongToastSuccess(String msg) {
+    public void showLongSuccessToast(String s) {
         if (!isFinishing()) {
-            ToastHelper.showCustomToast(msg, CustomToast.CORRECT, Toast.LENGTH_LONG);
+            ToastHelper.showCustomToast(s, CustomToast.CORRECT, Toast.LENGTH_LONG);
+        }
+    }
+
+    /**
+     * 显示Toast，感叹号类型
+     *
+     * @param resId
+     */
+    public void showFailToast(int resId) {
+        if (!isFinishing()) {
+            ToastHelper.showCustomToast(resId, CustomToast.WARNING);
+        }
+    }
+
+    /**
+     * 显示Toast，感叹号类型
+     *
+     * @param s
+     */
+    public void showFailToast(String s) {
+        if (!isFinishing()) {
+            ToastHelper.showCustomToast(s, CustomToast.WARNING);
+        }
+    }
+
+    /**
+     * 显示Toast，感叹号类型
+     *
+     * @param s
+     */
+    public void showLongFailToast(String s) {
+        if (!isFinishing()) {
+            ToastHelper.showCustomToast(s, CustomToast.WARNING, Toast.LENGTH_LONG);
         }
     }
 

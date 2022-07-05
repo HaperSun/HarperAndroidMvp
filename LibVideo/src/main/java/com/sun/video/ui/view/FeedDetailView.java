@@ -64,7 +64,7 @@ public class FeedDetailView extends FrameLayout implements FeedDetailListClickLi
     }
 
     private void initViews() {
-        setBackgroundResource(R.color.feed_page_bg);
+        setBackgroundResource(R.color.cl_14233D);
         setOnClickListener(v -> {
 
         });

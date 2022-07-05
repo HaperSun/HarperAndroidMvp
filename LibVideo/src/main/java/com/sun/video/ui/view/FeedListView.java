@@ -62,11 +62,12 @@ public class FeedListView extends FrameLayout implements FeedListItemView.FeedLi
     private void initViews() {
         feedPlayerManager = new FeedPlayerManager();
         refreshLayout = new SmartRefreshLayout(getContext());
-        refreshLayout.setBackgroundResource(R.color.feed_page_bg);
+        refreshLayout.setBackgroundResource(R.color.cl_14233D);
         refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
         refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
         refreshLayout.setEnableAutoLoadMore(false);
-        refreshLayout.setEnableOverScrollBounce(false);//是否启用越界回弹
+        //是否启用越界回弹
+        refreshLayout.setEnableOverScrollBounce(false);
         recyclerView = new RecyclerView(getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);

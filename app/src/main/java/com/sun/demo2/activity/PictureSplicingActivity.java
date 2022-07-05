@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.dialog.BottomDialogFragment;
+import com.sun.base.status.StatusBarUtil;
 import com.sun.base.util.LogHelper;
 import com.sun.base.util.PermissionUtil;
-import com.sun.base.status.StatusBarUtil;
-import com.sun.common.bean.MagicInt;
-import com.sun.common.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityPictureSplicingBinding;
 
@@ -43,7 +41,7 @@ public class PictureSplicingActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        StatusBarUtil.setImmersiveStatusBar(getWindow(),true);
+        StatusBarUtil.setImmersiveStatusBar(getWindow(), true);
         mBind = (ActivityPictureSplicingBinding) mViewDataBinding;
         mRelativeLayout = mBind.container;
     }
@@ -53,17 +51,24 @@ public class PictureSplicingActivity extends BaseMvpActivity {
         mBind.container.setOnClickListener(v -> {
             new BottomDialogFragment.Builder().addDialogItem(new BottomDialogFragment.DialogItem(getResources().getString(R.string.save_to_album),
                     view1 -> {
-                        if (PermissionUtil.checkStorage()) {
+                        if (PermissionUtil.checkWriteStorage()) {
                             saveImage();
                         } else {
-                            PermissionUtil.requestStorage(this, state -> {
-                                if (state == MagicInt.ONE) {
+                            PermissionUtil.requestWriteStorage(this, state -> {
+                                if (state) {
                                     saveImage();
                                 }
                             });
                         }
-                    })).build().show(getSupportFragmentManager(), "PictureSplicingActivity");
+                    })).build().show(getSupportFragmentManager(), TAG);
         });
+    }
+
+    private void saveImage() {
+        Bitmap bitmap = saveLayoutAsImg();
+        if (bitmap != null) {
+            saveImage(bitmap);
+        }
     }
 
     private Bitmap saveLayoutAsImg() {
@@ -76,13 +81,6 @@ public class PictureSplicingActivity extends BaseMvpActivity {
     protected void onDestroy() {
         mRelativeLayout.destroyDrawingCache();
         super.onDestroy();
-    }
-
-    private void saveImage() {
-        Bitmap bitmap = saveLayoutAsImg();
-        if (bitmap != null) {
-            saveImage(bitmap);
-        }
     }
 
     /**
@@ -104,7 +102,7 @@ public class PictureSplicingActivity extends BaseMvpActivity {
                 Uri uri = Uri.fromFile(new File(saveFilePath));
                 intent.setData(uri);
                 sendBroadcast(intent);
-                ToastHelper.showCommonToast("图片已保存至" + saveFileDir.getAbsolutePath() + "文件夹");
+                showToast("图片已保存至" + saveFileDir.getAbsolutePath() + "文件夹");
             });
         } catch (Exception e) {
             LogHelper.e("saveImage", "saveImage Exception!", e);

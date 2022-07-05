@@ -7,9 +7,12 @@
     <color name="translucent">#80000000</color>
     <color name="grey">#0f1b1b1b</color>
     <color name="blue">#0000FF</color>
-    <color name="yellow">#FFFF00</color>
+    <color name="yellow">#800080</color>
     <color name="green">#00FF00</color>
-    <color name="page_base_color">#f9f9f9</color>
+    <color name="purple">#00FF00</color>
+    <color name="pink">#FFC0CB</color>
+    <color name="lightPink">#FFB6C1</color>
+    <color name="basePageColor">#f9f9f9</color>
     <color name="cl_C0E8FD">#C0E8FD</color>
     <color name="cl_101010">#101010</color>
     <color name="cl_666666">#666666</color>
@@ -21,16 +24,14 @@
     <color name="cl_CCCCCC">#CCCCCC</color>
     <color name="cl_9EA0A3">#9EA0A3</color>
     <color name="cl_14233D">#14233D</color>
-
     <color name="cl_4000">#4000</color>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="cl_FFBB86FC">#FFBB86FC</color>
+    <color name="cl_FF6200EE">#FF6200EE</color>
+    <color name="cl_FF3700B3">#FF3700B3</color>
+    <color name="cl_FF03DAC5">#FF03DAC5</color>
+    <color name="cl_FF018786">#FF018786</color>
     <color name="cl_3B3B3B">#3B3B3B</color>
     <color name="cl_AFAFAF">#AFAFAF</color>
-    <color name="light_pink">#FFB6C1</color>
     <color name="cl_b99d79">#b99d79</color>
     <color name="cl_666">#666</color>
     <color name="cl_333244">#333244</color>
@@ -43,4 +44,21 @@
     <color name="cl_33000000">#33000000</color>
     <color name="cl_48495f">#48495f</color>
     <color name="cl_00ddb6">#00ddb6</color>
+    <color name="cl_A0A0A0">#A0A0A0</color>
+    <color name="cl_202020">#202020</color>
+    <color name="cl_8f8f8f">#8f8f8f</color>
+    <color name="cl_00b2ff">#00b2ff</color>
+    <color name="cl_6b6666">#6b6666</color>
+    <color name="cl_7E000000">#7E000000</color>
+    <color name="cl_aa000000">#aa000000</color>
+    <!-- 裁剪范围颜色 -->
+    <color name="cl_FF4C58">#FF4C58</color>
+    <!--special color-->
+    <color name="cl_1a000000">#1a000000</color>
+    <color name="cl_88000000">#88000000</color>
+    <!--gray4-->
+    <color name="cl_787878">#787878</color>
+    <color name="cl_FF4081">#FF4081</color>
+    <color name="cl_BBBBBB">#BBBBBB</color>
+    <color name="cl_F4E096">#F4E096</color>
 </resources>

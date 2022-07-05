@@ -53,6 +53,5 @@ dependencies {
     api target.smart_refresh
     api target.annotation
     api target.eventbus
-    api target.andpermission
     api target.rxpermissions
 }

@@ -38,7 +38,7 @@
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="@color/horizontal_vertical" />
+            android:background="@color/cl_8f8f8f" />
 
         <ImageButton
             android:id="@+id/emojis_tab_1_people"
@@ -52,7 +52,7 @@
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="@color/horizontal_vertical" />
+            android:background="@color/cl_8f8f8f" />
 
         <ImageButton
             android:id="@+id/emojis_tab_2_nature"
@@ -66,7 +66,7 @@
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="@color/horizontal_vertical" />
+            android:background="@color/cl_8f8f8f" />
 
         <ImageButton
             android:id="@+id/emojis_tab_3_objects"
@@ -80,7 +80,7 @@
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="@color/horizontal_vertical" />
+            android:background="@color/cl_8f8f8f" />
 
         <ImageButton
             android:id="@+id/emojis_tab_4_cars"
@@ -94,7 +94,7 @@
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="@color/horizontal_vertical" />
+            android:background="@color/cl_8f8f8f" />
 
         <ImageButton
             android:id="@+id/emojis_tab_5_punctuation"
@@ -108,7 +108,7 @@
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="@color/horizontal_vertical" />
+            android:background="@color/cl_8f8f8f" />
 
         <ImageButton
             android:id="@+id/emojis_backspace"
@@ -130,5 +130,5 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_below="@id/emojis_tab"
-        android:background="@color/horizontal_divider" />
+        android:background="@color/cl_8f8f8f" />
 </RelativeLayout>

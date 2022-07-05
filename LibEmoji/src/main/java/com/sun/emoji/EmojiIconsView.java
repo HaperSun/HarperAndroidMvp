@@ -99,9 +99,9 @@ public class EmojiIconsView extends FrameLayout implements ViewPager.OnPageChang
     private void addTabDivider() {
         View divider = new View(getContext());
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            mViewPager.setBackgroundColor(getContext().getResources().getColor(R.color.horizontal_vertical));
+            mViewPager.setBackgroundColor(getContext().getResources().getColor(R.color.cl_8f8f8f));
         } else {
-            mViewPager.setBackgroundColor(getContext().getColor(R.color.horizontal_vertical));
+            mViewPager.setBackgroundColor(getContext().getColor(R.color.cl_8f8f8f));
         }
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1, LinearLayout.LayoutParams.MATCH_PARENT);
         mTabsContainer.addView(divider, mTabsContainer.getChildCount() - 2, params);

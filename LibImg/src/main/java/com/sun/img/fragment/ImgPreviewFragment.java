@@ -13,9 +13,6 @@ import com.sun.base.dialog.BottomDialogFragment;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogHelper;
 import com.sun.base.util.PermissionUtil;
-import com.sun.common.bean.MagicInt;
-import com.sun.common.toast.CustomToast;
-import com.sun.common.toast.ToastHelper;
 import com.sun.img.R;
 import com.sun.img.databinding.FragmentPicturePreviewBinding;
 import com.sun.img.img.ImageLoadListener;
@@ -41,7 +38,6 @@ public class ImgPreviewFragment extends BaseMvpFragment {
      * 原图
      */
     private Bitmap mOriImgBitmap;
-    private FragmentActivity mActivity;
 
     public static ImgPreviewFragment newInstance(ImageItem imageItem) {
         ImgPreviewFragment fragment = new ImgPreviewFragment();
@@ -62,7 +58,6 @@ public class ImgPreviewFragment extends BaseMvpFragment {
         if (args != null) {
             mImageItem = args.getParcelable(EXTRA_IMAGE_ITEM);
         }
-        mActivity = getActivity();
     }
 
     @Override
@@ -90,7 +85,7 @@ public class ImgPreviewFragment extends BaseMvpFragment {
             @Override
             public void onLoadingFailed(Exception e) {
                 mLoadingBar.setVisibility(View.GONE);
-                ToastHelper.showCustomToast(R.string.loading_image_failed, CustomToast.WARNING);
+                showFailToast(R.string.loading_image_failed);
             }
 
             @Override
@@ -103,12 +98,10 @@ public class ImgPreviewFragment extends BaseMvpFragment {
     }
 
     private void initClick() {
+        FragmentActivity activity = getActivity();
         mImageView.setOnPhotoTapListener((view, x, y) -> {
             //单击退出当前页面
-            FragmentActivity activity = mActivity;
-            if (activity != null) {
-                activity.onBackPressed();
-            }
+            close();
         });
         try {
             mImageView.setOnLongClickListener(view -> {
@@ -118,16 +111,17 @@ public class ImgPreviewFragment extends BaseMvpFragment {
                 //弹出保存选项
                 new BottomDialogFragment.Builder().addDialogItem(new BottomDialogFragment.DialogItem(getResources().getString(R.string.save_to_album),
                         view1 -> {
-                            if (PermissionUtil.checkStorage()){
-                                saveImage();
-                            }else {
-                                PermissionUtil.requestStorage(mActivity, state -> {
-                                    if (state== MagicInt.ONE){
-                                        saveImage();
+                            if (PermissionUtil.checkWriteStorage()) {
+                                //保存图片操作
+                                saveImg(activity);
+                            } else {
+                                PermissionUtil.requestWriteStorage(activity, state -> {
+                                    if (state) {
+                                        saveImg(activity);
                                     }
                                 });
                             }
-                        })).build().show(getChildFragmentManager(), "ImagePreviewFragment");
+                        })).build().show(getChildFragmentManager(), TAG);
                 return true;
             });
         } catch (Exception e) {
@@ -135,10 +129,7 @@ public class ImgPreviewFragment extends BaseMvpFragment {
         }
     }
 
-    /**
-     * 保存图片操作
-     */
-    private void saveImage() {
-        FileUtil.saveNetImgToAlbum(mActivity, mImageItem.getImageOri(), mOriImgBitmap);
+    private void saveImg(FragmentActivity activity) {
+        FileUtil.saveNetImgToAlbum(activity, mImageItem.getImageOri(), mOriImgBitmap);
     }
 }

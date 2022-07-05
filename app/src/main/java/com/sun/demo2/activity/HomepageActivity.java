@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.base.dialog.CommonAlertDialog;
 import com.sun.base.net.exception.ApiException;
 import com.sun.common.adapter.BaseAdapter;
 import com.sun.common.adapter.BaseViewHolder;
@@ -39,6 +40,11 @@ public class HomepageActivity extends BaseMvpActivity {
     }
 
     @Override
+    protected boolean enableEventBus() {
+        return true;
+    }
+
+    @Override
     public int layoutId() {
         return R.layout.activity_homepage;
     }
@@ -58,7 +64,6 @@ public class HomepageActivity extends BaseMvpActivity {
 
     private void setAdapter() {
         List<String> beans = new ArrayList<>();
-        beans.add("GreenDao在登录成功后，的一个使用实例");
         beans.add("Bar Charts 单柱状图");
         beans.add("Bar Charts 双柱状图");
         beans.add("Pie Charts 饼状图");
@@ -91,78 +96,75 @@ public class HomepageActivity extends BaseMvpActivity {
     private void doClick(int position) {
         switch (position) {
             case 0:
-                LoginActivity.start(mContext);
-                break;
-            case 1:
                 BarChartBasicActivity.start(mContext);
                 break;
-            case 2:
+            case 1:
                 BarChartMultiActivity.start(mContext);
                 break;
-            case 3:
+            case 2:
                 PieChartsBasicActivity.start(mContext);
                 break;
-            case 4:
+            case 3:
                 EditTextInRecyclerViewActivity.start(mContext);
                 break;
-            case 5:
+            case 4:
                 InvertedImageActivity.start(mContext);
                 break;
-            case 6:
+            case 5:
                 PickingPictureActivity.start(mContext);
                 break;
-            case 7:
+            case 6:
                 RecyclerViewImageActivity.start(mContext);
                 break;
-            case 8:
+            case 7:
                 WebViewActivity.start(mContext);
                 break;
-            case 9:
+            case 8:
                 TimerActivity.start(mContext);
                 break;
-            case 10:
+            case 9:
                 TbsReaderActivity.start(mContext);
                 break;
-            case 11:
+            case 10:
                 LifeStudyActivity.start(mContext);
                 break;
-            case 12:
+            case 11:
                 PictureSplicingActivity.start(mContext);
                 break;
-            case 13:
+            case 12:
                 HorizontalBarChartActivity.start(mContext);
                 break;
-            case 14:
+            case 13:
                 PiePolylineChartActivity.start(mContext);
                 break;
-            case 15:
+            case 14:
                 SearchBasicActivity.start(mContext);
                 break;
-            case 16:
+            case 15:
                 TenMapActivity.start(mContext);
                 break;
-            case 17:
+            case 16:
                 MultiLineChartActivity.start(mContext);
                 break;
-            case 18:
+            case 17:
                 FaceHomepageActivity.start(mContext);
                 break;
-            case 19:
+            case 18:
                 ClickVideoPlayActivity.start(mContext);
                 break;
-            case 20:
+            case 19:
                 CustomScrollLayoutActivity.start(mContext);
                 break;
-            case 21:
+            case 20:
                 AddressBookActivity.start(mContext);
                 break;
-            case 22:
+            case 21:
                 WebSocketActivity.start(mContext);
                 break;
-            case 23:
+            case 22:
                 ExpandableTextActivity.start(mContext);
                 break;
-            case 24:
+            case 23:
                 MusicListActivity.start(mContext);
                 break;
             default:
@@ -178,7 +180,7 @@ public class HomepageActivity extends BaseMvpActivity {
                 return;
             }
             UpdateAppDialogFragment.newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(),
-                    isDownloaded, updateInfo.isForceUpdate()).show(getSupportFragmentManager(), "UpdateAppDialogFragment");
+                    isDownloaded, updateInfo.isForceUpdate()).show(getSupportFragmentManager(), TAG);
         });
         UpdateService.addOnCheckUpdateListener(new UpdateService.OnCheckUpdateListener() {
             @Override
@@ -186,7 +188,7 @@ public class HomepageActivity extends BaseMvpActivity {
                 UpdateAppDialogFragment updateAppDialogFragment = UpdateAppDialogFragment
                         .newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(), isDownloaded,
                                 updateInfo.isForceUpdate());
-                updateAppDialogFragment.show(getSupportFragmentManager(), "UpdateAppDialogFragment");
+                updateAppDialogFragment.show(getSupportFragmentManager(), TAG);
                 updateAppDialogFragment.setUpdateHintDialogListener(new UpdateAppDialogFragment.UpdateAppDialogListener() {
                     @Override
                     public void onCancelDownloadClick(View view) {
@@ -207,7 +209,7 @@ public class HomepageActivity extends BaseMvpActivity {
         });
     }
 
-    class Adapter extends BaseAdapter<String, BaseViewHolder> {
+    static class Adapter extends BaseAdapter<String, BaseViewHolder> {
 
         public Adapter(int layoutResId, List<String> data) {
             super(layoutResId, data);
@@ -223,9 +225,17 @@ public class HomepageActivity extends BaseMvpActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUpgradeApkDownloadSuccessEvent(UpgradeApkDownloadSuccessEvent event) {
         GetUpdateInfoResponse.DataBean updateInfo = event.getUpdateInfo();
-        UpdateAppDialogFragment
-                .newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(), true,
-                        updateInfo.isForceUpdate())
-                .show(getSupportFragmentManager(), "UpdateHintDialogFragment");
+        UpdateAppDialogFragment.newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(),
+                true, updateInfo.isForceUpdate()).show(getSupportFragmentManager(), TAG);
+    }
+
+    @Override
+    public void onBackPressed() {
+        new CommonAlertDialog.Builder(this)
+                .setTitle(R.string.reminder)
+                .setMessage(R.string.exit_application)
+                .setNegativeText(R.string.cancel)
+                .setPositiveText(R.string.confirm, view -> close())
+                .build().show();
     }
 }

@@ -14,6 +14,18 @@ import com.sun.demo2.MainApplication;
 public class LoginInfoSp extends AbstractSharePreferenceOperate<String> {
 
     private static final String KEY = LoginInfoSp.class.getSimpleName();
+    private static volatile LoginInfoSp mInstance = null;
+
+    public static LoginInfoSp getInstance() {
+        if (mInstance == null) {
+            synchronized (LoginInfoSp.class) {
+                if (mInstance == null) {
+                    mInstance = new LoginInfoSp();
+                }
+            }
+        }
+        return mInstance;
+    }
 
     @Override
     protected SharedPreferences getSharedPreferences() {

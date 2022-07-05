@@ -20,7 +20,6 @@ import com.baidu.idl.face.platform.listener.IInitCallback;
 import com.baidu.idl.face.platform.utils.Base64Utils;
 import com.baidu.idl.face.platform.utils.DensityUtils;
 import com.sun.base.base.activity.BaseMvpActivity;
-import com.sun.common.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityFaceHomepageBinding;
 import com.sun.face.FaceDetectSettingActivity;
@@ -100,7 +99,7 @@ public class FaceHomepageActivity extends BaseMvpActivity implements View.OnClic
     private void requestPermission() {
         new RxPermissions(this).request(Manifest.permission.CAMERA).subscribe(aBoolean -> {
             if (!aBoolean) {
-                ToastHelper.showCommonToast("请在设置中手动打开相机权限！");
+                showToast("请在设置中手动打开相机权限！");
             }
         });
     }

@@ -101,11 +101,11 @@ public class BottomShareDialog extends Dialog implements View.OnClickListener {
      */
     private void goToShare(SHARE_MEDIA shareMedia) {
         if (shareMedia == SHARE_MEDIA.QQ) {
-            ToastHelper.showCommonToast("暂不支持分享到QQ~");
+            ToastHelper.showToast("暂不支持分享到QQ~");
             return;
         }
         if (shareMedia == SHARE_MEDIA.QZONE) {
-            ToastHelper.showCommonToast("暂不支持分享到QQ空间~");
+            ToastHelper.showToast("暂不支持分享到QQ空间~");
             return;
         }
         if (!TextUtils.isEmpty(mShareUrl)) {
@@ -122,7 +122,7 @@ public class BottomShareDialog extends Dialog implements View.OnClickListener {
                 UMImage umImage = new UMImage(getContext(), mThumbUrl);
                 umWeb.setThumb(umImage);
             } else {
-                UMImage umImage = new UMImage(mContext, R.mipmap.app_logo);
+                UMImage umImage = new UMImage(mContext, R.mipmap.ic_app_logo);
                 umImage.compressFormat = Bitmap.CompressFormat.PNG;
                 umWeb.setThumb(umImage);
             }
@@ -131,7 +131,7 @@ public class BottomShareDialog extends Dialog implements View.OnClickListener {
                     .withMedia(umWeb)
                     .share();
         } else {
-            ToastHelper.showCommonToast(R.string.share_failed);
+            ToastHelper.showToast(R.string.share_failed);
         }
     }
 

@@ -25,7 +25,7 @@ public final class LogHelper {
     /**
      * 默认日志tag <br/>
      */
-    private static final String TAG = "LogUtil";
+    private static final String TAG = LogHelper.class.getSimpleName();
 
     /**
      * 默认提供打印服务

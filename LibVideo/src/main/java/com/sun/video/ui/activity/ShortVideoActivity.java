@@ -53,6 +53,12 @@ public class ShortVideoActivity extends BaseMvpActivity implements ShortVideoMod
     }
 
     @Override
+    protected boolean enableStatusBarDark() {
+        mStatusBarColor = R.color.cl_14233D;
+        return true;
+    }
+
+    @Override
     public void initView() {
         bind = (ActivityShortVideoBinding) mViewDataBinding;
         mFragments = new ArrayList<>();

@@ -85,27 +85,27 @@ public class ToastHelper {
 
     private static Toast sToast;
 
-    public static void showCommonToast(@StringRes int resId, int duration) {
+    public static void showToast(@StringRes int resId, int duration) {
         try {
-            showCommonToast(AppUtil.getCtx().getString(resId), duration);
+            showToast(AppUtil.getCtx().getString(resId), duration);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void showCommonToast(String msg) {
-        showCommonToast(msg, Toast.LENGTH_SHORT);
+    public static void showToast(String msg) {
+        showToast(msg, Toast.LENGTH_SHORT);
     }
 
-    public static void showCommonToast(@StringRes int resId) {
+    public static void showToast(@StringRes int resId) {
         try {
-            showCommonToast(AppUtil.getCtx().getString(resId), Toast.LENGTH_SHORT);
+            showToast(AppUtil.getCtx().getString(resId), Toast.LENGTH_SHORT);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void showCommonToast(String msg, int duration) {
+    public static void showToast(String msg, int duration) {
         Context applicationContext = AppUtil.getCtx();
         if (applicationContext == null) {
             return;

@@ -61,7 +61,7 @@ public class TestWebViewFragment extends WebViewFragment {
         @JavascriptInterface
         public void entryPicturePreview(String imgUrl) {
             //TODO 图片预览
-            ImgPreviewActivity.actionStart(mContext, imgUrl);
+            ImgPreviewActivity.start(mContext, imgUrl);
         }
 
         @JavascriptInterface

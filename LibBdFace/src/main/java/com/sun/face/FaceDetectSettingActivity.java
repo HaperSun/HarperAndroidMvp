@@ -292,7 +292,7 @@ public class FaceDetectSettingActivity extends BaseMvpActivity {
     @Override
     public void onBackPressed() {
         if (mLiveNessList.size() < VALUE_MIN_ACTIVE_NUM && bind.liveDetectSwitch.isChecked()) {
-            ToastHelper.showCommonToast("至少需要选择一项活体动作");
+            showToast("至少需要选择一项活体动作");
             return;
         }
         super.onBackPressed();

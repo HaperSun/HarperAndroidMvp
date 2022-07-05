@@ -26,12 +26,11 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Fill;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.sun.base.base.activity.BaseMvpActivity;
-import com.sun.common.toast.ToastHelper;
 import com.sun.demo2.R;
+import com.sun.demo2.databinding.ActivityBarChartBasicBinding;
 import com.sun.demo2.view.custom.DayAxisValueFormatter;
 import com.sun.demo2.view.custom.MyAxisValueFormatter;
 import com.sun.demo2.view.custom.XYMarkerView;
-import com.sun.demo2.databinding.ActivityBarChartBasicBinding;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
@@ -77,7 +76,7 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
                 new ShareAction(mThis()).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(image).share();
             } catch (Exception e) {
                 e.printStackTrace();
-                ToastHelper.showCommonToast(R.string.share_failed);
+                showToast(R.string.share_failed);
             }
         });
     }

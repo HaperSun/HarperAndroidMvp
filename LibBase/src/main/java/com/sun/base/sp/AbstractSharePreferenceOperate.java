@@ -48,8 +48,7 @@ public abstract class AbstractSharePreferenceOperate<T> {
      * @return
      */
     private boolean checkKey() {
-        String key = getKey();
-        return !TextUtils.isEmpty(key);
+        return !TextUtils.isEmpty(getKey());
     }
 
     /**

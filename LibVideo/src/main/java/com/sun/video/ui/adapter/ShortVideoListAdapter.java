@@ -44,7 +44,7 @@ public class ShortVideoListAdapter extends RecyclerView.Adapter<ShortVideoListAd
         final ShortVideoBean videoModel = mPlayerModelList.get(pos);
         Glide.with(mContext).load(videoModel.placeholderImage).
                 diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop()
-                .placeholder(R.color.superplayer_color_gray)
+                .placeholder(R.color.cl_787878)
                 .into(holder.mThumb);
         if (videoModel.duration > 0) {
             String tempString = formattedTime(videoModel.duration);

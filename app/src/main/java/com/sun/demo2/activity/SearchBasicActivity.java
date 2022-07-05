@@ -179,13 +179,8 @@ public class SearchBasicActivity extends SupportMapFragmentActivity {
     }
 
     public void handleMessage(Message msg) {
-        switch (msg.what) {
-            case MSG_SUGGESTION:
-                showAutoComplete((SuggestionResultObject)msg.obj);
-                break;
-
-            default:
-                break;
+        if (msg.what == MSG_SUGGESTION) {
+            showAutoComplete((SuggestionResultObject) msg.obj);
         }
     }
 

@@ -12,9 +12,6 @@ import com.sun.base.util.DownloadUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.PermissionUtil;
 import com.sun.common.bean.Constant;
-import com.sun.common.bean.MagicInt;
-import com.sun.common.toast.CustomToast;
-import com.sun.common.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityTbsReaderBinding;
 import com.tencent.smtt.sdk.TbsReaderView;
@@ -55,13 +52,13 @@ public class TbsReaderActivity extends BaseMvpActivity {
     @Override
     public void initData() {
         if (TextUtils.isEmpty(mFileName)) {
-            ToastHelper.showCustomToast("文件地址异常~", CustomToast.WARNING);
+            showFailToast("文件地址异常~");
         } else {
-            if (PermissionUtil.checkStorage()) {
+            if (PermissionUtil.checkWriteStorage()) {
                 prepareOpenFile();
-            }else {
-                PermissionUtil.requestStorage(this, state -> {
-                    if (state == MagicInt.ONE){
+            } else {
+                PermissionUtil.requestWriteStorage(this, state -> {
+                    if (state) {
                         prepareOpenFile();
                     }
                 });
@@ -142,7 +139,7 @@ public class TbsReaderActivity extends BaseMvpActivity {
                 RelativeLayout.LayoutParams.MATCH_PARENT));
         File file = new File(localFileName);
         if (!file.exists()) {
-            ToastHelper.showCommonToast("文件不存在~");
+            showToast("文件不存在~");
         }
         Bundle bundle = new Bundle();
         bundle.putString("filePath", localFileName);

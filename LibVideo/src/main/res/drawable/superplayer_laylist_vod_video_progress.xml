@@ -3,8 +3,8 @@
     <item android:id="@android:id/background">
         <shape>
             <gradient
-                android:endColor="@color/superplayer_biz_audio_progress_second"
-                android:startColor="@color/superplayer_biz_audio_progress_second" />
+                android:endColor="@color/cl_6b6666"
+                android:startColor="@color/cl_6b6666" />
         </shape>
     </item>
 
@@ -12,8 +12,8 @@
         <clip>
             <shape>
                 <gradient
-                    android:endColor="@color/superplayer_white"
-                    android:startColor="@color/superplayer_white" />
+                    android:endColor="@color/white"
+                    android:startColor="@color/white" />
             </shape>
         </clip>
     </item>

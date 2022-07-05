@@ -55,7 +55,7 @@ public class MusicListActivity extends BaseMvpActivity implements View.OnLongCli
     }
 
     private void initStatusBar() {
-        StatusBarUtil.setColorNoTranslucentForDrawerLayout(this, bind.drawerLayout, ContextCompat.getColor(mContext, R.color.light_pink));
+        StatusBarUtil.setColorNoTranslucentForDrawerLayout(this, bind.drawerLayout, ContextCompat.getColor(mContext, R.color.lightPink));
         ViewGroup.LayoutParams layoutParams = bind.viewStatus.getLayoutParams();
         layoutParams.height = StatusBarUtil.getStatusBarHeight(mContext);
         bind.viewStatus.setLayoutParams(layoutParams);

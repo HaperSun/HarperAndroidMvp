@@ -55,11 +55,11 @@ public class CircleTurntableView extends FrameLayout {
         ivBg = findViewById(R.id.iv_lucky_turntable);
         findViewById(R.id.iv_start_btn).setOnClickListener(v -> {
             if (mItemCount == 0){
-                ToastHelper.showCommonToast("请设置奖品内容");
+                ToastHelper.showToast("请设置奖品内容");
                 return;
             }
             if (mPrizeGrade == 0){
-                ToastHelper.showCommonToast("请设置奖品结果");
+                ToastHelper.showToast("请设置奖品结果");
                 return;
             }
             //如果正在抽奖则不可以进入

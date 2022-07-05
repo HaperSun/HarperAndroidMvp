@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.sun.base.base.activity.BaseMvpActivity;
@@ -51,7 +50,7 @@ public class ClickVideoPlayActivity extends BaseMvpActivity implements SwipeRefr
 
     @Override
     protected boolean enableStatusBarDark() {
-        mStatusBarColor = ContextCompat.getColor(this, R.color.cl_14233D);
+        mStatusBarColor = R.color.cl_14233D;
         return true;
     }
 

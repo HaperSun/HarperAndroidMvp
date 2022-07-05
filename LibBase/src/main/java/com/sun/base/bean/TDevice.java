@@ -337,7 +337,7 @@ public class TDevice {
     @SuppressLint("QueryPermissionsNeeded")
     public static void gotoMarket(Context context, String pck) {
         if (!isHaveMarket(context)) {
-            ToastHelper.showCommonToast("你手机中没有安装应用市场");
+            ToastHelper.showToast("你手机中没有安装应用市场");
             return;
         }
         Intent intent = new Intent();
@@ -356,7 +356,7 @@ public class TDevice {
         if (intent.resolveActivity(context.getPackageManager()) != null) {
             context.startActivity(intent);
         } else {
-            ToastHelper.showCommonToast("你手机中没有安装应用市场");
+            ToastHelper.showToast("你手机中没有安装应用市场");
         }
     }
 
@@ -823,7 +823,7 @@ public class TDevice {
         }
         ClipboardManager clip = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         clip.setText(string);
-        ToastHelper.showCommonToast(AppUtil.getCtx().getResources().getString(R.string.copied_to_pasteboard));
+        ToastHelper.showToast(AppUtil.getCtx().getResources().getString(R.string.copied_to_pasteboard));
     }
 
     /**

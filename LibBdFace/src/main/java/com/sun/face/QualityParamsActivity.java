@@ -12,7 +12,6 @@ import com.baidu.idl.face.platform.FaceSDKManager;
 import com.baidu.idl.face.platform.utils.FileUtils;
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.util.StringUtil;
-import com.sun.common.toast.ToastHelper;
 import com.sun.face.databinding.ActivityQualityParamsBinding;
 import com.sun.face.model.FaceConst;
 import com.sun.face.util.NumberUtil;
@@ -412,11 +411,11 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
     public void showToast() {
         String title = bind.textParamsTitle.getText().toString();
         if (title.contains("宽松")) {
-            ToastHelper.showCommonToast("已恢复为宽松默认参数");
+            showToast("已恢复为宽松默认参数");
         } else if (title.contains("正常")) {
-            ToastHelper.showCommonToast("已恢复为正常默认参数");
+            showToast("已恢复为正常默认参数");
         } else if (title.contains("严格")) {
-            ToastHelper.showCommonToast("已恢复为严格默认参数");
+            showToast("已恢复为严格默认参数");
         }
     }
 }

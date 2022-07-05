@@ -22,14 +22,14 @@
                 android:id="@+id/view_status"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:background="@color/light_pink"
+                android:background="@color/lightPink"
                 android:visibility="gone" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/tool_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_pink">
+                android:background="@color/lightPink">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

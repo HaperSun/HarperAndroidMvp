@@ -16,7 +16,7 @@ public class ApplicationObserver implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void onCreate(){
         //只要有一个activity是活跃的，就会被调用，且只会调用一次
-        ToastHelper.showCommonToast("ON_CREATE");
+        ToastHelper.showToast("ON_CREATE");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
@@ -37,6 +37,6 @@ public class ApplicationObserver implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy(){
         //永远不会调用
-        ToastHelper.showCommonToast("ON_DESTROY");
+        ToastHelper.showToast("ON_DESTROY");
     }
 }

@@ -50,5 +50,5 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_below="@id/emojis_tab"
-        android:background="@color/horizontal_divider" />
+        android:background="@color/cl_8f8f8f" />
 </RelativeLayout>

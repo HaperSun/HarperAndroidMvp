@@ -4,7 +4,7 @@
         <shape android:shape="line">
             <stroke
                 android:width="2.0dip"
-                android:color="@color/superplayer_biz_audio_progress_first" />
+                android:color="@color/white" />
         </shape>
     </item>
     <item android:id="@android:id/secondaryProgress">
@@ -12,7 +12,7 @@
             <shape android:shape="line">
                 <stroke
                     android:width="2.0dip"
-                    android:color="@color/superplayer_biz_audio_progress_second" />
+                    android:color="@color/cl_6b6666" />
             </shape>
         </clip>
     </item>

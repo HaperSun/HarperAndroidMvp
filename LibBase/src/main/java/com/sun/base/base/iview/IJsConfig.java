@@ -144,7 +144,7 @@ public class IJsConfig {
     @JavascriptInterface
     public void showToast(String toast) {
         if (mActivity != null) {
-            mActivity.runOnUiThread(() -> ToastHelper.showCommonToast(toast));
+            mActivity.runOnUiThread(() -> ToastHelper.showToast(toast));
         }
     }
 

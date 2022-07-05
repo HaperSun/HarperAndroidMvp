@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/superplayer_media_controller_view_height"
+            android:layout_height="@dimen/player_media_controller_view_height"
             android:layout_alignParentRight="true"
             android:layout_gravity="center_vertical"
             android:orientation="horizontal">
@@ -46,10 +46,8 @@
                 android:layout_marginRight="20dp"
                 android:gravity="right"
                 android:src="@drawable/superplayer_ic_vod_more_normal" />
-
         </LinearLayout>
     </RelativeLayout>
-
 
     <TextView
         android:id="@+id/superplayer_large_tv_vtt_text"
@@ -64,7 +62,7 @@
         android:paddingRight="10dp"
         android:paddingBottom="5dp"
         android:text=""
-        android:textColor="@color/superplayer_white"
+        android:textColor="@color/white"
         android:textSize="14sp"
         android:visibility="gone" />
 
@@ -105,7 +103,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/superplayer_ic_replay" />
-
     </LinearLayout>
 
     <TextView
@@ -119,14 +116,12 @@
         android:text="@string/superplayer_back_live"
         android:visibility="gone" />
 
-
     <com.sun.video.ui.view.VolumeBrightnessProgressLayout
         android:id="@+id/superplayer_gesture_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center" />
-
 
     <com.sun.video.ui.view.VideoProgressLayout
         android:id="@+id/superplayer_video_progress_layout"
@@ -135,7 +130,6 @@
         android:layout_centerInParent="true"
         android:gravity="center" />
 
-
     <ImageView
         android:id="@+id/superplayer_large_iv_water_mark"
         android:layout_width="wrap_content"
@@ -143,19 +137,19 @@
         android:visibility="gone" />
 
     <ImageView
-        android:scaleType="centerCrop"
         android:id="@+id/superplayer_cover_view"
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
 
     <!--标题-->
     <LinearLayout
+        android:id="@+id/superplayer_ll_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/superplayer_media_controller_view_height"
+        android:layout_height="@dimen/player_media_controller_view_height"
         android:background="@drawable/superplayer_top_shadow"
         android:gravity="left"
-        android:id="@+id/superplayer_ll_title"
         android:orientation="horizontal">
 
         <ImageView
@@ -183,8 +177,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/superplayer_bottom_shadow"
-        android:paddingEnd="15dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingEnd="15dp">
 
         <!--播放/暂停-->
         <ImageView
@@ -213,7 +207,7 @@
             android:layout_marginLeft="5.0dip"
             android:layout_marginRight="5.0dip"
             android:layout_weight="1.0"
-            app:psb_backgroundColor="@color/superplayer_biz_audio_progress_second"
+            app:psb_backgroundColor="@color/cl_6b6666"
             app:psb_max="100"
             app:psb_progress="0"
             app:psb_progressColor="#FF584C"
@@ -241,16 +235,14 @@
             android:textColor="@android:color/white"
             android:textSize="11dp" />
 
-
         <ImageView
-            android:visibility="gone"
             android:id="@+id/superplayer_iv_play_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/superplayer_play_next"/>
-
+            android:src="@drawable/superplayer_play_next"
+            android:visibility="gone" />
     </LinearLayout>
 
     <ProgressBar
@@ -271,5 +263,5 @@
     <com.sun.video.ui.view.VipWatchView
         android:id="@+id/superplayer_vip_watch_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </RelativeLayout>

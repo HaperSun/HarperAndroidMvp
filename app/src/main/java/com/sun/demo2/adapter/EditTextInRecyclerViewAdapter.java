@@ -51,7 +51,7 @@ public class EditTextInRecyclerViewAdapter extends RecyclerView.Adapter<EditText
             }
         });
 
-        holder.mEtCount.setFilters(new InputFilter[]{new LengthFilter(50, () -> ToastHelper.showCommonToast("限制50个字~"))});
+        holder.mEtCount.setFilters(new InputFilter[]{new LengthFilter(50, () -> ToastHelper.showToast("限制50个字~"))});
         if (holder.mEtCount.getTag() != null && holder.mEtCount.getTag() instanceof TextWatcher) {
             holder.mEtCount.removeTextChangedListener((TextWatcher) holder.mEtCount.getTag());
             holder.mEtCount.clearFocus();

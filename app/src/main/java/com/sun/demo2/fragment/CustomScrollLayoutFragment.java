@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.base.base.fragment.BaseMvpFragment;
-import com.sun.common.toast.ToastHelper;
 import com.sun.common.widget.ScrollLayout;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.FragmentViewPagerBinding;
@@ -79,7 +78,7 @@ public class CustomScrollLayoutFragment extends BaseMvpFragment {
 
         bind.scrollTextView.setOnTextViewListener(v -> bind.scrollLayout.toggle(ScrollLayout.STATUS_DEFAULT));
 
-        bind.news.setOnClickListener(v -> ToastHelper.showCommonToast("新闻"));
+        bind.news.setOnClickListener(v -> showToast("新闻"));
     }
 
     class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
@@ -95,7 +94,7 @@ public class CustomScrollLayoutFragment extends BaseMvpFragment {
         public void onBindViewHolder(@NonNull Holder holder, int position) {
             String name = mList.get(position);
             holder.mTvName.setText(name);
-            holder.mTvName.setOnClickListener(v -> ToastHelper.showCommonToast(name));
+            holder.mTvName.setOnClickListener(v -> showToast(name));
         }
 
         @Override

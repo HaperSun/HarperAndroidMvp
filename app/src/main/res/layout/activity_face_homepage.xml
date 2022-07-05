@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:background="@color/page_base_color"
+        android:background="@color/basePageColor"
         tools:context=".activity.bd.FaceHomepageActivity">
 
         <RelativeLayout
@@ -27,14 +27,14 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:visibility="invisible"
-                android:src="@mipmap/icon_mask_success"/>
+                android:src="@mipmap/ic_mask_success"/>
 
             <ImageView
                 android:id="@+id/image_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
-                android:src="@mipmap/icon_success_star"
+                android:src="@mipmap/ic_success_star"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
 
