@@ -131,7 +131,7 @@ public class PermissionUtil {
     }
 
     /**
-     * 检查相机相关权限
+     * 检查位置相关权限
      *
      * @return boolean
      */
@@ -146,7 +146,7 @@ public class PermissionUtil {
     }
 
     /**
-     * 请求相机相关权限
+     * 请求位置相关权限
      * 无论请求几个权限，onComplete只会回调一次
      *
      * @param activity activity

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sun.base.util.CollectionUtil;
 import com.sun.demo2.R;
 import com.sun.img.img.ImgLoader;
-import com.sun.video.model.VideoModel;
+import com.sun.media.video.model.VideoModel;
 
 import java.util.ArrayList;
 import java.util.List;

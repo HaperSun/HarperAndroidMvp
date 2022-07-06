@@ -1,7 +1,7 @@
 package com.sun.demo2.model;
 
 import com.sun.demo2.R;
-import com.sun.demo2.util.PinYinUtil;
+import com.sun.base.util.PinYinUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -13,12 +13,12 @@ import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.demo2.R;
 import com.sun.demo2.adapter.ClickVideoPlayAdapter;
 import com.sun.demo2.databinding.ActivityClickVideoPlayBinding;
-import com.sun.video.model.SuperPlayerDef;
-import com.sun.video.model.SuperPlayerGlobalConfig;
-import com.sun.video.model.SuperPlayerModel;
-import com.sun.video.model.VideoDataMgr;
-import com.sun.video.model.VideoModel;
-import com.sun.video.ui.view.SuperPlayerView;
+import com.sun.media.video.model.SuperPlayerDef;
+import com.sun.media.video.model.SuperPlayerGlobalConfig;
+import com.sun.media.video.model.SuperPlayerModel;
+import com.sun.media.video.model.VideoDataMgr;
+import com.sun.media.video.model.VideoModel;
+import com.sun.media.video.ui.view.SuperPlayerView;
 
 import java.util.ArrayList;
 import java.util.List;

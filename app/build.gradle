@@ -119,8 +119,7 @@ dependencies {
     //腾讯地图
     implementation target.tencentLocationSdk
     implementation target.tencent_map_vector
-    //中文转为拼音
-    implementation files('libs/pinyin4j-2.5.0.jar')
+
     //webSocket
     implementation target.webSocket
     implementation "com.sothree.slidinguppanel:library:3.4.0"
@@ -130,7 +129,7 @@ dependencies {
     implementation project(':LibImg')
     implementation project(':LibRichText')
     implementation project(':LibBdFace')
-    implementation project(':LibVideo')
+    implementation project(':LibMedia')
     implementation project(':LibEmoji')
     implementation project(':LibLuckDraw')
 }

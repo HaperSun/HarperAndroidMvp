@@ -41,6 +41,8 @@ dependencies {
     api target.glide
     api target.zxing
     api target.commons_lang
+    //中文转为拼音
+    api files('libs/pinyin4j-2.5.0.jar')
 
     api project(':LibDb')
     api project(':LibCommon')

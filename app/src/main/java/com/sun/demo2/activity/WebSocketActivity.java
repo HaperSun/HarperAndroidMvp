@@ -12,9 +12,9 @@ import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityWebSocketBinding;
 import com.sun.demo2.model.AddressBook1Bean;
 import com.sun.demo2.model.response.LoginResponse;
-import com.sun.video.ui.activity.VideoPlayActivity;
-import com.sun.video.ui.activity.FeedVideoActivity;
-import com.sun.video.ui.activity.ShortVideoActivity;
+import com.sun.media.video.ui.activity.VideoPlayActivity;
+import com.sun.media.video.ui.activity.FeedVideoActivity;
+import com.sun.media.video.ui.activity.ShortVideoActivity;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.java_websocket.WebSocket;
