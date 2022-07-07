@@ -31,7 +31,6 @@ keyPassword '654321'//key密码
 
 友盟学习账号
 HarperSun
-Sunjie1012
 
 https://wenku.baidu.com/view/6f2cbdeba56e58fafab069dc5022aaea988f4198.html
 
