@@ -23,9 +23,7 @@ import java.util.Random;
  * @date 2022/5/31
  * note:
  */
-public class CircleTurntableFragment extends BaseMvpFragment {
-
-    private FragmentCircleTurntableBinding bind;
+public class CircleTurntableFragment extends BaseMvpFragment<FragmentCircleTurntableBinding> {
 
     public static CircleTurntableFragment getInstance() {
         CircleTurntableFragment fragment = new CircleTurntableFragment();
@@ -41,7 +39,7 @@ public class CircleTurntableFragment extends BaseMvpFragment {
 
     @Override
     public void initView() {
-        bind = (FragmentCircleTurntableBinding) mViewDataBinding;
+
     }
 
     @Override
@@ -131,7 +129,7 @@ public class CircleTurntableFragment extends BaseMvpFragment {
         String[] des = new String[]{"王 者 皮 肤", "1 8 0 积 分", "L O L 皮 肤", "谢 谢 参 与", "2 8 积 分", "微 信 红 包", "5 Q 币"};
         //图标
         List<Bitmap> mListBitmap = new ArrayList<>();
-        for ( int i = 0; i < colors.length; i++ ) {
+        for (int i = 0; i < colors.length; i++) {
             mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.iphone));
         }
         //主动旋转一下图片

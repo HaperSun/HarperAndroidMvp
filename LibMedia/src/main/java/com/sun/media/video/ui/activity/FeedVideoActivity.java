@@ -20,9 +20,8 @@ import java.util.List;
  * @date: 2022/6/23
  * @note: 流播放
  */
-public class FeedVideoActivity extends BaseMvpActivity implements FeedViewCallBack {
+public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding> implements FeedViewCallBack {
 
-    private ActivityFeedVideoBinding bind;
     private int mPage = 0;
     private FeedVodListLoader mFeedVodListLoader;
     private boolean mIsFullScreen = false;
@@ -38,14 +37,13 @@ public class FeedVideoActivity extends BaseMvpActivity implements FeedViewCallBa
     }
 
     @Override
-    protected boolean enableStatusBarDark() {
+    protected boolean enableDarkStatusBarAndSetTitle() {
         mStatusBarColor = R.color.cl_14233D;
         return true;
     }
 
     @Override
     public void initView() {
-        bind = (ActivityFeedVideoBinding) mViewDataBinding;
         mFeedVodListLoader = new FeedVodListLoader();
         loadData(false);
     }

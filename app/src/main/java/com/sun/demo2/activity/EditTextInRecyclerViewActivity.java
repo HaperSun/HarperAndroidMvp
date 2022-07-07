@@ -18,11 +18,11 @@ import java.util.List;
  * @date: 2021/12/9
  * @note: RecyclerView中的EditText
  */
-public class EditTextInRecyclerViewActivity extends BaseMvpActivity implements EditTextInRecyclerViewAdapter.OnAdapterClickListener {
+public class EditTextInRecyclerViewActivity extends BaseMvpActivity<ActivityEditTextInRecyclerViewBinding>
+        implements EditTextInRecyclerViewAdapter.OnAdapterClickListener {
 
     private EditTextInRecyclerViewAdapter mAdapter;
     private List<DataBean> mDataBeans;
-    private ActivityEditTextInRecyclerViewBinding mBind;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, EditTextInRecyclerViewActivity.class);
@@ -36,8 +36,7 @@ public class EditTextInRecyclerViewActivity extends BaseMvpActivity implements E
 
     @Override
     public void initView() {
-        mBind = (ActivityEditTextInRecyclerViewBinding) mViewDataBinding;
-        mBind.ivAddItem.setOnClickListener(v -> {
+        bind.ivAddItem.setOnClickListener(v -> {
             mDataBeans.add(new DataBean("",0));
             mAdapter.notifyDataSetChanged();
         });
@@ -51,9 +50,9 @@ public class EditTextInRecyclerViewActivity extends BaseMvpActivity implements E
         }
         mAdapter = new EditTextInRecyclerViewAdapter();
         mAdapter.setAdapterData(mDataBeans);
-        mBind.recyclerView.setAdapter(mAdapter);
+        bind.recyclerView.setAdapter(mAdapter);
         //解决recyclerview在NestScrollView中是使用时，滑动卡顿问题
-//        mBind.recyclerView.setNestedScrollingEnabled(false);
+//        mViewDataBinding.recyclerView.setNestedScrollingEnabled(false);
         mAdapter.setOnAdapterClickListener(this);
     }
 

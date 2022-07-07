@@ -26,11 +26,10 @@ import java.lang.reflect.Field;
  * @date: 2022/3/22
  * @note: 二维码扫描页面
  */
-public class ScanActivity extends BaseMvpActivity implements SurfaceHolder.Callback {
+public class ScanActivity extends BaseMvpActivity<ActivityScanBinding> implements SurfaceHolder.Callback {
 
     private static final String SCAN_TYPE = "scanType";
     private int mScanType;
-    private ActivityScanBinding mBind;
     private boolean mIsHasSurface = false;
     private boolean mIsFlightOpen = false;
     private Camera mCamera;
@@ -54,25 +53,25 @@ public class ScanActivity extends BaseMvpActivity implements SurfaceHolder.Callb
     @Override
     public void initIntent() {
         Intent intent = getIntent();
-        if (intent != null){
-            mScanType = intent.getIntExtra(SCAN_TYPE,0);
+        if (intent != null) {
+            mScanType = intent.getIntExtra(SCAN_TYPE, 0);
         }
     }
 
     @Override
     public void initView() {
-        mBind = (ActivityScanBinding) mViewDataBinding;
+
     }
 
     @Override
     public void initData() {
-        mBind.tvFlight.setOnClickListener(v -> {
+        bind.tvFlight.setOnClickListener(v -> {
             if (mIsFlightOpen) {
                 closeLight();
-                mBind.tvFlight.setSelected(false);
+                bind.tvFlight.setSelected(false);
             } else {
                 openLight();
-                mBind.tvFlight.setSelected(true);
+                bind.tvFlight.setSelected(true);
             }
             mIsFlightOpen = !mIsFlightOpen;
         });
@@ -84,7 +83,7 @@ public class ScanActivity extends BaseMvpActivity implements SurfaceHolder.Callb
         animation.setDuration(1500);
         animation.setRepeatCount(-1);
         animation.setRepeatMode(Animation.RESTART);
-        mBind.captureScanLine.startAnimation(animation);
+        bind.captureScanLine.startAnimation(animation);
     }
 
     /**
@@ -134,11 +133,11 @@ public class ScanActivity extends BaseMvpActivity implements SurfaceHolder.Callb
             // The activity was paused but not stopped, so the surface still
             // exists. Therefore
             // surfaceCreated() won't be called, so init the camera here.
-            initCamera(mBind.surfaceView.getHolder());
+            initCamera(bind.surfaceView.getHolder());
         } else {
             // Install the callback and wait for surfaceCreated() to init the
             // camera.
-            mBind.surfaceView.getHolder().addCallback(this);
+            bind.surfaceView.getHolder().addCallback(this);
         }
 
         mInactivityTimer.onResume();
@@ -157,7 +156,7 @@ public class ScanActivity extends BaseMvpActivity implements SurfaceHolder.Callb
             mCameraManager.closeDriver();
             mCameraManager.stopPreview();
         }
-        mBind.surfaceView.getHolder().removeCallback(this);
+        bind.surfaceView.getHolder().removeCallback(this);
         super.onDestroy();
     }
 
@@ -271,17 +270,17 @@ public class ScanActivity extends BaseMvpActivity implements SurfaceHolder.Callb
 
         // 获取布局中扫描框的位置信息
         int[] location = new int[2];
-        mBind.captureCropView.getLocationInWindow(location);
+        bind.captureCropView.getLocationInWindow(location);
 
         int cropLeft = location[0];
         int cropTop = location[1] - getStatusBarHeight();
 
-        int cropWidth = mBind.captureCropView.getWidth();
-        int cropHeight = mBind.captureCropView.getHeight();
+        int cropWidth = bind.captureCropView.getWidth();
+        int cropHeight = bind.captureCropView.getHeight();
 
         //获取布局容器的宽高
-        int containerWidth = mBind.captureCropView.getWidth();
-        int containerHeight = mBind.captureCropView.getHeight();
+        int containerWidth = bind.captureCropView.getWidth();
+        int containerHeight = bind.captureCropView.getHeight();
 
         //计算最终截取的矩形的左上角顶点x坐标
         int x = cropLeft * cameraWidth / containerWidth;

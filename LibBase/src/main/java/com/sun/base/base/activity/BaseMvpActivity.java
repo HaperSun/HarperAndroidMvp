@@ -2,18 +2,23 @@ package com.sun.base.base.activity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
 import com.githang.statusbar.StatusBarCompat;
+import com.sun.base.R;
 import com.sun.base.base.iview.IAddPresenterView;
+import com.sun.base.databinding.ActivityBaseBinding;
 import com.sun.base.presenter.BasePresenter;
-import com.sun.base.util.CommonUtil;
 import com.sun.base.status.StatusBarUtil;
+import com.sun.base.util.CommonUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -26,12 +31,14 @@ import java.util.Set;
  * @date: 2021/11/12
  * @note: 基于MVP模式对BaseActivity进行封装
  */
-public abstract class BaseMvpActivity extends BaseActivity implements IAddPresenterView {
+public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseActivity implements IAddPresenterView {
 
     protected final String TAG = this.getClass().getSimpleName();
     private Set<BasePresenter> mPresenters;
-    public ViewDataBinding mViewDataBinding;
+    protected ActivityBaseBinding mBaseBind;
+    protected VDB bind;
     protected int mStatusBarColor;
+    protected int mTitleColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +48,9 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
         beforeSetContentView(savedInstanceState);
+        initBinding();
         //android6.0以后可以对状态栏文字颜色和图标进行修改
         initStatusBarColor();
-        //获取ViewDataBinding
-        mViewDataBinding = DataBindingUtil.setContentView(this, layoutId());
         //处理activity的Intent
         initIntent();
         //是否接收EventBus消息
@@ -60,7 +66,7 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
     }
 
     private void initStatusBarColor() {
-        if (!enableStatusBarDark()) {
+        if (!enableDarkStatusBarAndSetTitle()) {
             if (StatusBarUtil.isLightStatusBarSupported()) {
                 //将StatusBar的文字和图片设置成深色的
                 changeStatusBarTxtAndImgColor();
@@ -73,6 +79,29 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
             } catch (Exception e) {
                 showToast("mStatusBarColor赋值异常~");
             }
+        }
+        initTitleTheme();
+    }
+
+    private void initBinding() {
+        //获取ViewDataBinding
+        mBaseBind = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_base, null, false);
+        bind = DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
+
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        bind.getRoot().setLayoutParams(params);
+        FrameLayout container = (FrameLayout) mBaseBind.getRoot().findViewById(R.id.container);
+        container.addView(bind.getRoot());
+        getWindow().setContentView(mBaseBind.getRoot());
+    }
+
+    private void initTitleTheme() {
+        //<注意：></>此处如果要使用基类封装的title，就给mTitleColor赋值，否则不会显示基类的title
+        if (mTitleColor == 0) {
+            mBaseBind.title.setVisibility(View.GONE);
+        } else {
+            mBaseBind.title.setVisibility(View.VISIBLE);
+            mBaseBind.title.initView(mTitleColor);
         }
     }
 
@@ -107,10 +136,12 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
     /**
      * 当前应用theme的style默认配置：StatusBar是白色背景，文字和图片默认是白色的
      * 如果需要StatusBar是深色的，则需要给当前activity配置一个深色的theme,且重写该方法返回true
+     * <p>
+     * <注意：></>此处如果要使用基类封装的title，就给mTitleColor赋值，否则不会显示基类的title
      *
      * @return boolean
      */
-    protected boolean enableStatusBarDark() {
+    protected boolean enableDarkStatusBarAndSetTitle() {
         return false;
     }
 
@@ -158,6 +189,9 @@ public abstract class BaseMvpActivity extends BaseActivity implements IAddPresen
                 presenter.clearView();
             }
             mPresenters = null;
+        }
+        if (bind != null) {
+            bind.unbind();
         }
         super.onDestroy();
     }

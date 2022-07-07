@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:parentTag="android.widget.LinearLayout">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="@dimen/dp40"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dp8" />
+
+    <com.sun.base.base.widget.MarqueeTextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp45"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="@dimen/sp18"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:minWidth="@dimen/dp40"
+        android:orientation="horizontal" />
+</merge>

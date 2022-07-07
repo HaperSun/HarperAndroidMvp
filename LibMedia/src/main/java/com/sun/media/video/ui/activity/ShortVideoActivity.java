@@ -32,12 +32,11 @@ import java.util.List;
  * @date: 2022/6/22
  * @note: 短视频
  */
-public class ShortVideoActivity extends BaseMvpActivity implements ShortVideoModel.IOnDataLoadFullListener,
+public class ShortVideoActivity extends BaseMvpActivity<ActivityShortVideoBinding> implements ShortVideoModel.IOnDataLoadFullListener,
         ViewPager.OnPageChangeListener, ShortVideoListAdapter.OnItemClickListener {
 
     private static final int PLAY_FRAGMENT = 0;
     private static final int LIST_FRAGMENT = 1;
-    private ActivityShortVideoBinding bind;
     private List<BaseMvpFragment> mFragments;
     private ShortVideoPlayFragment mPlayFragment;
     private ShortVideoListFragment mListFragment;
@@ -53,14 +52,13 @@ public class ShortVideoActivity extends BaseMvpActivity implements ShortVideoMod
     }
 
     @Override
-    protected boolean enableStatusBarDark() {
+    protected boolean enableDarkStatusBarAndSetTitle() {
         mStatusBarColor = R.color.cl_14233D;
         return true;
     }
 
     @Override
     public void initView() {
-        bind = (ActivityShortVideoBinding) mViewDataBinding;
         mFragments = new ArrayList<>();
         mPlayFragment = ShortVideoPlayFragment.getInstance();
         mListFragment = ShortVideoListFragment.getInstance();

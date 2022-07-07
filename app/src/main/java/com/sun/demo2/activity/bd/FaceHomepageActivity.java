@@ -31,12 +31,15 @@ import com.sun.face.util.FaceBitmapSaveUtils;
 import com.sun.face.util.FaceSpUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-public class FaceHomepageActivity extends BaseMvpActivity implements View.OnClickListener{
+/**
+ * @author: Harper
+ * @date: 2022/7/6
+ * @note: 人脸识别入口页
+ */
+public class FaceHomepageActivity extends BaseMvpActivity<ActivityFaceHomepageBinding> implements View.OnClickListener {
 
-    private static final String TAG = FaceHomepageActivity.class.getSimpleName();
     private Context mContext;
     private boolean mFaceInitSuccess;
-    private ActivityFaceHomepageBinding bind;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, FaceHomepageActivity.class);
@@ -56,7 +59,6 @@ public class FaceHomepageActivity extends BaseMvpActivity implements View.OnClic
         FaceInitBean.livenessList.add(LivenessTypeEnum.Eye);
         FaceInitBean.livenessList.add(LivenessTypeEnum.Mouth);
         FaceInitBean.livenessList.add(LivenessTypeEnum.HeadRight);
-        bind = (ActivityFaceHomepageBinding) mViewDataBinding;
         bind.butStartSetting.setOnClickListener(this);
         bind.butStartDetect.setOnClickListener(this);
     }
@@ -114,19 +116,19 @@ public class FaceHomepageActivity extends BaseMvpActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        if (!mFaceInitSuccess){
+        if (!mFaceInitSuccess) {
             showToast("未初始化成功！");
             return;
         }
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.but_start_setting:
                 FaceDetectSettingActivity.start(mContext);
                 break;
             case R.id.but_start_detect:
-                if (FaceInitBean.isActionLive){
-                    FaceLiveExpendActivity.startActivityResult(mContext,101);
-                }else {
-                    FaceDetectExpendActivity.startActivityResult(mContext,100);
+                if (FaceInitBean.isActionLive) {
+                    FaceLiveExpendActivity.startActivityResult(mContext, 101);
+                } else {
+                    FaceDetectExpendActivity.startActivityResult(mContext, 100);
                 }
                 break;
             default:

@@ -89,7 +89,7 @@ public class BottomDialogFragment extends DialogFragment {
             isCustom = true;
             dialog.setContentView(mCustomView);
         } else {
-            dialog.setContentView(R.layout.fragment_bottom_dialog);
+            dialog.setContentView(R.layout.dialog_fragment_bottom);
         }
 
         Window window = dialog.getWindow();
@@ -121,14 +121,14 @@ public class BottomDialogFragment extends DialogFragment {
         LinearLayout llContainer = $(R.id.ll_container);
         llContainer.removeAllViews();
         if (!TextUtils.isEmpty(mDialogTitle)) {
-            View titleView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_dialog_fragment_title,
+            View titleView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_fragment_bottom_title,
                     llContainer, false);
             TextView tvTitle = titleView.findViewById(R.id.tv_title);
             tvTitle.setText(mDialogTitle);
             llContainer.addView(titleView);
         }
         for (final DialogItem dialogItem : mDialogItems) {
-            View itemView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_dialog_item,
+            View itemView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_fragment_bottom_item,
                     llContainer, false);
             TextView tvItem = itemView.findViewById(R.id.tv_item);
             tvItem.setText(dialogItem.getTitle());

@@ -24,9 +24,8 @@ import java.io.IOException;
  * @date: 2022/4/2
  * @note: 图片拼接
  */
-public class PictureSplicingActivity extends BaseMvpActivity {
+public class PictureSplicingActivity extends BaseMvpActivity<ActivityPictureSplicingBinding> {
 
-    private ActivityPictureSplicingBinding mBind;
     private ViewGroup mRelativeLayout;
 
     public static void start(Context context) {
@@ -42,13 +41,12 @@ public class PictureSplicingActivity extends BaseMvpActivity {
     @Override
     public void initView() {
         StatusBarUtil.setImmersiveStatusBar(getWindow(), true);
-        mBind = (ActivityPictureSplicingBinding) mViewDataBinding;
-        mRelativeLayout = mBind.container;
+        mRelativeLayout = bind.container;
     }
 
     @Override
     public void initData() {
-        mBind.container.setOnClickListener(v -> {
+        bind.container.setOnClickListener(v -> {
             new BottomDialogFragment.Builder().addDialogItem(new BottomDialogFragment.DialogItem(getResources().getString(R.string.save_to_album),
                     view1 -> {
                         if (PermissionUtil.checkWriteStorage()) {

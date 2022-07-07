@@ -15,9 +15,8 @@ import java.util.List;
  * @date 2022/6/16
  * note: 仿微信通讯录
  */
-public class WechatAddressBookFragment extends BaseMvpFragment {
+public class WechatAddressBookFragment extends BaseMvpFragment<FragmentWechatAddressBookBinding> {
 
-    private FragmentWechatAddressBookBinding bind;
     private List<AddressBook1Bean> mBeans;
 
     public static WechatAddressBookFragment getInstance() {
@@ -34,7 +33,6 @@ public class WechatAddressBookFragment extends BaseMvpFragment {
 
     @Override
     public void initView() {
-        bind = (FragmentWechatAddressBookBinding) mViewDataBinding;
         bind.sideBar.setOnStrSelectCallBack((index, selectStr) -> {
             for (int i = 0; i < mBeans.size(); i++) {
                 if (selectStr.equalsIgnoreCase(mBeans.get(i).getStart())){

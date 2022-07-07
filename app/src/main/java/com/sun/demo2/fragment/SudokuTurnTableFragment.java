@@ -14,9 +14,8 @@ import java.util.Random;
  * @date 2022/5/31
  * note:
  */
-public class SudokuTurnTableFragment extends BaseMvpFragment {
+public class SudokuTurnTableFragment extends BaseMvpFragment<FragmentSudoKuTurnTableBinding> {
 
-    private FragmentSudoKuTurnTableBinding bind;
     //抽奖时间
     private long drawTime;
     //中奖标记
@@ -37,7 +36,6 @@ public class SudokuTurnTableFragment extends BaseMvpFragment {
 
     @Override
     public void initView() {
-        bind = (FragmentSudoKuTurnTableBinding) mViewDataBinding;
         bind.idDrawBtn.setOnClickListener(v -> {
             if (System.currentTimeMillis() - drawTime < 5000) {
                 showToast("心急吃不了热豆腐，请5秒后再点击哦");

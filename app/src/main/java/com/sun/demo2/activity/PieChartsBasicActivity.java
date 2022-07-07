@@ -11,7 +11,6 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.widget.ImageView;
 
-
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -32,7 +31,7 @@ import java.util.ArrayList;
  * @date: 2021/11/23
  * @note: 饼状图
  */
-public class PieChartsBasicActivity extends BaseMvpActivity {
+public class PieChartsBasicActivity extends BaseMvpActivity<ActivityPieChartsBasicBinding> {
 
     private PieChart chart;
     private Typeface tfLight;
@@ -49,12 +48,21 @@ public class PieChartsBasicActivity extends BaseMvpActivity {
     }
 
     @Override
+    protected boolean enableDarkStatusBarAndSetTitle() {
+        mStatusBarColor = R.color.blue;
+        mTitleColor = R.color.blue;
+        return true;
+    }
+
+    @Override
     public void initView() {
-        ActivityPieChartsBasicBinding binding = (ActivityPieChartsBasicBinding) mViewDataBinding;
-        chart = binding.basicPieChart;
+        mBaseBind.title.setTitle("Pie Charts 饼状图");
+        mBaseBind.title.setOnTitleClickListener(view -> close());
+
+        chart = bind.basicPieChart;
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
         tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
-        ImageView iv = binding.imgView;
+        ImageView iv = bind.imgView;
         iv.setBackgroundColor(Color.rgb(217, 80, 138));
     }
 

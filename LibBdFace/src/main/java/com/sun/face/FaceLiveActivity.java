@@ -58,11 +58,10 @@ import java.util.Map;
  * @date: 2022/5/13
  * @note: 活体识别
  */
-public class FaceLiveActivity extends BaseMvpActivity implements SurfaceHolder.Callback,
+public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBinding> implements SurfaceHolder.Callback,
         Camera.PreviewCallback, Camera.ErrorCallback, VolumeUtils.VolumeCallback,
         ILivenessStrategyCallback, ILivenessViewCallback {
 
-    public static final String TAG = FaceLiveActivity.class.getSimpleName();
     // View
     protected SurfaceView mSurfaceView;
     protected SurfaceHolder mSurfaceHolder;
@@ -95,7 +94,6 @@ public class FaceLiveActivity extends BaseMvpActivity implements SurfaceHolder.C
     private Context mContext;
     private AnimationDrawable mAnimationDrawable;
     private LivenessTypeEnum mLivenessType = null;
-    private ActivityFaceLivenessBinding bind;
 
     @Override
     public int layoutId() {
@@ -105,7 +103,6 @@ public class FaceLiveActivity extends BaseMvpActivity implements SurfaceHolder.C
 
     @Override
     public void initView() {
-        bind = (ActivityFaceLivenessBinding) mViewDataBinding;
         mContext = this;
         DisplayMetrics dm = new DisplayMetrics();
         Display display = this.getWindowManager().getDefaultDisplay();
@@ -542,8 +539,8 @@ public class FaceLiveActivity extends BaseMvpActivity implements SurfaceHolder.C
     @Override
     public void setFaceInfo(FaceExtInfo faceInfo) {
         // TODO：传递FaceInfo信息，便于调试画人脸检测框和人脸检测区域（使用时，将注释放开）
-        // if (bind.livenessFaceRound != null) {
-        //     bind.livenessFaceRound.setFaceInfo(faceInfo);
+        // if (mViewDataBinding.livenessFaceRound != null) {
+        //     mViewDataBinding.livenessFaceRound.setFaceInfo(faceInfo);
         // }
     }
 

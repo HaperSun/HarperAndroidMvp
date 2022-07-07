@@ -20,10 +20,9 @@ import java.util.TimerTask;
  * @date: 2022/3/26
  * @note:
  */
-public class LifeStudyActivity extends BaseMvpActivity {
+public class LifeStudyActivity extends BaseMvpActivity<ActivityLifeStudyBinding> {
 
     private MyViewModel mMyViewModel;
-    private ActivityLifeStudyBinding mBind;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, LifeStudyActivity.class);
@@ -37,16 +36,15 @@ public class LifeStudyActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        mBind = (ActivityLifeStudyBinding) mViewDataBinding;
-        getLifecycle().addObserver(mBind.chronometer);
+        getLifecycle().addObserver(bind.chronometer);
     }
 
     @Override
     public void initData() {
         mMyViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(MyViewModel.class);
-        mBind.textView.setText(String.valueOf(mMyViewModel.number));
-        mBind.textView2.setText(String.valueOf(mMyViewModel.getSecond().getValue()));
-        mMyViewModel.getSecond().observe(this, integer -> mBind.textView2.setText(String.valueOf(integer)));
+        bind.textView.setText(String.valueOf(mMyViewModel.number));
+        bind.textView2.setText(String.valueOf(mMyViewModel.getSecond().getValue()));
+        mMyViewModel.getSecond().observe(this, integer -> bind.textView2.setText(String.valueOf(integer)));
         startTimer();
     }
 
@@ -59,7 +57,7 @@ public class LifeStudyActivity extends BaseMvpActivity {
     }
 
     public void plusNumber(View view) {
-        mBind.textView.setText(String.valueOf(++mMyViewModel.number));
+        bind.textView.setText(String.valueOf(++mMyViewModel.number));
     }
 
 

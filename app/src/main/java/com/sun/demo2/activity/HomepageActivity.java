@@ -2,7 +2,9 @@ package com.sun.demo2.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sun.base.base.activity.BaseMvpActivity;
@@ -29,10 +31,9 @@ import java.util.List;
  * @date: 2021/12/6
  * @note:
  */
-public class HomepageActivity extends BaseMvpActivity {
+public class HomepageActivity extends BaseMvpActivity<ActivityHomepageBinding> {
 
     private Context mContext;
-    private ActivityHomepageBinding mBinding;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, HomepageActivity.class);
@@ -45,13 +46,26 @@ public class HomepageActivity extends BaseMvpActivity {
     }
 
     @Override
+    protected boolean enableDarkStatusBarAndSetTitle() {
+        mTitleColor = R.color.white;
+        return false;
+    }
+
+    @Override
     public int layoutId() {
         return R.layout.activity_homepage;
     }
 
     @Override
     public void initView() {
-        mBinding = (ActivityHomepageBinding) mViewDataBinding;
+        mBaseBind.title.setTitle("首页哈哈哈哈哈哈哈哈哈哈或或或或或或哈哈哈哈哈哈哈哈哈哈或或或或或或");
+        mBaseBind.title.setOnTitleClickListener(view -> onBackPressed());
+        LinearLayout layout = mBaseBind.title.getTitleLeftContainer();
+        if (layout != null){
+            View view = LayoutInflater.from(this).inflate(R.layout.layout_homepage_left_title,null);
+            view.findViewById(R.id.ll_menu).setOnClickListener(v -> onBackPressed());
+            layout.addView(view);
+        }
     }
 
     @Override
@@ -89,7 +103,7 @@ public class HomepageActivity extends BaseMvpActivity {
         beans.add("可展开的TextView实例");
         beans.add("DrawerLayout+toolBar和音频播放");
         Adapter adapter = new Adapter(R.layout.adapter_main_recycler_view, beans);
-        mBinding.recyclerView.setAdapter(adapter);
+        bind.recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener((adapter1, view, position) -> doClick(position));
     }
 

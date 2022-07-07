@@ -36,9 +36,8 @@ import java.util.concurrent.TimeUnit;
  * @date: 2022/6/21
  * @note: WebSocket使用
  */
-public class WebSocketActivity extends BaseMvpActivity implements View.OnClickListener {
+public class WebSocketActivity extends BaseMvpActivity<ActivityWebSocketBinding> implements View.OnClickListener {
 
-    private ActivityWebSocketBinding bind;
     private Context mContext;
     private ScheduledExecutorService mExecutorService;
     private WebSocketClient mSocketClient;
@@ -57,7 +56,6 @@ public class WebSocketActivity extends BaseMvpActivity implements View.OnClickLi
     @Override
     public void initView() {
         mContext = this;
-        bind = (ActivityWebSocketBinding) mViewDataBinding;
         if (mExecutorService == null) {
             mExecutorService = new ScheduledThreadPoolExecutor(1,
                     new BasicThreadFactory.Builder().namingPattern(TAG).daemon(true).build());

@@ -20,14 +20,13 @@ import com.sun.face.util.FaceSpUtil;
  * @date: 2022/5/13
  * @note: 质量控制页面
  */
-public class QualityControlActivity extends BaseMvpActivity implements View.OnClickListener,
+public class QualityControlActivity extends BaseMvpActivity<ActivityQualityControlBinding> implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
 
     private String mSelectQuality;
     private Context mContext;
     private FaceSpUtil mFaceSpUtil;
     private int mIntentCount = 0;
-    private ActivityQualityControlBinding bind;
 
     public static void startActivityResult(Context context, int requestCode,String quality) {
         Intent intent = new Intent(context, QualityControlActivity.class);
@@ -42,7 +41,6 @@ public class QualityControlActivity extends BaseMvpActivity implements View.OnCl
 
     @Override
     public void initView() {
-        bind = (ActivityQualityControlBinding) mViewDataBinding;
         mContext = this;
         bind.butQualityReturn.setOnClickListener(this);
         bind.relativeLow.setOnClickListener(this);

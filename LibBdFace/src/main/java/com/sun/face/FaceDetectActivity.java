@@ -49,7 +49,7 @@ import java.util.Map;
  * @date: 2022/5/13
  * @note: 快速识别
  */
-public class FaceDetectActivity extends BaseMvpActivity implements SurfaceHolder.Callback,
+public class FaceDetectActivity extends BaseMvpActivity<ActivityFaceDetectBinding> implements SurfaceHolder.Callback,
         Camera.PreviewCallback, Camera.ErrorCallback, VolumeUtils.VolumeCallback, IDetectStrategyCallback {
 
     // View
@@ -78,7 +78,6 @@ public class FaceDetectActivity extends BaseMvpActivity implements SurfaceHolder
     protected int mPreviewDegree;
     // 监听系统音量广播
     protected BroadcastReceiver mVolumeReceiver;
-    private ActivityFaceDetectBinding bind;
     public View mViewBg;
 
     @Override
@@ -89,7 +88,6 @@ public class FaceDetectActivity extends BaseMvpActivity implements SurfaceHolder
 
     @Override
     public void initView() {
-        bind = (ActivityFaceDetectBinding) mViewDataBinding;
         mViewBg = bind.viewBg;
         DisplayMetrics dm = new DisplayMetrics();
         Display display = this.getWindowManager().getDefaultDisplay();

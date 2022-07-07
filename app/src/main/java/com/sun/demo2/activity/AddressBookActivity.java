@@ -25,10 +25,9 @@ import java.util.List;
  * @date: 2022/6/10
  * @note: 仿通讯录
  */
-public class AddressBookActivity extends BaseMvpActivity {
+public class AddressBookActivity extends BaseMvpActivity<ActivityAddressBookBinding> {
 
     private Context mContext;
-    private ActivityAddressBookBinding bind;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, AddressBookActivity.class);
@@ -48,7 +47,6 @@ public class AddressBookActivity extends BaseMvpActivity {
     @Override
     public void initView() {
         mContext = this;
-        bind = (ActivityAddressBookBinding) mViewDataBinding;
     }
 
     @Override

@@ -22,9 +22,8 @@ import java.util.ArrayList;
  * @date 2022/5/31
  * note:
  */
-public class CustomScrollLayoutFragment extends BaseMvpFragment {
+public class CustomScrollLayoutFragment extends BaseMvpFragment<FragmentViewPagerBinding> {
 
-    private FragmentViewPagerBinding bind;
     private ArrayList<String> mList;
 
     public static CustomScrollLayoutFragment getInstance() {
@@ -41,7 +40,6 @@ public class CustomScrollLayoutFragment extends BaseMvpFragment {
 
     @Override
     public void initView() {
-        bind = (FragmentViewPagerBinding) mViewDataBinding;
         bind.title.setBackgroundColor(Color.argb(0, 63, 81, 181));
         bind.scrollLayout.setBackgroundColor(Color.argb(0, 0, 0, 0));
     }

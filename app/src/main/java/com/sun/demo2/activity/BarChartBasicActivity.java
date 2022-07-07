@@ -43,11 +43,9 @@ import java.util.List;
  * @date: 2021/11/22
  * @note: 柱状图
  */
-public class BarChartBasicActivity extends BaseMvpActivity implements OnChartValueSelectedListener {
+public class BarChartBasicActivity extends BaseMvpActivity<ActivityBarChartBasicBinding> implements OnChartValueSelectedListener {
 
-    private Context mContext;
     private Typeface tfLight;
-    private ActivityBarChartBasicBinding mBind;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, BarChartBasicActivity.class);
@@ -60,15 +58,23 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
     }
 
     @Override
+    protected boolean enableDarkStatusBarAndSetTitle() {
+        mStatusBarColor = R.color.black;
+        mTitleColor = R.color.black;
+        return true;
+    }
+
+    @Override
     public void initView() {
-        mContext = BarChartBasicActivity.this;
-        mBind = (ActivityBarChartBasicBinding) mViewDataBinding;
-        mBind.flContent.setOnClickListener(v -> {
+        mBaseBind.title.setTitle("Bar Charts 双柱状图");
+        mBaseBind.title.setOnTitleClickListener(view -> close());
+
+        bind.flContent.setOnClickListener(v -> {
             try {
                 //分享
-                Bitmap bitmap = Bitmap.createBitmap(mBind.flContent.getWidth(), mBind.flContent.getHeight(), Bitmap.Config.ARGB_8888);
+                Bitmap bitmap = Bitmap.createBitmap(bind.flContent.getWidth(), bind.flContent.getHeight(), Bitmap.Config.ARGB_8888);
                 Canvas c = new Canvas(bitmap);
-                mBind.flContent.draw(c);
+                bind.flContent.draw(c);
                 //bitmap文件
                 UMImage image = new UMImage(mThis(), bitmap);
                 UMImage thumb = new UMImage(mThis(), ThumbnailUtils.extractThumbnail(bitmap, 200, 200));
@@ -83,16 +89,16 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
 
     @Override
     public void initData() {
-        mBind.chart.setOnChartValueSelectedListener(this);
-        mBind.chart.setDrawBarShadow(false);
-        mBind.chart.setDrawValueAboveBar(true);
-        mBind.chart.getDescription().setEnabled(false);
-        mBind.chart.setPinchZoom(false);
-        mBind.chart.setDrawGridBackground(false);
+        bind.chart.setOnChartValueSelectedListener(this);
+        bind.chart.setDrawBarShadow(false);
+        bind.chart.setDrawValueAboveBar(true);
+        bind.chart.getDescription().setEnabled(false);
+        bind.chart.setPinchZoom(false);
+        bind.chart.setDrawGridBackground(false);
 
-        IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(mBind.chart);
+        IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(bind.chart);
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
-        XAxis xAxis = mBind.chart.getXAxis();
+        XAxis xAxis = bind.chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTypeface(tfLight);
         xAxis.setDrawGridLines(false);
@@ -102,7 +108,7 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
 
         IAxisValueFormatter custom = new MyAxisValueFormatter();
 
-        YAxis leftAxis = mBind.chart.getAxisLeft();
+        YAxis leftAxis = bind.chart.getAxisLeft();
         leftAxis.setTypeface(tfLight);
         leftAxis.setLabelCount(8, false);
         leftAxis.setValueFormatter(custom);
@@ -110,7 +116,7 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
         leftAxis.setSpaceTop(15f);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
-        YAxis rightAxis = mBind.chart.getAxisRight();
+        YAxis rightAxis = bind.chart.getAxisRight();
         rightAxis.setDrawGridLines(false);
         rightAxis.setTypeface(tfLight);
         rightAxis.setLabelCount(8, false);
@@ -118,7 +124,7 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
         rightAxis.setSpaceTop(15f);
         rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
-        Legend l = mBind.chart.getLegend();
+        Legend l = bind.chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
@@ -129,8 +135,8 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
         l.setXEntrySpace(4f);
 
         XYMarkerView mv = new XYMarkerView(this, xAxisFormatter);
-        mv.setChartView(mBind.chart); // For bounds control
-        mBind.chart.setMarker(mv); // Set the marker to the chart
+        mv.setChartView(bind.chart); // For bounds control
+        bind.chart.setMarker(mv); // Set the marker to the chart
         setData(4, 50);
     }
 
@@ -152,12 +158,12 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
 
         BarDataSet set1;
 
-        if (mBind.chart.getData() != null &&
-                mBind.chart.getData().getDataSetCount() > 0) {
-            set1 = (BarDataSet) mBind.chart.getData().getDataSetByIndex(0);
+        if (bind.chart.getData() != null &&
+                bind.chart.getData().getDataSetCount() > 0) {
+            set1 = (BarDataSet) bind.chart.getData().getDataSetByIndex(0);
             set1.setValues(values);
-            mBind.chart.getData().notifyDataChanged();
-            mBind.chart.notifyDataSetChanged();
+            bind.chart.getData().notifyDataChanged();
+            bind.chart.notifyDataSetChanged();
 
         } else {
             set1 = new BarDataSet(values, "The year 2017");
@@ -192,7 +198,7 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
             data.setValueTypeface(tfLight);
             data.setBarWidth(0.9f);
 
-            mBind.chart.setData(data);
+            bind.chart.setData(data);
         }
     }
 
@@ -200,22 +206,15 @@ public class BarChartBasicActivity extends BaseMvpActivity implements OnChartVal
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
-
         if (e == null) {
             return;
         }
-
         RectF bounds = onValueSelectedRectF;
-        mBind.chart.getBarBounds((BarEntry) e, bounds);
-        MPPointF position = mBind.chart.getPosition(e, YAxis.AxisDependency.LEFT);
-
+        bind.chart.getBarBounds((BarEntry) e, bounds);
+        MPPointF position = bind.chart.getPosition(e, YAxis.AxisDependency.LEFT);
         Log.i("bounds", bounds.toString());
         Log.i("position", position.toString());
-
-        Log.i("x-index",
-                "low: " + mBind.chart.getLowestVisibleX() + ", high: "
-                        + mBind.chart.getHighestVisibleX());
-
+        Log.i("x-index", "low: " + bind.chart.getLowestVisibleX() + ", high: " + bind.chart.getHighestVisibleX());
         MPPointF.recycleInstance(position);
     }
 

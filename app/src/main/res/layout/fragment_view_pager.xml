@@ -65,7 +65,7 @@
                 android:layout_width="@dimen/dp60"
                 android:layout_height="match_parent"
                 android:padding="@dimen/dp10"
-                android:src="@mipmap/icon_back" />
+                android:src="@mipmap/ic_back_black" />
 
             <TextView
                 android:layout_width="wrap_content"

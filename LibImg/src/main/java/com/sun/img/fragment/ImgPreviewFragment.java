@@ -25,7 +25,7 @@ import com.sun.img.model.bean.ImageItem;
  * @date: 2021/12/13
  * @note: 单张图片显示Fragment
  */
-public class ImgPreviewFragment extends BaseMvpFragment {
+public class ImgPreviewFragment extends BaseMvpFragment<FragmentPicturePreviewBinding> {
 
     private static final String EXTRA_IMAGE_ITEM = "EXTRA_IMAGE_ITEM";
     /**
@@ -62,9 +62,8 @@ public class ImgPreviewFragment extends BaseMvpFragment {
 
     @Override
     public void initView() {
-        FragmentPicturePreviewBinding binding = (FragmentPicturePreviewBinding) mViewDataBinding;
-        mImageView = binding.image;
-        mLoadingBar = binding.loading;
+        mImageView = bind.image;
+        mLoadingBar = bind.loading;
     }
 
     @Override

@@ -27,9 +27,8 @@ import java.util.List;
  * @date: 2022/6/20
  * @note: 仿通讯录
  */
-public class OtherAddressBookFragment extends BaseMvpFragment implements FastIndexBar.OnCharSelectedListener {
+public class OtherAddressBookFragment extends BaseMvpFragment<FragmentOtherAddressBookBinding> implements FastIndexBar.OnCharSelectedListener {
 
-    private FragmentOtherAddressBookBinding bind;
     private FragmentActivity mActivity;
     private List<AnyItem> mItems;
     private final Handler mHandler = new Handler();
@@ -48,7 +47,6 @@ public class OtherAddressBookFragment extends BaseMvpFragment implements FastInd
 
     @Override
     public void initView() {
-        bind = (FragmentOtherAddressBookBinding) mViewDataBinding;
         mActivity = getActivity();
         bind.indexBar.setOnCharSelectedListener(this);
     }

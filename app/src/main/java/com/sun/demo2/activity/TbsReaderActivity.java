@@ -23,9 +23,8 @@ import java.io.File;
  * @date: 2022/3/21
  * @note: 在App内浏览PDF、docx文件
  */
-public class TbsReaderActivity extends BaseMvpActivity {
+public class TbsReaderActivity extends BaseMvpActivity<ActivityTbsReaderBinding> {
 
-    private ActivityTbsReaderBinding mBind;
     private String mFileName;
     TbsReaderView mTbsReaderView;
 
@@ -46,7 +45,7 @@ public class TbsReaderActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        mBind = (ActivityTbsReaderBinding) mViewDataBinding;
+
     }
 
     @Override
@@ -135,7 +134,7 @@ public class TbsReaderActivity extends BaseMvpActivity {
     private void openFile(String localFileName) {
         mTbsReaderView = new TbsReaderView(this, (integer, o, o1) -> {
         });
-        mBind.fragmentContainer.addView(mTbsReaderView, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+        bind.fragmentContainer.addView(mTbsReaderView, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT));
         File file = new File(localFileName);
         if (!file.exists()) {

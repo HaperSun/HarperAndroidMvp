@@ -23,9 +23,8 @@ import java.util.List;
  * @date 2022/6/22
  * note:
  */
-public class ShortVideoListFragment extends BaseMvpFragment {
+public class ShortVideoListFragment extends BaseMvpFragment<FragmentShortVideoListBinding> {
 
-    private FragmentShortVideoListBinding bind;
     private List<ShortVideoBean> mShortVideoBeanList;
     private ShortVideoListAdapter mAdapter;
     private FragmentActivity mActivity;
@@ -46,7 +45,6 @@ public class ShortVideoListFragment extends BaseMvpFragment {
     @Override
     public void initView() {
         mActivity = getActivity();
-        bind = (FragmentShortVideoListBinding) mViewDataBinding;
         mShortVideoBeanList = new ArrayList<>();
     }
 

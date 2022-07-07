@@ -7,13 +7,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.ViewDataBinding;
 
 /**
  * @author: Harper
  * @date: 2021/12/30
  * @note: 懒加载的Fragment
  */
-public abstract class LazyBaseMvpFragment extends BaseMvpFragment {
+public abstract class LazyBaseMvpFragment<VDB extends ViewDataBinding> extends BaseMvpFragment<VDB> {
 
     /**
      * 检测声明周期中，是否已经构建视图

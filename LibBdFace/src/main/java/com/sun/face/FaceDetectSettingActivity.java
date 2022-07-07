@@ -8,7 +8,6 @@ import com.baidu.idl.face.platform.FaceConfig;
 import com.baidu.idl.face.platform.FaceSDKManager;
 import com.baidu.idl.face.platform.LivenessTypeEnum;
 import com.sun.base.base.activity.BaseMvpActivity;
-import com.sun.common.toast.ToastHelper;
 import com.sun.face.databinding.ActivityFaceDetectSettingBinding;
 import com.sun.face.model.FaceConst;
 import com.sun.face.model.FaceInitBean;
@@ -23,12 +22,11 @@ import java.util.List;
  * @date: 2022/5/13
  * @note: 人脸识别的设置页面
  */
-public class FaceDetectSettingActivity extends BaseMvpActivity {
+public class FaceDetectSettingActivity extends BaseMvpActivity<ActivityFaceDetectSettingBinding> {
 
     // 设置最少动作活体数量
     private static final int VALUE_MIN_ACTIVE_NUM = 1;
     private final List<LivenessTypeEnum> mLiveNessList = new ArrayList<>();
-    private ActivityFaceDetectSettingBinding bind;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, FaceDetectSettingActivity.class);
@@ -42,7 +40,6 @@ public class FaceDetectSettingActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        bind = (ActivityFaceDetectSettingBinding) mViewDataBinding;
         bind.butSettingReturn.setOnClickListener(v -> onBackPressed());
         bind.actionliveBlinkCheckbox.setTag(LivenessTypeEnum.Eye);
         bind.actionliveLeftTurnCheckbox.setTag(LivenessTypeEnum.HeadLeft);

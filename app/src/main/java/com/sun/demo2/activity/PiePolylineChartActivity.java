@@ -26,9 +26,8 @@ import java.util.ArrayList;
  * @date: 2022/4/13
  * @note: 带边线的饼状图
  */
-public class PiePolylineChartActivity extends BaseMvpActivity {
+public class PiePolylineChartActivity extends BaseMvpActivity<ActivityPiePolylineChartBinding> {
 
-    private ActivityPiePolylineChartBinding bind;
     private Typeface tf;
     protected final String[] parties = new String[] {
             "Party A", "Party B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
@@ -49,7 +48,6 @@ public class PiePolylineChartActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        bind = (ActivityPiePolylineChartBinding) mViewDataBinding;
         bind.chart.setUsePercentValues(true);
         bind.chart.getDescription().setEnabled(false);
         bind.chart.setExtraOffsets(5, 10, 5, 5);
@@ -116,7 +114,7 @@ public class PiePolylineChartActivity extends BaseMvpActivity {
         dataSet.setValueLinePart2Length(0.4f);
         dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
         PieData data = new PieData(dataSet);
-        //v3.1.0需要用有参数的构造方法才能显示百分比 data.setValueFormatter(new PercentFormatter(bind.chart));
+        //v3.1.0需要用有参数的构造方法才能显示百分比 data.setValueFormatter(new PercentFormatter(mViewDataBinding.chart));
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
         //设置Label值的颜色

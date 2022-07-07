@@ -28,7 +28,7 @@ import java.io.File;
  * @date: 2022/5/13
  * @note: 质量参数页面
  */
-public class QualityParamsActivity extends BaseMvpActivity implements View.OnClickListener,
+public class QualityParamsActivity extends BaseMvpActivity<ActivityQualityParamsBinding> implements View.OnClickListener,
         SelectDialog.OnSelectDialogClickListener {
 
     private FaceConfig mConfig;
@@ -48,7 +48,6 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
     private SelectDialog mSelectDialog;
     private View mViewBg;
     private Context mContext;
-    private ActivityQualityParamsBinding bind;
 
     public static void startActivityResult(Context context, int requestCode,String quality) {
         Intent intent = new Intent(context, QualityParamsActivity.class);
@@ -63,7 +62,6 @@ public class QualityParamsActivity extends BaseMvpActivity implements View.OnCli
 
     @Override
     public void initView() {
-        bind = (ActivityQualityParamsBinding) mViewDataBinding;
         mContext = this;
         Intent intent = getIntent();
         if (intent != null) {

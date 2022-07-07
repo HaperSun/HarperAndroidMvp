@@ -30,10 +30,9 @@ import java.util.List;
  * @date: 2021/12/13
  * @note: 测试在列表中的图片加载
  */
-public class RecyclerViewImageActivity extends BaseMvpActivity {
+public class RecyclerViewImageActivity extends BaseMvpActivity<ActivityRecyclerViewImageBinding> {
 
     private Context mContext;
-    private ActivityRecyclerViewImageBinding bind;
     private List<AnyItem> mItems;
     private int mPage = 1;
     private final int mPageSize = 10;
@@ -51,12 +50,12 @@ public class RecyclerViewImageActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        bind = (ActivityRecyclerViewImageBinding) mViewDataBinding;
+
     }
 
     @Override
     public void initData() {
-        mContext = RecyclerViewImageActivity.this;
+        mContext = this;
         bind.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mItems = new ArrayList<>();
         mAdapter = new Adapter();

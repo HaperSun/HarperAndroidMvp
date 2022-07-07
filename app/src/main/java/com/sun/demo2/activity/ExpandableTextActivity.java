@@ -22,9 +22,7 @@ import java.util.List;
  * @date: 2022/6/24
  * @note: 可展开的TextView实例
  */
-public class ExpandableTextActivity extends BaseMvpActivity {
-
-    private ActivityExpandableTextBinding bind;
+public class ExpandableTextActivity extends BaseMvpActivity<ActivityExpandableTextBinding> {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ExpandableTextActivity.class);
@@ -32,7 +30,7 @@ public class ExpandableTextActivity extends BaseMvpActivity {
     }
 
     @Override
-    protected boolean enableStatusBarDark() {
+    protected boolean enableDarkStatusBarAndSetTitle() {
         return true;
     }
 
@@ -43,7 +41,6 @@ public class ExpandableTextActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        bind = (ActivityExpandableTextBinding) mViewDataBinding;
         initStatus();
     }
 

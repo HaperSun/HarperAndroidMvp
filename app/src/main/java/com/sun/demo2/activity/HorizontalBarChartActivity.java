@@ -25,10 +25,9 @@ import java.util.List;
  * @date: 2022/4/13
  * @note: Horizontal Bar Charts 横向单柱状图
  */
-public class HorizontalBarChartActivity extends BaseMvpActivity {
+public class HorizontalBarChartActivity extends BaseMvpActivity<ActivityHorizontalBarChartBinding> {
 
     private Typeface tfLight;
-    private ActivityHorizontalBarChartBinding bind;
     private List<DataBean> mDataBeans;
 
     public static void start(Context context) {
@@ -44,7 +43,6 @@ public class HorizontalBarChartActivity extends BaseMvpActivity {
     @Override
     public void initView() {
         getData();
-        bind = (ActivityHorizontalBarChartBinding) mViewDataBinding;
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
 
         bind.chart.setDrawBarShadow(false);

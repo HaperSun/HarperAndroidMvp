@@ -18,9 +18,8 @@ import com.sun.media.video.ui.view.SuperPlayerView;
  * @date: 2022/6/23
  * @note: 视频播放
  */
-public class VideoPlayActivity extends BaseMvpActivity implements SuperPlayerView.OnSuperPlayerViewCallback {
+public class VideoPlayActivity extends BaseMvpActivity<ActivityVidoPalyBinding> implements SuperPlayerView.OnSuperPlayerViewCallback {
 
-    private ActivityVidoPalyBinding bind;
     private boolean mIsFullScreen = false;
 
     public static void start(Context context) {
@@ -35,7 +34,7 @@ public class VideoPlayActivity extends BaseMvpActivity implements SuperPlayerVie
 
     @Override
     public void initView() {
-        bind = (ActivityVidoPalyBinding) mViewDataBinding;
+
     }
 
     @Override

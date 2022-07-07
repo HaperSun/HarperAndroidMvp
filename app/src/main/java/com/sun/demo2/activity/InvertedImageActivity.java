@@ -22,11 +22,9 @@ import com.sun.demo2.databinding.ActivityInvertedImageBinding;
 /**
  * @author: Harper
  * @date: 2022/3/14
- * @note:图片倒影处理
+ * @note: 图片倒影处理
  */
-public class InvertedImageActivity extends BaseMvpActivity {
-
-    private ActivityInvertedImageBinding mBind;
+public class InvertedImageActivity extends BaseMvpActivity<ActivityInvertedImageBinding> {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, InvertedImageActivity.class);
@@ -40,14 +38,14 @@ public class InvertedImageActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        mBind = (ActivityInvertedImageBinding) mViewDataBinding;
+
     }
 
     @Override
     public void initData() {
-        mBind.ivInvert.setImageBitmap(getReverseBitmapById(this, R.mipmap.bg_invert_image, 0.5f));
+        bind.ivInvert.setImageBitmap(getReverseBitmapById(this, R.mipmap.bg_invert_image, 0.5f));
         TranslateAnimation animation = new TranslateAnimation(0, 100, 0, 100);
-        mBind.ivInvert.setAnimation(animation);
+        bind.ivInvert.setAnimation(animation);
     }
 
     /**

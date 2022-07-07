@@ -38,11 +38,10 @@ import java.util.Map;
  * @date: 2021/12/6
  * @note:
  */
-public class LoginActivity extends BaseMvpActivity implements ILoginView, NetStateChangeObserver, View.OnClickListener {
+public class LoginActivity extends BaseMvpActivity<ActivityLoginBinding> implements ILoginView, NetStateChangeObserver, View.OnClickListener {
 
     private Context mContext;
     private LoginPresenter mLoginPresenter;
-    private ActivityLoginBinding bind;
     private long mTime;
     private boolean mHasNetwork;
     private boolean mShowPassword;
@@ -67,7 +66,6 @@ public class LoginActivity extends BaseMvpActivity implements ILoginView, NetSta
     @Override
     public void initView() {
         mContext = LoginActivity.this;
-        bind = (ActivityLoginBinding) mViewDataBinding;
     }
 
     @Override

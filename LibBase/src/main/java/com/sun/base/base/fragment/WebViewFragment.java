@@ -26,7 +26,7 @@ import com.sun.base.util.LogHelper;
  * @date: 2021/12/30
  * @note: 默认的含有WebView的Fragment
  */
-public class WebViewFragment extends BaseMvpFragment {
+public class WebViewFragment extends BaseMvpFragment<FragmentWebViewBinding> {
 
     protected WebViewX mWebViewX;
     //加载进度条
@@ -60,10 +60,9 @@ public class WebViewFragment extends BaseMvpFragment {
 
     @Override
     public void initView() {
-        FragmentWebViewBinding binding = (FragmentWebViewBinding) mViewDataBinding;
-        mWebViewX = binding.webView;
-        mProgressBar = binding.progressBar;
-        mWebLoadFailContainer = binding.webLoadFailContainer;
+        mWebViewX = bind.webView;
+        mProgressBar = bind.progressBar;
+        mWebLoadFailContainer = bind.webLoadFailContainer;
         mWebLoadFailContainer.setOnClickListener(v -> refreshWebView());
         if (mOnInitViewCompleteListener != null) {
             mOnInitViewCompleteListener.onInitViewCompleted(mWebViewX);

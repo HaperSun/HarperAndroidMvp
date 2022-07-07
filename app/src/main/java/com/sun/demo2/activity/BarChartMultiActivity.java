@@ -21,10 +21,9 @@ import java.util.ArrayList;
  * @date:   2021/12/6
  * @note: 
  */
-public class BarChartMultiActivity extends BaseMvpActivity {
+public class BarChartMultiActivity extends BaseMvpActivity<ActivityBarChartMultiBinding> {
 
     private Typeface tfLight;
-    private ActivityBarChartMultiBinding mBind;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, BarChartMultiActivity.class);
@@ -37,17 +36,25 @@ public class BarChartMultiActivity extends BaseMvpActivity {
     }
 
     @Override
+    protected boolean enableDarkStatusBarAndSetTitle() {
+        mStatusBarColor = R.color.red;
+        mTitleColor = R.color.red;
+        return true;
+    }
+
+    @Override
     public void initView() {
-        mBind = (ActivityBarChartMultiBinding) mViewDataBinding;
+        mBaseBind.title.setTitle("Bar Charts 单柱状图");
+        mBaseBind.title.setOnTitleClickListener(view -> close());
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
     }
 
     @Override
     public void initData() {
-        mBind.multiBarChart.getDescription().setEnabled(false);
-        mBind.multiBarChart.setPinchZoom(false);
-        mBind.multiBarChart.setDrawBarShadow(false);
-        mBind.multiBarChart.setDrawGridBackground(false);
+        bind.multiBarChart.getDescription().setEnabled(false);
+        bind.multiBarChart.setPinchZoom(false);
+        bind.multiBarChart.setDrawBarShadow(false);
+        bind.multiBarChart.setDrawGridBackground(false);
 //        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
 //        mv.setChartView(chart);
 //        chart.setMarker(mv);
@@ -62,7 +69,7 @@ public class BarChartMultiActivity extends BaseMvpActivity {
 //        l.setYEntrySpace(0f);
 //        l.setTextSize(8f);
 
-        XAxis xAxis = mBind.multiBarChart.getXAxis();
+        XAxis xAxis = bind.multiBarChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
 //        xAxis.setLabelCount(3);
@@ -71,14 +78,14 @@ public class BarChartMultiActivity extends BaseMvpActivity {
         xAxis.setCenterAxisLabels(true);
         xAxis.setValueFormatter((value, axis) -> String.valueOf((int) value));
 
-        YAxis leftAxis = mBind.multiBarChart.getAxisLeft();
+        YAxis leftAxis = bind.multiBarChart.getAxisLeft();
 //        leftAxis.setTypeface(tfLight);
         leftAxis.setValueFormatter(new LargeValueFormatter());
         leftAxis.setDrawGridLines(false);
         leftAxis.setSpaceTop(35f);
         leftAxis.setAxisMinimum(0f);
-        mBind.multiBarChart.getAxisRight().setEnabled(false);
-        mBind.multiBarChart.getLegend().setEnabled(false);
+        bind.multiBarChart.getAxisRight().setEnabled(false);
+        bind.multiBarChart.getLegend().setEnabled(false);
         initBarChart(8, 100);
     }
 
@@ -129,11 +136,11 @@ public class BarChartMultiActivity extends BaseMvpActivity {
         BarData data = new BarData(set1, set2);
         data.setValueFormatter(new LargeValueFormatter());
         data.setValueTypeface(tfLight);
-        mBind.multiBarChart.setData(data);
-        mBind.multiBarChart.getBarData().setBarWidth(barWidth);
-        mBind.multiBarChart.getXAxis().setAxisMinimum(startYear);
-        mBind.multiBarChart.getXAxis().setAxisMaximum(startYear + mBind.multiBarChart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
-        mBind.multiBarChart.groupBars(startYear, groupSpace, barSpace);
-        mBind.multiBarChart.invalidate();
+        bind.multiBarChart.setData(data);
+        bind.multiBarChart.getBarData().setBarWidth(barWidth);
+        bind.multiBarChart.getXAxis().setAxisMinimum(startYear);
+        bind.multiBarChart.getXAxis().setAxisMaximum(startYear + bind.multiBarChart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
+        bind.multiBarChart.groupBars(startYear, groupSpace, barSpace);
+        bind.multiBarChart.invalidate();
     }
 }

@@ -15,7 +15,7 @@ import com.sun.demo2.fragment.TestWebViewFragment;
  * @date: 2021/12/30
  * @note: 测试封装的webView
  */
-public class WebViewActivity extends BaseMvpActivity {
+public class WebViewActivity extends BaseMvpActivity<ActivityWebViewBinding> {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, WebViewActivity.class);
@@ -29,9 +29,8 @@ public class WebViewActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        ActivityWebViewBinding binding = (ActivityWebViewBinding) mViewDataBinding;
-        binding.tvUrl.setText(AppUtil.getServerUrl());
-        binding.tvH5Url.setText(BuildConfig.Base_URL_H5);
+        bind.tvUrl.setText(AppUtil.getServerUrl());
+        bind.tvH5Url.setText(BuildConfig.Base_URL_H5);
     }
 
     @Override

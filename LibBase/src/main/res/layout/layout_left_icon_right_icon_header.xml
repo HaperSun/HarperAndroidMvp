@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@mipmap/icon_back" />
+            android:background="@mipmap/ic_back_black" />
     </FrameLayout>
 
     <com.sun.base.base.widget.MarqueeTextView

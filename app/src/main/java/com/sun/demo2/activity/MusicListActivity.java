@@ -22,9 +22,8 @@ import com.sun.demo2.databinding.ActivityMusicListBinding;
  * @date: 2022/6/27
  * @note:
  */
-public class MusicListActivity extends BaseMvpActivity implements View.OnLongClickListener {
+public class MusicListActivity extends BaseMvpActivity<ActivityMusicListBinding> implements View.OnLongClickListener {
 
-    private ActivityMusicListBinding bind;
     private Context mContext;
 
     public static void start(Context context) {
@@ -33,7 +32,7 @@ public class MusicListActivity extends BaseMvpActivity implements View.OnLongCli
     }
 
     @Override
-    protected boolean enableStatusBarDark() {
+    protected boolean enableDarkStatusBarAndSetTitle() {
         return true;
     }
 
@@ -46,7 +45,6 @@ public class MusicListActivity extends BaseMvpActivity implements View.OnLongCli
     @Override
     public void initView() {
         mContext = this;
-        bind = (ActivityMusicListBinding) mViewDataBinding;
         bind.ivMusic.setOnClickListener(v -> bind.drawerLayout.openDrawer(Gravity.END));
         bind.tvLeft.setOnClickListener(v -> bind.drawerLayout.closeDrawer(Gravity.START));
         bind.tvRight.setOnClickListener(v -> bind.drawerLayout.closeDrawer(Gravity.END));

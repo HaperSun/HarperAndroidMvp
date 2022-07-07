@@ -28,12 +28,11 @@ import java.util.List;
  * @date: 2022/5/24
  * @note: 点播视频
  */
-public class ClickVideoPlayActivity extends BaseMvpActivity implements SwipeRefreshLayout.OnRefreshListener,
+public class ClickVideoPlayActivity extends BaseMvpActivity<ActivityClickVideoPlayBinding> implements SwipeRefreshLayout.OnRefreshListener,
         ClickVideoPlayAdapter.OnItemClickListener, SuperPlayerView.OnSuperPlayerViewCallback {
 
     //当前界面播放器view展示的宽高比，用主流的16：9
     private static final float PLAYER_VIEW_DISPLAY_RATIO = (float) 720 / 1280;
-    private ActivityClickVideoPlayBinding bind;
     private ClickVideoPlayAdapter mAdapter;
     private boolean mPlayStatePause = false;
     private boolean mIsFullScreen = false;
@@ -49,14 +48,13 @@ public class ClickVideoPlayActivity extends BaseMvpActivity implements SwipeRefr
     }
 
     @Override
-    protected boolean enableStatusBarDark() {
+    protected boolean enableDarkStatusBarAndSetTitle() {
         mStatusBarColor = R.color.cl_14233D;
         return true;
     }
 
     @Override
     public void initView() {
-        bind = (ActivityClickVideoPlayBinding) mViewDataBinding;
         bind.superPlayerView.setPlayerViewCallback(this);
         bind.refreshLayout.setOnRefreshListener(this);
         adjustSuperPlayerViewAndMaskHeight();

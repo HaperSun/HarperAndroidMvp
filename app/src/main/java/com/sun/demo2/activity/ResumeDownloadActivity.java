@@ -16,7 +16,7 @@ import com.sun.demo2.view.widget.ClearEditText;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResumeDownloadActivity extends BaseMvpActivity {
+public class ResumeDownloadActivity extends BaseMvpActivity<ActivityResumeDownloadBinding> {
 
     RecyclerView recyclerview;
     ClearEditText clearEt;
@@ -38,10 +38,9 @@ public class ResumeDownloadActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        ActivityResumeDownloadBinding binding = (ActivityResumeDownloadBinding) mViewDataBinding;
-        recyclerview = binding.recyclerview;
-        clearEt = binding.clearEt;
-        btnStart = binding.btnStart;
+        recyclerview = bind.recyclerview;
+        clearEt = bind.clearEt;
+        btnStart = bind.btnStart;
     }
 
     @Override

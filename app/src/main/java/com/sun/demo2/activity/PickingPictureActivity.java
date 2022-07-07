@@ -29,11 +29,10 @@ import com.sun.demo2.view.dialog.BottomShareDialog;
  * @date: 2022/3/14
  * @note: 图片取色并融入背景色效果
  */
-public class PickingPictureActivity extends BaseMvpActivity implements View.OnClickListener {
+public class PickingPictureActivity extends BaseMvpActivity<ActivityPickingPictureBinding> implements View.OnClickListener {
 
     private boolean isMethod1 = false;
     private long time;
-    private ActivityPickingPictureBinding mBind;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, PickingPictureActivity.class);
@@ -47,10 +46,9 @@ public class PickingPictureActivity extends BaseMvpActivity implements View.OnCl
 
     @Override
     public void initView() {
-        mBind = (ActivityPickingPictureBinding) mViewDataBinding;
-        mBind.btnMethod1.setOnClickListener(this);
-        mBind.btnMethod2.setOnClickListener(this);
-        mBind.ivShare.setOnClickListener(v -> {
+        bind.btnMethod1.setOnClickListener(this);
+        bind.btnMethod2.setOnClickListener(this);
+        bind.ivShare.setOnClickListener(v -> {
             new BottomShareDialog.Builder(mThis())
                     .setConfig("","","","")
                     .build().show();
@@ -100,12 +98,12 @@ public class PickingPictureActivity extends BaseMvpActivity implements View.OnCl
                         LogHelper.d("with=" + resource.getWidth() + "--height=" + resource.getHeight());
                         time = System.currentTimeMillis();
                         if (isMethod1) {
-                            mBind.ivMain.setImageBitmap(getImageToChange(resource));
+                            bind.ivMain.setImageBitmap(getImageToChange(resource));
                         } else {
-                            mBind.ivMain.setImageBitmap(handleBimap(resource));
+                            bind.ivMain.setImageBitmap(handleBimap(resource));
                         }
                         time = System.currentTimeMillis() - time;
-                        mBind.tvTime.setText("耗时: " + (time / 1000f) + "s");
+                        bind.tvTime.setText("耗时: " + (time / 1000f) + "s");
 
 
                     }
@@ -119,7 +117,7 @@ public class PickingPictureActivity extends BaseMvpActivity implements View.OnCl
         bgColors[0] = darkColor;
         bgColors[1] = color;
 
-        Bitmap bgBitmap = Bitmap.createBitmap(mBind.ivBg.getWidth(), mBind.ivBg.getHeight(), Bitmap.Config.ARGB_4444);
+        Bitmap bgBitmap = Bitmap.createBitmap(bind.ivBg.getWidth(), bind.ivBg.getHeight(), Bitmap.Config.ARGB_4444);
         Canvas canvas = new Canvas();
         Paint paint = new Paint();
         canvas.setBitmap(bgBitmap);
@@ -130,7 +128,7 @@ public class PickingPictureActivity extends BaseMvpActivity implements View.OnCl
         RectF rectF = new RectF(0, 0, bgBitmap.getWidth(), bgBitmap.getHeight());
         canvas.drawRoundRect(rectF, 20, 20, paint);
         canvas.drawRect(rectF, paint);
-        mBind.ivBg.setImageBitmap(bgBitmap);
+        bind.ivBg.setImageBitmap(bgBitmap);
     }
 
 

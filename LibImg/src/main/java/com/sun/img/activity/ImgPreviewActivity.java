@@ -28,7 +28,7 @@ import java.util.List;
  * @date: 2021/12/13
  * @note: 图片预览查看器
  */
-public class ImgPreviewActivity extends BaseMvpActivity {
+public class ImgPreviewActivity extends BaseMvpActivity<ActivityPicturePreviewBinding> {
 
     private static final String STATE_POSITION = "STATE_POSITION";
     private static final String EXTRA_IMAGE_INDEX = "image_index";
@@ -44,7 +44,7 @@ public class ImgPreviewActivity extends BaseMvpActivity {
     private boolean mNeedAnim;
 
     @Override
-    protected boolean enableStatusBarDark() {
+    protected boolean enableDarkStatusBarAndSetTitle() {
         mStatusBarColor = R.color.black;
         return true;
     }
@@ -260,10 +260,9 @@ public class ImgPreviewActivity extends BaseMvpActivity {
 
     @Override
     public void initView() {
-        ActivityPicturePreviewBinding binding = (ActivityPicturePreviewBinding) mViewDataBinding;
-        mViewPager = binding.pager;
-        mIndicator = binding.indicator;
-        binding.previewClose.setOnClickListener(view -> onBackPressed());
+        mViewPager = bind.pager;
+        mIndicator = bind.indicator;
+        bind.previewClose.setOnClickListener(view -> onBackPressed());
     }
 
     @Override

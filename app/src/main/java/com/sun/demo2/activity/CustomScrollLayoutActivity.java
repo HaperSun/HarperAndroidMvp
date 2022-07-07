@@ -27,10 +27,10 @@ import java.util.List;
  * @date: 2022/5/27
  * @note: 仿照百度地图的上层地址列表的上拉、下拉的拖动效果
  */
-public class CustomScrollLayoutActivity extends BaseMvpActivity implements PeoplePopupWindow.PopupWindowListener {
+public class CustomScrollLayoutActivity extends BaseMvpActivity<ActivityCustomScrollLayoutBinding>
+        implements PeoplePopupWindow.PopupWindowListener {
 
     private Context mContext;
-    private ActivityCustomScrollLayoutBinding bind;
     private PeoplePopupWindow mPopupWindow;
     private boolean mChecked;
 
@@ -47,7 +47,6 @@ public class CustomScrollLayoutActivity extends BaseMvpActivity implements Peopl
     @Override
     public void initView() {
         mContext = this;
-        bind = (ActivityCustomScrollLayoutBinding) mViewDataBinding;
         bind.cbSelect.setOnCheckedChangeListener((buttonView, isChecked) -> clickCheckBox(isChecked));
     }
 

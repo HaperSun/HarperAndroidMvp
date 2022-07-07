@@ -14,9 +14,7 @@ import java.util.List;
  * @date 2022/6/22
  * note:
  */
-public class ShortVideoPlayFragment extends BaseMvpFragment {
-
-    private FragmentShortVideoPlayBinding bind;
+public class ShortVideoPlayFragment extends BaseMvpFragment<FragmentShortVideoPlayBinding> {
 
     public static ShortVideoPlayFragment getInstance() {
         ShortVideoPlayFragment fragment = new ShortVideoPlayFragment();
@@ -32,7 +30,7 @@ public class ShortVideoPlayFragment extends BaseMvpFragment {
 
     @Override
     public void initView() {
-        bind = (FragmentShortVideoPlayBinding) mViewDataBinding;
+
     }
 
     @Override

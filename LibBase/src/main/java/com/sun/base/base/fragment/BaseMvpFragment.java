@@ -27,12 +27,12 @@ import java.util.Set;
  * @date: 2022/5/18
  * @note: 基于MVP模式对BaseFragment进行封装
  */
-public abstract class BaseMvpFragment extends BaseFragment implements IAddPresenterView {
+public abstract class BaseMvpFragment<VDB extends ViewDataBinding> extends BaseFragment implements IAddPresenterView {
 
     protected final String TAG = getClass().getSimpleName();
     private Set<BasePresenter> mPresenters;
     protected View mRootView;
-    public ViewDataBinding mViewDataBinding;
+    public VDB bind;
 
     public BaseMvpFragment() {
         // Required empty public constructor
@@ -42,8 +42,8 @@ public abstract class BaseMvpFragment extends BaseFragment implements IAddPresen
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //获取ViewDataBinding
-        mViewDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false);
-        mRootView = mViewDataBinding.getRoot();
+        bind = DataBindingUtil.inflate(inflater, layoutId(), container, false);
+        mRootView = bind.getRoot();
         //处理fragment的Bundle
         initBundle();
         //是否接收EventBus消息
