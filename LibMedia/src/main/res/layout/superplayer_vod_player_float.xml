@@ -16,7 +16,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:src="@drawable/superplayer_ic_float_close" />
+        android:src="@mipmap/superplayer_ic_float_close" />
 
     <LinearLayout
         android:id="@+id/superplayer_dynamic_watermark_layout"

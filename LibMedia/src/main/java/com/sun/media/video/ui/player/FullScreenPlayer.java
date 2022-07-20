@@ -194,7 +194,7 @@ public class FullScreenPlayer extends AbsPlayer implements View.OnClickListener,
                 if (mGestureVolumeBrightnessProgressLayout != null) {
                     mGestureVolumeBrightnessProgressLayout.setProgress((int) (newBrightness * 100));
                     mVodMoreView.setBrightProgress((int) (newBrightness * 100));
-                    mGestureVolumeBrightnessProgressLayout.setImageResource(R.drawable.superplayer_ic_light_max);
+                    mGestureVolumeBrightnessProgressLayout.setImageResource(R.mipmap.superplayer_ic_light_max);
                     mGestureVolumeBrightnessProgressLayout.show();
                 }
             }
@@ -202,7 +202,7 @@ public class FullScreenPlayer extends AbsPlayer implements View.OnClickListener,
             @Override
             public void onVolumeGesture(float volumeProgress) {
                 if (mGestureVolumeBrightnessProgressLayout != null) {
-                    mGestureVolumeBrightnessProgressLayout.setImageResource(R.drawable.superplayer_ic_volume_max);
+                    mGestureVolumeBrightnessProgressLayout.setImageResource(R.mipmap.superplayer_ic_volume_max);
                     mGestureVolumeBrightnessProgressLayout.setProgress((int) volumeProgress);
                     mGestureVolumeBrightnessProgressLayout.show();
                 }
@@ -377,15 +377,15 @@ public class FullScreenPlayer extends AbsPlayer implements View.OnClickListener,
         if (!isDestroy) {
             if (superPlayerModel.coverPictureUrl != null) {
                 Glide.with(getContext()).load(superPlayerModel.coverPictureUrl)
-                        .placeholder(R.drawable.superplayer_default).into(mImageCover);
+                        .placeholder(R.mipmap.superplayer_default).into(mImageCover);
             } else {
                 Glide.with(getContext()).load(superPlayerModel.placeholderImage)
-                        .placeholder(R.drawable.superplayer_default).into(mImageCover);
+                        .placeholder(R.mipmap.superplayer_default).into(mImageCover);
             }
         }
         mLivePushDuration = 0;
         toggleView(mImageCover, true);
-        mIvPause.setImageResource(R.drawable.superplayer_ic_vod_play_normal);
+        mIvPause.setImageResource(R.mipmap.superplayer_ic_vod_play_normal);
         updateVideoProgress(0, superPlayerModel.duration);
         mSeekBarProgress.setEnabled(superPlayerModel.playAction != SuperPlayerModel.PLAY_ACTION_MANUAL_PLAY);
         updateStartUI(superPlayerModel.playAction == SuperPlayerModel.PLAY_ACTION_AUTO_PLAY);
@@ -473,28 +473,28 @@ public class FullScreenPlayer extends AbsPlayer implements View.OnClickListener,
     public void updatePlayState(SuperPlayerDef.PlayerState playState) {
         switch (playState) {
             case INIT:
-                mIvPause.setImageResource(R.drawable.superplayer_ic_vod_play_normal);
+                mIvPause.setImageResource(R.mipmap.superplayer_ic_vod_play_normal);
                 break;
             case PLAYING:
                 mSeekBarProgress.setEnabled(true);
-                mIvPause.setImageResource(R.drawable.superplayer_ic_vod_pause_normal);
+                mIvPause.setImageResource(R.mipmap.superplayer_ic_vod_pause_normal);
                 toggleView(mImageStartAndResume, false);
                 toggleView(mPbLiveLoading, false);
                 toggleView(mLayoutReplay, false);
                 break;
             case LOADING:
                 mSeekBarProgress.setEnabled(true);
-                mIvPause.setImageResource(R.drawable.superplayer_ic_vod_pause_normal);
+                mIvPause.setImageResource(R.mipmap.superplayer_ic_vod_pause_normal);
                 toggleView(mPbLiveLoading, true);
                 toggleView(mLayoutReplay, false);
                 break;
             case PAUSE:
-                mIvPause.setImageResource(R.drawable.superplayer_ic_vod_play_normal);
+                mIvPause.setImageResource(R.mipmap.superplayer_ic_vod_play_normal);
                 toggleView(mLayoutReplay, false);
                 toggleView(mImageStartAndResume, true);
                 break;
             case END:
-                mIvPause.setImageResource(R.drawable.superplayer_ic_vod_play_normal);
+                mIvPause.setImageResource(R.mipmap.superplayer_ic_vod_play_normal);
                 toggleView(mPbLiveLoading, false);
                 toggleView(mLayoutReplay, true);
                 break;
@@ -742,9 +742,9 @@ public class FullScreenPlayer extends AbsPlayer implements View.OnClickListener,
     private void toggleBarrage() {
         mBarrageOn = !mBarrageOn;
         if (mBarrageOn) {
-            mIvDanmu.setImageResource(R.drawable.superplayer_ic_danmuku_on);
+            mIvDanmu.setImageResource(R.mipmap.superplayer_ic_danmuku_on);
         } else {
-            mIvDanmu.setImageResource(R.drawable.superplayer_ic_danmuku_off);
+            mIvDanmu.setImageResource(R.mipmap.superplayer_ic_danmuku_off);
         }
         if (mControllerCallback != null) {
             mControllerCallback.onDanmuToggle(mBarrageOn);
@@ -761,7 +761,7 @@ public class FullScreenPlayer extends AbsPlayer implements View.OnClickListener,
         //关闭弹幕
         if (mBarrageOn) {
             mBarrageOn = false;
-            mIvDanmu.setImageResource(R.drawable.superplayer_ic_danmuku_off);
+            mIvDanmu.setImageResource(R.mipmap.superplayer_ic_danmuku_off);
         }
         if (mVodMoreView != null) {
             mVodMoreView.revertUI();
@@ -813,11 +813,11 @@ public class FullScreenPlayer extends AbsPlayer implements View.OnClickListener,
             postDelayed(mHideLockViewRunnable, 7000);
         }
         if (mLockScreen) {
-            mIvLock.setImageResource(R.drawable.superplayer_ic_player_lock);
+            mIvLock.setImageResource(R.mipmap.superplayer_ic_player_lock);
             hide();
             mIvLock.setVisibility(VISIBLE);
         } else {
-            mIvLock.setImageResource(R.drawable.superplayer_ic_player_unlock);
+            mIvLock.setImageResource(R.mipmap.superplayer_ic_player_unlock);
             show();
         }
     }

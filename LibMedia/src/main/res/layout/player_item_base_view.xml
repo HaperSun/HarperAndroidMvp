@@ -53,7 +53,7 @@
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="314dp"
-        android:src="@drawable/player_pause"
+        android:src="@mipmap/player_pause"
         android:visibility="gone" />
 
 </RelativeLayout>

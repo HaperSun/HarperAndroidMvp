@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.webkit.JavascriptInterface;
 
 import com.sun.base.base.fragment.WebViewFragment;
-import com.sun.img.activity.ImgPreviewActivity;
+import com.sun.img.ui.activity.ImgPreviewActivity;
 
 /**
  * @author Harper

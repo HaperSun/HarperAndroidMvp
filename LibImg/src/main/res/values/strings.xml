@@ -1,1 +1,30 @@
-<resources></resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
+    <string name="max_picture_count_hint_str">最多%d张哦</string>
+    <string name="add_picture_count_info_str">继续 %1$d/%2$d</string>
+    <string name="take_picture">拍照</string>
+    <string name="choose_from_gallery">从相册选择</string>
+    <string name="all_media">全部</string>
+    <string name="image_num">(%d)</string>
+    <string name="scanner_image">正在扫描图片..</string>
+    <string name="take_photo">拍摄图片</string>
+    <string name="choose_video_tips">"不能选择5分钟以上的视频哦！"</string>
+    <string name="permission_tip">当前没有读取存储卡或摄像头权限</string>
+    <string name="all_video">所有视频</string>
+    <string name="select_image_max">最多选择%1$d张图片</string>
+    <string name="image_select">选择</string>
+    <string name="single_type_choose">不能同时选择图片与视频</string>
+    <string name="confirm_msg">完成（%1$d）</string>
+    <string name="choose_one_video">只能选择一个视频哦！</string>
+    <string name="min_crop_toast">视频时长五秒以内无需裁剪！</string>
+    <!--cropImage-->
+    <string name="crop_image_activity_title"></string>
+    <string name="crop_image_menu_rotate_left">逆时针旋转</string>
+    <string name="crop_image_menu_rotate_right">旋转</string>
+    <string name="crop_image_menu_crop">裁剪</string>
+    <string name="crop_image_menu_flip">翻转</string>
+    <string name="crop_image_menu_flip_horizontally">水平翻转</string>
+    <string name="crop_image_menu_flip_vertically">垂直翻转</string>
+    <string name="pick_image_intent_chooser_title">选择来源</string>
+    <string name="crop_image_activity_no_permissions">正在取消，该操作未获得所需权限。</string>
+</resources>

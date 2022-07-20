@@ -61,4 +61,12 @@
     <color name="cl_FF4081">#FF4081</color>
     <color name="cl_BBBBBB">#BBBBBB</color>
     <color name="cl_F4E096">#F4E096</color>
+    <color name="cl_F6F7FA">#F6F7FA</color>
+    <color name="cl_323232">#323232</color>
+    <color name="cl_F5F5F5">#F5F5F5</color>
+    <color name="cl_1C1C1C">#1C1C1C</color>
+    <color name="cl_99000000">#99000000</color>
+    <color name="cl_303030">#303030</color>
+    <color name="cl_939393">#939393</color>
+    <color name="cl_00baff">#00baff</color>
 </resources>

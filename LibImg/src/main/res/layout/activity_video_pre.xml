@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:context=".ui.activity.VideoPreActivity">
+
+        <FrameLayout
+            android:id="@+id/layout_actionBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp44">
+
+            <ImageView
+                android:id="@+id/iv_actionBar_back"
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp15"
+                android:src="@mipmap/icon_actionbar_back" />
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottom_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp55"
+            android:layout_alignParentBottom="true"
+            android:background="@color/cl_323232"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/iv_cropper"
+                android:layout_width="@dimen/dp57"
+                android:layout_height="@dimen/dp78"
+                android:paddingStart="@dimen/dp18"
+                android:paddingEnd="@dimen/dp18"
+                android:src="@mipmap/icon_crop" />
+
+            <TextView
+                android:id="@+id/tv_actionBar_commit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp15"
+                android:background="@drawable/shape_orange_radius_10"
+                android:enabled="false"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp10"
+                android:paddingTop="@dimen/dp5"
+                android:paddingRight="@dimen/dp10"
+                android:paddingBottom="@dimen/dp5"
+                android:text="@string/confirm"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp14"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottom_container"
+            android:layout_below="@id/layout_actionBar"
+            android:background="@color/cl_1C1C1C">
+
+            <TextureView
+                android:id="@+id/textureView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true" />
+
+            <ImageView
+                android:id="@+id/iv_main_play"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/icon_video_play"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

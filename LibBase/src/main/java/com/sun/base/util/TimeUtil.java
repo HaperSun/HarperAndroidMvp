@@ -320,4 +320,6 @@ public final class TimeUtil {
     public static long getTomorrowMaxTime() {
         return (getFirstTimeOfToday() + 2 * TIME_DAY);
     }
+
+
 }

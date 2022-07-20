@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/dp93"
+    android:layout_height="@dimen/dp93"
+    android:gravity="center"
+    android:background="@drawable/shape_rec_f6f7fa"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="@dimen/dp26"
+        android:layout_height="@dimen/dp26"
+        android:src="@mipmap/icon_add_pic"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_count_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp8"
+        android:textColor="#ffc1ccd1"
+        android:textSize="@dimen/sp12"
+        tools:text="继续 3/9"/>
+</LinearLayout>

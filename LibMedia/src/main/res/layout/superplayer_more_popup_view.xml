@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/superplayer_ic_volume_min" />
+                android:src="@mipmap/superplayer_ic_volume_min" />
 
             <SeekBar
                 android:id="@+id/superplayer_sb_audio"
@@ -43,14 +43,14 @@
                 android:layout_weight="1"
                 android:max="100"
                 android:progressDrawable="@drawable/superplayer_biz_video_progressbar"
-                android:thumb="@drawable/superplayer_ic_vod_thumb" />
+                android:thumb="@mipmap/superplayer_ic_vod_thumb" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0"
-                android:src="@drawable/superplayer_ic_volume_max" />
+                android:src="@mipmap/superplayer_ic_volume_max" />
 
         </LinearLayout>
 
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/superplayer_ic_light_min" />
+                android:src="@mipmap/superplayer_ic_light_min" />
 
             <SeekBar
                 android:id="@+id/superplayer_sb_light"
@@ -85,14 +85,14 @@
                 android:layout_weight="1"
                 android:max="100"
                 android:progressDrawable="@drawable/superplayer_biz_video_progressbar"
-                android:thumb="@drawable/superplayer_ic_vod_thumb" />
+                android:thumb="@mipmap/superplayer_ic_vod_thumb" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0"
-                android:src="@drawable/superplayer_ic_light_max" />
+                android:src="@mipmap/superplayer_ic_light_max" />
 
         </LinearLayout>
 

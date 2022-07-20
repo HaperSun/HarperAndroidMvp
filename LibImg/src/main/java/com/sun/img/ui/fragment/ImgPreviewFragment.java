@@ -1,4 +1,4 @@
-package com.sun.img.fragment;
+package com.sun.img.ui.fragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -18,7 +18,6 @@ import com.sun.img.databinding.FragmentPicturePreviewBinding;
 import com.sun.img.img.ImageLoadListener;
 import com.sun.img.img.ImgLoader;
 import com.sun.img.model.bean.ImageItem;
-
 
 /**
  * @author: Harper

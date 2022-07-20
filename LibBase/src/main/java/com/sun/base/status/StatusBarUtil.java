@@ -81,7 +81,7 @@ public class StatusBarUtil {
      *
      * @return
      */
-    public static boolean isLightStatusBarSupported() {
+    public static boolean isSupportLightStatusBar() {
         return isMIUI() || isFlyme() || Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 

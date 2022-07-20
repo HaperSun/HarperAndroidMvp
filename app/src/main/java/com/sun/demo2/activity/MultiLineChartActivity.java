@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -16,6 +15,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.demo2.R;
+import com.sun.demo2.databinding.ActivityMultiLineChartBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +25,8 @@ import java.util.List;
  * @date: 2022/4/21
  * @note: 多条目折线图
  */
-public class MultiLineChartActivity extends BaseMvpActivity {
+public class MultiLineChartActivity extends BaseMvpActivity<ActivityMultiLineChartBinding>{
 
-    private LineChart chart;
     private String[] labels;
     private List<Integer> listX;
     private List<Integer> listY;
@@ -62,14 +61,13 @@ public class MultiLineChartActivity extends BaseMvpActivity {
     @Override
     public void initView() {
         Typeface tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
-        chart = $(R.id.chart);
-        chart.getDescription().setEnabled(false);
-        chart.setPinchZoom(false);
-        chart.setDrawGridBackground(false);
+        bind.chart.getDescription().setEnabled(false);
+        bind.chart.setPinchZoom(false);
+        bind.chart.setDrawGridBackground(false);
 //        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
-//        mv.setChartView(chart);
-//        chart.setMarker(mv);
-//        Legend l = chart.getLegend();
+//        mv.setChartView(bind.chart);
+//        bind.chart.setMarker(mv);
+//        Legend l = bind.chart.getLegend();
 //        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
 //        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
 //        l.setOrientation(Legend.LegendOrientation.VERTICAL);
@@ -80,7 +78,7 @@ public class MultiLineChartActivity extends BaseMvpActivity {
 //        l.setYEntrySpace(0f);
 //        l.setTextSize(8f);
 
-        XAxis xAxis = chart.getXAxis();
+        XAxis xAxis = bind.chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
 //        xAxis.setLabelCount(3);
@@ -90,50 +88,50 @@ public class MultiLineChartActivity extends BaseMvpActivity {
         xAxis.setCenterAxisLabels(false);
 //        xAxis.setValueFormatter((value, axis) -> String.valueOf((int) value));
 
-        YAxis leftAxis = chart.getAxisLeft();
+        YAxis leftAxis = bind.chart.getAxisLeft();
 //        leftAxis.setTypeface(tfLight);
         leftAxis.setValueFormatter(new LargeValueFormatter());
         leftAxis.setDrawGridLines(false);
         leftAxis.setSpaceTop(35f);
         leftAxis.setAxisMinimum(0f);
-        chart.getAxisRight().setEnabled(false);
-        chart.getLegend().setEnabled(true);
-        chart.getAxisLeft().setAxisMaximum(100);
+        bind.chart.getAxisRight().setEnabled(false);
+        bind.chart.getLegend().setEnabled(true);
+        bind.chart.getAxisLeft().setAxisMaximum(100);
 
-//        chart.setDrawGridBackground(false);
-//        chart.getDescription().setEnabled(false);
-//        chart.setDrawBorders(false);
-//        chart.setBackgroundColor(Color.WHITE);
-//        chart.getAxisLeft().setEnabled(false);
-//        chart.getAxisRight().setDrawAxisLine(false);
-//        chart.getAxisRight().setDrawGridLines(false);
-//        chart.getXAxis().setDrawAxisLine(false);
-//        chart.getXAxis().setDrawGridLines(false);
+//        bind.chart.setDrawGridBackground(false);
+//        bind.chart.getDescription().setEnabled(false);
+//        bind.chart.setDrawBorders(false);
+//        bind.chart.setBackgroundColor(Color.WHITE);
+//        bind.chart.getAxisLeft().setEnabled(false);
+//        bind.chart.getAxisRight().setDrawAxisLine(false);
+//        bind.chart.getAxisRight().setDrawGridLines(false);
+//        bind.chart.getXAxis().setDrawAxisLine(false);
+//        bind.chart.getXAxis().setDrawGridLines(false);
 //
 //        // enable touch gestures
-//        chart.setTouchEnabled(true);
+//        bind.chart.setTouchEnabled(true);
 //
 //        // enable scaling and dragging
-//        chart.setDragEnabled(true);
-//        chart.setScaleEnabled(true);
+//        bind.chart.setDragEnabled(true);
+//        bind.chart.setScaleEnabled(true);
 //
 //        // if disabled, scaling can be done on x- and y-axis separately
-//        chart.setPinchZoom(false);
+//        bind.chart.setPinchZoom(false);
 //
 ////        seekBarX.setProgress(20);
 ////        seekBarY.setProgress(100);
-//        chart.getDescription().setEnabled(false);
-//        chart.setPinchZoom(false);
-//        chart.setDrawGridBackground(false);
-//        XAxis xAxis = chart.getXAxis();
+//        bind.chart.getDescription().setEnabled(false);
+//        bind.chart.setPinchZoom(false);
+//        bind.chart.setDrawGridBackground(false);
+//        XAxis xAxis = bind.chart.getXAxis();
 //        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 //        xAxis.setDrawGridLines(false);
-//        YAxis yAxis = chart.getAxisLeft();
-//        chart.getAxisLeft().setDrawGridLines(false);
-//        chart.getLegend().setEnabled(true);
+//        YAxis yAxis = bind.chart.getAxisLeft();
+//        bind.chart.getAxisLeft().setDrawGridLines(false);
+//        bind.chart.getLegend().setEnabled(true);
 
 
-        Legend l = chart.getLegend();
+        Legend l = bind.chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
@@ -154,7 +152,7 @@ public class MultiLineChartActivity extends BaseMvpActivity {
     };
 
     private void setChartData(int progressX,int progressY){
-        chart.resetTracking();
+        bind.chart.resetTracking();
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
         for (int z = 0; z < 2; z++) {
@@ -185,14 +183,14 @@ public class MultiLineChartActivity extends BaseMvpActivity {
             dataSets.add(d);
         }
 
-//        chart.getXAxis().setLabelCount(11);
+//        bind.chart.getXAxis().setLabelCount(11);
         // make the first DataSet dashed
 //        ((LineDataSet) dataSets.get(0)).enableDashedLine(10, 10, 0);
 //        ((LineDataSet) dataSets.get(0)).setColors(ColorTemplate.VORDIPLOM_COLORS);
 //        ((LineDataSet) dataSets.get(0)).setCircleColors(ColorTemplate.VORDIPLOM_COLORS);
 
         LineData data = new LineData(dataSets);
-        chart.setData(data);
-        chart.invalidate();
+        bind.chart.setData(data);
+        bind.chart.invalidate();
     }
 }

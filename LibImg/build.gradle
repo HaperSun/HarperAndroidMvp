@@ -33,5 +33,9 @@ android {
 dependencies {
     implementation target.photoView
 
+    implementation project(':LibMedia')
     implementation project(':LibBase')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
 }

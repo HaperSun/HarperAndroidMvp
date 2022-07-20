@@ -67,9 +67,12 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
 
     private void initStatusBarColor() {
         if (!enableDarkStatusBarAndSetTitle()) {
-            if (StatusBarUtil.isLightStatusBarSupported()) {
+            if (StatusBarUtil.isSupportLightStatusBar()) {
                 //将StatusBar的文字和图片设置成深色的
-                changeStatusBarTxtAndImgColor();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    //设置了这个属性，状态栏的图标以深色绘制
+                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                }
             }
         } else {
             try {
@@ -87,7 +90,6 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
         //获取ViewDataBinding
         mBaseBind = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_base, null, false);
         bind = DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
-
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         bind.getRoot().setLayoutParams(params);
         FrameLayout container = (FrameLayout) mBaseBind.getRoot().findViewById(R.id.container);
@@ -161,13 +163,6 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
      */
     protected boolean enableMultiClick() {
         return false;
-    }
-
-    private void changeStatusBarTxtAndImgColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            //设置了这个属性，状态栏的图标以深色绘制
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
     }
 
     @Subscribe

@@ -50,7 +50,7 @@ public class ClickVideoPlayAdapter extends RecyclerView.Adapter<ClickVideoPlayAd
         if (model != null) {
             String thumb = model.placeholderImage;
             if (TextUtils.isEmpty(thumb)) {
-                ImgLoader.getInstance().loadImage(R.drawable.superplayer_top_shadow, holder.ivThumb);
+                ImgLoader.getInstance().loadImage(R.mipmap.superplayer_top_shadow, holder.ivThumb);
             } else {
                 ImgLoader.getInstance().loadImage(thumb, holder.ivThumb);
             }

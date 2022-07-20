@@ -14,4 +14,7 @@
     <string name="no_content_now">暂时没有内容~~</string>
     <string name="save">保存</string>
     <string name="exit_application">是否退出应用？</string>
+    <string name="select_all">全选</string>
+    <string name="copy">复制</string>
+    <string name="finish">完成</string>
 </resources>

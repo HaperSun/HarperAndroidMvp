@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="horizontal"
+    tools:parentTag="android.widget.LinearLayout">
+
+
+    <LinearLayout
+        android:id="@+id/tab_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cl_1C1C1C"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_stu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </LinearLayout>
+</merge>

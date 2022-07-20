@@ -2,7 +2,6 @@ package com.sun.media.video.util;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -106,24 +105,24 @@ public class NetWatcher {
      */
     private void showSwitchStreamDialog() {
         final Context context = mContext.get();
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setMessage("检测到您的网络较差，建议切换清晰度");
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        TXLivePlayer player = mLivePlayer != null ? mLivePlayer.get() : null;
-                        String videoUrl = mPlayURL.replace(".flv", "_900.flv");
-                        if (player != null && !TextUtils.isEmpty(videoUrl)) {
-                            int result = player.switchStream(videoUrl);
-                            if (result < 0) {
-                                Toast.makeText(context, "切换高清清晰度失败，请稍候重试", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(context, "正在为您切换为高清清晰度，请稍候...", Toast.LENGTH_SHORT).show();
-                            }
+                (dialog, which) -> {
+                    TXLivePlayer player = mLivePlayer != null ? mLivePlayer.get() : null;
+                    String videoUrl = mPlayURL.replace(".flv", "_900.flv");
+                    if (player != null && !TextUtils.isEmpty(videoUrl)) {
+                        int result = player.switchStream(videoUrl);
+                        if (result < 0) {
+                            Toast.makeText(context, "切换高清清晰度失败，请稍候重试", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "正在为您切换为高清清晰度，请稍候...", Toast.LENGTH_SHORT).show();
                         }
-                        dialog.dismiss();
                     }
+                    dialog.dismiss();
                 });
         alertDialog.show();
     }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp50"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/iv_item_imageCover"
+        android:layout_width="@dimen/dp49"
+        android:layout_height="@dimen/dp49"
+        android:layout_centerVertical="true"
+        tools:background="@mipmap/icon_image_folder"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/iv_item_imageCover"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_item_folderName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:ellipsize="end"
+            android:maxLength="12"
+            android:singleLine="true"
+            android:text="@string/all_media"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp16" />
+
+        <TextView
+            android:id="@+id/tv_item_imageSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:text="@string/image_num"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp15" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_item_check"
+        android:layout_width="@dimen/dp17"
+        android:layout_height="@dimen/dp12"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/dp15"
+        android:src="@mipmap/icon_checked" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp05"
+        android:layout_alignParentBottom="true"
+        android:background="@color/cl_323232" />
+</RelativeLayout>

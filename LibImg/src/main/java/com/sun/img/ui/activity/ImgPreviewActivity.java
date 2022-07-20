@@ -1,4 +1,4 @@
-package com.sun.img.activity;
+package com.sun.img.ui.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,8 +16,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.img.R;
 import com.sun.img.databinding.ActivityPicturePreviewBinding;
-import com.sun.img.fragment.ImgPreviewFragment;
 import com.sun.img.model.bean.ImageItem;
+import com.sun.img.ui.fragment.ImgPreviewFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,10 +36,8 @@ public class ImgPreviewActivity extends BaseMvpActivity<ActivityPicturePreviewBi
     private static final String EXTRA_NEED_ANIM = "need_anim";
 
     private ViewPager mViewPager;
-
     private TextView mIndicator;
     private int mPagerPosition;
-
     private ArrayList<ImageItem> mImgItems;
     private boolean mNeedAnim;
 

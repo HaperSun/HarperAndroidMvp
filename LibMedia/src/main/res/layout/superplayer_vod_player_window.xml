@@ -9,7 +9,7 @@
         android:id="@+id/superplayer_rl_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/player_media_controller_view_height"
-        android:background="@drawable/superplayer_top_shadow"
+        android:background="@mipmap/superplayer_top_shadow"
         android:gravity="left"
         android:paddingLeft="20dp"
         android:orientation="horizontal">
@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/superplayer_btn_back_play" />
+            android:src="@mipmap/superplayer_btn_back_play" />
 
         <TextView
             android:id="@+id/superplayer_tv_title"
@@ -30,7 +30,6 @@
             android:textColor="@android:color/white"
             android:textSize="11dp" />
     </LinearLayout>
-
 
     <!--重播-->
     <LinearLayout
@@ -47,7 +46,7 @@
             android:id="@+id/superplayer_iv_replay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/superplayer_ic_replay" />
+            android:src="@mipmap/superplayer_ic_replay" />
 
     </LinearLayout>
 
@@ -99,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/superplayer_bottom_shadow"
+        android:background="@mipmap/superplayer_bottom_shadow"
         android:orientation="horizontal">
 
         <!--播放/暂停-->
@@ -109,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/superplayer_ic_vod_pause_normal" />
+            android:src="@mipmap/superplayer_ic_vod_pause_normal" />
         <!--播放位置-->
         <TextView
             android:id="@+id/superplayer_tv_current"
@@ -133,7 +132,7 @@
             app:psb_progress="0"
             app:psb_progressColor="#FF584C"
             app:psb_progressHeight="2dp"
-            app:psb_thumbBackground="@drawable/superplayer_ic_vod_thumb" />
+            app:psb_thumbBackground="@mipmap/superplayer_ic_vod_thumb" />
 
         <!--总时长-->
         <TextView
@@ -152,7 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/superplayer_play_next"/>
+            android:src="@mipmap/superplayer_play_next"/>
 
         <ImageView
             android:id="@+id/superplayer_iv_fullscreen"
@@ -160,7 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/superplayer_ic_vod_fullscreen" />
+            android:src="@mipmap/superplayer_ic_vod_fullscreen" />
     </LinearLayout>
 
     <ProgressBar
@@ -175,7 +174,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/superplayer_ic_vod_play_normal"
+        android:src="@mipmap/superplayer_ic_vod_play_normal"
         android:visibility="visible" />
 
     <com.sun.media.video.ui.view.VipWatchView

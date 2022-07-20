@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sun.img.ui.view.AllSizeGridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gv_choose_picture"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:columnWidth="@dimen/dp93"
+    android:gravity="start"
+    android:horizontalSpacing="@dimen/dp10"
+    android:listSelector="@color/transparent"
+    android:numColumns="auto_fit"
+    android:scrollbars="none"
+    android:stretchMode="none"
+    android:verticalSpacing="@dimen/dp10" />

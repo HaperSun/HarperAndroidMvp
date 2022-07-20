@@ -39,6 +39,7 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
     @Override
     protected boolean enableDarkStatusBarAndSetTitle() {
         mStatusBarColor = R.color.cl_14233D;
+        mTitleColor = R.color.cl_14233D;
         return true;
     }
 
@@ -50,7 +51,8 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
 
     @Override
     public void initData() {
-        bind.ivBack.setOnClickListener(v -> onBackPressed());
+        mBaseBind.title.setTitle(R.string.app_feed_title);
+        mBaseBind.title.setOnTitleClickListener(view -> onBackPressed());
         bind.feedView.setFeedViewCallBack(this);
     }
 
@@ -66,12 +68,12 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
 
     @Override
     public void onStartDetailPage() {
-        bind.tvTitle.setText(getResources().getString(R.string.app_feed_detail_title));
+        mBaseBind.title.setTitle(R.string.app_feed_detail_title);
     }
 
     @Override
     public void onStopDetailPage() {
-        bind.tvTitle.setText(getResources().getString(R.string.app_feed_title));
+        mBaseBind.title.setTitle(R.string.app_feed_title);
     }
 
     @Override
@@ -82,13 +84,13 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
     @Override
     public void onStartFullScreenPlay() {
         mIsFullScreen = true;
-        bind.rlTitle.setVisibility(View.GONE);
+        mBaseBind.title.setVisibility(View.GONE);
     }
 
     @Override
     public void onStopFullScreenPlay() {
         mIsFullScreen = false;
-        bind.rlTitle.setVisibility(View.VISIBLE);
+        mBaseBind.title.setVisibility(View.VISIBLE);
     }
 
     /**
