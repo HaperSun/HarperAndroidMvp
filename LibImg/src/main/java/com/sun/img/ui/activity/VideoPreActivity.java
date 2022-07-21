@@ -25,6 +25,7 @@ import com.sun.img.R;
 import com.sun.img.databinding.ActivityVideoPreBinding;
 import com.sun.img.img.ImageLoadListener;
 import com.sun.img.img.ImgLoader;
+import com.sun.media.video.ui.activity.VideoTrimmerActivity;
 
 import java.util.List;
 
@@ -202,7 +203,7 @@ public class VideoPreActivity extends BaseMvpActivity<ActivityVideoPreBinding> i
             if (null != mCurMediaFile) {
                 if (mCurMediaFile.getDuration() >= MIN_CROP_DURATION) {
                     //视频裁剪
-//                    VideoTrimmerActivity.startForResult(this, CODE_CROP_VIDEO_REQUEST, mCurMediaFile.getPath());
+                    VideoTrimmerActivity.startForResult(this, CODE_CROP_VIDEO_REQUEST, mCurMediaFile.getPath());
                 } else {
                     ToastHelper.showToast(R.string.min_crop_toast);
                 }

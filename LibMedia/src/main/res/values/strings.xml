@@ -58,4 +58,7 @@
     <string name="superplayer_dynamic_watermark_title">动态水印演示</string>
     <string name="superplayer_dynamic_watermark_tip">shipinyun</string>
     <string name="superplayer_cover_title">自定义封面演示</string>
+
+    <string name="trimming">正在裁剪视频…</string>
+    <string name="video_shoot_tip">拖动选择你要发表的%d秒以内片段！</string>
 </resources>

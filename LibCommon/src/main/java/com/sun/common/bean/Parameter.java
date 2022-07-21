@@ -9,4 +9,5 @@ public interface Parameter {
 
     String INDEX ="index";
     String PICTURE_PATH ="picture_path";
+    String VIDEO_PATH ="video_path";
 }
