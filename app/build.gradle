@@ -126,7 +126,6 @@ dependencies {
 
     implementation project(':LibBase')
     implementation project(':LibChart')
-    implementation project(':LibImg')
     implementation project(':LibRichText')
     implementation project(':LibBdFace')
     implementation project(':LibMedia')

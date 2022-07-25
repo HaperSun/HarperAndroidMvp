@@ -113,10 +113,10 @@ public class FaceDetectActivity extends BaseMvpActivity<ActivityFaceDetectBindin
         bind.detectSurfaceLayout.addView(mSurfaceView);
         bind.detectClose.setOnClickListener(v -> onBackPressed());
         bind.detectFaceRound.setIsActiveLive(false);
-        bind.detectSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2 : R.drawable.collect_image_voice_selector);
+        bind.detectSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2 : R.drawable.selector_collect_image_voice);
         bind.detectSound.setOnClickListener(v -> {
             mIsEnableSound = !mIsEnableSound;
-            bind.detectSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2 : R.drawable.collect_image_voice_selector);
+            bind.detectSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2 : R.drawable.selector_collect_image_voice);
             if (iDetectStrategy != null) {
                 iDetectStrategy.setDetectStrategySoundEnable(mIsEnableSound);
             }

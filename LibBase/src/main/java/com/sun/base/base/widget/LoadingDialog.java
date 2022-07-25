@@ -38,7 +38,7 @@ public class LoadingDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_loading_dialog);
+        setContentView(R.layout.view_loading_dialog);
         mIvLoading = findViewById(R.id.iv_loading);
         mTvTitle = findViewById(R.id.tv_title);
         setCanceledOnTouchOutside(isCanceledOnTouchOutside);

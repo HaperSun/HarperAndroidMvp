@@ -44,7 +44,7 @@
             android:layout_height="@dimen/dp50"
             android:layout_margin="@dimen/dp15"
             android:layout_above="@+id/but_start_detect"
-            android:background="@drawable/success_button_recollect_selector"
+            android:background="@drawable/selector_light_blue_button"
             android:text="人脸识别（设置）"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -55,7 +55,7 @@
             android:layout_height="@dimen/dp50"
             android:layout_margin="@dimen/dp15"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/success_button_recollect_selector"
+            android:background="@drawable/selector_light_blue_button"
             android:text="开始人脸识别"
             android:textColor="@color/white"
             android:textSize="18sp" />

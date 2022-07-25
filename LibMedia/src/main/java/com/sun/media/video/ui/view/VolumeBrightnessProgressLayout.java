@@ -32,7 +32,7 @@ public class VolumeBrightnessProgressLayout extends RelativeLayout {
     }
 
     private void init(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.superplayer_video_volume_brightness_progress_layout, this);
+        LayoutInflater.from(context).inflate(R.layout.view_superplayer_video_volume_brightness_progress, this);
         mImageCenter = (ImageView) findViewById(R.id.superplayer_iv_center);
         mProgressBar = (ProgressBar) findViewById(R.id.superplayer_pb_progress_bar);
         mHideRunnable = new HideRunnable();

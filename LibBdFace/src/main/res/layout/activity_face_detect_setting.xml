@@ -21,7 +21,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:layout_marginLeft="13dp"
-                android:src="@drawable/setting_image_close_selector" />
+                android:src="@drawable/selector_setting_image_close" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -92,8 +92,8 @@
                         android:textOff=""
                         android:textOn=""
                         android:checked="false"
-                        android:thumb="@drawable/setting_switch_thumb"
-                        android:track="@drawable/setting_switch_track_selector" />
+                        android:thumb="@drawable/shape_oval_solid_white_stroke_transparent_size_dp20"
+                        android:track="@drawable/selector_setting_switch_track" />
                 </RelativeLayout>
 
                 <!--质量控制-->
@@ -164,8 +164,8 @@
                         android:checked="false"
                         android:textOff=""
                         android:textOn=""
-                        android:thumb="@drawable/setting_switch_thumb"
-                        android:track="@drawable/setting_switch_track_selector" />
+                        android:thumb="@drawable/shape_oval_solid_white_stroke_transparent_size_dp20"
+                        android:track="@drawable/selector_setting_switch_track" />
                 </RelativeLayout>
 
                 <!--活体动作顺序随机-->
@@ -200,8 +200,8 @@
                         android:checked="false"
                         android:textOff=""
                         android:textOn=""
-                        android:thumb="@drawable/setting_switch_thumb"
-                        android:track="@drawable/setting_switch_track_selector" />
+                        android:thumb="@drawable/shape_oval_solid_white_stroke_transparent_size_dp20"
+                        android:track="@drawable/selector_setting_switch_track" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -228,7 +228,7 @@
                             android:layout_height="20dp"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="17dp"
-                            android:background="@drawable/setting_actionlive_checkbox_button_selector"
+                            android:background="@drawable/selector_setting_actionlive_checkbox_button"
                             android:button="@null"
                             android:checked="false" />
 
@@ -254,7 +254,7 @@
                         android:layout_marginTop="1dp"
                         android:paddingTop="16dp"
                         android:paddingBottom="16dp"
-                        android:background="@drawable/setting_layout_bottom_round">
+                        android:background="@drawable/shape_rec_solid_white_radius_top_dp8">
 
                         <CheckBox
                             android:id="@+id/actionlive_open_mouth_checkbox"
@@ -262,7 +262,7 @@
                             android:layout_height="20dp"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="17dp"
-                            android:background="@drawable/setting_actionlive_checkbox_button_selector"
+                            android:background="@drawable/selector_setting_actionlive_checkbox_button"
                             android:button="@null"
                             android:checked="false" />
 
@@ -296,7 +296,7 @@
                             android:layout_height="20dp"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="17dp"
-                            android:background="@drawable/setting_actionlive_checkbox_button_selector"
+                            android:background="@drawable/selector_setting_actionlive_checkbox_button"
                             android:button="@null"
                             android:checked="false" />
 
@@ -330,7 +330,7 @@
                             android:layout_height="20dp"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="17dp"
-                            android:background="@drawable/setting_actionlive_checkbox_button_selector"
+                            android:background="@drawable/selector_setting_actionlive_checkbox_button"
                             android:button="@null"
                             android:checked="false" />
 
@@ -364,7 +364,7 @@
                             android:layout_height="20dp"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="17dp"
-                            android:background="@drawable/setting_actionlive_checkbox_button_selector"
+                            android:background="@drawable/selector_setting_actionlive_checkbox_button"
                             android:button="@null"
                             android:checked="false" />
 
@@ -390,7 +390,7 @@
                         android:layout_marginTop="1dp"
                         android:paddingTop="16dp"
                         android:paddingBottom="16dp"
-                        android:background="@drawable/setting_layout_bottom_round">
+                        android:background="@drawable/shape_rec_solid_white_radius_top_dp8">
 
                         <CheckBox
                             android:id="@+id/actionlive_nod_checkbox"
@@ -398,7 +398,7 @@
                             android:layout_height="20dp"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="17dp"
-                            android:background="@drawable/setting_actionlive_checkbox_button_selector"
+                            android:background="@drawable/selector_setting_actionlive_checkbox_button"
                             android:button="@null"
                             android:checked="false" />
 
@@ -433,7 +433,7 @@
                             android:layout_height="20dp"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="17dp"
-                            android:background="@drawable/setting_actionlive_checkbox_button_selector"
+                            android:background="@drawable/selector_setting_actionlive_checkbox_button"
                             android:button="@null"
                             android:checked="false" />
 

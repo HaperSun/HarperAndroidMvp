@@ -35,7 +35,7 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
 
     protected final String TAG = this.getClass().getSimpleName();
     private Set<BasePresenter> mPresenters;
-    protected ActivityBaseBinding mBaseBind;
+    protected ActivityBaseBinding baseBind;
     protected VDB bind;
     protected int mStatusBarColor;
     protected int mTitleColor;
@@ -88,22 +88,22 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
 
     private void initBinding() {
         //获取ViewDataBinding
-        mBaseBind = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_base, null, false);
+        baseBind = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_base, null, false);
         bind = DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         bind.getRoot().setLayoutParams(params);
-        FrameLayout container = (FrameLayout) mBaseBind.getRoot().findViewById(R.id.container);
+        FrameLayout container = (FrameLayout) baseBind.getRoot().findViewById(R.id.container);
         container.addView(bind.getRoot());
-        getWindow().setContentView(mBaseBind.getRoot());
+        getWindow().setContentView(baseBind.getRoot());
     }
 
     private void initTitleTheme() {
         //<注意：></>此处如果要使用基类封装的title，就给mTitleColor赋值，否则不会显示基类的title
         if (mTitleColor == 0) {
-            mBaseBind.title.setVisibility(View.GONE);
+            baseBind.title.setVisibility(View.GONE);
         } else {
-            mBaseBind.title.setVisibility(View.VISIBLE);
-            mBaseBind.title.initView(mTitleColor);
+            baseBind.title.setVisibility(View.VISIBLE);
+            baseBind.title.initView(mTitleColor);
         }
     }
 

@@ -18,6 +18,6 @@
             android:layout_height="@dimen/dp90"
             android:layout_gravity="center"
             android:scaleType="fitXY"
-            android:src="@drawable/bg_lucky_draw_btn_selector" />
+            android:src="@drawable/selector_lucky_btn" />
     </FrameLayout>
 </layout>

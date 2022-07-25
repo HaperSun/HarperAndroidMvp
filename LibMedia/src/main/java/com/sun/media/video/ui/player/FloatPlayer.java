@@ -58,7 +58,7 @@ public class FloatPlayer extends AbsPlayer implements View.OnClickListener, VipW
      * 初始化view
      */
     private void initView(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.superplayer_vod_player_float, this);
+        LayoutInflater.from(context).inflate(R.layout.view_superplayer_vod_player_float, this);
         mFloatVideoView = (TXCloudVideoView) findViewById(R.id.superplayer_float_cloud_video_view);
         ImageView ivClose = (ImageView) findViewById(R.id.superplayer_iv_close);
         ivClose.setOnClickListener(this);

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.webkit.JavascriptInterface;
 
 import com.sun.base.base.fragment.WebViewFragment;
-import com.sun.img.ui.activity.ImgPreviewActivity;
+import com.sun.media.img.ui.activity.ImagePreviewActivity;
 
 /**
  * @author Harper
@@ -61,7 +61,7 @@ public class TestWebViewFragment extends WebViewFragment {
         @JavascriptInterface
         public void entryPicturePreview(String imgUrl) {
             //TODO 图片预览
-            ImgPreviewActivity.start(mContext, imgUrl);
+            ImagePreviewActivity.start(mContext, imgUrl);
         }
 
         @JavascriptInterface

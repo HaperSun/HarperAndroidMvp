@@ -35,7 +35,7 @@ public class LeftIconRightIconHeader extends BaseHeader {
 
     @Override
     protected int concreteLayout() {
-        return R.layout.layout_left_icon_right_icon_header;
+        return R.layout.view_left_icon_right_icon_header;
     }
 
     @Override

@@ -21,7 +21,7 @@
                 android:layout_marginLeft="13dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:src="@drawable/setting_image_close_selector" />
+                android:src="@drawable/selector_setting_image_close" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -168,7 +168,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="1dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/setting_layout_bottom_round"
+            android:background="@drawable/shape_rec_solid_white_radius_top_dp8"
             android:paddingTop="15dp"
             android:paddingBottom="15dp">
 

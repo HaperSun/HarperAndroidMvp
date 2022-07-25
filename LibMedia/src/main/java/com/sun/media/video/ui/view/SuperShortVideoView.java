@@ -55,7 +55,7 @@ public class SuperShortVideoView extends RelativeLayout {
     }
 
     public void init(Context context) {
-        mRootView = LayoutInflater.from(context).inflate(R.layout.super_short_video_view, null);
+        mRootView = LayoutInflater.from(context).inflate(R.layout.view_super_short_video, null);
         addView(mRootView);
         mRecyclerView = mRootView.findViewById(R.id.rv_super_short_video);
         mUrlList = new ArrayList<>();

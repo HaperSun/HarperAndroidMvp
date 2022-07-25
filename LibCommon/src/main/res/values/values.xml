@@ -7,7 +7,7 @@
 
     <!--SwitchButton-->
     <style name="SwitchButtonMD" ns1:ignore="ResourceName">
-        <item name="kswThumbDrawable">@drawable/ksw_md_thumb</item>
+        <item name="kswThumbDrawable">@drawable/selector_ksw_md_thumb</item>
         <item name="kswBackColor">@color/ksw_md_back_color</item>
         <item name="kswThumbRangeRatio">1.45</item>
         <item name="kswThumbMarginLeft">-16dp</item>

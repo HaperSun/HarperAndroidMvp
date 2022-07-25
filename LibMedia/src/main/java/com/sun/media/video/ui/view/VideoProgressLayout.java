@@ -34,7 +34,7 @@ public class VideoProgressLayout extends RelativeLayout {
     }
 
     private void init(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.superplayer_video_progress_layout, this);
+        LayoutInflater.from(context).inflate(R.layout.view_superplayer_video_progress, this);
         mIvThumbnail = (ImageView) findViewById(R.id.superplayer_iv_progress_thumbnail);
         mProgressBar = (ProgressBar) findViewById(R.id.superplayer_pb_progress_bar);
         mTvTime = (TextView) findViewById(R.id.superplayer_tv_progress_time);

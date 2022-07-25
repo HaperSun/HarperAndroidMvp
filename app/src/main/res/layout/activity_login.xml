@@ -115,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp16"
-                android:background="@drawable/success_button_recollect_selector"
+                android:background="@drawable/selector_light_blue_button"
                 android:text="登录"
                 android:textColor="@color/white"
                 android:textSize="18sp" />

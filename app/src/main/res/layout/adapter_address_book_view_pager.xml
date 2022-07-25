@@ -35,6 +35,6 @@
         android:layout_height="@dimen/dp2"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_rec_corner_dp6_blue"
+        android:background="@drawable/shape_rec_solid_blue_radius_dp6"
         android:visibility="invisible" />
 </RelativeLayout>

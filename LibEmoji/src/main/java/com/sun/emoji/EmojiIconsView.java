@@ -58,7 +58,7 @@ public class EmojiIconsView extends FrameLayout implements ViewPager.OnPageChang
 
     public EmojiIconsView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        LayoutInflater.from(context).inflate(R.layout.emojicons_view, this);
+        LayoutInflater.from(context).inflate(R.layout.view_emojicons, this);
         mViewPager = (ViewPager) findViewById(R.id.emojis_pager);
         mTabsContainer = (ViewGroup) findViewById(R.id.emojis_tab);
     }

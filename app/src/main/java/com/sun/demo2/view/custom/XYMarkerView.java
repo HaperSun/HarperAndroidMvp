@@ -28,7 +28,7 @@ public class XYMarkerView extends MarkerView {
     private final DecimalFormat format;
 
     public XYMarkerView(Context context, IAxisValueFormatter xAxisValueFormatter) {
-        super(context, R.layout.custom_marker_view);
+        super(context, R.layout.view_custom_marker);
 
         this.xAxisValueFormatter = xAxisValueFormatter;
         tvContent = findViewById(R.id.tvContent);

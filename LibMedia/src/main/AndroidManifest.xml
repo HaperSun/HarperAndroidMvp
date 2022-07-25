@@ -4,6 +4,7 @@
     package="com.sun.media">
 
     <application>
+        <!-- ————————————————————————————————video———————————————————————————— -->
         <activity
             android:name=".video.ui.activity.VideoPlayActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -25,8 +26,51 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".video.ui.activity.VideoTrimmerActivity"
-            tools:ignore="LockedOrientationActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".video.ui.activity.VideoEditActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".video.ui.activity.VideoRecordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullScreen"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!-- ————————————————————————————————img———————————————————————————— -->
+        <activity
+            android:name=".img.ui.activity.ImageEditActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".img.ui.activity.ImagePickerActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".img.ui.activity.ImagePreviewActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".img.ui.activity.CropperPhotoActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".img.crop.CropImageActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <provider
+            android:name=".img.provider.ImagePickerProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/image_picker" />
+        </provider>
     </application>
 
 </manifest>

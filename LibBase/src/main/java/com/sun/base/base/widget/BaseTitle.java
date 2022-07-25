@@ -34,7 +34,7 @@ public class BaseTitle extends LinearLayout {
 
     public BaseTitle(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        LayoutInflater.from(context).inflate(R.layout.layout_base_title, this);
+        LayoutInflater.from(context).inflate(R.layout.view_base_title, this);
         mContext = context;
     }
 

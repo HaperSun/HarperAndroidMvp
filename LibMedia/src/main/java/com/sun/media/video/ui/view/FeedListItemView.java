@@ -54,7 +54,7 @@ public class FeedListItemView extends RelativeLayout {
      * 初始化界面
      */
     private void initViews() {
-        RelativeLayout relativeLayout = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.feedview_list_item_layout, this, false);
+        RelativeLayout relativeLayout = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.view_feedview_list_item, this, false);
         headImg = relativeLayout.findViewById(R.id.feed_list_holder_head_img);
         titleTxt = relativeLayout.findViewById(R.id.feed_list_holder_title_txt);
         describeTxt = relativeLayout.findViewById(R.id.feed_list_holder_describe_txt);

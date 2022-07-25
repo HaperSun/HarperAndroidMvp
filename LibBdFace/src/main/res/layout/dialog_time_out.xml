@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
-    android:background="@drawable/bg_round_time_out">
+    android:background="@drawable/shape_rec_solid_white_radius_dp5">
 
     <ImageView
         android:id="@+id/image_icon"

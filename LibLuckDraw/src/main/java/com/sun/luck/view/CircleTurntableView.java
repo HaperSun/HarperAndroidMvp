@@ -47,7 +47,7 @@ public class CircleTurntableView extends FrameLayout {
 
     public CircleTurntableView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        LayoutInflater.from(context).inflate(R.layout.widget_circle_turntable, this);
+        LayoutInflater.from(context).inflate(R.layout.view_circle_turntable, this);
         initView(context);
     }
 

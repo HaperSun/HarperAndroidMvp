@@ -37,7 +37,7 @@ public class ShortVideoPlayAdapter extends AbsPlayerRecyclerViewAdapter<ShortVid
 
     @Override
     public VideoViewHolder onCreateHolder(ViewGroup viewGroup) {
-        return new VideoViewHolder(getViewByRes(R.layout.player_item_short_video_play, viewGroup));
+        return new VideoViewHolder(getViewByRes(R.layout.item_player_short_video_play, viewGroup));
     }
 
     @Override

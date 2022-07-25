@@ -248,7 +248,7 @@ public class FullScreenPlayer extends AbsPlayer implements View.OnClickListener,
      */
     private void initView(Context context) {
         mHideLockViewRunnable = new HideLockViewRunnable(this);
-        LayoutInflater.from(context).inflate(R.layout.superplayer_vod_player_fullscreen, this);
+        LayoutInflater.from(context).inflate(R.layout.view_superplayer_vod_player_fullscreen, this);
         mLlTitle = (LinearLayout) findViewById(R.id.superplayer_ll_title);
         mLayoutTop = (RelativeLayout) findViewById(R.id.superplayer_rl_top);
         mLayoutTop.setOnClickListener(this);

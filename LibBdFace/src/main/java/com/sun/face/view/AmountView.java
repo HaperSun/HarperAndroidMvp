@@ -163,12 +163,12 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
         if (amount >= maxNum) {
             btnIncrease.setBackgroundResource(R.mipmap.icon_increase_grey);
         } else {
-            btnIncrease.setBackgroundResource(R.drawable.setting_increase_selector);
+            btnIncrease.setBackgroundResource(R.drawable.selector_setting_increase);
         }
         if (amount <= minNum) {
             btnDecrease.setBackgroundResource(R.mipmap.icon_decrease_grey);
         } else {
-            btnDecrease.setBackgroundResource(R.drawable.setting_decrease_selector);
+            btnDecrease.setBackgroundResource(R.drawable.selector_setting_decrease);
         }
         if (mListener != null) {
             if (QUALITY_ILLUM.equals(quality) || QUALITY_HEADPOSE.equals(quality)) {

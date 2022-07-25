@@ -19,13 +19,15 @@ import com.sun.db.entity.UserInfo;
 import com.sun.db.table.manager.UserInfoManager;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.observer.ApplicationObserver;
-import com.sun.img.img.ImgLoader;
+import com.sun.media.img.ImageLoader;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
 import org.xutils.x;
+
+import nl.bravobit.ffmpeg.FFmpeg;
 
 /**
  * @author Harper
@@ -50,7 +52,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         //初始化LogUtil,默认debug模式可打印所有级别的log
         LogHelper.init();
         //初始化图片加载组件
-        ImgLoader.getInstance().setStrategy();
+        ImageLoader.getInstance().setStrategy();
         initUtil();
         initUmSdk();
         //将 AccountService 类的实例注册到 ServiceFactory
@@ -62,6 +64,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         //初始化腾讯QbSdk
         initQbSdk();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(new ApplicationObserver());
+        FFmpeg.getInstance(ctx).isSupported();
     }
 
     /**

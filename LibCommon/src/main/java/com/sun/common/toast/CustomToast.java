@@ -48,7 +48,7 @@ public class CustomToast extends Toast {
     public CustomToast(Context context) {
         super(context);
         @SuppressLint("InflateParams")
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_custom_toast, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.view_custom_toast, null);
         ivType = view.findViewById(R.id.custom_toast_type);
         tvTitle = view.findViewById(R.id.custom_toast_title);
         //用来解决Toast宽度不能固定的问题

@@ -91,9 +91,9 @@ public class SmartRefreshHeader extends RelativeLayout implements RefreshHeader 
     }
 
     private void initView(Context context, AttributeSet attrs) {
-        frameAnim = (AnimationDrawable) ContextCompat.getDrawable(mContext, R.drawable.refresh);
-        frameAnim2 = (AnimationDrawable) ContextCompat.getDrawable(mContext, R.drawable.refresh_end);
-        LayoutInflater.from(context).inflate(R.layout.grass_header_layout, this);
+        frameAnim = (AnimationDrawable) ContextCompat.getDrawable(mContext, R.drawable.anim_refresh);
+        frameAnim2 = (AnimationDrawable) ContextCompat.getDrawable(mContext, R.drawable.anim_refresh_end);
+        LayoutInflater.from(context).inflate(R.layout.view_grass_header_layout, this);
         mLastUpdateText = findViewById(R.id.tv_update_time);
         mArrowView = findViewById(R.id.iv_animation);
         @SuppressLint("CustomViewStyleable")

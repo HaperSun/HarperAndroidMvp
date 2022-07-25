@@ -56,7 +56,7 @@ public class EmojiIconGridFragment extends Fragment implements AdapterView.OnIte
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.emojicon_grid, container, false);
+        return inflater.inflate(R.layout.fragment_emojicon_grid, container, false);
     }
 
     @Override

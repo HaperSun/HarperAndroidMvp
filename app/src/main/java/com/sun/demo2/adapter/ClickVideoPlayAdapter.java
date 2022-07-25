@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.base.util.CollectionUtil;
 import com.sun.demo2.R;
-import com.sun.img.img.ImgLoader;
+import com.sun.media.img.ImageLoader;
 import com.sun.media.video.model.VideoModel;
 
 import java.util.ArrayList;
@@ -50,9 +50,9 @@ public class ClickVideoPlayAdapter extends RecyclerView.Adapter<ClickVideoPlayAd
         if (model != null) {
             String thumb = model.placeholderImage;
             if (TextUtils.isEmpty(thumb)) {
-                ImgLoader.getInstance().loadImage(R.mipmap.superplayer_top_shadow, holder.ivThumb);
+                ImageLoader.getInstance().loadImage(R.mipmap.superplayer_top_shadow, holder.ivThumb);
             } else {
-                ImgLoader.getInstance().loadImage(thumb, holder.ivThumb);
+                ImageLoader.getInstance().loadImage(thumb, holder.ivThumb);
             }
             int duration = model.duration;
             if (duration > 0) {

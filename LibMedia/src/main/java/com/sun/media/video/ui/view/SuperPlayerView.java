@@ -135,7 +135,7 @@ public class SuperPlayerView extends RelativeLayout {
      * 初始化view
      */
     private void initView() {
-        mRootView = (ViewGroup) LayoutInflater.from(mContext).inflate(R.layout.superplayer_vod_view, null);
+        mRootView = (ViewGroup) LayoutInflater.from(mContext).inflate(R.layout.view_superplayer_vod, null);
         mTXCloudVideoView = (TXCloudVideoView) mRootView.findViewById(R.id.superplayer_cloud_video_view);
         mFullScreenPlayer = (FullScreenPlayer) mRootView.findViewById(R.id.superplayer_controller_large);
         mWindowPlayer = (WindowPlayer) mRootView.findViewById(R.id.superplayer_controller_small);
@@ -760,7 +760,7 @@ public class SuperPlayerView extends RelativeLayout {
         final PopupWindow popupWindow = new PopupWindow(mContext);
         popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        View view = LayoutInflater.from(mContext).inflate(R.layout.superplayer_layout_new_vod_snap, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.view_superplayer_new_vod_snap, null);
         ImageView imageView = (ImageView) view.findViewById(R.id.superplayer_iv_snap);
         imageView.setImageBitmap(bmp);
         popupWindow.setContentView(view);

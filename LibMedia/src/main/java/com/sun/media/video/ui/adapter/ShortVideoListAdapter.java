@@ -35,7 +35,7 @@ public class ShortVideoListAdapter extends RecyclerView.Adapter<ShortVideoListAd
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.player_item_short_video_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_player_short_video_list, parent, false);
         return new ViewHolder(view);
     }
 

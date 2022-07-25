@@ -56,8 +56,8 @@ public class PieChartsBasicActivity extends BaseMvpActivity<ActivityPieChartsBas
 
     @Override
     public void initView() {
-        mBaseBind.title.setTitle("Pie Charts 饼状图");
-        mBaseBind.title.setOnTitleClickListener(view -> close());
+        baseBind.title.setTitle("Pie Charts 饼状图");
+        baseBind.title.setOnTitleClickListener(view -> close());
 
         chart = bind.basicPieChart;
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");

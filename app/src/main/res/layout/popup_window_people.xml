@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="@dimen/dp131"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_rec_corner_dp17_blue">
+    android:background="@drawable/shape_rec_solid_blue_radius_dp17">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_select"

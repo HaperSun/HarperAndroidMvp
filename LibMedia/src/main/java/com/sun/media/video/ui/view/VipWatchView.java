@@ -83,7 +83,7 @@ public class VipWatchView extends RelativeLayout implements View.OnClickListener
      * 初始化页面元素
      */
     private void initView() {
-        LayoutInflater.from(getContext()).inflate(R.layout.superplayer_vod_vipwatch_view, this);
+        LayoutInflater.from(getContext()).inflate(R.layout.view_superplayer_vod_vipwatch, this);
         mLayoutTips = findViewById(R.id.vip_watch_tip_view);
         mTextTips = findViewById(R.id.vip_watch_tip_txt);
         findViewById(R.id.vip_watch_tip_close).setOnClickListener(this);

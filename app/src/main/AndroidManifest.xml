@@ -211,7 +211,7 @@
             android:theme="@style/MusicTheme"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.MusicListActivity"
+            android:name=".activity.ImageSelectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MusicTheme"
             tools:ignore="LockedOrientationActivity" />

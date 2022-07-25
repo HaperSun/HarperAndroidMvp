@@ -66,8 +66,8 @@ public class BarChartBasicActivity extends BaseMvpActivity<ActivityBarChartBasic
 
     @Override
     public void initView() {
-        mBaseBind.title.setTitle("Bar Charts 双柱状图");
-        mBaseBind.title.setOnTitleClickListener(view -> close());
+        baseBind.title.setTitle("Bar Charts 双柱状图");
+        baseBind.title.setOnTitleClickListener(view -> close());
 
         bind.flContent.setOnClickListener(v -> {
             try {

@@ -297,7 +297,7 @@ public class RichTextEditor extends ScrollView {
      * 生成文本输入框
      */
     public EditText createEditText(String hint, int paddingTop) {
-        EditText editText = (EditText) inflater.inflate(R.layout.rich_edittext, null);
+        EditText editText = (EditText) inflater.inflate(R.layout.view_rich_edittext, null);
         editText.setOnKeyListener(keyListener);
         editText.setTag(viewTagIndex++);
         editText.setPadding(editNormalPadding, paddingTop, editNormalPadding, paddingTop);
@@ -317,7 +317,7 @@ public class RichTextEditor extends ScrollView {
      */
     private RelativeLayout createImageLayout() {
         RelativeLayout layout = (RelativeLayout) inflater.inflate(
-                R.layout.edit_imageview, null);
+                R.layout.view_edit_imageview, null);
         layout.setTag(viewTagIndex++);
         View closeView = layout.findViewById(R.id.image_close);
         //closeView.setVisibility(GONE);

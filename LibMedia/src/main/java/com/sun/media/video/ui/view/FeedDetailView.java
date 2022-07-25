@@ -68,7 +68,7 @@ public class FeedDetailView extends FrameLayout implements FeedDetailListClickLi
         setOnClickListener(v -> {
 
         });
-        LayoutInflater.from(getContext()).inflate(R.layout.feedview_detailview_layout, this, true);
+        LayoutInflater.from(getContext()).inflate(R.layout.view_feedview_detailview, this, true);
         detailLayout = findViewById(R.id.feed_detail_layout);
         headImg = findViewById(R.id.feed_detail_layout_head_img);
         titleTxt = findViewById(R.id.feed_detail_describe_layout_title_txt);

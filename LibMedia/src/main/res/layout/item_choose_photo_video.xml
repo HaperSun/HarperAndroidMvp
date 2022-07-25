@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/dp93"
+    android:layout_height="@dimen/dp93">
+
+    <com.sun.common.widget.RoundLayout
+        android:id="@+id/rl_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:radius="@dimen/dp3">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="@dimen/dp22"
+            android:layout_height="@dimen/dp22"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dp6"
+            android:layout_marginEnd="@dimen/dp6"
+            android:src="@mipmap/icon_delete_pic" />
+
+        <ImageView
+            android:id="@+id/iv_play"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/dp30"
+            android:src="@mipmap/icon_video_play"
+            android:background="@color/cl_30000000"/>
+    </com.sun.common.widget.RoundLayout>
+
+    <com.sun.common.widget.RoundLayout
+        android:id="@+id/rl_add"
+        android:layout_width="@dimen/dp93"
+        android:layout_height="@dimen/dp93"
+        android:visibility="gone"
+        app:radius="@dimen/dp3">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_rec_solid_f6f7fa"
+            android:padding="@dimen/dp30"
+            android:src="@mipmap/icon_add_pic" />
+    </com.sun.common.widget.RoundLayout>
+</FrameLayout>

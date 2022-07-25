@@ -89,8 +89,7 @@ public class VideoTrimmerView extends FrameLayout implements IVideoTrimmerView {
 
     private void init(Context context) {
         this.mContext = context;
-        LayoutInflater.from(context).inflate(R.layout.video_trimmer_view, this, true);
-
+        LayoutInflater.from(context).inflate(R.layout.view_video_trimmer, this, true);
         mLinearVideo = findViewById(R.id.layout_surface_view);
         mVideoView = findViewById(R.id.video_loader);
         mPlayView = findViewById(R.id.icon_video_play);

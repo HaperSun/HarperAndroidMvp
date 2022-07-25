@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:overScrollMode="never"
-                    android:background="@drawable/shape_rec_white_stroke_gray_dp1_corners_bottom_dp4"
+                    android:background="@drawable/shape_rec_solid_white_stroke_gray_radius_bottom_dp4"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

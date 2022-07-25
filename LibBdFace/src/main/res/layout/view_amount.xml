@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/setting_decrease_selector" />
+            android:background="@drawable/selector_setting_decrease" />
 
         <EditText
             android:id="@+id/etAmount"
@@ -35,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/setting_increase_selector" />
+            android:background="@drawable/selector_setting_increase" />
     </LinearLayout>
 
 </RelativeLayout>

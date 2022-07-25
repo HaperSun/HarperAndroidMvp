@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/bg_rec_corner_dp17_blue" android:state_selected="true" />
-    <item android:drawable="@drawable/bg_rec_corner_dp17_light_pink" android:state_selected="false" />
+    <item android:drawable="@drawable/shape_rec_solid_blue_radius_dp17" android:state_selected="true" />
+    <item android:drawable="@drawable/shape_rec_solid_light_pink_radius_dp17" android:state_selected="false" />
 </selector>

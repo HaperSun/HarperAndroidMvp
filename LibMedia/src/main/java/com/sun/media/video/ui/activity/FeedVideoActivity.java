@@ -51,8 +51,8 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
 
     @Override
     public void initData() {
-        mBaseBind.title.setTitle(R.string.app_feed_title);
-        mBaseBind.title.setOnTitleClickListener(view -> onBackPressed());
+        baseBind.title.setTitle(R.string.app_feed_title);
+        baseBind.title.setOnTitleClickListener(view -> onBackPressed());
         bind.feedView.setFeedViewCallBack(this);
     }
 
@@ -68,12 +68,12 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
 
     @Override
     public void onStartDetailPage() {
-        mBaseBind.title.setTitle(R.string.app_feed_detail_title);
+        baseBind.title.setTitle(R.string.app_feed_detail_title);
     }
 
     @Override
     public void onStopDetailPage() {
-        mBaseBind.title.setTitle(R.string.app_feed_title);
+        baseBind.title.setTitle(R.string.app_feed_title);
     }
 
     @Override
@@ -84,13 +84,13 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
     @Override
     public void onStartFullScreenPlay() {
         mIsFullScreen = true;
-        mBaseBind.title.setVisibility(View.GONE);
+        baseBind.title.setVisibility(View.GONE);
     }
 
     @Override
     public void onStopFullScreenPlay() {
         mIsFullScreen = false;
-        mBaseBind.title.setVisibility(View.VISIBLE);
+        baseBind.title.setVisibility(View.VISIBLE);
     }
 
     /**

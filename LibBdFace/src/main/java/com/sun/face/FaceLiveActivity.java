@@ -128,11 +128,11 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
         bind.livenessClose.setOnClickListener(v -> onBackPressed());
         bind.livenessFaceRound.setIsActiveLive(true);
         bind.livenessSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2
-                : R.drawable.collect_image_voice_selector);
+                : R.drawable.selector_collect_image_voice);
         bind.livenessSound.setOnClickListener(v -> {
             mIsEnableSound = !mIsEnableSound;
             bind.livenessSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2
-                    : R.drawable.collect_image_voice_selector);
+                    : R.drawable.selector_collect_image_voice);
             if (iLiveNessStrategy != null) {
                 iLiveNessStrategy.setLivenessStrategySoundEnable(mIsEnableSound);
             }

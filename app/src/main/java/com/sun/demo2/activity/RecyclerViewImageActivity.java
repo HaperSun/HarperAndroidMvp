@@ -19,8 +19,8 @@ import com.sun.common.widget.FooterHolder;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityRecyclerViewImageBinding;
 import com.sun.demo2.model.ImgItemBean;
-import com.sun.img.img.ImgLoader;
-import com.sun.img.ui.activity.ImgPreviewActivity;
+import com.sun.media.img.ImageLoader;
+import com.sun.media.img.ui.activity.ImagePreviewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,8 +130,8 @@ public class RecyclerViewImageActivity extends BaseMvpActivity<ActivityRecyclerV
                 Holder holder = (Holder) viewHolder;
                 ImgItemBean bean = (ImgItemBean) mItems.get(position).object;
                 if (bean != null){
-                    ImgLoader.getInstance().loadImage(bean.getImg(), holder.mIv1);
-                    holder.itemView.setOnClickListener(v -> ImgPreviewActivity.start(mContext, bean.getImg()));
+                    ImageLoader.getInstance().loadImage(bean.getImg(), holder.mIv1);
+                    holder.itemView.setOnClickListener(v -> ImagePreviewActivity.start(mContext, bean.getImg()));
                 }
             }
         }

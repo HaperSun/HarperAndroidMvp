@@ -19,22 +19,22 @@ class EmojiIconAdapter extends ArrayAdapter<EmojiIcon> {
     private boolean mUseSystemDefault = false;
 
     public EmojiIconAdapter(Context context, List<EmojiIcon> data) {
-        super(context, R.layout.emojicon_item, data);
+        super(context, R.layout.item_emojicon, data);
         mUseSystemDefault = false;
     }
 
     public EmojiIconAdapter(Context context, List<EmojiIcon> data, boolean useSystemDefault) {
-        super(context, R.layout.emojicon_item, data);
+        super(context, R.layout.item_emojicon, data);
         mUseSystemDefault = useSystemDefault;
     }
 
     public EmojiIconAdapter(Context context, EmojiIcon[] data) {
-        super(context, R.layout.emojicon_item, data);
+        super(context, R.layout.item_emojicon, data);
         mUseSystemDefault = false;
     }
 
     public EmojiIconAdapter(Context context, EmojiIcon[] data, boolean useSystemDefault) {
-        super(context, R.layout.emojicon_item, data);
+        super(context, R.layout.item_emojicon, data);
         mUseSystemDefault = useSystemDefault;
     }
 
@@ -42,7 +42,7 @@ class EmojiIconAdapter extends ArrayAdapter<EmojiIcon> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
         if (v == null) {
-            v = View.inflate(getContext(), R.layout.emojicon_item, null);
+            v = View.inflate(getContext(), R.layout.item_emojicon, null);
             ViewHolder holder = new ViewHolder();
             holder.icon = (EmojiIconTextView) v.findViewById(R.id.emojicon_icon);
             holder.icon.setUseSystemDefault(mUseSystemDefault);

@@ -41,7 +41,7 @@ public class FeedDetailAdapter extends RecyclerView.Adapter<FeedDetailAdapter.Fe
     @NonNull
     @Override
     public FeedDetailItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.feedview_detailview_item_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feedview_detailview, parent, false);
         return new FeedDetailItemHolder(view);
     }
 

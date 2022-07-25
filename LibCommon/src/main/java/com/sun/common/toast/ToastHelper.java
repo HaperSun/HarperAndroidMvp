@@ -115,7 +115,7 @@ public class ToastHelper {
         }
         sToast = new Toast(applicationContext);
         sToast.setDuration(duration != 1 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
-        View view = LayoutInflater.from(applicationContext).inflate(R.layout.layout_common_toast, null);
+        View view = LayoutInflater.from(applicationContext).inflate(R.layout.view_toast, null);
         sToast.setView(view);
         sToast.setGravity(Gravity.BOTTOM, 0, 200);
         TextView textView = view.findViewById(R.id.tv_content);

@@ -348,7 +348,7 @@ public class SelectableTextHelper {
         private int mHeight;
 
         public OperateWindow(final Context context) {
-            View contentView = LayoutInflater.from(context).inflate(R.layout.layout_operate_windows, null);
+            View contentView = LayoutInflater.from(context).inflate(R.layout.view_operate_windows, null);
             contentView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
                     View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
             mWidth = contentView.getMeasuredWidth();

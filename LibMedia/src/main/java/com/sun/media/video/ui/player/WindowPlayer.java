@@ -201,7 +201,7 @@ public class WindowPlayer extends AbsPlayer implements View.OnClickListener,
      * 初始化view
      */
     private void initView(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.superplayer_vod_player_window, this);
+        LayoutInflater.from(context).inflate(R.layout.view_superplayer_vod_player_window, this);
         mLayoutTop = (LinearLayout) findViewById(R.id.superplayer_rl_top);
         mLayoutTop.setOnClickListener(this);
         mLayoutBottom = (LinearLayout) findViewById(R.id.superplayer_ll_bottom);

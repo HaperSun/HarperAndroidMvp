@@ -76,7 +76,7 @@ public class VodMoreView extends RelativeLayout implements RadioGroup.OnCheckedC
 
     private void init(Context context) {
         mContext = context;
-        LayoutInflater.from(mContext).inflate(R.layout.superplayer_more_popup_view, this);
+        LayoutInflater.from(mContext).inflate(R.layout.view_superplayer_more_popup, this);
 
         mLayoutSpeed = (LinearLayout) findViewById(R.id.superplayer_ll_speed);
         mRadioGroup = (RadioGroup) findViewById(R.id.superplayer_rg);

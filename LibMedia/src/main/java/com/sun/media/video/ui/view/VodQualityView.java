@@ -53,7 +53,7 @@ public class VodQualityView extends RelativeLayout {
     private void init(Context context) {
         mContext = context;
         mList = new ArrayList<VideoQuality>();
-        LayoutInflater.from(mContext).inflate(R.layout.superplayer_quality_popup_view, this);
+        LayoutInflater.from(mContext).inflate(R.layout.view_superplayer_quality_popup, this);
         mListView = (ListView) findViewById(R.id.superplayer_lv_quality);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -167,7 +167,7 @@ public class VodQualityView extends RelativeLayout {
         }
 
         private void init(Context context) {
-            LayoutInflater.from(context).inflate(R.layout.superplayer_quality_item_view, this);
+            LayoutInflater.from(context).inflate(R.layout.view_superplayer_quality_item, this);
             mTvQuality = (TextView) findViewById(R.id.superplayer_tv_quality);
         }
 

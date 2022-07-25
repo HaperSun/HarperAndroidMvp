@@ -50,7 +50,7 @@ public class FeedViewManager {
     }
 
     private void asyncInflate() {
-        mAsyncLayoutInflater.inflate(R.layout.feedview_list_item_view,
+        mAsyncLayoutInflater.inflate(R.layout.view_feedview_manager,
                 null,
                 (view, resid, parent) -> {
                     FeedListItemView feedListItemView = (FeedListItemView) view;

@@ -44,8 +44,8 @@ public class BarChartMultiActivity extends BaseMvpActivity<ActivityBarChartMulti
 
     @Override
     public void initView() {
-        mBaseBind.title.setTitle("Bar Charts 单柱状图");
-        mBaseBind.title.setOnTitleClickListener(view -> close());
+        baseBind.title.setTitle("Bar Charts 单柱状图");
+        baseBind.title.setOnTitleClickListener(view -> close());
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
     }
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/dp140"
+    android:layout_height="wrap_content"
+    android:background="@drawable/layer_common_toast"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dp16"
+    android:paddingTop="@dimen/dp31"
+    android:paddingRight="@dimen/dp16"
+    android:paddingBottom="@dimen/dp31">
+
+    <ImageView
+        android:id="@+id/custom_toast_type"
+        android:layout_width="@dimen/dp43"
+        android:layout_height="@dimen/dp43"
+        android:layout_marginBottom="@dimen/dp21"
+        android:src="@mipmap/icon_warning_toast" />
+
+    <TextView
+        android:id="@+id/custom_toast_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp14"
+        tools:text="登录成功" />
+</LinearLayout>

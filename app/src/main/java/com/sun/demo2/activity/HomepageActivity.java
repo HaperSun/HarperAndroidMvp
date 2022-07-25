@@ -58,11 +58,11 @@ public class HomepageActivity extends BaseMvpActivity<ActivityHomepageBinding> {
 
     @Override
     public void initView() {
-        mBaseBind.title.setTitle("首页哈哈哈哈哈哈哈哈哈哈或或或或或或哈哈哈哈哈哈哈哈哈哈或或或或或或");
-        mBaseBind.title.setOnTitleClickListener(view -> onBackPressed());
-        LinearLayout layout = mBaseBind.title.getTitleLeftContainer();
+        baseBind.title.setTitle("首页哈哈哈哈哈哈哈哈哈哈或或或或或或哈哈哈哈哈哈哈哈哈哈或或或或或或");
+        baseBind.title.setOnTitleClickListener(view -> onBackPressed());
+        LinearLayout layout = baseBind.title.getTitleLeftContainer();
         if (layout != null){
-            View view = LayoutInflater.from(this).inflate(R.layout.layout_homepage_left_title,null);
+            View view = LayoutInflater.from(this).inflate(R.layout.view_homepage_left_title,null);
             view.findViewById(R.id.ll_menu).setOnClickListener(v -> onBackPressed());
             layout.addView(view);
         }
@@ -179,7 +179,7 @@ public class HomepageActivity extends BaseMvpActivity<ActivityHomepageBinding> {
                 ExpandableTextActivity.start(mContext);
                 break;
             case 23:
-                MusicListActivity.start(mContext);
+                ImageSelectActivity.start(mContext);
                 break;
             default:
                 break;

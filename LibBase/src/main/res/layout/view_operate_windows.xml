@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="@dimen/dp110"
+        android:layout_height="@dimen/dp33"
+        android:background="@drawable/shape_rec_solid_1e1e1e_radius_dp6"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_copy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/copy"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp13" />
+
+        <View
+            android:layout_width="@dimen/dp05"
+            android:layout_height="@dimen/dp24"
+            android:layout_marginLeft="@dimen/dp15"
+            android:layout_marginRight="@dimen/dp15"
+            android:background="#4DFFFFFF" />
+
+        <TextView
+            android:id="@+id/tv_select_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_all"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp13" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/dp15"
+        android:layout_height="@dimen/dp6"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/icon_triangle_down_black" />
+</LinearLayout>

@@ -157,7 +157,7 @@ public class RichTextView extends ScrollView {
      * 生成文本输入框
      */
     public TextView createTextView(String hint, int paddingTop) {
-        TextView textView = (TextView) inflater.inflate(R.layout.rich_textview, null);
+        TextView textView = (TextView) inflater.inflate(R.layout.view_rich_textview, null);
         textView.setTag(viewTagIndex++);
         textView.setPadding(editNormalPadding, paddingTop, editNormalPadding, paddingTop);
         textView.setHint(hint);
@@ -173,7 +173,7 @@ public class RichTextView extends ScrollView {
      * 生成图片View
      */
     private RelativeLayout createImageLayout() {
-        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.edit_imageview, null);
+        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.view_edit_imageview, null);
         layout.setTag(viewTagIndex++);
         View closeView = layout.findViewById(R.id.image_close);
         closeView.setVisibility(GONE);

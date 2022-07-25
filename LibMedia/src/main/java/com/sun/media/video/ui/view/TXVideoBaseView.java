@@ -65,7 +65,7 @@ public class TXVideoBaseView extends RelativeLayout implements View.OnClickListe
     }
 
     private void init(Context context) {
-        mRootView = LayoutInflater.from(context).inflate(R.layout.player_item_base_view, null);
+        mRootView = LayoutInflater.from(context).inflate(R.layout.view_player_item_base, null);
         addView(mRootView);
         mSeekBar = mRootView.findViewById(R.id.seekbar_short_video);
         mSeekBar.setOnSeekBarChangeListener(this);
