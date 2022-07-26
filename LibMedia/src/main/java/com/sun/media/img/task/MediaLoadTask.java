@@ -2,7 +2,7 @@ package com.sun.media.img.task;
 
 import android.content.Context;
 
-import com.sun.common.bean.MediaFile;
+import com.sun.base.bean.MediaFile;
 import com.sun.media.img.i.IMediaLoadCallback;
 import com.sun.media.img.loader.ImageScanner;
 import com.sun.media.img.loader.MediaHandler;

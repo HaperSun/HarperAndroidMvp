@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-import com.sun.common.toast.ToastHelper;
+import com.sun.base.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;

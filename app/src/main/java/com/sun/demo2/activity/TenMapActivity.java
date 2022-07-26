@@ -14,7 +14,7 @@ import android.widget.RadioGroup;
 import com.google.gson.Gson;
 import com.sun.base.util.LogHelper;
 import com.sun.base.util.PermissionUtil;
-import com.sun.common.toast.ToastHelper;
+import com.sun.base.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.tencent.map.geolocation.TencentLocation;
 import com.tencent.map.geolocation.TencentLocationListener;

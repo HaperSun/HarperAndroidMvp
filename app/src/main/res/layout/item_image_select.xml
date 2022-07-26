@@ -81,7 +81,7 @@
             android:layout_marginLeft="@dimen/dp21"
             android:layout_marginRight="@dimen/dp21" />
 
-        <com.sun.common.widget.FlowLayout
+        <com.sun.base.widget.FlowLayout
             android:id="@+id/sign_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

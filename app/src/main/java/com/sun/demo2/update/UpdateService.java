@@ -15,7 +15,7 @@ import com.sun.base.net.exception.ApiException;
 import com.sun.base.util.CollectionUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogHelper;
-import com.sun.common.bean.Constant;
+import com.sun.base.bean.Constant;
 import com.sun.demo2.BuildConfig;
 import com.sun.demo2.R;
 import com.sun.demo2.event.UpgradeApkDownloadSuccessEvent;

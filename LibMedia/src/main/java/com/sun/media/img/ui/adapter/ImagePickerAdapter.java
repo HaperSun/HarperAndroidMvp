@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.base.manager.SelectionManager;
 import com.sun.base.util.TimeHelp;
-import com.sun.common.bean.MediaFile;
-import com.sun.common.toast.ToastHelper;
+import com.sun.base.bean.MediaFile;
+import com.sun.base.toast.ToastHelper;
 import com.sun.media.R;
 import com.sun.media.img.manager.ConfigManager;
 import com.sun.media.img.model.bean.ItemType;

@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
+import com.sun.base.bean.TimeConstant;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

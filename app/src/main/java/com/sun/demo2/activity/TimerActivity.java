@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.sun.base.base.activity.BaseMvpActivity;
-import com.sun.common.bean.MagicInt;
+import com.sun.base.bean.MagicInt;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityTimerBinding;
 

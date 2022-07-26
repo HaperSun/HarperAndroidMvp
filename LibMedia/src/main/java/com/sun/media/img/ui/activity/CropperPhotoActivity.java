@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.StringUtil;
-import com.sun.common.bean.Parameter;
+import com.sun.base.bean.Parameter;
 import com.sun.media.R;
 import com.sun.media.databinding.ActivityCropperPhotoBinding;
 

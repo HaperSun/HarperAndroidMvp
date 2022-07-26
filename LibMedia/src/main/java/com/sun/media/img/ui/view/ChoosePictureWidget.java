@@ -29,7 +29,7 @@ import com.sun.base.util.BitmapUtil;
 import com.sun.base.util.CollectionUtil;
 import com.sun.base.util.CommonUtil;
 import com.sun.base.util.WeakDataHolder;
-import com.sun.common.toast.ToastHelper;
+import com.sun.base.toast.ToastHelper;
 import com.sun.media.R;
 import com.sun.media.img.ImagePicker;
 import com.sun.media.img.ImageLoader;

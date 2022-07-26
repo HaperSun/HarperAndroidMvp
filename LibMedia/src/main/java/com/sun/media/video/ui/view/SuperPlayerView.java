@@ -28,7 +28,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.sun.common.util.IntentUtils;
+import com.sun.base.util.IntentUtils;
 import com.sun.media.R;
 import com.sun.media.video.i.ISuperPlayerListener;
 import com.sun.media.video.i.SuperPlayer;

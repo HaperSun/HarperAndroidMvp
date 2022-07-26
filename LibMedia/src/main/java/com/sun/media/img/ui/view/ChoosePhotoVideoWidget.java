@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.base.util.CollectionUtil;
-import com.sun.common.widget.RoundLayout;
+import com.sun.base.widget.RoundLayout;
 import com.sun.media.R;
 import com.sun.media.img.ImageLoader;
 import com.sun.media.img.model.PhotoVideoModel;

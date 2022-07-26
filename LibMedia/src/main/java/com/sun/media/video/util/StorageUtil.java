@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
-import com.sun.common.util.AppUtil;
+import com.sun.base.util.AppUtil;
 
 import java.io.File;
 import java.io.IOException;

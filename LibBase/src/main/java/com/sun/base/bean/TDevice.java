@@ -48,8 +48,8 @@ import com.sun.base.R;
 import com.sun.base.util.LogHelper;
 import com.sun.base.util.StringUtil;
 import com.sun.base.util.ToastUtil;
-import com.sun.common.toast.ToastHelper;
-import com.sun.common.util.AppUtil;
+import com.sun.base.toast.ToastHelper;
+import com.sun.base.util.AppUtil;
 
 import java.io.File;
 import java.net.InetAddress;

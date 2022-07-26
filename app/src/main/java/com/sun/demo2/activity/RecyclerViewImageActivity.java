@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.util.CollectionUtil;
-import com.sun.common.bean.AnyItem;
-import com.sun.common.widget.EmptyHolder;
-import com.sun.common.widget.FooterHolder;
+import com.sun.base.bean.AnyItem;
+import com.sun.base.widget.EmptyHolder;
+import com.sun.base.widget.FooterHolder;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityRecyclerViewImageBinding;
 import com.sun.demo2.model.ImgItemBean;

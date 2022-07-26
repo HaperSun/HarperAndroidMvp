@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.sun.base.R;
-import com.sun.common.bean.MagicInt;
+import com.sun.base.bean.MagicInt;
 
 /**
  * @author: Harper

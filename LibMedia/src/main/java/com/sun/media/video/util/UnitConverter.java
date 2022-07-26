@@ -2,7 +2,7 @@ package com.sun.media.video.util;
 
 import android.util.DisplayMetrics;
 
-import com.sun.common.util.AppUtil;
+import com.sun.base.util.AppUtil;
 
 /**
  * @author Sigal

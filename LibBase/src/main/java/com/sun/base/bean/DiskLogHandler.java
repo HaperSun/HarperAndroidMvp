@@ -8,7 +8,6 @@ import android.os.Message;
 import android.text.TextUtils;
 
 import com.sun.base.util.FileUtil;
-import com.sun.common.bean.Constant;
 
 import java.io.File;
 import java.io.FileWriter;

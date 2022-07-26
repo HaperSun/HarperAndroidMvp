@@ -4,7 +4,7 @@
     android:layout_width="@dimen/dp93"
     android:layout_height="@dimen/dp93">
 
-    <com.sun.common.widget.RoundLayout
+    <com.sun.base.widget.RoundLayout
         android:id="@+id/rl_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,9 +33,9 @@
             android:padding="@dimen/dp30"
             android:src="@mipmap/icon_video_play"
             android:background="@color/cl_30000000"/>
-    </com.sun.common.widget.RoundLayout>
+    </com.sun.base.widget.RoundLayout>
 
-    <com.sun.common.widget.RoundLayout
+    <com.sun.base.widget.RoundLayout
         android:id="@+id/rl_add"
         android:layout_width="@dimen/dp93"
         android:layout_height="@dimen/dp93"
@@ -48,5 +48,5 @@
             android:background="@drawable/shape_rec_solid_f6f7fa"
             android:padding="@dimen/dp30"
             android:src="@mipmap/icon_add_pic" />
-    </com.sun.common.widget.RoundLayout>
+    </com.sun.base.widget.RoundLayout>
 </FrameLayout>

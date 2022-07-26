@@ -2,7 +2,7 @@ package com.sun.media.img.loader;
 
 import android.content.Context;
 
-import com.sun.common.bean.MediaFile;
+import com.sun.base.bean.MediaFile;
 import com.sun.media.R;
 import com.sun.media.img.model.bean.MediaFolder;
 

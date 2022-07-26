@@ -11,7 +11,7 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.sun.base.R;
-import com.sun.common.toast.ToastHelper;
+import com.sun.base.toast.ToastHelper;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;

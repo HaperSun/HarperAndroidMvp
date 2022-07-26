@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.sun.base.dialog.BaseDialogFragment;
 import com.sun.base.util.PermissionUtil;
-import com.sun.common.toast.ToastHelper;
+import com.sun.base.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.sun.demo2.update.UpdateService;
 

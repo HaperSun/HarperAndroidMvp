@@ -11,7 +11,7 @@ import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.util.DownloadUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.PermissionUtil;
-import com.sun.common.bean.Constant;
+import com.sun.base.bean.Constant;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityTbsReaderBinding;
 import com.tencent.smtt.sdk.TbsReaderView;

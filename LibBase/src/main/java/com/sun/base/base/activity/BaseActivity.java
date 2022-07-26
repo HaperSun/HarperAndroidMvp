@@ -19,8 +19,8 @@ import com.sun.base.base.iview.IBaseActivity;
 import com.sun.base.base.iview.IBaseView;
 import com.sun.base.base.widget.LoadingDialog;
 import com.sun.base.util.CommonUtil;
-import com.sun.common.toast.CustomToast;
-import com.sun.common.toast.ToastHelper;
+import com.sun.base.toast.CustomToast;
+import com.sun.base.toast.ToastHelper;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;

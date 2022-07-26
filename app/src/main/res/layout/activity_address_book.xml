@@ -20,7 +20,7 @@
             app:tabPaddingStart="@dimen/dp10"
             app:tabRippleColor="@color/transparent" />
 
-        <com.sun.common.widget.CommonViewPager
+        <com.sun.base.widget.CommonViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

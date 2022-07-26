@@ -4,9 +4,9 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import com.sun.common.util.AppUtil;
-import com.sun.db.entity.UserInfo;
-import com.sun.db.table.manager.UserInfoManager;
+import com.sun.base.util.AppUtil;
+import com.sun.base.db.entity.UserInfo;
+import com.sun.base.db.manager.UserInfoManager;
 
 import java.io.IOException;
 

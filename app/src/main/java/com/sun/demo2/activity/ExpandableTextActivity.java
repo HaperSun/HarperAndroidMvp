@@ -8,8 +8,8 @@ import android.view.Gravity;
 
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.status.StatusBarUtil;
-import com.sun.common.adapter.BaseAdapter;
-import com.sun.common.adapter.BaseViewHolder;
+import com.sun.base.adapter.BaseAdapter;
+import com.sun.base.adapter.BaseViewHolder;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityExpandableTextBinding;
 import com.sun.emoji.ExpandableTextView;

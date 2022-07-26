@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.sun.common.bean.MediaFile;
+import com.sun.base.bean.MediaFile;
 import com.sun.media.img.manager.ConfigManager;
 
 /**

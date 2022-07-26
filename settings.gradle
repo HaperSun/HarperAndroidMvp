@@ -1,7 +1,5 @@
 rootProject.name = "Demo02"
 include ':app'
-include ':LibCommon'
-include ':LibDb'
 include ':LibBase'
 include ':LibChart'
 include ':LibRichText'

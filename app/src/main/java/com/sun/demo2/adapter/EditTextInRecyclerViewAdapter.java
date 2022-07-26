@@ -12,8 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sun.common.filter.LengthFilter;
-import com.sun.common.toast.ToastHelper;
+import com.sun.base.filter.LengthFilter;
+import com.sun.base.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.sun.demo2.model.DataBean;
 

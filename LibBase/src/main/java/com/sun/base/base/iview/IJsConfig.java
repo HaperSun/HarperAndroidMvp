@@ -5,8 +5,8 @@ import android.webkit.JavascriptInterface;
 
 import com.sun.base.net.state.NetworkUtil;
 import com.sun.base.service.ServiceFactory;
-import com.sun.common.toast.ToastHelper;
-import com.sun.common.util.AppUtil;
+import com.sun.base.toast.ToastHelper;
+import com.sun.base.util.AppUtil;
 
 /**
  * @author: Harper

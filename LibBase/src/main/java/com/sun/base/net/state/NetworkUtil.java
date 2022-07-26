@@ -7,7 +7,7 @@ import android.telephony.TelephonyManager;
 
 import androidx.annotation.RequiresPermission;
 
-import com.sun.common.util.AppUtil;
+import com.sun.base.util.AppUtil;
 
 /**
  * @author Harper

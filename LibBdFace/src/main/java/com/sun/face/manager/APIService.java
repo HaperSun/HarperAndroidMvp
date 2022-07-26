@@ -7,7 +7,7 @@ import android.content.Context;
 import android.util.Base64;
 import android.util.Log;
 
-import com.sun.common.util.AppUtil;
+import com.sun.base.util.AppUtil;
 import com.sun.face.model.AccessToken;
 import com.sun.face.model.RegParams;
 import com.sun.face.parser.RegResultParser;

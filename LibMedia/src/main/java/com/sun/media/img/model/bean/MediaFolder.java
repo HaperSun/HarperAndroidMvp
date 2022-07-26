@@ -1,6 +1,6 @@
 package com.sun.media.img.model.bean;
 
-import com.sun.common.bean.MediaFile;
+import com.sun.base.bean.MediaFile;
 
 import java.util.ArrayList;
 

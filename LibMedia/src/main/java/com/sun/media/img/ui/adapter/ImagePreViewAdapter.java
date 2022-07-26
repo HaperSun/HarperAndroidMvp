@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.sun.common.bean.MediaFile;
+import com.sun.base.bean.MediaFile;
 import com.sun.media.img.ImageLoader;
 import com.sun.media.img.ui.view.PinchImageView;
 

@@ -28,8 +28,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import com.sun.common.bean.Constant;
-import com.sun.common.filter.EmojiFilter;
+import com.sun.base.bean.Constant;
+import com.sun.base.filter.EmojiFilter;
 
 import java.util.ArrayList;
 import java.util.List;

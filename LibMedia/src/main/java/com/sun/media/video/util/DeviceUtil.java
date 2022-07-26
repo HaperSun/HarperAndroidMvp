@@ -5,7 +5,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
-import com.sun.common.util.AppUtil;
+import com.sun.base.util.AppUtil;
 
 import java.util.List;
 

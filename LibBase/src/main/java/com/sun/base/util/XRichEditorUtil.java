@@ -19,7 +19,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.sun.base.R;
 import com.sun.base.widget.TransformationScale;
-import com.sun.common.util.ScreenUtil;
 
 /**
  * @author: Harper

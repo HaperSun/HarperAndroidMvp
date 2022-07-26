@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.sun.base.base.activity.BaseMvpActivity;
-import com.sun.common.util.AppUtil;
+import com.sun.base.util.AppUtil;
 import com.sun.demo2.BuildConfig;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityWebViewBinding;

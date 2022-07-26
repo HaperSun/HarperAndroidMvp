@@ -14,7 +14,7 @@
         app:srlPrimaryColor="@color/cl_eee"
         tools:context=".activity.RecyclerViewImageActivity">
 
-        <com.sun.common.widget.SmartRefreshHeader
+        <com.sun.base.widget.SmartRefreshHeader
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

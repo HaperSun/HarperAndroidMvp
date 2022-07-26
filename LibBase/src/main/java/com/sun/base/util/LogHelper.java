@@ -12,8 +12,7 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.sun.base.BuildConfig;
 import com.sun.base.bean.DiskLogHandler;
-import com.sun.common.bean.Constant;
-import com.sun.common.util.AppUtil;
+import com.sun.base.bean.Constant;
 
 
 /**

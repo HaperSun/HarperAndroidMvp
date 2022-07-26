@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.base.base.fragment.BaseMvpFragment;
-import com.sun.common.widget.ScrollLayout;
+import com.sun.base.widget.ScrollLayout;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.FragmentViewPagerBinding;
 

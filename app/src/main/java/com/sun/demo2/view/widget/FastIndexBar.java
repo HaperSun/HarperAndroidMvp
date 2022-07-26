@@ -12,7 +12,7 @@ import android.view.View;
 
 import androidx.core.content.ContextCompat;
 
-import com.sun.common.util.ScreenUtil;
+import com.sun.base.util.ScreenUtil;
 import com.sun.demo2.R;
 
 

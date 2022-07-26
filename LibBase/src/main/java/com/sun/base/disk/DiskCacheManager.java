@@ -11,7 +11,7 @@ import com.google.gson.JsonSyntaxException;
 import com.sun.base.util.CipherUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogHelper;
-import com.sun.common.bean.Constant;
+import com.sun.base.bean.Constant;
 
 import java.io.File;
 

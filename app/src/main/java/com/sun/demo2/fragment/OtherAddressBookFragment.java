@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.sun.base.base.fragment.BaseMvpFragment;
 import com.sun.base.util.CollectionUtil;
-import com.sun.common.bean.AnyItem;
+import com.sun.base.bean.AnyItem;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.FragmentOtherAddressBookBinding;
 import com.sun.demo2.model.AddressBook2Bean;

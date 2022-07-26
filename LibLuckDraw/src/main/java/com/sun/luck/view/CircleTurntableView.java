@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.sun.common.toast.ToastHelper;
+import com.sun.base.toast.ToastHelper;
 import com.sun.luck.R;
 
 import java.util.Random;

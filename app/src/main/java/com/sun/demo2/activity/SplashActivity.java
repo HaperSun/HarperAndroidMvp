@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.sun.common.UiHandler;
+import com.sun.base.UiHandler;
 import com.sun.demo2.R;
 
 /**

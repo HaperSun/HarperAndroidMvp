@@ -8,9 +8,9 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.util.PermissionUtil;
-import com.sun.common.bean.MediaFile;
-import com.sun.common.bean.Parameter;
-import com.sun.common.util.DataUtil;
+import com.sun.base.bean.MediaFile;
+import com.sun.base.bean.Parameter;
+import com.sun.base.util.DataUtil;
 import com.sun.media.R;
 import com.sun.media.databinding.ActivityVideoTrimmerBinding;
 import com.sun.media.video.i.VideoTrimListener;
