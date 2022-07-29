@@ -10,6 +10,9 @@ public class DataBean {
     private String name;
     private int data;
 
+    public DataBean() {
+    }
+
     public DataBean(String name, int data) {
         this.name = name;
         this.data = data;

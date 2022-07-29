@@ -2,26 +2,11 @@
 <layout>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
         tools:context=".activity.ImagePreActivity">
-
-        <FrameLayout
-            android:id="@+id/layout_actionBar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp44">
-
-            <ImageView
-                android:id="@+id/iv_actionBar_back"
-                android:layout_width="@dimen/dp20"
-                android:layout_height="@dimen/dp20"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/dp15"
-                android:src="@mipmap/icon_actionbar_back" />
-        </FrameLayout>
 
         <RelativeLayout
             android:id="@+id/rl_main_bottom"
@@ -100,7 +85,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/bottom_container"
-            android:layout_below="@id/layout_actionBar"
             android:background="@color/cl_1C1C1C">
 
             <com.sun.media.img.ui.view.HackyViewPager

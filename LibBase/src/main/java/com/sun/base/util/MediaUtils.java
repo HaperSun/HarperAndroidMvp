@@ -40,8 +40,7 @@ public class MediaUtils {
     }
 
     public static File getOutputMediaFile(int type) {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "image");
+        File mediaStorageDir = new File(FileUtil.getMediaFileName());
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
                 return null;

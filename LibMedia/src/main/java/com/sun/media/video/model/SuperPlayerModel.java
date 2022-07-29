@@ -4,6 +4,7 @@ package com.sun.media.video.model;
 import com.sun.media.video.model.entity.DynamicWaterConfig;
 import com.sun.media.video.model.entity.SuperPlayerVideoIdV2;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  * 3. 多码率视频播放
  * 是URL播放方式扩展，可同时传入多条URL，用于进行码率切换
  */
-public class SuperPlayerModel {
+public class SuperPlayerModel implements Serializable {
 
     /**
      * 自动播放
@@ -89,6 +90,15 @@ public class SuperPlayerModel {
     public DynamicWaterConfig dynamicWaterConfig = null;
 
     public int duration;
+
+    public SuperPlayerModel() {
+    }
+
+    public SuperPlayerModel(String title, String url, String placeholderImage) {
+        this.url = url;
+        this.title = title;
+        this.placeholderImage = placeholderImage;
+    }
 
     public static class SuperPlayerURL {
         public SuperPlayerURL(String url, String qualityName) {

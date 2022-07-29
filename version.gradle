@@ -43,6 +43,7 @@ version.easypermissions ="3.0.0" // 使用 Android X 的应用添加该依赖3.0
 version.webSocket ="1.5.1"  //webSocket
 version.imageCropper = "2.8.+" //图片裁剪
 version.ffmpeg = "1.1.5" //视频裁剪
+version.slidinguppanel = "3.4.0" //android 开源库 AndroidSlidingUpPanel可向上拖动的view
 
 
 def target = [:]
@@ -93,6 +94,7 @@ target.webSocket = "org.java-websocket:Java-WebSocket:$version.webSocket"
 target.imageCropper = "com.theartofdev.edmodo:android-image-cropper:$version.imageCropper"
 //视频裁剪
 target.ffmpeg = "nl.bravobit:android-ffmpeg:$version.ffmpeg"
+target.slidinguppanel = "com.sothree.slidinguppanel:library:$version.slidinguppanel"
 
 
 ext.target = target

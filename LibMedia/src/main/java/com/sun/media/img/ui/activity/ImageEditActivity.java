@@ -52,6 +52,13 @@ public class ImageEditActivity extends BaseMvpActivity<ActivityImageEditBinding>
     }
 
     @Override
+    protected boolean enableDarkStatusBarAndSetTitle() {
+        mStatusBarColor = R.color.cl_323232;
+        mTitleColor = R.color.cl_323232;
+        return true;
+    }
+
+    @Override
     protected void initIntent() {
         Intent intent = getIntent();
         if (intent != null) {
@@ -75,7 +82,6 @@ public class ImageEditActivity extends BaseMvpActivity<ActivityImageEditBinding>
 
     @Override
     public void initData() {
-        bind.ivActionBarBack.setOnClickListener(v -> finish());
         bind.vpMainPreImage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

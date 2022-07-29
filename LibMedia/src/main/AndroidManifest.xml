@@ -39,7 +39,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/FullScreen"
             android:windowSoftInputMode="stateHidden" />
-
         <!-- ————————————————————————————————img———————————————————————————— -->
         <activity
             android:name=".img.ui.activity.ImageEditActivity"
@@ -61,6 +60,13 @@
             android:name=".img.crop.CropImageActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+        <!-- ————————————————————————————————camera———————————————————————————— -->
+        <activity
+            android:name=".camera.CameraActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:theme="@style/FullScreen"
+            android:windowSoftInputMode="stateHidden" />
 
         <provider
             android:name=".img.provider.ImagePickerProvider"

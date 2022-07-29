@@ -14,7 +14,8 @@
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/iv_delete"
@@ -23,7 +24,8 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/dp6"
             android:layout_marginEnd="@dimen/dp6"
-            android:src="@mipmap/icon_delete_pic" />
+            android:src="@mipmap/icon_delete_pic"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/iv_play"
@@ -32,7 +34,8 @@
             android:layout_centerInParent="true"
             android:padding="@dimen/dp30"
             android:src="@mipmap/icon_video_play"
-            android:background="@color/cl_30000000"/>
+            android:background="@color/cl_30000000"
+            android:visibility="gone"/>
     </com.sun.base.widget.RoundLayout>
 
     <com.sun.base.widget.RoundLayout

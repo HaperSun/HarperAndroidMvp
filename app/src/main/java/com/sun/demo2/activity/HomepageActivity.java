@@ -101,7 +101,8 @@ public class HomepageActivity extends BaseMvpActivity<ActivityHomepageBinding> {
         beans.add("仿通讯录效果");
         beans.add("WebSocket使用和腾讯视频播放器");
         beans.add("可展开的TextView实例");
-        beans.add("DrawerLayout+toolBar和音频播放");
+        beans.add("DrawerLayout+toolBar");
+        beans.add("图片视频的选择和展示");
         Adapter adapter = new Adapter(R.layout.adapter_main_recycler_view, beans);
         bind.recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener((adapter1, view, position) -> doClick(position));
@@ -180,6 +181,9 @@ public class HomepageActivity extends BaseMvpActivity<ActivityHomepageBinding> {
                 break;
             case 23:
                 ImageSelectActivity.start(mContext);
+                break;
+            case 24:
+                ChoosePhotoVideoActivity.start(mContext);
                 break;
             default:
                 break;

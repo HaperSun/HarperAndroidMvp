@@ -18,7 +18,6 @@ import com.sun.base.widget.EmptyHolder;
 import com.sun.base.widget.FooterHolder;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityRecyclerViewImageBinding;
-import com.sun.demo2.model.ImgItemBean;
 import com.sun.media.img.ImageLoader;
 import com.sun.media.img.ui.activity.ImagePreviewActivity;
 
@@ -71,14 +70,14 @@ public class RecyclerViewImageActivity extends BaseMvpActivity<ActivityRecyclerV
     }
 
     private void getData() {
-        List<ImgItemBean> itemBeans = new ArrayList<>();
+        List<String> itemBeans = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            itemBeans.add(new ImgItemBean("https://qiniu.fxgkpt.com/hycg/1639356784663.jpg"));
+            itemBeans.add("https://qiniu.fxgkpt.com/hycg/1639356784663.jpg");
         }
         getDataSuccess(itemBeans);
     }
 
-    private void getDataSuccess(List<ImgItemBean> beans) {
+    private void getDataSuccess(List<String> beans) {
         //设置分页列表数据
         if (mPage == 1) {
             bind.smartRefreshLayout.finishRefresh(200);
@@ -90,7 +89,7 @@ public class RecyclerViewImageActivity extends BaseMvpActivity<ActivityRecyclerV
             mItems.clear();
         }
         if (CollectionUtil.notEmpty(beans)) {
-            for (ImgItemBean bean : beans) {
+            for (String bean : beans) {
                 mItems.add(new AnyItem(AnyItem.TYPE1, bean));
             }
             if (beans.size() < mPageSize) {
@@ -128,10 +127,10 @@ public class RecyclerViewImageActivity extends BaseMvpActivity<ActivityRecyclerV
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (viewHolder instanceof Holder){
                 Holder holder = (Holder) viewHolder;
-                ImgItemBean bean = (ImgItemBean) mItems.get(position).object;
+                String bean = (String) mItems.get(position).object;
                 if (bean != null){
-                    ImageLoader.getInstance().loadImage(bean.getImg(), holder.mIv1);
-                    holder.itemView.setOnClickListener(v -> ImagePreviewActivity.start(mContext, bean.getImg()));
+                    ImageLoader.getInstance().loadImage(bean, holder.mIv1);
+                    holder.itemView.setOnClickListener(v -> ImagePreviewActivity.start(mContext, bean));
                 }
             }
         }

@@ -5,21 +5,22 @@ import android.app.Application;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.rich.text.XRichText;
+import com.sun.base.bean.AppConfig;
+import com.sun.base.db.entity.UserInfo;
+import com.sun.base.db.manager.UserInfoManager;
 import com.sun.base.disk.CacheFileRule;
 import com.sun.base.disk.DiskCacheConst;
 import com.sun.base.disk.DiskCacheManager;
 import com.sun.base.net.NetWork;
 import com.sun.base.service.IAccountService;
 import com.sun.base.service.ServiceFactory;
+import com.sun.base.util.AppUtil;
 import com.sun.base.util.LogHelper;
 import com.sun.base.util.XRichEditorUtil;
-import com.sun.base.bean.AppConfig;
-import com.sun.base.util.AppUtil;
-import com.sun.base.db.entity.UserInfo;
-import com.sun.base.db.manager.UserInfoManager;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.observer.ApplicationObserver;
 import com.sun.media.img.ImageLoader;
+import com.sun.media.img.MediaSelector;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
@@ -65,6 +66,8 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         initQbSdk();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(new ApplicationObserver());
         FFmpeg.getInstance(ctx).isSupported();
+        //初始化图片、视频选择器
+        MediaSelector.builder().build();
     }
 
     /**

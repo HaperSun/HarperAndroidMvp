@@ -12,6 +12,7 @@ import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityWebSocketBinding;
 import com.sun.demo2.model.AddressBook1Bean;
 import com.sun.demo2.model.response.LoginResponse;
+import com.sun.media.video.model.SuperPlayerModel;
 import com.sun.media.video.ui.activity.VideoPlayActivity;
 import com.sun.media.video.ui.activity.FeedVideoActivity;
 import com.sun.media.video.ui.activity.ShortVideoActivity;
@@ -165,7 +166,7 @@ public class WebSocketActivity extends BaseMvpActivity<ActivityWebSocketBinding>
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_super:
-                VideoPlayActivity.start(mContext);
+                VideoPlayActivity.start(mContext,new SuperPlayerModel());
                 break;
             case R.id.tv_short:
                 ShortVideoActivity.start(mContext);

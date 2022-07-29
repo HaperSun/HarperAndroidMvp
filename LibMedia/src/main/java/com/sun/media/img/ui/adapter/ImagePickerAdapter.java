@@ -12,10 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sun.base.manager.SelectionManager;
-import com.sun.base.util.TimeHelp;
 import com.sun.base.bean.MediaFile;
+import com.sun.base.manager.SelectionManager;
 import com.sun.base.toast.ToastHelper;
+import com.sun.base.util.MediaFileUtil;
+import com.sun.base.util.TimeHelp;
 import com.sun.media.R;
 import com.sun.media.img.manager.ConfigManager;
 import com.sun.media.img.model.bean.ItemType;
@@ -31,15 +32,15 @@ import java.util.List;
  */
 public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.BaseHolder> {
 
-    private Context mContext;
-    private List<MediaFile> mMediaFileList;
-    private boolean isShowCamera;
+    private final Context mContext;
+    private final List<MediaFile> mMediaFileList;
+    private final boolean isShowCamera;
     private static final long SELECT_TIME_LENGTH = 301 * 1000L;
 
     public ImagePickerAdapter(Context context, List<MediaFile> mediaFiles) {
         this.mContext = context;
         this.mMediaFileList = mediaFiles;
-        this.isShowCamera = ConfigManager.getInstance().isShowCamera();
+        this.isShowCamera = true;
     }
 
     @Override
@@ -51,7 +52,7 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
             //如果有相机存在，position位置需要-1
             position--;
         }
-        if (mMediaFileList.get(position).getDuration() > 0) {
+        if (MediaFileUtil.isVideoFileType(mMediaFileList.get(position).getPath())) {
             return ItemType.ITEM_TYPE_VIDEO;
         } else {
             return ItemType.ITEM_TYPE_IMAGE;
@@ -148,7 +149,6 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
      * @param mediaFile
      */
     private void bindMedia(MediaHolder mediaHolder, MediaFile mediaFile) {
-
         String imagePath = mediaFile.getPath();
         if (!TextUtils.isEmpty(imagePath)) {
             //选择状态（仅是UI表现，真正数据交给SelectionManager管理）
@@ -163,13 +163,11 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
                 }
                 mediaHolder.mTvCheck.setText("");
             }
-
             try {
                 ConfigManager.getInstance().getImageLoader().loadImage(mediaHolder.mImageView, imagePath);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             if (mediaHolder instanceof ImageHolder) {
                 //如果是gif图，显示gif标识
                 String suffix = imagePath.substring(imagePath.lastIndexOf(".") + 1);
@@ -179,7 +177,6 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
                     ((ImageHolder) mediaHolder).mImageGif.setVisibility(View.GONE);
                 }
             }
-
             if (mediaHolder instanceof VideoHolder) {
                 //如果是视频，需要显示视频时长
                 String duration = TimeHelp.getVideoDuration(mediaFile.getDuration());

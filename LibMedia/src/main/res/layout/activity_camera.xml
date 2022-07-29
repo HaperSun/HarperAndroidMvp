@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <com.sun.media.camera.view.CameraView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/camera_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:duration_max="10000"
+        app:iconMargin="20dp"
+        app:iconSize="30dp"
+        app:iconSrc="@drawable/ic_camera"
+        tools:context=".camera.CameraActivity" />
+</layout>

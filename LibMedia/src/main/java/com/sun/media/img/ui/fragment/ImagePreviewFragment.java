@@ -2,13 +2,11 @@ package com.sun.media.img.ui.fragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.github.chrisbanes.photoview.PhotoView;
 import com.sun.base.base.fragment.BaseMvpFragment;
+import com.sun.base.bean.Parameter;
 import com.sun.base.dialog.BottomDialogFragment;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogHelper;
@@ -26,12 +24,6 @@ import com.sun.media.img.model.bean.ImageItem;
  */
 public class ImagePreviewFragment extends BaseMvpFragment<FragmentImagePreviewBinding> {
 
-    private static final String EXTRA_IMAGE_ITEM = "EXTRA_IMAGE_ITEM";
-    /**
-     * 显示原图
-     */
-    private PhotoView mImageView;
-    private ProgressBar mLoadingBar;
     private ImageItem mImageItem;
     /**
      * 原图
@@ -41,7 +33,7 @@ public class ImagePreviewFragment extends BaseMvpFragment<FragmentImagePreviewBi
     public static ImagePreviewFragment newInstance(ImageItem imageItem) {
         ImagePreviewFragment fragment = new ImagePreviewFragment();
         final Bundle args = new Bundle();
-        args.putParcelable(EXTRA_IMAGE_ITEM, imageItem);
+        args.putParcelable(Parameter.BEAN, imageItem);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,14 +47,32 @@ public class ImagePreviewFragment extends BaseMvpFragment<FragmentImagePreviewBi
     public void initBundle() {
         Bundle args = getArguments();
         if (args != null) {
-            mImageItem = args.getParcelable(EXTRA_IMAGE_ITEM);
+            mImageItem = args.getParcelable(Parameter.BEAN);
         }
     }
 
     @Override
     public void initView() {
-        mImageView = bind.image;
-        mLoadingBar = bind.loading;
+        String imgOri = mImageItem.getImageOri();
+        ImageLoader.getInstance().loadImage(imgOri, bind.image, new ImageLoadListener() {
+            @Override
+            public void onLoadingStarted() {
+                showLoadingDialog(R.string.loading);
+            }
+
+            @Override
+            public void onLoadingFailed(Exception e) {
+                dismissLoadingDialog();
+                showFailToast(R.string.loading_image_failed);
+            }
+
+            @Override
+            public void onLoadingComplete(Bitmap bitmap) {
+                dismissLoadingDialog();
+                bind.image.setImageBitmap(bitmap);
+                mOriImgBitmap = bitmap;
+            }
+        });
     }
 
     @Override
@@ -70,39 +80,14 @@ public class ImagePreviewFragment extends BaseMvpFragment<FragmentImagePreviewBi
         initClick();
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        String imgOri = mImageItem.getImageOri();
-        ImageLoader.getInstance().loadImage(imgOri, mImageView, new ImageLoadListener() {
-            @Override
-            public void onLoadingStarted() {
-                mLoadingBar.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onLoadingFailed(Exception e) {
-                mLoadingBar.setVisibility(View.GONE);
-                showFailToast(R.string.loading_image_failed);
-            }
-
-            @Override
-            public void onLoadingComplete(Bitmap bitmap) {
-                mLoadingBar.setVisibility(View.GONE);
-                mOriImgBitmap = bitmap;
-                mImageView.setImageBitmap(mOriImgBitmap);
-            }
-        });
-    }
-
     private void initClick() {
         FragmentActivity activity = getActivity();
-        mImageView.setOnPhotoTapListener((view, x, y) -> {
+        bind.image.setOnPhotoTapListener((view, x, y) -> {
             //单击退出当前页面
             close();
         });
         try {
-            mImageView.setOnLongClickListener(view -> {
+            bind.image.setOnLongClickListener(view -> {
                 if (mOriImgBitmap == null) {
                     return true;
                 }

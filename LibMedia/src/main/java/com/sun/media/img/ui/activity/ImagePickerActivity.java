@@ -60,14 +60,12 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     /**
      * 启动参数
      */
-    private String mTitle;
     private boolean isShowCamera;
     private boolean isShowImage;
     private boolean isShowVideo;
     private boolean isSingleType;
     private int mMaxCount;
     private List<String> mImagePaths;
-
     private ProgressDialog mProgressDialog;
     private GridLayoutManager mGridLayoutManager;
     private ImagePickerAdapter mImagePickerAdapter;
@@ -93,7 +91,6 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     //权限相关
     private static final int REQUEST_PERMISSION_CAMERA_CODE = 0x03;
 
-
     @Override
     public int layoutId() {
         return R.layout.activity_image_picker;
@@ -108,12 +105,13 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
 
     @Override
     public void initView() {
-        mTitle = ConfigManager.getInstance().getTitle();
+        baseBind.title.setVisibility(View.GONE);
         isShowCamera = ConfigManager.getInstance().isShowCamera();
         isShowImage = ConfigManager.getInstance().isShowImage();
         isShowVideo = ConfigManager.getInstance().isShowVideo();
         isSingleType = ConfigManager.getInstance().isSingleType();
         mMaxCount = ConfigManager.getInstance().getMaxCount();
+        isShowCamera = true;
         //载入历史选择记录
         mImagePaths = ConfigManager.getInstance().getImagePaths();
         if (mImagePaths != null && !mImagePaths.isEmpty()) {
@@ -122,19 +120,17 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
             SelectionManager.getInstance().removeAll();
         }
         mProgressDialog = ProgressDialog.show(this, null, getString(R.string.scanner_image));
-        baseBind.title.setTitle(TextUtils.isEmpty(mTitle) ? "" : mTitle);
         mGridLayoutManager = new GridLayoutManager(this, 4);
         bind.rvMainImages.setLayoutManager(mGridLayoutManager);
         //注释说当知道Adapter内Item的改变不会影响RecyclerView宽高的时候，可以设置为true让RecyclerView避免重新计算大小。
         bind.rvMainImages.setHasFixedSize(true);
         bind.rvMainImages.setItemViewCacheSize(60);
         bind.layoutActionBar.bringToFront();
-
         mMediaFileList = new ArrayList<>();
         mImagePickerAdapter = new ImagePickerAdapter(this, mMediaFileList);
         mImagePickerAdapter.setOnItemClickListener(this);
         bind.rvMainImages.setAdapter(mImagePickerAdapter);
-        findViewById(R.id.back).setOnClickListener(v -> onBackPressed());
+        bind.ivActionBarBack.setOnClickListener(v -> onBackPressed());
         //进行权限的判断
         boolean hasPermission = PermissionUtil.checkCamera();
         if (!hasPermission) {
@@ -390,10 +386,8 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
                 return;
             }
         }
-
         if (mMediaFileList != null) {
             DataUtil.getInstance().setMediaData(mMediaFileList);
-            Intent intent = null;
             if (isShowCamera) {
                 ImageEditActivity.start(this, position - 1);
             } else {
@@ -404,7 +398,7 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
                     ImageEditActivity.start(this, position);
                 }
             }
-            startActivityForResult(intent, REQUEST_SELECT_IMAGES_CODE);
+//            startActivityForResult(intent, REQUEST_SELECT_IMAGES_CODE);
         }
     }
 

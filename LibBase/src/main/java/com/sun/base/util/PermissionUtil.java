@@ -29,8 +29,7 @@ import io.reactivex.disposables.Disposable;
  */
 public class PermissionUtil {
 
-    private static final String TAG = PermissionUtil.class.getSimpleName();
-    private static final int REQ_CODE_PERMISSION_STORAGE = 2000;
+    private static final int REQUEST_CODE_PERMISSION_STORAGE = 2000;
 
     /**
      * 检查写入SD卡权限
@@ -72,7 +71,7 @@ public class PermissionUtil {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
                 intent.setData(Uri.fromParts("package", activity.getPackageName(), null));
-                activity.startActivityForResult(intent, REQ_CODE_PERMISSION_STORAGE);
+                activity.startActivityForResult(intent, REQUEST_CODE_PERMISSION_STORAGE);
             }
         });
     }
@@ -107,18 +106,15 @@ public class PermissionUtil {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         //同时申请多个权限时，该方法只会走一次回调，即最开始的订阅回调
-                        LogHelper.e(TAG, "onSubscribe");
                     }
 
                     @Override
                     public void onNext(@NonNull Permission permission) {
                         //同时申请N个权限时，该方法就会走N次回调
-                        LogHelper.e(TAG, "onNext");
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        LogHelper.e(TAG, "onError");
                     }
 
                     @Override

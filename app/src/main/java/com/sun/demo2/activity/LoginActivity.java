@@ -10,6 +10,8 @@ import android.view.View;
 
 import com.google.gson.Gson;
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.base.db.entity.UserInfo;
+import com.sun.base.db.manager.UserInfoManager;
 import com.sun.base.disk.DiskCacheManager;
 import com.sun.base.net.exception.ApiException;
 import com.sun.base.net.response.Response;
@@ -18,11 +20,10 @@ import com.sun.base.net.state.NetworkStateChangeReceiver;
 import com.sun.base.net.state.NetworkUtil;
 import com.sun.base.util.StringUtil;
 import com.sun.base.util.TimeUtil;
-import com.sun.base.db.entity.UserInfo;
-import com.sun.base.db.manager.UserInfoManager;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityLoginBinding;
 import com.sun.demo2.iview.ILoginView;
+import com.sun.demo2.model.DataBean;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.present.LoginPresenter;
 import com.sun.demo2.util.sp.LoginInfoSp;
@@ -114,7 +115,14 @@ public class LoginActivity extends BaseMvpActivity<ActivityLoginBinding> impleme
         list.add("aa");
         list.clear();
         list.add("bb");
-        System.out.print(list.toString());
+        List<DataBean> dataBeans = new ArrayList<>();
+        dataBeans.add(new DataBean());
+        dataBeans.add(null);
+        if (dataBeans.get(1)== null){
+            showToast("aa");
+        }else {
+            showToast("bb");
+        }
     }
 
     private void deleteElementFromList() {

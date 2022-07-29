@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
@@ -13,6 +14,7 @@ import android.webkit.MimeTypeMap;
 import com.sun.base.R;
 import com.sun.base.toast.ToastHelper;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
@@ -185,6 +187,15 @@ public class FileUtil {
             return;
         }
         delete(new File(filePath), deleteRootFile);
+    }
+
+    public static boolean deleteFile(String url) {
+        boolean result = false;
+        File file = new File(url);
+        if (file.exists()) {
+            result = file.delete();
+        }
+        return result;
     }
 
     /**
@@ -572,7 +583,7 @@ public class FileUtil {
         }
         //随机UUID+时间戳作为文件名
         String saveFileName = UUID.randomUUID() + "_" + System.currentTimeMillis() + "." + ext;
-        File saveFileDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/" + context.getString(R.string.app_name));
+        File saveFileDir = new File(getMediaFileName());
         if (!saveFileDir.exists()) {
             saveFileDir.mkdirs();
         }
@@ -598,5 +609,44 @@ public class FileUtil {
                 }
             }
         }
+    }
+
+    public static String saveBitmapAsPicture(Bitmap b) {
+        long dataTake = System.currentTimeMillis();
+        String jpegName = getMediaFileName() + File.separator + dataTake + ".jpg";
+        try {
+            FileOutputStream fos = new FileOutputStream(jpegName);
+            BufferedOutputStream bos = new BufferedOutputStream(fos);
+            b.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            bos.flush();
+            bos.close();
+            return jpegName;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public static String getMediaFileName(){
+        String name = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath()
+                + "/" + AppUtil.getCtx().getString(R.string.app_name);
+        File mediaDir = new File(name);
+        if (!mediaDir.exists()) {
+            mediaDir.mkdirs();
+        }
+        return name;
+    }
+
+    /**
+     * 获取视频总时长
+     *
+     * @param path
+     * @return
+     */
+    public static int getVideoDuration(String path) {
+        MediaMetadataRetriever media = new MediaMetadataRetriever();
+        media.setDataSource(path);
+        String duration = media.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+        return Integer.parseInt(duration);
     }
 }

@@ -14,32 +14,13 @@
             android:layout_height="@dimen/dp44"
             android:background="@color/cl_323232">
 
-            <FrameLayout
-                android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp5"
-                android:paddingLeft="@dimen/dp10"
-                android:paddingTop="@dimen/dp10"
-                android:paddingRight="@dimen/dp20"
-                android:paddingBottom="@dimen/dp10">
-
-                <ImageView
-                    android:id="@+id/iv_actionBar_back"
-                    android:layout_width="@dimen/dp15"
-                    android:layout_height="@dimen/dp15"
-                    android:src="@mipmap/icon_off" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/tv_actionBar_title"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/iv_actionBar_back"
+                android:layout_width="@dimen/dp40"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/back"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:padding="@dimen/dp8"
+                android:layout_marginStart="@dimen/dp10"
+                android:src="@mipmap/ic_back_white" />
 
             <LinearLayout
                 android:id="@+id/select_container"

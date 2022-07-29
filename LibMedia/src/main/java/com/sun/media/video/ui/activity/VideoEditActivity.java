@@ -64,6 +64,13 @@ public class VideoEditActivity extends BaseMvpActivity<ActivityVideoEditBinding>
     }
 
     @Override
+    protected boolean enableDarkStatusBarAndSetTitle() {
+        mStatusBarColor = R.color.cl_323232;
+        mTitleColor = R.color.cl_323232;
+        return true;
+    }
+
+    @Override
     protected void initIntent() {
         Intent intent = getIntent();
         if (intent != null) {
@@ -85,7 +92,6 @@ public class VideoEditActivity extends BaseMvpActivity<ActivityVideoEditBinding>
 
     @Override
     public void initData() {
-        bind.ivActionBarBack.setOnClickListener(v -> finish());
         bind.tvActionBarCommit.setOnClickListener(v -> {
             int selectCount = SelectionManager.getInstance().getSelectPaths().size();
             if (selectCount == 0) {
