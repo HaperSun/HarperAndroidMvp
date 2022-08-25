@@ -47,8 +47,9 @@ public class HomepageActivity extends BaseMvpActivity<ActivityHomepageBinding> {
 
     @Override
     protected boolean enableDarkStatusBarAndSetTitle() {
-        mTitleColor = R.color.white;
-        return false;
+        mStatusBarColor = com.sun.media.R.color.cl_323232;
+        mTitleColor = com.sun.media.R.color.cl_323232;
+        return true;
     }
 
     @Override
