@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.base.util.CollectionUtil;
 import com.sun.media.R;
-import com.sun.media.img.manager.ConfigManager;
-import com.sun.media.img.model.bean.MediaFolder;
+import com.sun.media.img.ImageLoader;
+import com.sun.media.img.model.MediaFolder;
 
 import java.util.List;
 
@@ -92,19 +92,16 @@ public class SwitchDirectoryAdapter extends RecyclerView.Adapter<SwitchDirectory
             }
             //加载图片
             try {
-                ConfigManager.getInstance().getImageLoader().loadImage(mImageCover, folderCover);
+                ImageLoader.getInstance().loadImage(folderCover, mImageCover);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             if (mImageFolderChangeListener != null) {
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mCurrentImageFolderIndex = position;
-                        notifyDataSetChanged();
-                        mImageFolderChangeListener.onImageFolderChange(view, position);
-                    }
+                itemView.setOnClickListener(view -> {
+                    mCurrentImageFolderIndex = position;
+                    notifyDataSetChanged();
+                    mImageFolderChangeListener.onImageFolderChange(view, position);
                 });
             }
         }

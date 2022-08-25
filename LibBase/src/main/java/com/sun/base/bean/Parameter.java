@@ -7,9 +7,9 @@ package com.sun.base.bean;
  */
 public interface Parameter {
 
-    String INDEX ="index";
-    String PICTURE_PATH ="picture_path";
-    String VIDEO_PATH ="video_path";
-    String FILE_PATH ="file_path";
-    String BEAN="bean";
+    String INDEX = "index";
+    String FILE_PATH = "file_path";
+    String BEAN = "bean";
+    int REQUEST_CODE_MEDIA = 0x001;
+    int RESULT_CODE_MEDIA = 0x002;
 }

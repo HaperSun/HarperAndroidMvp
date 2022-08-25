@@ -16,31 +16,23 @@ import java.util.ArrayList;
  */
 public class VideoLoadTask implements Runnable {
 
-    private Context mContext;
-    private VideoScanner mVideoScanner;
-    private IMediaLoadCallback mIMediaLoadCallback;
+    private final Context mContext;
+    private final VideoScanner mVideoScanner;
+    private final IMediaLoadCallback mMediaLoadCallback;
 
-    public VideoLoadTask(Context context, IMediaLoadCallback IMediaLoadCallback) {
+    public VideoLoadTask(Context context, IMediaLoadCallback mediaLoadCallback) {
         this.mContext = context;
-        this.mIMediaLoadCallback = IMediaLoadCallback;
+        this.mMediaLoadCallback = mediaLoadCallback;
         mVideoScanner = new VideoScanner(context);
     }
 
     @Override
     public void run() {
-
         //存放所有视频
-        ArrayList<MediaFile> videoFileList = new ArrayList<>();
-
-        if (mVideoScanner != null) {
-            videoFileList = mVideoScanner.queryMedia();
+        ArrayList<MediaFile> videoFileList = mVideoScanner.queryMedia();
+        if (mMediaLoadCallback != null) {
+            mMediaLoadCallback.loadMediaSuccess(MediaHandler.getVideoFolder(mContext, videoFileList));
         }
-
-        if (mIMediaLoadCallback != null) {
-            mIMediaLoadCallback.loadMediaSuccess(MediaHandler.getVideoFolder(mContext, videoFileList));
-        }
-
-
     }
 
 }

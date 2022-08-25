@@ -15,18 +15,18 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 
 import com.sun.base.base.activity.BaseMvpActivity;
-import com.sun.base.bean.TDevice;
-import com.sun.base.manager.SelectionManager;
 import com.sun.base.bean.MediaFile;
 import com.sun.base.bean.Parameter;
+import com.sun.base.bean.TDevice;
 import com.sun.base.toast.ToastHelper;
+import com.sun.base.util.CollectionUtil;
 import com.sun.base.util.DataUtil;
 import com.sun.media.R;
 import com.sun.media.databinding.ActivityVideoEditBinding;
 import com.sun.media.img.ImageLoader;
 import com.sun.media.img.i.ImageLoadListener;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author: Harper
@@ -37,24 +37,23 @@ public class VideoEditActivity extends BaseMvpActivity<ActivityVideoEditBinding>
 
     public static final long MIN_CROP_DURATION = 5000;
     private static final int CODE_CROP_VIDEO_REQUEST = 2001;
-    private int mPosition = 0;
     private SurfaceTexture surfaceTexture;
     private String mCurSelectPath;
     private MediaFile mCurMediaFile;
     private MediaPlayer mMediaPlayer;
+    private boolean mJustCheck;
 
-    public static void start(Context context, int index) {
+    public static void start(Context context, boolean justCheck) {
         Intent intent = new Intent(context, VideoEditActivity.class);
-        intent.putExtra(Parameter.INDEX, index);
+        intent.putExtra(Parameter.BEAN, justCheck);
         context.startActivity(intent);
     }
 
     /**
      * 启动Activity
      */
-    public static void startForResult(Activity activity, int requestCode, int index) {
+    public static void startForResult(Activity activity, int requestCode) {
         Intent intent = new Intent(activity, VideoEditActivity.class);
-        intent.putExtra(Parameter.INDEX, index);
         activity.startActivityForResult(intent, requestCode);
     }
 
@@ -74,37 +73,27 @@ public class VideoEditActivity extends BaseMvpActivity<ActivityVideoEditBinding>
     protected void initIntent() {
         Intent intent = getIntent();
         if (intent != null) {
-            mPosition = intent.getIntExtra(Parameter.INDEX, 0);
+            mJustCheck = intent.getBooleanExtra(Parameter.BEAN, false);
         }
     }
 
     @Override
     public void initView() {
-        bind.ivCropper.setOnClickListener(this);
-        List<MediaFile> mMediaFileList = DataUtil.getInstance().getMediaData();
-        mCurSelectPath = mMediaFileList.get(mPosition).getPath();
-        mCurMediaFile = mMediaFileList.get(mPosition);
-        //更新当前页面状态
-        setIvPlayShow(mMediaFileList.get(mPosition));
-        updateCommitButton();
-        initVideoSize();
+        ArrayList<MediaFile> mediaFiles = DataUtil.getInstance().getMediaData();
+        if (CollectionUtil.notEmpty(mediaFiles)) {
+            mCurSelectPath = mediaFiles.get(0).getPath();
+            mCurMediaFile = mediaFiles.get(0);
+            initVideoSize();
+        }
     }
 
     @Override
     public void initData() {
-        bind.tvActionBarCommit.setOnClickListener(v -> {
-            int selectCount = SelectionManager.getInstance().getSelectPaths().size();
-            if (selectCount == 0) {
-                //没有选时候默认点击完成给当前的图片
-                SelectionManager.getInstance().removeAll();
-                SelectionManager.getInstance().addImageToSelectList(mCurMediaFile.getPath());
-            }
-            setResult(Activity.RESULT_OK, new Intent());
-            finish();
-        });
-        bind.ivMainPlay.setOnClickListener(v -> {
-
-        });
+        baseBind.title.setTitle("视频预览");
+        baseBind.title.setOnTitleClickListener(view -> onBackPressed());
+        bind.bottomContainer.setVisibility(mJustCheck ? View.GONE : View.VISIBLE);
+        bind.ivCropper.setOnClickListener(this);
+        bind.tvActionBarCommit.setOnClickListener(this);
         bind.textureView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
             @Override
             public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -150,7 +139,6 @@ public class VideoEditActivity extends BaseMvpActivity<ActivityVideoEditBinding>
                 bind.textureView.setLayoutParams(layoutParams);
             }
         });
-
     }
 
     private void initMediaPlay(SurfaceTexture surface) {
@@ -166,79 +154,39 @@ public class VideoEditActivity extends BaseMvpActivity<ActivityVideoEditBinding>
         }
     }
 
-    /**
-     * 更新确认按钮状态
-     */
-    private void updateCommitButton() {
-        int maxCount = SelectionManager.getInstance().getMaxCount();
-        //改变确定按钮UI
-        int selectCount = SelectionManager.getInstance().getSelectPaths().size();
-        bind.ivCropper.setVisibility((selectCount == 1 || selectCount == 0) ? View.VISIBLE : View.GONE);
-        if (selectCount == 0) {
-            bind.tvActionBarCommit.setEnabled(true);
-            bind.tvActionBarCommit.setText(getString(R.string.confirm));
-            bind.tvActionBarCommit.setBackgroundResource(R.drawable.shape_rec_solid_ff8c4a_radius_dp5);
-            return;
-        }
-        if (selectCount < maxCount) {
-            bind.tvActionBarCommit.setEnabled(true);
-            bind.tvActionBarCommit.setText(String.format(getString(R.string.confirm_msg), selectCount));
-            bind.tvActionBarCommit.setBackgroundResource(R.drawable.shape_rec_solid_ff8c4a_radius_dp5);
-            return;
-        }
-        if (selectCount == maxCount) {
-            bind.tvActionBarCommit.setEnabled(true);
-            bind.tvActionBarCommit.setText(String.format(getString(R.string.confirm_msg), selectCount));
-            bind.tvActionBarCommit.setBackgroundResource(R.drawable.shape_rec_solid_ff8c4a_radius_dp5);
-            return;
-        }
-    }
-
-    /**
-     * 设置是否显示视频播放按钮
-     *
-     * @param mediaFile
-     */
-    private void setIvPlayShow(MediaFile mediaFile) {
-        if (null == mediaFile) {
-            return;
-        }
-        if (mediaFile.getDuration() > 0) {
-            bind.ivMainPlay.setVisibility(View.VISIBLE);
-        } else {
-            bind.ivMainPlay.setVisibility(View.GONE);
-        }
-    }
-
     @Override
     public void onClick(View v) {
+        if (mCurMediaFile == null) {
+            return;
+        }
         int id = v.getId();
         if (id == R.id.iv_cropper) {
-            if (null != mCurMediaFile) {
-                if (mCurMediaFile.getDuration() >= MIN_CROP_DURATION) {
-                    //视频裁剪
-                    VideoTrimmerActivity.startForResult(this, CODE_CROP_VIDEO_REQUEST, mCurMediaFile.getPath());
-                } else {
-                    ToastHelper.showToast(R.string.min_crop_toast);
-                }
+            if (mCurMediaFile.getDuration() >= MIN_CROP_DURATION) {
+                //视频裁剪
+                VideoTrimmerActivity.startForResult(this, CODE_CROP_VIDEO_REQUEST, mCurMediaFile);
+            } else {
+                ToastHelper.showToast(R.string.min_crop_toast);
             }
+        } else if (id == R.id.tv_actionBar_commit) {
+            Intent intent = new Intent();
+            ArrayList<MediaFile> mediaFiles = new ArrayList<>();
+            mediaFiles.add(mCurMediaFile);
+            intent.putParcelableArrayListExtra(Parameter.FILE_PATH, mediaFiles);
+            setResult(Parameter.RESULT_CODE_MEDIA, intent);
+            finish();
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-        if (requestCode == CODE_CROP_VIDEO_REQUEST) {
-            if (null != data) {
-                //单张裁剪过后点击裁剪的完成按钮，多张图暂时不支持裁剪
-                String mCropImgPath = data.getStringExtra(Parameter.PICTURE_PATH);
-                SelectionManager.getInstance().removeAll();
-                SelectionManager.getInstance().addImageToSelectList(mCropImgPath);
-                setResult(Activity.RESULT_OK, new Intent());
-                finish();
+        if (data != null) {
+            if (requestCode == Parameter.REQUEST_CODE_MEDIA && resultCode == Parameter.RESULT_CODE_MEDIA) {
+                Intent intent = new Intent();
+                ArrayList<MediaFile> mediaFiles = data.getParcelableArrayListExtra(Parameter.FILE_PATH);
+                intent.putParcelableArrayListExtra(Parameter.FILE_PATH, mediaFiles);
+                setResult(Parameter.RESULT_CODE_MEDIA, intent);
+                close();
             }
         }
     }

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.media.R;
-import com.sun.media.img.model.bean.MediaFolder;
+import com.sun.media.img.model.MediaFolder;
 import com.sun.media.img.ui.adapter.SwitchDirectoryAdapter;
 
 import java.util.List;

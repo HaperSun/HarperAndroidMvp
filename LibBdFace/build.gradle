@@ -30,6 +30,5 @@ android {
 
 dependencies {
     api (fileTree(dir: 'libs'))
-
     implementation project(':LibBase')
 }

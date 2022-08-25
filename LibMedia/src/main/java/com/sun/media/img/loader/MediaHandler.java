@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.sun.base.bean.MediaFile;
 import com.sun.media.R;
-import com.sun.media.img.model.bean.MediaFolder;
+import com.sun.media.img.model.MediaFolder;
 
 import java.util.ArrayList;
 import java.util.Collections;

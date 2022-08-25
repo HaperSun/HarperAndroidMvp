@@ -44,6 +44,7 @@ version.webSocket ="1.5.1"  //webSocket
 version.imageCropper = "2.8.+" //图片裁剪
 version.ffmpeg = "1.1.5" //视频裁剪
 version.slidinguppanel = "3.4.0" //android 开源库 AndroidSlidingUpPanel可向上拖动的view
+version.qcloud= "5.9.+" //腾讯cos
 
 
 def target = [:]
@@ -63,13 +64,11 @@ target.eventbus = "org.greenrobot:eventbus:$version.eventbus"
 target.andpermission = "com.yanzhenjie.permission:support:$version.andpermission"
 target.rxpermissions = "com.github.tbruyelle:rxpermissions:$version.rxpermissions"
 target.palette = "androidx.palette:palette:$version.palette"
-target.tbs = "com.tencent.tbs.tbssdk:$version.tbs"
 target.commons_lang = "org.apache.commons:commons-lang3:$version.commons_lang"
 target.xUtil = "org.xutils:xutils:$version.xUtil"
 target.zxing = "com.google.zxing:core:$version.zxing"
 target.lifecycle_extensions = "androidx.lifecycle:lifecycle-extensions:$version.lifecycle_extensions"
 target.smart_refresh = "com.scwang.smartrefresh:SmartRefreshLayout:$version.smart_refresh"
-
 //友盟
 target.umsdk_common = "com.umeng.umsdk:common:$version.umsdk_common"
 target.umsdk_asms = "com.umeng.umsdk:asms:$version.umsdk_asms"
@@ -77,7 +76,6 @@ target.umsdk_link = "com.umeng.umsdk:link:$version.umsdk_link"
 target.umsdk_share_core = "com.umeng.umsdk:share-core:$version.umsdk_share_core"
 target.umsdk_share_board = "com.umeng.umsdk:share-board:$version.umsdk_share_board"
 target.umsdk_share_wx = "com.umeng.umsdk:share-wx:$version.umsdk_share_wx"
-target.wechat_opensdk = "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:$version.wechat_opensdk"
 
 target.rxjava = "io.reactivex.rxjava2:rxjava:$version.rxjava"
 target.rxandroid = "io.reactivex.rxjava2:rxandroid:$version.rxandroid"
@@ -87,6 +85,9 @@ target.adapter_rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$version.adapte
 //腾讯地图
 target.tencentLocationSdk = "com.tencent.map.geolocation:TencentLocationSdk-openplatform:$version.tencentLocationSdk"
 target.tencent_map_vector = "com.tencent.map:tencent-map-vector-sdk:$version.tencent_map_vector"
+target.qcloud = "com.qcloud.cos:cos-android:$version.qcloud"
+target.wechat_opensdk = "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:$version.wechat_opensdk"
+target.tbs = "com.tencent.tbs.tbssdk:$version.tbs"
 target.easypermissions = "pub.devrel:easypermissions:$version.easypermissions"
 //webSocket
 target.webSocket = "org.java-websocket:Java-WebSocket:$version.webSocket"

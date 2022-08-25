@@ -159,7 +159,7 @@ public class MediaFileUtil {
     }
 
     //根据视频文件路径判断文件类型
-    public static boolean isVideoFileType(String path) {  //自己增加
+    public static boolean isVideoFileType(String path) {
         MediaFileType type = getFileType(path);
         if (null != type) {
             return isVideoFileType(type.fileType);
@@ -168,7 +168,7 @@ public class MediaFileUtil {
     }
 
     //根据音频文件路径判断文件类型
-    public static boolean isAudioFileType(String path) {  //自己增加
+    public static boolean isAudioFileType(String path) {
         MediaFileType type = getFileType(path);
         if (null != type) {
             return isAudioFileType(type.fileType);

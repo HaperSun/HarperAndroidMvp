@@ -6,6 +6,8 @@ def app = [:]
 app.package = "com.sun.demo2"
 app.versionCode = 1
 app.versionName = "v0.0.1"
+
+
 //友盟的 app_key
 app.umeng_app_key = "6193821ce014255fcb7d1395"
 //百度人脸识别
@@ -21,6 +23,12 @@ app.umeng_app_key = "6193821ce014255fcb7d1395"
 */
 app.bd_license_id = "android-harper-cj-face-android"
 app.bd_license_file_name = "idl-license.face-android"
+//腾讯云
+app.qClound_secret_id = "AKIDf6GAlwopWv4KKoRQXOzJM8h7F5hzDjRr"//永久密钥 secretId
+app.qClound_secret_key = "H1UfhTzEDvLTKwHKfnhKgmb9PN32knal"//永久密钥 secretKey
+app.qClound_region = "ap-nanjing"// 存储桶所在地域简称，例如广州地区是 ap-guangzhou
+app.qClound_bucket = "xsx-1252375120"//存储桶，格式：BucketName-APPID
+
 
 config.app = app
 

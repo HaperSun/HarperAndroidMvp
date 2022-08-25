@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import com.sun.base.bean.MediaFile;
-import com.sun.media.img.manager.ConfigManager;
+import com.sun.media.img.MediaSelector;
 
 /**
  * @author: Harper
@@ -38,7 +38,7 @@ public class ImageScanner extends AbsMediaScanner<MediaFile> {
 
     @Override
     protected String getSelection() {
-        if (ConfigManager.getInstance().isFilterGif()) {
+        if (MediaSelector.getInstance().config.filterGif) {
             //过滤GIF
             return MediaStore.Images.Media.MIME_TYPE + "=? or " + MediaStore.Images.Media.MIME_TYPE + "=?";
         }
@@ -47,7 +47,7 @@ public class ImageScanner extends AbsMediaScanner<MediaFile> {
 
     @Override
     protected String[] getSelectionArgs() {
-        if (ConfigManager.getInstance().isFilterGif()) {
+        if (MediaSelector.getInstance().config.filterGif) {
             //过滤GIF
             return new String[]{"image/jpeg", "image/png"};
         }

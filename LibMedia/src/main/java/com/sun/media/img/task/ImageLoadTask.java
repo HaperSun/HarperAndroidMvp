@@ -16,30 +16,23 @@ import java.util.ArrayList;
  */
 public class ImageLoadTask implements Runnable {
 
-    private Context mContext;
-    private ImageScanner mImageScanner;
-    private IMediaLoadCallback mIMediaLoadCallback;
+    private final Context mContext;
+    private final ImageScanner mImageScanner;
+    private final IMediaLoadCallback mMediaLoadCallback;
 
-    public ImageLoadTask(Context context, IMediaLoadCallback IMediaLoadCallback) {
+    public ImageLoadTask(Context context, IMediaLoadCallback mediaLoadCallback) {
         this.mContext = context;
-        this.mIMediaLoadCallback = IMediaLoadCallback;
+        this.mMediaLoadCallback = mediaLoadCallback;
         mImageScanner = new ImageScanner(context);
     }
 
     @Override
     public void run() {
         //存放所有照片
-        ArrayList<MediaFile> imageFileList = new ArrayList<>();
-
-        if (mImageScanner != null) {
-            imageFileList = mImageScanner.queryMedia();
+        ArrayList<MediaFile> imageFileList = mImageScanner.queryMedia();
+        if (mMediaLoadCallback != null) {
+            mMediaLoadCallback.loadMediaSuccess(MediaHandler.getImageFolder(mContext, imageFileList));
         }
-
-        if (mIMediaLoadCallback != null) {
-            mIMediaLoadCallback.loadMediaSuccess(MediaHandler.getImageFolder(mContext, imageFileList));
-        }
-
-
     }
 
 }

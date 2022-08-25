@@ -41,7 +41,7 @@ android {
         dev {
             applicationId "com.sun.demo2"
             manifestPlaceholders = [
-                    APP_NAME : "Harpr测试",
+                    APP_NAME : "Harper测试",
                     UMENG_APP_KEY: config.app.umeng_app_key //友盟
             ]
             buildConfigField "String", "Base_URL", config.server.urlTest
@@ -52,7 +52,7 @@ android {
         pro {
             applicationId "com.sun.demo2"
             manifestPlaceholders = [
-                    APP_NAME : "Harpr",
+                    APP_NAME : "Harper",
                     UMENG_APP_KEY: config.app.umeng_app_key //友盟
             ]
             buildConfigField "String", "Base_URL", config.server.urlRelease

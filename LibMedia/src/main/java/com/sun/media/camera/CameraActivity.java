@@ -1,8 +1,11 @@
 package com.sun.media.camera;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+
+import androidx.annotation.Nullable;
 
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.bean.MediaFile;
@@ -19,7 +22,6 @@ import com.sun.media.img.ui.activity.ImageEditActivity;
 import com.sun.media.video.ui.activity.VideoEditActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author: Harper
@@ -35,6 +37,12 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
         Intent intent = new Intent(context, CameraActivity.class);
         intent.putExtra(Parameter.INDEX, takeType);
         context.startActivity(intent);
+    }
+
+    public static void startForResult(Activity activity, int requestCode, int takeType) {
+        Intent intent = new Intent(activity, CameraActivity.class);
+        intent.putExtra(Parameter.INDEX, takeType);
+        activity.startActivityForResult(intent, requestCode);
     }
 
     @Override
@@ -92,15 +100,15 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
     @Override
     public void captureSuccess(Bitmap bitmap) {
         String path = FileUtil.saveBitmapAsPicture(bitmap);
-        List<MediaFile> mMediaFileList = new ArrayList<>();
+        ArrayList<MediaFile> mediaFiles = new ArrayList<>();
         MediaFile mediaFile = new MediaFile();
         mediaFile.setFolderName("temp");
         mediaFile.setMime("image/jpg");
         mediaFile.setPath(path);
-        mMediaFileList.add(mediaFile);
-        DataUtil.getInstance().setMediaData(mMediaFileList);
-        ImageEditActivity.start(this, 0);
-        close();
+        mediaFile.setItemType(MediaFile.PHOTO);
+        mediaFiles.add(mediaFile);
+        DataUtil.getInstance().setMediaData(mediaFiles);
+        ImageEditActivity.startForResult(this, Parameter.REQUEST_CODE_MEDIA, 0);
     }
 
     /**
@@ -110,14 +118,15 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
     @Override
     public void recordSuccess(String url, Bitmap firstFrame) {
         //去视频预览页面的数据
-        List<MediaFile> mMediaFileList = new ArrayList<>();
+        ArrayList<MediaFile> mediaFiles = new ArrayList<>();
         MediaFile mediaFile = new MediaFile();
         mediaFile.setMime("mp4");
         mediaFile.setPath(url);
         mediaFile.setDuration(FileUtil.getVideoDuration(url));
-        mMediaFileList.add(mediaFile);
-        DataUtil.getInstance().setMediaData(mMediaFileList);
-        VideoEditActivity.start(this, 0);
+        mediaFile.setItemType(MediaFile.VIDEO);
+        mediaFiles.add(mediaFile);
+        DataUtil.getInstance().setMediaData(mediaFiles);
+        VideoEditActivity.startForResult(this, Parameter.REQUEST_CODE_MEDIA);
     }
 
     @Override
@@ -130,5 +139,19 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
     public void audioPermissionError() {
         showFailToast("请开启相机权限~");
         close();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            if (requestCode == Parameter.REQUEST_CODE_MEDIA && resultCode == Parameter.RESULT_CODE_MEDIA) {
+                Intent intent = new Intent();
+                ArrayList<MediaFile> mediaFiles = data.getParcelableArrayListExtra(Parameter.FILE_PATH);
+                intent.putParcelableArrayListExtra(Parameter.FILE_PATH, mediaFiles);
+                setResult(Parameter.RESULT_CODE_MEDIA, intent);
+                close();
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 package com.sun.media.img.i;
 
 
-import com.sun.media.img.model.bean.MediaFolder;
+import com.sun.media.img.model.MediaFolder;
 
 import java.util.List;
 

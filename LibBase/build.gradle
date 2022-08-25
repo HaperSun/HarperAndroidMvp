@@ -28,6 +28,11 @@ android {
         //百度人脸识别
         resValue("string", "bd_license_id", config.app.bd_license_id)
         resValue("string", "bd_license_file_name", config.app.bd_license_file_name)
+        //腾讯云
+        resValue("string", "qClound_secret_id", config.app.qClound_secret_id)
+        resValue("string", "qClound_secret_key", config.app.qClound_secret_key)
+        resValue("string", "qClound_region", config.app.qClound_region)
+        resValue("string", "qClound_bucket", config.app.qClound_bucket)
     }
 
     compileOptions {
@@ -82,4 +87,9 @@ dependencies {
     //数据库
     api target.greendao
     api target.generator
+//    api target.qcloud
+    //腾讯云cos存储
+    implementation('com.tencent.qcloud:cosxml:5.4.26') {
+        exclude group: 'com.tencent.qcloud', module: 'mtaUtils' //关闭 mta 上报功能
+    }
 }

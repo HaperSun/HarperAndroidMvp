@@ -1,13 +1,16 @@
 package com.sun.media.img;
 
-import android.content.Context;
-
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 
+import com.sun.base.bean.MediaFile;
+import com.sun.base.bean.Parameter;
+import com.sun.base.util.CollectionUtil;
+import com.sun.base.util.MediaFileUtil;
 import com.sun.media.camera.CameraActivity;
 import com.sun.media.img.manager.MediaConfig;
+import com.sun.media.img.ui.activity.ImagePickerActivity;
+
+import java.util.ArrayList;
 
 /**
  * @author Harper
@@ -18,16 +21,15 @@ public class MediaSelector {
 
     private static volatile MediaSelector mMediaSelector;
     private FragmentActivity fragmentActivity;
-    private Fragment fragment;
-    private FragmentManager manager;
     public MediaConfig config;
-
+    private ArrayList<MediaFile> mSelectedFiles;
 
     public static MediaSelector getInstance() {
         if (mMediaSelector == null) {
             synchronized (MediaSelector.class) {
                 if (mMediaSelector == null) {
                     mMediaSelector = new MediaSelector();
+                    builder().build();
                 }
             }
         }
@@ -36,10 +38,6 @@ public class MediaSelector {
 
     public static Builder builder(FragmentActivity fragmentActivity) {
         return new Builder(fragmentActivity);
-    }
-
-    public static Builder builder(Fragment fragment) {
-        return new Builder(fragment);
     }
 
     public static Builder builder() {
@@ -51,33 +49,54 @@ public class MediaSelector {
     }
 
     public void show() {
-        Context context = null;
         if (fragmentActivity != null) {
-            context = fragmentActivity;
-        } else if (fragment != null) {
-            context = fragment.getContext();
+            switch (config.operationType) {
+                case MediaConfig.TAKE_PHOTO:
+                case MediaConfig.TAKE_VIDEO:
+                case MediaConfig.TAKE_BOTH:
+                    //启动相机
+                    CameraActivity.startForResult(fragmentActivity, Parameter.REQUEST_CODE_MEDIA, config.mediaFileType);
+                    break;
+                case MediaConfig.FROM_ALBUM:
+                    //启动相册
+                    ImagePickerActivity.startForResult(fragmentActivity, Parameter.REQUEST_CODE_MEDIA);
+                    break;
+                default:
+                    break;
+            }
         }
-        switch (config.selectType) {
-            case MediaConfig.TAKE_PHOTO:
-            case MediaConfig.TAKE_VIDEO:
-            case MediaConfig.TAKE_BOTH:
-                if (context != null) {
-                    CameraActivity.start(context, config.selectType);
-                }
-                break;
-            case MediaConfig.PHOTO_ALBUM:
-                break;
-            case MediaConfig.BOTTOM_DIALOG:
-                break;
-            default:
-                break;
+    }
+
+    public void setSelectedFiles(ArrayList<MediaFile> selectedFilePaths) {
+        mSelectedFiles = selectedFilePaths;
+    }
+
+    /**
+     * 获取当前选择的媒体文件集合
+     *
+     * @return
+     */
+    public ArrayList<MediaFile> getSelectedFiles() {
+        if (CollectionUtil.isEmpty(mSelectedFiles)) {
+            return mSelectedFiles = new ArrayList<>();
         }
+        return mSelectedFiles;
+    }
+
+    /**
+     * 是否可以添加到选择集合（在singleType模式下，图片视频不能一起选）
+     *
+     * @param currentPath
+     * @param filePath
+     * @return
+     */
+    public static boolean isCanAddSelectionPaths(String currentPath, String filePath) {
+        return (!MediaFileUtil.isVideoFileType(currentPath) || MediaFileUtil.isVideoFileType(filePath))
+                && (MediaFileUtil.isVideoFileType(currentPath) || !MediaFileUtil.isVideoFileType(filePath));
     }
 
     public static class Builder {
 
-        private FragmentManager manager;
-        private Fragment fragment;
         private FragmentActivity fragmentActivity;
         //前置摄像头拍摄是否启用镜像 默认开启
         private boolean isMirror;
@@ -85,8 +104,8 @@ public class MediaSelector {
         private int maxOriginalSize;
         //最大选择数目
         private int maxCount;
-        //剩余选择数目
-        private int remainderCount;
+        //已选择数目
+        private int selectedCount;
         //最大图片宽度
         private int maxWidth;
         //最大图片高度
@@ -94,17 +113,22 @@ public class MediaSelector {
         //单位：MB , 默认15MB
         private int maxImageSize;
         //视频时长，单位：毫秒 ,默认30秒
-        private int maxVideoLength;
+        private long maxVideoLength;
         //视频大小，单位：MB
         private int maxVideoSize;
         //操作类型
-        private int selectType;
+        private String operationType;
+        private int mediaFileType;
         //最大选择视频数
-        private int maxVideoCount;
+        private int maxVideoSelectCount;
         //在本地显示，不用上传到网络
         public boolean showLocal;
         //可以删除
         public boolean showDelete;
+        //相册中是否可以拍照
+        public boolean albumCanTakePhoto;
+        //是否过滤GIF图片，默认过滤
+        public boolean filterGif;
 
         public Builder() {
             setDefault();
@@ -112,13 +136,6 @@ public class MediaSelector {
 
         private Builder(FragmentActivity fragmentActivity) {
             this.fragmentActivity = fragmentActivity;
-            this.manager = fragmentActivity.getSupportFragmentManager();
-            setDefault();
-        }
-
-        private Builder(Fragment fragment) {
-            this.fragment = fragment;
-            this.manager = fragment.getChildFragmentManager();
             setDefault();
         }
 
@@ -132,12 +149,15 @@ public class MediaSelector {
             maxWidth = 1920;
             maxHeight = 1920;
             maxImageSize = 15;
-            maxVideoLength = 30000;
+            maxVideoLength = 301 * 1000L;
             maxVideoSize = 20;
-            selectType = MediaConfig.TAKE_PHOTO;
-            maxVideoCount = 1;
-            showLocal = false;
+            operationType = MediaConfig.TAKE_PHOTO;
+            mediaFileType = MediaConfig.PHOTO;
+            maxVideoSelectCount = 1;
+            showLocal = true;
             showDelete = true;
+            albumCanTakePhoto = true;
+            filterGif = true;
         }
 
         public Builder isMirror(boolean isMirror) {
@@ -151,12 +171,14 @@ public class MediaSelector {
         }
 
         public Builder maxCount(int maxCount) {
-            this.maxCount = maxCount;
+            if (maxCount <= 9) {
+                this.maxCount = maxCount;
+            }
             return this;
         }
 
-        public Builder remainderCount(int remainderCount) {
-            this.remainderCount = remainderCount;
+        public Builder selectedCount(int selectedCount) {
+            this.selectedCount = selectedCount;
             return this;
         }
 
@@ -175,7 +197,7 @@ public class MediaSelector {
             return this;
         }
 
-        public Builder maxVideoLength(int maxVideoLength) {
+        public Builder maxVideoLength(long maxVideoLength) {
             this.maxVideoLength = maxVideoLength;
             return this;
         }
@@ -185,13 +207,18 @@ public class MediaSelector {
             return this;
         }
 
-        public Builder selectType(int selectType) {
-            this.selectType = selectType;
+        public Builder operationType(String operationType) {
+            this.operationType = operationType;
             return this;
         }
 
-        public Builder maxVideoCount(int maxVideoCount) {
-            this.maxVideoCount = maxVideoCount;
+        public Builder mediaFileType(int mediaFileType) {
+            this.mediaFileType = mediaFileType;
+            return this;
+        }
+
+        public Builder maxVideoCount(int maxVideoSelectCount) {
+            this.maxVideoSelectCount = maxVideoSelectCount;
             return this;
         }
 
@@ -205,25 +232,36 @@ public class MediaSelector {
             return this;
         }
 
+        public Builder albumCanTakePhoto(boolean albumCanTakePhoto) {
+            this.albumCanTakePhoto = albumCanTakePhoto;
+            return this;
+        }
+
+        public Builder filterGif(boolean filterGif) {
+            this.filterGif = filterGif;
+            return this;
+        }
+
         public MediaSelector build() {
             MediaSelector selector = MediaSelector.getInstance();
             MediaConfig config = new MediaConfig();
             selector.fragmentActivity = fragmentActivity;
-            selector.fragment = fragment;
-            selector.manager = manager;
             config.isMirror = isMirror;
             config.maxOriginalSize = maxOriginalSize;
             config.maxCount = maxCount;
-            config.remainderCount = remainderCount;
+            config.selectedCount = selectedCount;
             config.maxWidth = maxWidth;
             config.maxHeight = maxHeight;
             config.maxImageSize = maxImageSize;
             config.maxVideoLength = maxVideoLength;
             config.maxVideoSize = maxVideoSize;
-            config.selectType = selectType;
-            config.maxVideoCount = maxVideoCount;
+            config.operationType = operationType;
+            config.mediaFileType = mediaFileType;
+            config.maxVideoSelectCount = maxVideoSelectCount;
             config.showLocal = showLocal;
             config.showDelete = showDelete;
+            config.albumCanTakePhoto = albumCanTakePhoto;
+            config.filterGif = filterGif;
             selector.setConfig(config);
             return selector;
         }

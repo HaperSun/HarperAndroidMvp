@@ -25,8 +25,11 @@ allprojects {
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
         maven { url "https://jitpack.io" }
+        //阿里与Google镜像
+        maven{ url 'https://maven.aliyun.com/repository/google'}
         //分享
         maven { url  'https://repo1.maven.org/maven2/'}
+        maven {url "https://dl.bintray.com/tencentqcloudterminal/maven"}
     }
 }
 

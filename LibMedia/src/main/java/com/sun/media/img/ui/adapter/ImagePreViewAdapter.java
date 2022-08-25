@@ -21,8 +21,8 @@ import java.util.List;
  */
 public class ImagePreViewAdapter extends PagerAdapter {
 
-    private Context mContext;
-    private List<MediaFile> mMediaFileList;
+    private final Context mContext;
+    private final List<MediaFile> mMediaFileList;
 
     LinkedList<PinchImageView> viewCache = new LinkedList<>();
 

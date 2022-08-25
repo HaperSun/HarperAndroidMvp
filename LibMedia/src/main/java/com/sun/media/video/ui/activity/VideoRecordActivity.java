@@ -10,16 +10,14 @@ import android.provider.MediaStore;
 import android.view.View;
 
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.base.bean.MediaFile;
+import com.sun.base.bean.Parameter;
 import com.sun.base.bean.TDevice;
-import com.sun.base.manager.SelectionManager;
-import com.sun.base.util.CollectionUtil;
+import com.sun.base.util.DataUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogHelper;
-import com.sun.base.util.MediaFileUtil;
 import com.sun.base.util.MediaUtils;
 import com.sun.base.util.PermissionUtil;
-import com.sun.base.bean.MediaFile;
-import com.sun.base.util.DataUtil;
 import com.sun.media.R;
 import com.sun.media.databinding.ActivityVideoRecordBinding;
 import com.sun.media.video.ui.view.MovieRecorderView;
@@ -29,7 +27,6 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -181,21 +178,22 @@ public class VideoRecordActivity extends BaseMvpActivity<ActivityVideoRecordBind
                 sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, localUri));
 
                 //去预览页面的数据
-                List<MediaFile> mMediaFileList = new ArrayList<>();
+                ArrayList<MediaFile> mediaFiles = new ArrayList<>();
                 MediaFile mediaFile = new MediaFile();
                 mediaFile.setFolderName(file.getName());
                 mediaFile.setMime("mp4");
                 mediaFile.setPath(path);
+                mediaFile.setItemType(MediaFile.VIDEO);
                 long videoLength = (mTimeLength - 1) * 1000L;
                 mediaFile.setDuration(videoLength);
-                mMediaFileList.add(mediaFile);
-                DataUtil.getInstance().setMediaData(mMediaFileList);
+                mediaFiles.add(mediaFile);
+                DataUtil.getInstance().setMediaData(mediaFiles);
                 //还原参数
                 mTimeLength = 0;
                 bind.videoRecordProgress.setProgress(0);
                 //去预览页面
                 if (!mNoNeedToPreview) {
-                    VideoEditActivity.startForResult(this, REQUEST_CODE_RECORD, 0);
+                    VideoEditActivity.startForResult(this, REQUEST_CODE_RECORD);
                 }
             }
         }
@@ -260,20 +258,14 @@ public class VideoRecordActivity extends BaseMvpActivity<ActivityVideoRecordBind
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-        if (requestCode == REQUEST_CODE_RECORD) {
-            ArrayList<String> list = new ArrayList<>(SelectionManager.getInstance().getSelectPaths());
-            Intent intent = new Intent();
-            intent.putStringArrayListExtra(EXTRA_SELECT_IMAGES, list);
-            if (CollectionUtil.size(list) == 1) {
-                intent.putExtra(EXTRA_SELECT_VIDEO, MediaFileUtil.isVideoFileType(list.get(0)));
+        if (data != null) {
+            if (requestCode == Parameter.REQUEST_CODE_MEDIA && resultCode == Parameter.RESULT_CODE_MEDIA) {
+                Intent intent = new Intent();
+                ArrayList<MediaFile> mediaFiles = data.getParcelableArrayListExtra(Parameter.FILE_PATH);
+                intent.putParcelableArrayListExtra(Parameter.FILE_PATH, mediaFiles);
+                setResult(Parameter.RESULT_CODE_MEDIA, intent);
+                close();
             }
-            setResult(RESULT_OK, intent);
-            //清空选中记录
-            SelectionManager.getInstance().removeAll();
-            finish();
         }
     }
 }

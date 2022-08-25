@@ -4,7 +4,6 @@ package com.sun.base.util;
 import com.sun.base.bean.MediaFile;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author: Harper
@@ -16,7 +15,7 @@ import java.util.List;
 public class DataUtil {
 
     private static volatile DataUtil mDataUtilInstance;
-    private List<MediaFile> mData = new ArrayList<>();
+    private ArrayList<MediaFile> mData = new ArrayList<>();
 
     private DataUtil() {
     }
@@ -32,11 +31,11 @@ public class DataUtil {
         return mDataUtilInstance;
     }
 
-    public List<MediaFile> getMediaData() {
+    public ArrayList<MediaFile> getMediaData() {
         return mData;
     }
 
-    public void setMediaData(List<MediaFile> data) {
+    public void setMediaData(ArrayList<MediaFile> data) {
         this.mData = data;
     }
 

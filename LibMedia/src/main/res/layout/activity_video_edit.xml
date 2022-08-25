@@ -33,7 +33,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp15"
                 android:background="@drawable/shape_rec_solid_orange_radius_dp10"
-                android:enabled="false"
                 android:gravity="center"
                 android:paddingLeft="@dimen/dp10"
                 android:paddingTop="@dimen/dp5"
@@ -41,8 +40,7 @@
                 android:paddingBottom="@dimen/dp5"
                 android:text="@string/confirm"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp14"
-                android:visibility="visible" />
+                android:textSize="@dimen/sp14" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -56,14 +54,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true" />
-
-            <ImageView
-                android:id="@+id/iv_main_play"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_centerInParent="true"
-                android:src="@mipmap/icon_video_play"
-                android:visibility="gone" />
         </RelativeLayout>
     </RelativeLayout>
 </layout>

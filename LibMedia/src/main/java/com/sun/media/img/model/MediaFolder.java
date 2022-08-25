@@ -1,4 +1,4 @@
-package com.sun.media.img.model.bean;
+package com.sun.media.img.model;
 
 import com.sun.base.bean.MediaFile;
 
