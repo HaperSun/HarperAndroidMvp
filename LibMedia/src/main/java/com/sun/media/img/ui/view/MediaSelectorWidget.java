@@ -1,6 +1,7 @@
 package com.sun.media.img.ui.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -20,9 +21,11 @@ import com.sun.base.upload.UpLoadFileHelper;
 import com.sun.base.util.CollectionUtil;
 import com.sun.base.util.DataUtil;
 import com.sun.base.widget.RoundLayout;
+import com.sun.base.widget.SpacesItemDecoration;
 import com.sun.media.R;
 import com.sun.media.img.ImageLoader;
 import com.sun.media.img.MediaSelector;
+import com.sun.media.img.i.ImageLoadListener;
 import com.sun.media.img.ui.activity.ImagePreviewActivity;
 import com.sun.media.video.model.SuperPlayerModel;
 import com.sun.media.video.ui.activity.VideoEditActivity;
@@ -39,11 +42,10 @@ import java.util.List;
  */
 public class MediaSelectorWidget extends FrameLayout {
 
-    private final RecyclerView mRecyclerView;
     private final ArrayList<MediaFile> mModels;
     private MediaSelectorListener listener;
     private final Context mContext;
-    private Adapter mAdapter;
+    private final Adapter mAdapter;
     private UpLoadFileHelper mUpLoadFileHelper;
 
     public MediaSelectorWidget(@NonNull Context context) {
@@ -56,13 +58,15 @@ public class MediaSelectorWidget extends FrameLayout {
 
     public MediaSelectorWidget(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        LayoutInflater.from(context).inflate(R.layout.view_choose_photo_video, this);
-        mRecyclerView = findViewById(R.id.recycler_view);
-        mRecyclerView.setNestedScrollingEnabled(false);
+        LayoutInflater.from(context).inflate(R.layout.widget_media_selector, this);
+        RecyclerView recyclerView = findViewById(R.id.widget_media_selector_recycler_view);
+        recyclerView.setNestedScrollingEnabled(false);
         mModels = new ArrayList<>();
         mContext = context;
         mAdapter = new Adapter();
-        mRecyclerView.setAdapter(mAdapter);
+        int space = getResources().getDimensionPixelSize(R.dimen.dp1);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(space, space, false));
+        recyclerView.setAdapter(mAdapter);
     }
 
     /**
@@ -117,7 +121,7 @@ public class MediaSelectorWidget extends FrameLayout {
 
                             @Override
                             public void onUploadFail(String localPath, Exception e, String text) {
-                                if (!uploadFail[0]){
+                                if (!uploadFail[0]) {
                                     ToastHelper.showCustomToast("文件上传失败", CustomToast.WARNING);
                                     uploadFail[0] = true;
                                 }
@@ -141,8 +145,8 @@ public class MediaSelectorWidget extends FrameLayout {
             int size = models.size();
             for (int i = 0; i < size; i++) {
                 MediaFile model = models.get(i);
-                if (!model.fromNet && model.path != null){
-                    if (model.itemType == MediaFile.PHOTO || model.itemType == MediaFile.VIDEO){
+                if (!model.fromNet && model.path != null) {
+                    if (model.itemType == MediaFile.PHOTO || model.itemType == MediaFile.VIDEO) {
                         if (mUpLoadFileHelper == null) {
                             mUpLoadFileHelper = new UpLoadFileHelper("", "");
                         }
@@ -159,7 +163,7 @@ public class MediaSelectorWidget extends FrameLayout {
 
                             @Override
                             public void onUploadFail(String localPath, Exception e, String text) {
-                                if (!uploadFail[0]){
+                                if (!uploadFail[0]) {
                                     ToastHelper.showCustomToast("文件上传失败", CustomToast.WARNING);
                                     uploadFail[0] = true;
                                 }
@@ -262,53 +266,123 @@ public class MediaSelectorWidget extends FrameLayout {
                 boolean showDelete = MediaSelector.getInstance().config.showDelete;
                 if (showDelete) {
                     holder.ivDelete.setVisibility(VISIBLE);
-                    holder.ivDelete.setOnClickListener(v -> remover(position));
+                    holder.ivDelete.setOnClickListener(v -> {
+                        //点击删除
+                        doClickDelete(position);
+                    });
                 } else {
                     holder.ivDelete.setVisibility(GONE);
                 }
                 if (model.itemType == MediaFile.VIDEO) {
                     //显示视频
-                    holder.ivPlay.setVisibility(VISIBLE);
-                    String url = model.fromNet ? model.url : model.path;
-                    ImageLoader.getInstance().loadVideo(url, holder.img);
-                    holder.ivPlay.setOnClickListener(v -> {
-                        if (!TextUtils.isEmpty(url)) {
-                            if (model.fromNet) {
-                                VideoPlayActivity.start(mContext, new SuperPlayerModel("", url, ""));
-                            } else {
-                                ArrayList<MediaFile> mediaFiles = new ArrayList<>();
-                                mediaFiles.add(model);
-                                DataUtil.getInstance().setMediaData(mediaFiles);
-                                VideoEditActivity.start(mContext,true);
-                            }
-                        }
-                    });
+                    showVideo(holder,model);
                 } else if (model.itemType == MediaFile.PHOTO) {
                     //显示图片
-                    holder.ivPlay.setVisibility(GONE);
-                    String url = model.fromNet ? model.url : model.path;
-                    ImageLoader.getInstance().loadImage(url, holder.img);
-                    holder.img.setOnClickListener(v -> {
-                        if (!TextUtils.isEmpty(url)) {
-                            List<String> urls = new ArrayList<>();
-                            for (MediaFile photoFile : mModels) {
-                                if (photoFile != null) {
-                                    if (photoFile.fromNet) {
-                                        if (!TextUtils.isEmpty(photoFile.url)) {
-                                            urls.add(photoFile.url);
-                                        }
-                                    } else {
-                                        if (!TextUtils.isEmpty(photoFile.path)) {
-                                            urls.add(photoFile.path);
-                                        }
-                                    }
-                                }
-                            }
-                            if (CollectionUtil.notEmpty(urls)) {
-                                ImagePreviewActivity.start(mContext, position, urls);
+                    showImg(holder, model);
+                }
+            }
+        }
+
+        private void showVideo(Holder holder, MediaFile model) {
+            holder.ivPlay.setVisibility(VISIBLE);
+            String url = model.fromNet ? model.url : model.path;
+            holder.ivPlay.setOnClickListener(v -> {
+                //点击视频
+                doClickVideo(url, model);
+            });
+            holder.img.setTag(R.id.iv_picture, url);
+            //为了解决图片加载错乱问题
+            ImageLoader.getInstance().loadVideo(url, holder.img, new ImageLoadListener() {
+                @Override
+                public void onLoadingStarted() {
+                    holder.img.setImageResource(R.drawable.color_blank);
+                    holder.img.setTag(R.id.img, url);
+                }
+
+                @Override
+                public void onLoadingFailed(Exception e) {
+                    if (TextUtils.equals((String) holder.img.getTag(R.id.img), url)) {
+                        holder.img.setImageResource(R.drawable.color_blank);
+                    }
+                }
+
+                @Override
+                public void onLoadingComplete(Bitmap bitmap) {
+                    if (TextUtils.equals((String) holder.img.getTag(R.id.img), url)) {
+                        holder.img.setImageBitmap(bitmap);
+                    }
+                }
+            });
+        }
+
+        private void showImg(Holder holder, MediaFile model) {
+            holder.ivPlay.setVisibility(GONE);
+            String url = model.fromNet ? model.url : model.path;
+            holder.img.setOnClickListener(v -> {
+                //点击图片
+                doClickImg(url);
+            });
+            //为了解决图片加载错乱问题
+            ImageLoader.getInstance().loadImage(url, holder.img, new ImageLoadListener() {
+                @Override
+                public void onLoadingStarted() {
+                    holder.img.setImageResource(R.drawable.color_blank);
+                    holder.img.setTag(url);
+                }
+
+                @Override
+                public void onLoadingFailed(Exception e) {
+                    if (TextUtils.equals((String) holder.img.getTag(), url)) {
+                        holder.img.setImageResource(R.drawable.color_blank);
+                    }
+                }
+
+                @Override
+                public void onLoadingComplete(Bitmap bitmap) {
+                    if (TextUtils.equals((String) holder.img.getTag(), url)) {
+                        holder.img.setImageBitmap(bitmap);
+                    }
+                }
+            });
+        }
+
+        private void doClickVideo(String url, MediaFile model) {
+            if (!TextUtils.isEmpty(url)) {
+                if (model.fromNet) {
+                    VideoPlayActivity.start(mContext, new SuperPlayerModel("", url, ""));
+                } else {
+                    ArrayList<MediaFile> mediaFiles = new ArrayList<>();
+                    mediaFiles.add(model);
+                    DataUtil.getInstance().setMediaData(mediaFiles);
+                    VideoEditActivity.start(mContext, true);
+                }
+            }
+        }
+
+        private void doClickImg(String url) {
+            if (!TextUtils.isEmpty(url)) {
+                List<String> urls = new ArrayList<>();
+                for (MediaFile file : mModels) {
+                    if (file != null && file.itemType == MediaFile.PHOTO) {
+                        if (file.fromNet && !TextUtils.isEmpty(file.url)) {
+                            urls.add(file.url);
+                        } else {
+                            if (!TextUtils.isEmpty(file.path)) {
+                                urls.add(file.path);
                             }
                         }
-                    });
+                    }
+                }
+                int index = 0;
+                for (int i = 0; i < urls.size(); i++) {
+                    String s = urls.get(i);
+                    if (!TextUtils.isEmpty(s) && TextUtils.equals(s, url)) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (CollectionUtil.notEmpty(urls)) {
+                    ImagePreviewActivity.start(mContext, index, urls);
                 }
             }
         }
@@ -341,7 +415,7 @@ public class MediaSelectorWidget extends FrameLayout {
          *
          * @param position 位置
          */
-        private void remover(int position) {
+        private void doClickDelete(int position) {
             if (hasAddButton()) {
                 mModels.remove(position);
             } else {

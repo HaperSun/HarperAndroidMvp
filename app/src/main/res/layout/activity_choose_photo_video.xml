@@ -8,19 +8,26 @@
         android:orientation="vertical"
         tools:context=".activity.ChoosePhotoVideoActivity">
 
-        <TextView
-            android:id="@+id/tv_camera"
-            android:layout_width="@dimen/dp100"
-            android:layout_height="@dimen/dp40"
-            android:text="camera"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp18"
-            android:gravity="center"/>
-
         <com.sun.media.img.ui.view.MediaSelectorWidget
             android:id="@+id/msw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dp80"
+            android:layout_marginTop="@dimen/dp10"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp60"
+            android:textSize="@dimen/sp14"
+            android:textColor="@color/black"
+            android:text="较劲交警军"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp10"/>
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </LinearLayout>
 </layout>

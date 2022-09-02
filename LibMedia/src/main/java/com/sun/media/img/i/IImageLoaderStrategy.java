@@ -26,6 +26,8 @@ public interface IImageLoaderStrategy {
      */
     void loadVideo(String url, ImageView imageView);
 
+    void loadVideo(String url, ImageView imageView, ImageLoadListener loadListener);
+
     void loadImage(int resourceId, ImageView imageView);
 
     void loadImage(String url, ImageView imageView, ImageLoadListener loadListener);

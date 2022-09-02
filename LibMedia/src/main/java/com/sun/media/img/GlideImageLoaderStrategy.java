@@ -56,6 +56,27 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
     }
 
     @Override
+    public void loadVideo(String url, ImageView imageView, final ImageLoadListener loadListener) {
+        loadListener.onLoadingStarted();
+        RequestOptions requestOptions = new RequestOptions().frame(1000);
+        Glide.with(imageView.getContext()).setDefaultRequestOptions(requestOptions).asBitmap().load(url)
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
+                .apply(requestOptions)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        loadListener.onLoadingComplete(resource);
+                    }
+
+                    @Override
+                    public void onLoadFailed(Drawable errorDrawable) {
+                        super.onLoadFailed(errorDrawable);
+                        loadListener.onLoadingFailed(new NullPointerException());
+                    }
+                });
+    }
+
+    @Override
     public void loadImage(String url, ImageView imageView, final ImageLoadListener loadListener) {
         loadListener.onLoadingStarted();
         RequestOptions requestOptions = new RequestOptions().dontAnimate();
@@ -65,11 +86,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        if (resource == null) {
-                            loadListener.onLoadingFailed(new NullPointerException());
-                        } else {
-                            loadListener.onLoadingComplete(resource);
-                        }
+                        loadListener.onLoadingComplete(resource);
                     }
 
                     @Override

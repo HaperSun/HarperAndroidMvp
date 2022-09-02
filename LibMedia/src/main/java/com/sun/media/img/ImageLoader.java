@@ -68,6 +68,17 @@ public class ImageLoader {
      * @param imageView    目标容器
      * @param loadListener 图片加载回调监听
      */
+    public void loadVideo(String url, ImageView imageView, ImageLoadListener loadListener) {
+        mStrategy.loadVideo(url, imageView, loadListener);
+    }
+
+    /**
+     * 加载图片
+     *
+     * @param url          图片地址
+     * @param imageView    目标容器
+     * @param loadListener 图片加载回调监听
+     */
     public void loadImage(String url, ImageView imageView, ImageLoadListener loadListener) {
         mStrategy.loadImage(url, imageView, loadListener);
     }
@@ -199,11 +210,12 @@ public class ImageLoader {
      * @param imageView     目标容器
      * @param borderWidth   边框宽度
      * @param borderColor   边框颜色
-     * @param heightPX      偏移y
-     * @param widthPX       偏移x
+     * @param heightPx      偏移y
+     * @param widthPx       偏移x
      */
-    public void loadCircleBorderImage(String url, int placeholder, int errorResource, ImageView imageView, float borderWidth, int borderColor, int heightPX, int widthPX) {
-        mStrategy.loadCircleBorderImage(url, placeholder, errorResource, imageView, borderWidth, borderColor, heightPX, widthPX);
+    public void loadCircleBorderImage(String url, int placeholder, int errorResource, ImageView imageView,
+                                      float borderWidth, int borderColor, int heightPx, int widthPx) {
+        mStrategy.loadCircleBorderImage(url, placeholder, errorResource, imageView, borderWidth, borderColor, heightPx, widthPx);
     }
 
     /**

@@ -92,6 +92,11 @@ public class SuperPlayerModel implements Serializable {
     public int duration;
 
     public SuperPlayerModel() {
+
+    }
+
+    public SuperPlayerModel(String url) {
+        this.url = url;
     }
 
     public SuperPlayerModel(String title, String url, String placeholderImage) {

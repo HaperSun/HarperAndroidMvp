@@ -105,6 +105,8 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
         mediaFile.setFolderName("temp");
         mediaFile.setMime("image/jpg");
         mediaFile.setPath(path);
+        mediaFile.setWidth(bitmap.getWidth());
+        mediaFile.setHeight(bitmap.getHeight());
         mediaFile.setItemType(MediaFile.PHOTO);
         mediaFiles.add(mediaFile);
         DataUtil.getInstance().setMediaData(mediaFiles);

@@ -116,7 +116,7 @@ public class VideoTrimmerView extends FrameLayout implements IVideoTrimmerView {
             mThumbsTotalCount = (int) (mDuration * 1.0f / (MAX_SHOOT_DURATION * 1.0f) * MAX_COUNT_RANGE);
             mRightProgressPos = MAX_SHOOT_DURATION;
         }
-        mVideoThumbRecyclerView.addItemDecoration(new SpacesItemDecoration(RECYCLER_VIEW_PADDING, mThumbsTotalCount));
+        mVideoThumbRecyclerView.addItemDecoration(new VideoSpacesItemDecoration(RECYCLER_VIEW_PADDING, mThumbsTotalCount));
         mRangeSeekBarView = new RangeSeekBarView(mContext, mLeftProgressPos, mRightProgressPos);
         mRangeSeekBarView.setSelectedMinValue(mLeftProgressPos);
         mRangeSeekBarView.setSelectedMaxValue(mRightProgressPos);
