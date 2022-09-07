@@ -31,6 +31,7 @@ public class ImageLoader {
             synchronized (ImageLoader.class) {
                 if (mInstance == null) {
                     mInstance = new ImageLoader();
+                    mInstance.setStrategy();
                 }
             }
         }

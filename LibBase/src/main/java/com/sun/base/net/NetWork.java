@@ -2,6 +2,7 @@ package com.sun.base.net;
 
 import com.sun.base.net.exception.ExceptionEngine;
 import com.sun.base.net.response.Response;
+import com.sun.base.util.AppUtil;
 import com.sun.base.util.RetrofitUtil;
 
 import io.reactivex.Observable;
@@ -14,7 +15,7 @@ import retrofit2.adapter.rxjava2.Result;
 
 /**
  * @author: Harper
- * @date:   2021/11/16
+ * @date: 2021/11/16
  * @note:
  */
 public class NetWork extends RetrofitUtil {
@@ -23,19 +24,16 @@ public class NetWork extends RetrofitUtil {
 
     public static void init() {
         instance = new NetWork();
-        RetrofitUtil.initRetrofit();
+        RetrofitUtil.initRetrofit(AppUtil.getServerUrl());
     }
 
-    public static NetWork getInstance(){
+    public static NetWork getInstance() {
         return instance;
     }
 
-    public <T extends Response> Observable<Result<T>> sendRequest
-            (Observable<Result<T>> observable) {
-        return observable.map(new ServerResultFunc<>())
-                .onErrorResumeNext(new HttpResultFunc<>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
+    public <T extends Response> Observable<Result<T>> sendRequest(Observable<Result<T>> observable) {
+        return observable.map(new ServerResultFunc<>()).onErrorResumeNext(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

@@ -8,6 +8,11 @@
         android:layout_height="match_parent"
         tools:context=".activity.CustomScrollLayoutActivity">
 
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
         <com.sun.base.widget.NoScrollViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"

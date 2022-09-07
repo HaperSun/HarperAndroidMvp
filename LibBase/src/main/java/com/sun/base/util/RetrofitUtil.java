@@ -14,20 +14,24 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+/**
+ * @author: Harper
+ * @date: 2022/9/6
+ * @note:
+ */
 public abstract class RetrofitUtil {
 
-    private static final String TAG = "RetrofitUtils";
-
-    //服务器路径
+    /**
+     * 服务器路径
+     */
     private static String API_SERVER;
-
     private static Retrofit mRetrofit;
     private static OkHttpClient mOkHttpClient;
 
     /**
      * 获取Retrofit对象
      *
-     * @return
+     * @return mRetrofit
      */
     public static Retrofit getRetrofit() {
         return mRetrofit;
@@ -37,14 +41,16 @@ public abstract class RetrofitUtil {
         initRetrofit(AppUtil.getCtx(), null);
     }
 
-    public static void initRetrofit(Context context, Interceptor interceptor) {
+    public static void initRetrofit(String serverUrl) {
+        API_SERVER = serverUrl;
+        initRetrofit(AppUtil.getCtx(), null);
+    }
 
+    public static void initRetrofit(Context context, Interceptor interceptor) {
         if (null == mOkHttpClient) {
             mOkHttpClient = OkHttpUtil.getOkHttpClient(context, interceptor);
         }
-
         API_SERVER = AppUtil.getServerUrl();
-
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(API_SERVER)
                 .addConverterFactory(ResponseConverterFactory.create(initGson()))
@@ -53,11 +59,9 @@ public abstract class RetrofitUtil {
                 .build();
     }
 
-
     private static Gson initGson() {
-        return new GsonBuilder()
-                .registerTypeAdapter(int.class,
-                        (JsonDeserializer<Integer>) (json, typeOfT, context) -> {
+        return new GsonBuilder().registerTypeAdapter(int.class,
+                (JsonDeserializer<Integer>) (json, typeOfT, context) -> {
                             try {
                                 return json.getAsInt();
                             } catch (Exception e) {
@@ -70,7 +74,6 @@ public abstract class RetrofitUtil {
                     } catch (Exception e) {
                         return "";
                     }
-
                 })
                 .registerTypeAdapterFactory(new NullString2EmptyAdapterFactory())
                 .create();

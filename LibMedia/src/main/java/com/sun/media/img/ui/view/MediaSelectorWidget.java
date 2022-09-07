@@ -416,13 +416,15 @@ public class MediaSelectorWidget extends FrameLayout {
          * @param position 位置
          */
         private void doClickDelete(int position) {
-            if (hasAddButton()) {
-                mModels.remove(position);
-            } else {
-                mModels.remove(position);
+            mModels.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position,mModels.size() - position);
+            if (!hasAddButton()){
                 mModels.add(new MediaFile(MediaFile.BUTTON_ADD));
+                int insertedIndex = mModels.size()-1;
+                notifyItemInserted(mModels.size()-1);
+                notifyItemRangeInserted(insertedIndex,1);
             }
-            notifyDataSetChanged();
         }
 
         private boolean hasAddButton() {

@@ -3,6 +3,8 @@ package com.sun.base.net.interceptor;
 
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
 import com.sun.base.util.LogHelper;
 
 import java.io.IOException;
@@ -22,9 +24,9 @@ import okhttp3.ResponseBody;
 
 public class HttpInterceptor implements Interceptor {
 
-
     public static final String TAG = "LogInterceptor";
 
+    @NonNull
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();

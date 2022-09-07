@@ -1,8 +1,5 @@
 package com.sun.base.net;
 
-import android.content.Context;
-
-
 import com.sun.base.net.core.INetOut;
 import com.sun.base.net.core.INetResult;
 import com.sun.base.net.exception.ApiException;
@@ -13,6 +10,7 @@ import com.sun.base.net.response.UploadFileResponse;
 import com.sun.base.net.service.DownloadService;
 import com.sun.base.net.service.UploadService;
 import com.sun.base.net.vo.MultiUploadRequest;
+import com.sun.base.util.AppUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.RetrofitUtil;
 
@@ -40,30 +38,30 @@ import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 import retrofit2.adapter.rxjava2.Result;
 
+/**
+ * @author: Harper
+ * @date: 2022/9/6
+ * @note:
+ */
 public class NetWorks extends RetrofitUtil {
 
-    //设缓存有效期为1天
+    /**
+     * 设缓存有效期为1天
+     */
     protected static final long CACHE_STALE_SEC = 60 * 60 * 24;
-    //查询缓存的Cache-Control设置，使用缓存
+    /**
+     * 查询缓存的Cache-Control设置，使用缓存
+     */
     protected static final String CACHE_CONTROL_CACHE = "only-if-cached, max-stale=" + CACHE_STALE_SEC;
-    //查询网络的Cache-Control设置。不使用缓存
+    /**
+     * 查询网络的Cache-Control设置。不使用缓存
+     */
     protected static final String CACHE_CONTROL_NETWORK = "max-age=0";
     private static NetWorks instance;
-    /**
-     * 将多个请求结果的Response转换到List中
-     */
-    private Function<Object[], List<BaseResponse>> mResultZipper = objs -> {
-        List<BaseResponse> responses = new ArrayList<>();
-        for (Object obj : objs) {
-            if (obj instanceof Result) {
-                responses.add((BaseResponse) ((Result) obj).response().body());
-            }
-        }
-        return responses;
-    };
 
-    public static void init(Context context) {
+    public static void init() {
         instance = new NetWorks();
+        RetrofitUtil.initRetrofit(AppUtil.getServerUrl());
     }
 
     public static NetWorks getInstance() {
@@ -72,10 +70,8 @@ public class NetWorks extends RetrofitUtil {
 
     public static <T> Disposable simpleSendRequest(Observable<? extends Result<? extends INetResult<? extends T>>> observable,
                                                    INetOut<T> out) {
-        return observable.map(new ServerResultFunc1<>())
-                .onErrorResumeNext(new HttpResultFunc<>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
+        return observable.map(new ServerResultFunc1<>()).onErrorResumeNext(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(out::onSuccess,
                         throwable -> {
@@ -90,12 +86,23 @@ public class NetWorks extends RetrofitUtil {
 
 
     public <T extends BaseResponse> Observable<Result<T>> commonSendRequest(Observable<Result<T>> observable) {
-        return observable.map(new ServerResultFunc<>())
-                .onErrorResumeNext(new HttpResultFunc<>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
+        return observable.map(new ServerResultFunc<>()).onErrorResumeNext(new HttpResultFunc<>())
+                .subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    /**
+     * 将多个请求结果的Response转换到List中
+     */
+    private final Function<Object[], List<BaseResponse>> mResultZipper = objs -> {
+        List<BaseResponse> responses = new ArrayList<>();
+        for (Object obj : objs) {
+            if (obj instanceof Result) {
+                responses.add((BaseResponse) ((Result) obj).response().body());
+            }
+        }
+        return responses;
+    };
 
     /**
      * 同时发送多个请求
@@ -115,14 +122,13 @@ public class NetWorks extends RetrofitUtil {
      * @param <R>     结果类型
      * @return 多个请求经zipper后的结果数据被观察者
      */
-    public <T, R> Observable<R> zipSendRequest(Function<? super Object[], ? extends R> zipper,
-                                               Observable<? extends T>... sources) {
+    public <T, R> Observable<R> zipSendRequest(Function<? super Object[], ? extends R> zipper, Observable<? extends T>... sources) {
         ObservableSource<? extends T>[] mappingSources = new ObservableSource[sources.length];
         int i = 0;
         for (Observable<? extends T> source : sources) {
             // 需要对每个请求结果进行转换
-            mappingSources[i] = source.map(new ServerResultFunc())
-                    .subscribeOn(Schedulers.io());  // 这里需要指定线程才可以同时执行多个请求
+            // 这里需要指定线程才可以同时执行多个请求
+            mappingSources[i] = source.map(new ServerResultFunc()).subscribeOn(Schedulers.io());
             i++;
         }
         return Observable.zipArray(zipper, false, Observable.bufferSize(), mappingSources)
@@ -141,42 +147,31 @@ public class NetWorks extends RetrofitUtil {
     /**
      * 多文件上传  没有进度回调 <br/>
      */
-    public Observable<Result<UploadFileResponse>> uploadMultiFile(Map<String, File> fileMap, String url,
-                                                                  MultiUploadRequest request) {
-
+    public Observable<Result<UploadFileResponse>> uploadMultiFile(Map<String, File> fileMap, String url, MultiUploadRequest request) {
         return uploadMultiFile(fileMap, url, request.getParams());
     }
 
     /**
      * 多文件上传  没有进度回调 <br/>
      */
-    public Observable<Result<UploadFileResponse>> uploadMultiFile(Map<String, File> fileMap, String url, Map<String,
-            String> params) {
-
+    public Observable<Result<UploadFileResponse>> uploadMultiFile(Map<String, File> fileMap, String url, Map<String, String> params) {
         Set<String> keySet = fileMap.keySet();
         MultipartBody.Builder builder = new MultipartBody.Builder();
         for (String s : keySet) {
             // 构建要上传的文件
             File file = fileMap.get(s);
-            RequestBody requestBody =
-                    RequestBody.create(MediaType.parse("application/otcet-stream"), file);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/otcet-stream"), file);
             builder.addFormDataPart(s, file.getName(), requestBody);
         }
-        return commonSendRequest(getRetrofit().create(UploadService.class).uploadMultiFile(builder.build(), url,
-                params));
+        return commonSendRequest(getRetrofit().create(UploadService.class).uploadMultiFile(builder.build(), url, params));
     }
 
     /**
      * 根据url下载文件
      */
-    public void downloadWithUrl(String url, final String dir, final String fileName,
-                                final IDownloadProgressListener downloadProgressListener) {
-
-
+    public void downloadWithUrl(String url, final String dir, final String fileName, final IDownloadProgressListener downloadProgressListener) {
         sendDownloadRequst(getRetrofit().create(DownloadService.class).downloadWithUrl(url))
                 .subscribe(new DefaultObserver<Result<ResponseBody>>() {
-
-
                     float lastProgress = 0;
                     float currProgress = 0;
 
@@ -194,18 +189,14 @@ public class NetWorks extends RetrofitUtil {
 
                     @Override
                     public void onNext(Result<ResponseBody> responseBodyResult) {
-
                         InputStream inputStream = null;
                         OutputStream outputStream = null;
                         File realFile = null;
                         try {
                             byte[] fileReader = new byte[1024];
-
                             long fileSize = responseBodyResult.response().body().contentLength();
                             long fileSizeDownloaded = 0;
-
                             inputStream = responseBodyResult.response().body().byteStream();
-
                             realFile = new File(dir + fileName);
                             File f = new File(dir);
                             if (!f.exists()) {
@@ -230,7 +221,6 @@ public class NetWorks extends RetrofitUtil {
                             }
                             outputStream.flush();
                             downloadProgressListener.onDownloadSuccess();
-
                         } catch (Exception e) {
                             if (downloadProgressListener != null) {
                                 downloadProgressListener.onDownloadError();
@@ -240,7 +230,6 @@ public class NetWorks extends RetrofitUtil {
                                     realFile.delete();
                                 }
                             }
-
                         } finally {
                             FileUtil.close(outputStream);
                         }
@@ -251,15 +240,15 @@ public class NetWorks extends RetrofitUtil {
     private static class ServerResultFunc1<T> implements Function<Result<? extends INetResult<? extends T>>, T> {
         @Override
         public T apply(@NonNull Result<? extends INetResult<? extends T>> result) throws Exception {
-            if (result != null && result.isError()) {
+            if (result.isError()) {
                 if (result.error() instanceof Exception) {
                     throw (Exception) (result.error());
                 } else {
                     throw new Exception(result.error());
                 }
-            } else if (result != null && result.response() != null && !result.response().isSuccessful()) {
+            } else if (result.response() != null && !result.response().isSuccessful()) {
                 throw new HttpException(result.response());
-            } else if (result == null || result.response() == null || result.response().body() == null) {
+            } else if (result.response() == null || result.response().body() == null) {
                 throw new NullPointerException("Result or Response or Body is Null");
             } else {
                 return result.response().body().getData();
@@ -270,11 +259,11 @@ public class NetWorks extends RetrofitUtil {
     private static class ServerResultFunc<T extends BaseResponse> implements Function<Result<T>, Result<T>> {
         @Override
         public Result<T> apply(@NonNull Result<T> tResult) throws Exception {
-            if (tResult != null && tResult.isError() && (tResult.error() instanceof Exception)) {
+            if (tResult.isError() && (tResult.error() instanceof Exception)) {
                 throw (Exception) tResult.error();
-            } else if (tResult != null && tResult.response() != null && !tResult.response().isSuccessful()) {
+            } else if (tResult.response() != null && !tResult.response().isSuccessful()) {
                 throw new HttpException(tResult.response());
-            } else if (tResult == null || tResult.response() == null) {
+            } else if (tResult.response() == null) {
                 throw new NullPointerException("Result or Response is Null");
             } else {
                 return tResult;
@@ -284,7 +273,7 @@ public class NetWorks extends RetrofitUtil {
 
     private static class HttpResultFunc<T> implements Function<Throwable, Observable<T>> {
         @Override
-        public Observable<T> apply(Throwable throwable) {
+        public Observable<T> apply(@NonNull Throwable throwable) {
             return Observable.error(ExceptionEngine.handleException(throwable));
         }
     }

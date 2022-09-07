@@ -38,7 +38,7 @@ extends BaseQuickAdapter
 在debug在停在断点处时，将光标定位在指定实体对象处，按快捷键Alt+F8 ，会出来Evaluate 的弹框，在Expression 下的输入框处输入Java代码（例如JsonObject.toJsonString（对象）），点击底部Evaluate，然后view出来的结果：
 
 GitHub的token
-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
+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
 
 密钥查询：
 别名: harper_demo2

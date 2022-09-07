@@ -12,6 +12,7 @@ import com.sun.base.disk.CacheFileRule;
 import com.sun.base.disk.DiskCacheConst;
 import com.sun.base.disk.DiskCacheManager;
 import com.sun.base.net.NetWork;
+import com.sun.base.net.NetWorks;
 import com.sun.base.service.IAccountService;
 import com.sun.base.service.ServiceFactory;
 import com.sun.base.util.AppUtil;
@@ -19,7 +20,6 @@ import com.sun.base.util.LogHelper;
 import com.sun.base.util.XRichEditorUtil;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.observer.ApplicationObserver;
-import com.sun.media.img.ImageLoader;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
@@ -36,23 +36,20 @@ import nl.bravobit.ffmpeg.FFmpeg;
  */
 public class MainApplication extends Application implements UserInfoManager.OnUpdateUserInfoListener,
         UserInfoManager.OnGetCurrentUserInfoListener {
+
     private static MainApplication ctx;
     private UserInfo mUserInfo;
-
-    public static MainApplication getContext() {
-        return ctx;
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         ctx = MainApplication.this;
         AppUtil.init(getBaseConfig());
-        NetWork.init();
         //初始化LogUtil,默认debug模式可打印所有级别的log
         LogHelper.init();
-        //初始化图片加载组件
-        ImageLoader.getInstance().setStrategy();
+        NetWorks.init();
+        NetWork.init();
+        //初始化xUtil
         initUtil();
         initUmSdk();
         //将 AccountService 类的实例注册到 ServiceFactory
@@ -141,7 +138,6 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
                 -> XRichEditorUtil.loadImage(getApplicationContext(), imagePath, imageView, imageHeight, root, isLocalUpload));
     }
 
-
     private void initQbSdk() {
         QbSdk.setDownloadWithoutWifi(true);
         QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
@@ -156,5 +152,9 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
             }
         };
         QbSdk.initX5Environment(ctx, cb);
+    }
+
+    public static MainApplication getContext() {
+        return ctx;
     }
 }

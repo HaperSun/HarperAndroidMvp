@@ -54,11 +54,9 @@ class OkHttpUtil {
         //配置缓存  设置缓存目录
         File cacheDirectory = new File(context.getCacheDir().getAbsolutePath(), "Cache");
         Cache cache = new Cache(cacheDirectory, 10 * 1024 * 1024);
-
         if (null == mOkHttpClient) {
             CookieManager cookieManager = new CookieManager();
             cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-
             OkHttpClient.Builder builder = new OkHttpClient.Builder()
                     .cookieJar(new CookiesManager(context))
                     .addInterceptor(new HeaderInterceptor(context))
