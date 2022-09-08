@@ -27,18 +27,19 @@ import java.util.List;
  */
 public class MigrationHelper {
 
+    private static final String TAG = MigrationHelper.class.getSimpleName();
     public static boolean DEBUG = false;
-    private static String TAG = "MigrationHelper";
     private static final String SQLITE_MASTER = "sqlite_master";
     private static final String SQLITE_TEMP_MASTER = "sqlite_temp_master";
-
     private static WeakReference<ReCreateAllTableListener> weakListener;
 
-    public interface ReCreateAllTableListener{
+    public interface ReCreateAllTableListener {
         void onCreateAllTables(Database db, boolean ifNotExists);
+
         void onDropAllTables(Database db, boolean ifExists);
     }
 
+    @SafeVarargs
     public static void migrate(SQLiteDatabase db, Class<? extends AbstractDao<?, ?>>... daoClasses) {
 //        printLog("【The Old Database Version】" + db.getVersion());
         Database database = new StandardDatabase(db);
@@ -56,6 +57,7 @@ public class MigrationHelper {
         migrate(database, daoClasses);
     }
 
+    @SafeVarargs
     public static void migrate(Database database, Class<? extends AbstractDao<?, ?>>... daoClasses) {
 //        printLog("【Generate temp table】start");
         generateTempTables(database, daoClasses);
@@ -72,19 +74,19 @@ public class MigrationHelper {
             listener.onCreateAllTables(database, false);
 //            printLog("【Create all table by listener】");
         } else {
-            dropAllTables(database, true, daoClasses);
-            createAllTables(database, false, daoClasses);
+            dropAllTables(database, daoClasses);
+            createAllTables(database, daoClasses);
         }
 //        printLog("【Restore data】start");
         restoreData(database, daoClasses);
 //        printLog("【Restore data】complete");
     }
 
+    @SafeVarargs
     private static void generateTempTables(Database db, Class<? extends AbstractDao<?, ?>>... daoClasses) {
-        for (int i = 0; i < daoClasses.length; i++) {
+        for (Class<? extends AbstractDao<?, ?>> daoClass : daoClasses) {
             String tempTableName = null;
-
-            DaoConfig daoConfig = new DaoConfig(db, daoClasses[i]);
+            DaoConfig daoConfig = new DaoConfig(db, daoClass);
             String tableName = daoConfig.tablename;
             if (!isTableExists(db, false, tableName)) {
 //                printLog("【New Table】" + tableName);
@@ -114,7 +116,7 @@ public class MigrationHelper {
         }
         String dbName = isTemp ? SQLITE_TEMP_MASTER : SQLITE_MASTER;
         String sql = "SELECT COUNT(*) FROM `" + dbName + "` WHERE type = ? AND name = ?";
-        Cursor cursor=null;
+        Cursor cursor = null;
         int count = 0;
         try {
             cursor = db.rawQuery(sql, new String[]{"table", tableName});
@@ -125,8 +127,9 @@ public class MigrationHelper {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (cursor != null)
+            if (cursor != null) {
                 cursor.close();
+            }
         }
         return count > 0;
     }
@@ -148,19 +151,22 @@ public class MigrationHelper {
     }
 
 
-    private static void dropAllTables(Database db, boolean ifExists, @NonNull Class<? extends AbstractDao<?, ?>>... daoClasses) {
-        reflectMethod(db, "dropTable", ifExists, daoClasses);
+    @SafeVarargs
+    private static void dropAllTables(Database db, @NonNull Class<? extends AbstractDao<?, ?>>... daoClasses) {
+        reflectMethod(db, "dropTable", true, daoClasses);
 //        printLog("【Drop all table by reflect】");
     }
 
-    private static void createAllTables(Database db, boolean ifNotExists, @NonNull Class<? extends AbstractDao<?, ?>>... daoClasses) {
-        reflectMethod(db, "createTable", ifNotExists, daoClasses);
+    @SafeVarargs
+    private static void createAllTables(Database db, @NonNull Class<? extends AbstractDao<?, ?>>... daoClasses) {
+        reflectMethod(db, "createTable", false, daoClasses);
 //        printLog("【Create all table by reflect】");
     }
 
     /**
      * dao class already define the sql exec method, so just invoke it
      */
+    @SafeVarargs
     private static void reflectMethod(Database db, String methodName, boolean isExists, @NonNull Class<? extends AbstractDao<?, ?>>... daoClasses) {
         if (daoClasses.length < 1) {
             return;
@@ -170,25 +176,20 @@ public class MigrationHelper {
                 Method method = cls.getDeclaredMethod(methodName, Database.class, boolean.class);
                 method.invoke(null, db, isExists);
             }
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
 
+    @SafeVarargs
     private static void restoreData(Database db, Class<? extends AbstractDao<?, ?>>... daoClasses) {
-        for (int i = 0; i < daoClasses.length; i++) {
-            DaoConfig daoConfig = new DaoConfig(db, daoClasses[i]);
+        for (Class<? extends AbstractDao<?, ?>> daoClass : daoClasses) {
+            DaoConfig daoConfig = new DaoConfig(db, daoClass);
             String tableName = daoConfig.tablename;
             String tempTableName = daoConfig.tablename.concat("_TEMP");
-
             if (!isTableExists(db, true, tempTableName)) {
                 continue;
             }
-
             try {
                 // get all columns from tempTable, take careful to use the columns list
                 List<TableInfo> newTableInfos = TableInfo.getTableInfo(db, tableName);
@@ -207,7 +208,6 @@ public class MigrationHelper {
                     if (tableInfo.notnull && !tempTableInfos.contains(tableInfo)) {
                         String column = '`' + tableInfo.name + '`';
                         intoColumns.add(column);
-
                         String value;
                         if (tableInfo.dfltValue != null) {
                             value = "'" + tableInfo.dfltValue + "' AS ";
@@ -217,7 +217,6 @@ public class MigrationHelper {
                         selectColumns.add(value + column);
                     }
                 }
-
                 if (intoColumns.size() != 0) {
                     StringBuilder insertTableStringBuilder = new StringBuilder();
                     insertTableStringBuilder.append("REPLACE INTO `").append(tableName).append("` (");
@@ -240,25 +239,22 @@ public class MigrationHelper {
 
     private static List<String> getColumns(Database db, String tableName) {
         List<String> columns = null;
-        Cursor cursor = null;
-        try {
-            cursor = db.rawQuery("SELECT * FROM " + tableName + " limit 0", null);
+        try (Cursor cursor = db.rawQuery("SELECT * FROM " + tableName + " limit 0", null)) {
             if (null != cursor && cursor.getColumnCount() > 0) {
                 columns = Arrays.asList(cursor.getColumnNames());
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (cursor != null)
-                cursor.close();
-            if (null == columns)
+            if (null == columns) {
                 columns = new ArrayList<>();
+            }
         }
         return columns;
     }
 
-    private static void printLog(String info){
-        if(DEBUG){
+    private static void printLog(String info) {
+        if (DEBUG) {
             Log.d(TAG, info);
         }
     }
@@ -273,31 +269,23 @@ public class MigrationHelper {
 
         @Override
         public boolean equals(Object o) {
-            return this == o
-                    || o != null
-                    && getClass() == o.getClass()
-                    && name.equals(((TableInfo) o).name);
+            return this == o || o != null && getClass() == o.getClass() && name.equals(((TableInfo) o).name);
         }
 
+        @NonNull
         @Override
         public String toString() {
-            return "TableInfo{" +
-                    "cid=" + cid +
-                    ", name='" + name + '\'' +
-                    ", type='" + type + '\'' +
-                    ", notnull=" + notnull +
-                    ", dfltValue='" + dfltValue + '\'' +
-                    ", pk=" + pk +
-                    '}';
+            return "TableInfo{" + "cid=" + cid + ", name='" + name + '\'' + ", type='" + type + '\'' + ", notnull=" + notnull +
+                    ", dfltValue='" + dfltValue + '\'' + ", pk=" + pk + '}';
         }
 
         private static List<TableInfo> getTableInfo(Database db, String tableName) {
             String sql = "PRAGMA table_info(`" + tableName + "`)";
 //            printLog(sql);
             Cursor cursor = db.rawQuery(sql, null);
-            if (cursor == null)
+            if (cursor == null) {
                 return new ArrayList<>();
-
+            }
             TableInfo tableInfo;
             List<TableInfo> tableInfos = new ArrayList<>();
             while (cursor.moveToNext()) {

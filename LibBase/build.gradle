@@ -3,6 +3,7 @@ plugins {
 }
 
 apply plugin: 'org.greenrobot.greendao'
+
 android {
     compileSdkVersion build_version.compile_sdk
     buildToolsVersion build_version.build_tools
@@ -46,7 +47,7 @@ android {
         schemaVersion config.dao_version
         //DaoSession、DaoMaster以及所有实体类的dao生成的目录,默认为你的entity所在的包名
         //daoPackage 包名
-        daoPackage 'com.sun.db.greendao'
+        daoPackage 'com.sun.base.db.greendao'
         //这就是我们上面说到的自定义生成数据库文件的目录了，可以将生成的文件放到我们的java目录中，而不是build中，这样就不用额外的设置资源目录了
         //工程路径
         targetGenDir 'src/main/java'
