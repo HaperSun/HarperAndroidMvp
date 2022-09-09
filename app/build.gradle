@@ -65,7 +65,7 @@ android {
     //打包命名
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            def date = new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+08"))
+            def date = new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+08"))
             if (variant.buildType.name == 'debug') {
                 outputFileName = "harper_${date}.apk"
             }

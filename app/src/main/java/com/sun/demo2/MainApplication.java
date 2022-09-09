@@ -43,7 +43,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
     @Override
     public void onCreate() {
         super.onCreate();
-        ctx = MainApplication.this;
+        ctx = this;
         AppUtil.init(getBaseConfig());
         //初始化LogUtil,默认debug模式可打印所有级别的log
         LogHelper.init();
