@@ -1,4 +1,4 @@
-rootProject.name = "Demo02"
+rootProject.name = "Demo2"
 include ':app'
 include ':LibBase'
 include ':LibChart'
