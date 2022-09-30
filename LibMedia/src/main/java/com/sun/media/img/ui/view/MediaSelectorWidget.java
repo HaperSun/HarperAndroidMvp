@@ -422,7 +422,7 @@ public class MediaSelectorWidget extends FrameLayout {
             if (!hasAddButton()){
                 mModels.add(new MediaFile(MediaFile.BUTTON_ADD));
                 int insertedIndex = mModels.size()-1;
-                notifyItemInserted(mModels.size()-1);
+                notifyItemInserted(insertedIndex);
                 notifyItemRangeInserted(insertedIndex,1);
             }
         }

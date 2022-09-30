@@ -129,6 +129,8 @@ public class MediaSelector {
         public boolean albumCanTakePhoto;
         //是否过滤GIF图片，默认过滤
         public boolean filterGif;
+        //旋转摄像头
+        public boolean switchCamera;
 
         public Builder() {
             setDefault();
@@ -158,6 +160,7 @@ public class MediaSelector {
             showDelete = true;
             albumCanTakePhoto = true;
             filterGif = true;
+            switchCamera = false;
         }
 
         public Builder isMirror(boolean isMirror) {
@@ -242,6 +245,11 @@ public class MediaSelector {
             return this;
         }
 
+        public Builder switchCamera(boolean switchCamera) {
+            this.switchCamera = switchCamera;
+            return this;
+        }
+
         public MediaSelector build() {
             MediaSelector selector = MediaSelector.getInstance();
             MediaConfig config = new MediaConfig();
@@ -262,6 +270,7 @@ public class MediaSelector {
             config.showDelete = showDelete;
             config.albumCanTakePhoto = albumCanTakePhoto;
             config.filterGif = filterGif;
+            config.switchCamera = switchCamera;
             selector.setConfig(config);
             return selector;
         }

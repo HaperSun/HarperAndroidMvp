@@ -78,6 +78,7 @@ public class EditTextInRecyclerViewActivity extends BaseMvpActivity<ActivityEdit
     @Override
     public void onDelete(int position) {
         mDataBeans.remove(position);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.notifyItemRemoved(position);
+        mAdapter.notifyItemRangeChanged(position,mDataBeans.size() - position);
     }
 }

@@ -105,4 +105,9 @@ public class MediaConfig {
      * 是否过滤GIF图片，默认不过滤
      */
     public boolean filterGif;
+
+    /**
+     * 旋转摄像头
+     */
+    public boolean switchCamera;
 }

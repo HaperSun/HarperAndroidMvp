@@ -163,7 +163,7 @@ public class CameraView extends FrameLayout implements CameraInterface.CameraOpe
         mFocusView = (FocusView) view.findViewById(R.id.fouce_view);
         mVideoView.getHolder().addCallback(this);
         //切换摄像头
-        mSwitchCamera.setOnClickListener(v -> machine.onSwitch(mVideoView.getHolder(), screenProp));
+        mSwitchCamera.setOnClickListener(v -> switchCamera());
         //拍照 录像
         mCaptureLayout.setCaptureListener(new ICaptureListener() {
             @Override
@@ -237,6 +237,10 @@ public class CameraView extends FrameLayout implements CameraInterface.CameraOpe
                 rightClickListener.onClick();
             }
         });
+    }
+
+    public void switchCamera(){
+        machine.onSwitch(mVideoView.getHolder(), screenProp);
     }
 
     @Override

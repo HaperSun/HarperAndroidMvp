@@ -18,6 +18,7 @@ import com.sun.media.camera.i.ICameraListener;
 import com.sun.media.camera.i.IErrorListener;
 import com.sun.media.camera.view.CameraView;
 import com.sun.media.databinding.ActivityCameraBinding;
+import com.sun.media.img.MediaSelector;
 import com.sun.media.img.ui.activity.ImageEditActivity;
 import com.sun.media.video.ui.activity.VideoEditActivity;
 
@@ -32,6 +33,7 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
 
     private boolean granted = false;
     private int mTakeType;
+    private boolean mSwitchCamera;
 
     public static void start(Context context, int takeType) {
         Intent intent = new Intent(context, CameraActivity.class);
@@ -74,6 +76,7 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
 
     @Override
     public void initData() {
+        mSwitchCamera = MediaSelector.getInstance().config.switchCamera;
         //设置拍摄类型
         bind.cameraView.setCameraType(mTakeType);
         //设置视频保存路径
@@ -87,6 +90,9 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
     protected void onResume() {
         super.onResume();
         if (granted) {
+            if (mSwitchCamera){
+                bind.cameraView.switchCamera();
+            }
             bind.cameraView.onResume();
         }
     }
