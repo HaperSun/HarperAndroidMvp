@@ -1,11 +1,11 @@
 package com.sun.media.camera;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.bean.MediaFile;
@@ -35,16 +35,30 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
     private int mTakeType;
     private boolean mSwitchCamera;
 
-    public static void start(Context context, int takeType) {
-        Intent intent = new Intent(context, CameraActivity.class);
-        intent.putExtra(Parameter.INDEX, takeType);
-        context.startActivity(intent);
+    /**
+     * 通过Activity启动
+     *
+     * @param activity    activity
+     * @param requestCode requestCode
+     * @param takeType    takeType
+     */
+    public static void startActivityResult(Activity activity, int requestCode, int takeType) {
+        Intent intent = new Intent(activity, CameraActivity.class);
+        intent.putExtra(Parameter.ENTRY_TYPE, takeType);
+        activity.startActivityForResult(intent, requestCode);
     }
 
-    public static void startForResult(Activity activity, int requestCode, int takeType) {
-        Intent intent = new Intent(activity, CameraActivity.class);
-        intent.putExtra(Parameter.INDEX, takeType);
-        activity.startActivityForResult(intent, requestCode);
+    /**
+     * 通过Fragment启动
+     *
+     * @param fragment    fragment
+     * @param requestCode requestCode
+     * @param takeType    takeType
+     */
+    public static void startActivityResult(Fragment fragment, int requestCode, int takeType) {
+        Intent intent = new Intent(fragment.getContext(), CameraActivity.class);
+        intent.putExtra(Parameter.ENTRY_TYPE, takeType);
+        fragment.startActivityForResult(intent, requestCode);
     }
 
     @Override
@@ -56,7 +70,7 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
     protected void initIntent() {
         Intent intent = getIntent();
         if (intent != null) {
-            mTakeType = intent.getIntExtra(Parameter.INDEX, CameraView.TAKE_PHOTO);
+            mTakeType = intent.getIntExtra(Parameter.ENTRY_TYPE, CameraView.TAKE_PHOTO);
         }
     }
 
@@ -90,7 +104,7 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
     protected void onResume() {
         super.onResume();
         if (granted) {
-            if (mSwitchCamera){
+            if (mSwitchCamera) {
                 bind.cameraView.switchCamera();
             }
             bind.cameraView.onResume();

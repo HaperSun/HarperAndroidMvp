@@ -7,6 +7,7 @@ package com.sun.base.bean;
  */
 public interface Parameter {
 
+    String ENTRY_TYPE = "entryType";
     String INDEX = "index";
     String FILE_PATH = "file_path";
     String BEAN = "bean";

@@ -1,6 +1,9 @@
 package com.sun.media.img;
 
-import androidx.fragment.app.FragmentActivity;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+
+import androidx.fragment.app.Fragment;
 
 import com.sun.base.bean.MediaFile;
 import com.sun.base.bean.Parameter;
@@ -19,25 +22,31 @@ import java.util.ArrayList;
  */
 public class MediaSelector {
 
-    private static volatile MediaSelector mMediaSelector;
-    private FragmentActivity fragmentActivity;
+    @SuppressLint("StaticFieldLeak")
+    private static volatile MediaSelector mInstance = null;
+    private Activity activity;
+    private Fragment fragment;
     public MediaConfig config;
     private ArrayList<MediaFile> mSelectedFiles;
 
     public static MediaSelector getInstance() {
-        if (mMediaSelector == null) {
+        if (mInstance == null) {
             synchronized (MediaSelector.class) {
-                if (mMediaSelector == null) {
-                    mMediaSelector = new MediaSelector();
+                if (mInstance == null) {
+                    mInstance = new MediaSelector();
                     builder().build();
                 }
             }
         }
-        return mMediaSelector;
+        return mInstance;
     }
 
-    public static Builder builder(FragmentActivity fragmentActivity) {
-        return new Builder(fragmentActivity);
+    public static Builder builder(Activity activity) {
+        return new Builder(activity);
+    }
+
+    public static Builder builder(Fragment fragment) {
+        return new Builder(fragment);
     }
 
     public static Builder builder() {
@@ -49,21 +58,27 @@ public class MediaSelector {
     }
 
     public void show() {
-        if (fragmentActivity != null) {
-            switch (config.operationType) {
-                case MediaConfig.TAKE_PHOTO:
-                case MediaConfig.TAKE_VIDEO:
-                case MediaConfig.TAKE_BOTH:
-                    //启动相机
-                    CameraActivity.startForResult(fragmentActivity, Parameter.REQUEST_CODE_MEDIA, config.mediaFileType);
-                    break;
-                case MediaConfig.FROM_ALBUM:
-                    //启动相册
-                    ImagePickerActivity.startForResult(fragmentActivity, Parameter.REQUEST_CODE_MEDIA);
-                    break;
-                default:
-                    break;
-            }
+        switch (config.operationType) {
+            case MediaConfig.TAKE_PHOTO:
+            case MediaConfig.TAKE_VIDEO:
+            case MediaConfig.TAKE_BOTH:
+                //启动相机
+                if (activity != null) {
+                    CameraActivity.startActivityResult(activity, Parameter.REQUEST_CODE_MEDIA, config.mediaFileType);
+                } else if (fragment != null) {
+                    CameraActivity.startActivityResult(fragment, Parameter.REQUEST_CODE_MEDIA, config.mediaFileType);
+                }
+                break;
+            case MediaConfig.FROM_ALBUM:
+                //启动相册
+                if (activity != null) {
+                    ImagePickerActivity.startActivityResult(activity, Parameter.REQUEST_CODE_MEDIA);
+                } else if (fragment != null) {
+                    ImagePickerActivity.startActivityResult(fragment, Parameter.REQUEST_CODE_MEDIA);
+                }
+                break;
+            default:
+                break;
         }
     }
 
@@ -74,7 +89,7 @@ public class MediaSelector {
     /**
      * 获取当前选择的媒体文件集合
      *
-     * @return
+     * @return ArrayList
      */
     public ArrayList<MediaFile> getSelectedFiles() {
         if (CollectionUtil.isEmpty(mSelectedFiles)) {
@@ -86,9 +101,9 @@ public class MediaSelector {
     /**
      * 是否可以添加到选择集合（在singleType模式下，图片视频不能一起选）
      *
-     * @param currentPath
-     * @param filePath
-     * @return
+     * @param currentPath currentPath
+     * @param filePath    filePath
+     * @return boolean
      */
     public static boolean isCanAddSelectionPaths(String currentPath, String filePath) {
         return (!MediaFileUtil.isVideoFileType(currentPath) || MediaFileUtil.isVideoFileType(filePath))
@@ -97,7 +112,8 @@ public class MediaSelector {
 
     public static class Builder {
 
-        private FragmentActivity fragmentActivity;
+        private Activity activity;
+        private Fragment fragment;
         //前置摄像头拍摄是否启用镜像 默认开启
         private boolean isMirror;
         //最大原图大小 单位MB
@@ -122,7 +138,7 @@ public class MediaSelector {
         //最大选择视频数
         private int maxVideoSelectCount;
         //在本地显示，不用上传到网络
-        public boolean showLocal;
+        public boolean needUploadFile;
         //可以删除
         public boolean showDelete;
         //相册中是否可以拍照
@@ -136,8 +152,13 @@ public class MediaSelector {
             setDefault();
         }
 
-        private Builder(FragmentActivity fragmentActivity) {
-            this.fragmentActivity = fragmentActivity;
+        private Builder(Activity activity) {
+            this.activity = activity;
+            setDefault();
+        }
+
+        private Builder(Fragment fragment) {
+            this.fragment = fragment;
             setDefault();
         }
 
@@ -156,7 +177,7 @@ public class MediaSelector {
             operationType = MediaConfig.TAKE_PHOTO;
             mediaFileType = MediaConfig.PHOTO;
             maxVideoSelectCount = 1;
-            showLocal = true;
+            needUploadFile = false;
             showDelete = true;
             albumCanTakePhoto = true;
             filterGif = true;
@@ -225,8 +246,8 @@ public class MediaSelector {
             return this;
         }
 
-        public Builder showLocal(boolean showLocal) {
-            this.showLocal = showLocal;
+        public Builder needUploadFile(boolean needUploadFile) {
+            this.needUploadFile = needUploadFile;
             return this;
         }
 
@@ -253,7 +274,8 @@ public class MediaSelector {
         public MediaSelector build() {
             MediaSelector selector = MediaSelector.getInstance();
             MediaConfig config = new MediaConfig();
-            selector.fragmentActivity = fragmentActivity;
+            selector.activity = activity;
+            selector.fragment = fragment;
             config.isMirror = isMirror;
             config.maxOriginalSize = maxOriginalSize;
             config.maxCount = maxCount;
@@ -266,7 +288,7 @@ public class MediaSelector {
             config.operationType = operationType;
             config.mediaFileType = mediaFileType;
             config.maxVideoSelectCount = maxVideoSelectCount;
-            config.showLocal = showLocal;
+            config.needUploadFile = needUploadFile;
             config.showDelete = showDelete;
             config.albumCanTakePhoto = albumCanTakePhoto;
             config.filterGif = filterGif;

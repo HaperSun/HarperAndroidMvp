@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
@@ -123,7 +124,7 @@ public final class TimeUtil {
     }
 
     @SuppressLint("SimpleDateFormat")
-    public static Date string2Date(String s, String pattern){
+    public static Date string2Date(String s, String pattern) {
         try {
             return new SimpleDateFormat(pattern).parse(s);
         } catch (ParseException e) {
@@ -227,6 +228,24 @@ public final class TimeUtil {
     public static boolean isToday(final long millisecond) {
         long wee = getFirstTimeOfToday();
         return millisecond >= wee && millisecond < wee + TimeConstant.DAY;
+    }
+
+    /**
+     * amount 传1，获取明天的年月日，传-1，获取昨天的年月日
+     *
+     * @return 获取年月日
+     */
+    private String getNyr(int amount) {
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        //把日期往后增加一天.整数往后推,负数往前移动
+        calendar.add(Calendar.DATE, amount);
+        //这个时间就是日期往后推一天的结果
+        date = calendar.getTime();
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(date);
     }
 
     /**

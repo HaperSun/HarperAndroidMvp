@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -76,17 +77,34 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     private List<MediaFolder> mMediaFolderList;
     //是否显示时间
     private boolean isShowTime;
-    private Handler mMyHandler = new Handler();
-    private Runnable mHideRunnable = () -> hideImageTime();
+    private final Handler mMyHandler = new Handler();
+    private final Runnable mHideRunnable = this::hideImageTime;
     private int mSurplusCount;
     private ArrayList<MediaFile> mCurrentSelectedFiles;
     private int mAlreadySelectVideoCount;
     private List<AlbumIndexBean> mAlbumIndexBeans;
     private boolean mAlbumCanTakePhoto;
 
-    public static void startForResult(Activity activity, int requestCode) {
+    /**
+     * 通过Activity启动
+     *
+     * @param activity    activity
+     * @param requestCode requestCode
+     */
+    public static void startActivityResult(Activity activity, int requestCode) {
         Intent intent = new Intent(activity, ImagePickerActivity.class);
         activity.startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * 通过Fragment启动
+     *
+     * @param fragment    fragment
+     * @param requestCode requestCode
+     */
+    public static void startActivityResult(Fragment fragment, int requestCode) {
+        Intent intent = new Intent(fragment.getContext(), ImagePickerActivity.class);
+        fragment.startActivityForResult(intent, requestCode);
     }
 
     @Override
@@ -246,9 +264,9 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     /**
      * 权限申请回调
      *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
+     * @param requestCode  requestCode
+     * @param permissions  permissions
+     * @param grantResults grantResults
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -403,7 +421,7 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     /**
      * 设置屏幕的亮度模式
      *
-     * @param lightMode
+     * @param lightMode lightMode
      */
     private void setLightMode(int lightMode) {
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
@@ -426,14 +444,14 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     @Override
     public void onMediaClick(int position, int itemType) {
         if (itemType == MediaFile.BUTTON_CAMERA) {
-            CameraActivity.startForResult(this, Parameter.REQUEST_CODE_MEDIA, MediaSelector.getInstance().config.mediaFileType);
+            CameraActivity.startActivityResult(this, Parameter.REQUEST_CODE_MEDIA, MediaSelector.getInstance().config.mediaFileType);
         } else {
             MediaFile mediaFile = mMediaFileList.get(position);
             ArrayList<MediaFile> mediaFiles = new ArrayList<>();
             if (itemType == MediaFile.VIDEO) {
                 mediaFiles.add(mediaFile);
                 DataUtil.getInstance().setMediaData(mediaFiles);
-                VideoEditActivity.startForResult(this,Parameter.REQUEST_CODE_MEDIA);
+                VideoEditActivity.startForResult(this, Parameter.REQUEST_CODE_MEDIA);
             } else {
                 for (MediaFile file : mMediaFileList) {
                     if (file != null && file.itemType != MediaFile.BUTTON_CAMERA && file.itemType != MediaFile.VIDEO) {

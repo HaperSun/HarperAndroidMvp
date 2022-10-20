@@ -15,11 +15,10 @@
 
     <FrameLayout
         android:id="@+id/frame_checked"
-        android:layout_width="@dimen/dp22"
-        android:layout_height="@dimen/dp22"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/dp6"
-        android:layout_marginRight="@dimen/dp6"
+        android:layout_width="@dimen/dp34"
+        android:layout_height="@dimen/dp34"
+        android:layout_alignParentEnd="true"
+        android:padding="@dimen/dp6"
         tools:background="@drawable/shape_oval_write_4px">
 
         <TextView
@@ -37,7 +36,7 @@
         android:layout_width="@dimen/dp22"
         android:layout_height="@dimen/dp22"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="6dp"
+        android:layout_marginStart="6dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/icon_gif"
         android:visibility="gone" />

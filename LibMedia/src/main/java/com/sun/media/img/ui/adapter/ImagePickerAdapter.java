@@ -126,13 +126,13 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
         if (!TextUtils.isEmpty(path)) {
             //选择状态（仅是UI表现，真正数据交给SelectionManager管理）
             if (mediaFile.isSelected()) {
-                mediaHolder.mViewCheck.setBackgroundResource(R.drawable.shape_oval_write_yellow_4px);
+                mediaHolder.mTvCheck.setBackgroundResource(R.drawable.shape_oval_write_yellow_4px);
                 mediaHolder.mTvCheck.setText(mediaFile.getSelectedIndex());
             } else {
                 if (mediaFile.getDuration() > mMaxVideoLength) {
-                    mediaHolder.mViewCheck.setBackgroundResource(R.drawable.shape_oval_gray_4px);
+                    mediaHolder.mTvCheck.setBackgroundResource(R.drawable.shape_oval_gray_4px);
                 } else {
-                    mediaHolder.mViewCheck.setBackgroundResource(R.drawable.shape_oval_write_4px);
+                    mediaHolder.mTvCheck.setBackgroundResource(R.drawable.shape_oval_write_4px);
                 }
                 mediaHolder.mTvCheck.setText("");
             }

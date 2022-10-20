@@ -56,9 +56,13 @@ public class ChoosePhotoVideoActivity extends BaseMvpActivity<ActivityChoosePhot
     public void initView() {
         ArrayList<MediaFile> models = new ArrayList<>();
         bind.msw.initWidgetData(models, () -> MediaSelector.builder(this)
+                //从相册中选择
                 .operationType(MediaConfig.FROM_ALBUM)
+                //文件类型：图片或视频
                 .mediaFileType(MediaConfig.BOTH)
+                //最大选择数
                 .maxCount(9)
+                //最大选择视频数
                 .maxVideoCount(2)
                 .build()
                 .show());

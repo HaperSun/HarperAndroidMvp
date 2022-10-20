@@ -38,7 +38,7 @@ public class MediaConfig {
     /**
      * 最大选择数目
      */
-    public int maxCount = 9;
+    public int maxCount;
 
     /**
      * 剩余选择数目
@@ -89,7 +89,7 @@ public class MediaConfig {
     /**
      * 在本地显示，不用上传到网络
      */
-    public boolean showLocal;
+    public boolean needUploadFile;
 
     /**
      * 可以删除

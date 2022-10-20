@@ -96,12 +96,15 @@ public class MediaSelectorWidget extends FrameLayout {
                 }
             }
         }
-        if (MediaSelector.getInstance().config.showLocal) {
+        if (!MediaSelector.getInstance().config.needUploadFile) {
             mAdapter.notifyDataSetChanged();
         } else {
             boolean[] uploadFail = {false};
             int size = mModels.size();
             for (int i = 0; i < size; i++) {
+                if (uploadFail[0]) {
+                    break;
+                }
                 MediaFile model = mModels.get(i);
                 if (!model.fromNet && model.path != null) {
                     if (model.itemType == MediaFile.PHOTO || model.itemType == MediaFile.VIDEO) {
@@ -114,7 +117,7 @@ public class MediaSelectorWidget extends FrameLayout {
                             public void onUploadSuccess(String localPath, String url) {
                                 model.setFromNet(true);
                                 model.url = url;
-                                if (finalI == size - 1 && !uploadFail[0]) {
+                                if (finalI == size - 1) {
                                     mAdapter.notifyDataSetChanged();
                                 }
                             }
@@ -133,17 +136,38 @@ public class MediaSelectorWidget extends FrameLayout {
         }
     }
 
-    public void refreshWidgetData(ArrayList<MediaFile> mediaFiles) {
-        ArrayList<MediaFile> models = checkPhotoVideoModels(mediaFiles);
+    private ArrayList<MediaFile> checkPhotoVideoModels(ArrayList<MediaFile> models) {
+        if (CollectionUtil.notEmpty(models)) {
+            Iterator<MediaFile> iterator = models.iterator();
+            while (iterator.hasNext()) {
+                MediaFile model = iterator.next();
+                if (model == null) {
+                    iterator.remove();
+                } else {
+                    if (model.fromNet && TextUtils.isEmpty(model.url)) {
+                        iterator.remove();
+                    } else if (TextUtils.isEmpty(model.path)) {
+                        iterator.remove();
+                    }
+                }
+            }
+        }
+        return models;
+    }
+
+    public void refreshWidgetData(ArrayList<MediaFile> models) {
         if (CollectionUtil.isEmpty(models)) {
             return;
         }
-        if (MediaSelector.getInstance().config.showLocal) {
+        if (!MediaSelector.getInstance().config.needUploadFile) {
             reallyRefreshData(models);
         } else {
             boolean[] uploadFail = {false};
             int size = models.size();
             for (int i = 0; i < size; i++) {
+                if (uploadFail[0]) {
+                    break;
+                }
                 MediaFile model = models.get(i);
                 if (!model.fromNet && model.path != null) {
                     if (model.itemType == MediaFile.PHOTO || model.itemType == MediaFile.VIDEO) {
@@ -156,7 +180,7 @@ public class MediaSelectorWidget extends FrameLayout {
                             public void onUploadSuccess(String localPath, String url) {
                                 model.setFromNet(true);
                                 model.url = url;
-                                if (finalI == size - 1 && !uploadFail[0]) {
+                                if (finalI == size - 1) {
                                     reallyRefreshData(models);
                                 }
                             }
@@ -176,64 +200,33 @@ public class MediaSelectorWidget extends FrameLayout {
     }
 
     private void reallyRefreshData(ArrayList<MediaFile> models) {
+        if (CollectionUtil.isEmpty(models)) {
+            return;
+        }
         int maxCount = MediaSelector.getInstance().config.maxCount;
-        if (CollectionUtil.isEmpty(mModels)) {
-            if (models.size() < maxCount) {
-                mModels.addAll(models);
-                mModels.add(new MediaFile(MediaFile.BUTTON_ADD));
-            } else {
-                for (MediaFile model : models) {
-                    if (mModels.size() < maxCount) {
-                        mModels.add(model);
-                    }
-                }
+        for (int i = 0; i < mModels.size(); i++) {
+            MediaFile model = mModels.get(i);
+            if (model.itemType == MediaFile.BUTTON_ADD) {
+                //移除ADD按钮的数据
+                mModels.remove(model);
+                mAdapter.notifyItemRemoved(i);
+                mAdapter.notifyItemRangeChanged(i, mModels.size() - i);
+                break;
             }
+        }
+        //插入新数据
+        int startPosition = mModels.size();
+        if (mModels.size() + models.size() < maxCount) {
+            mModels.addAll(models);
+            mModels.add(new MediaFile(MediaFile.BUTTON_ADD));
         } else {
-            for (MediaFile model : mModels) {
-                if (model == null) {
-                    mModels.remove(null);
-                } else {
-                    if (model.itemType == MediaFile.BUTTON_ADD) {
-                        mModels.remove(model);
-                        break;
-                    }
-                }
-            }
-            if (mModels.size() + models.size() < maxCount) {
-                mModels.addAll(models);
-                mModels.add(new MediaFile(MediaFile.BUTTON_ADD));
-            } else {
-                for (MediaFile model : models) {
-                    if (mModels.size() < maxCount) {
-                        mModels.add(model);
-                    }
+            for (MediaFile model : models) {
+                if (mModels.size() < maxCount) {
+                    mModels.add(model);
                 }
             }
         }
-        mAdapter.notifyDataSetChanged();
-    }
-
-    private ArrayList<MediaFile> checkPhotoVideoModels(ArrayList<MediaFile> models) {
-        if (CollectionUtil.notEmpty(models)) {
-            Iterator<MediaFile> iterator = models.iterator();
-            while (iterator.hasNext()) {
-                MediaFile model = iterator.next();
-                if (model == null) {
-                    iterator.remove();
-                } else {
-                    if (model.fromNet) {
-                        if (TextUtils.isEmpty(model.url)) {
-                            iterator.remove();
-                        }
-                    } else {
-                        if (TextUtils.isEmpty(model.path)) {
-                            iterator.remove();
-                        }
-                    }
-                }
-            }
-        }
-        return models;
+        mAdapter.notifyItemRangeInserted(startPosition, mModels.size() - startPosition - 1);
     }
 
     class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
@@ -254,7 +247,7 @@ public class MediaSelectorWidget extends FrameLayout {
                 holder.rlImg.setVisibility(GONE);
                 holder.rlAdd.setOnClickListener(v -> {
                     if (listener != null) {
-                        MediaSelector.getInstance().setSelectedFiles(getPaths());
+                        MediaSelector.getInstance().setSelectedFiles(getSelectedFiles());
                         listener.onAddMedia();
                     }
                 });
@@ -275,7 +268,7 @@ public class MediaSelectorWidget extends FrameLayout {
                 }
                 if (model.itemType == MediaFile.VIDEO) {
                     //显示视频
-                    showVideo(holder,model);
+                    showVideo(holder, model);
                 } else if (model.itemType == MediaFile.PHOTO) {
                     //显示图片
                     showImg(holder, model);
@@ -387,27 +380,18 @@ public class MediaSelectorWidget extends FrameLayout {
             }
         }
 
-        private ArrayList<MediaFile> getPaths() {
+        private ArrayList<MediaFile> getSelectedFiles() {
+            ArrayList<MediaFile> mediaFiles = new ArrayList<>();
             if (CollectionUtil.notEmpty(mModels)) {
-                Iterator<MediaFile> iterator = mModels.iterator();
-                while (iterator.hasNext()) {
-                    MediaFile model = iterator.next();
-                    if (model == null) {
-                        iterator.remove();
-                    } else {
-                        if (model.fromNet) {
-                            if (TextUtils.isEmpty(model.url)) {
-                                iterator.remove();
-                            }
-                        } else {
-                            if (TextUtils.isEmpty(model.path)) {
-                                iterator.remove();
-                            }
+                for (MediaFile model : mModels) {
+                    if (model != null) {
+                        if (model.fromNet && !TextUtils.isEmpty(model.url) || !TextUtils.isEmpty(model.path)) {
+                            mediaFiles.add(model);
                         }
                     }
                 }
             }
-            return mModels;
+            return mediaFiles;
         }
 
         /**
@@ -416,14 +400,17 @@ public class MediaSelectorWidget extends FrameLayout {
          * @param position 位置
          */
         private void doClickDelete(int position) {
+            boolean hasAddButton = hasAddButton();
             mModels.remove(position);
+            //调用notifyItemRemoved或notifyItemRangeRemoved方法时
+            // 需要同时调用notifyItemRangeChanged（startPosition，allCount-startPosition），不然会出现位置异常。
             notifyItemRemoved(position);
-            notifyItemRangeChanged(position,mModels.size() - position);
-            if (!hasAddButton()){
+            notifyItemRangeChanged(position, mModels.size() - position);
+            if (!hasAddButton) {
+                //插入一条ADD的数据
                 mModels.add(new MediaFile(MediaFile.BUTTON_ADD));
-                int insertedIndex = mModels.size()-1;
+                int insertedIndex = mModels.size() - 1;
                 notifyItemInserted(insertedIndex);
-                notifyItemRangeInserted(insertedIndex,1);
             }
         }
 

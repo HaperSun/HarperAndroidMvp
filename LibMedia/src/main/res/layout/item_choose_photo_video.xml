@@ -29,11 +29,10 @@
 
         <ImageView
             android:id="@+id/iv_delete"
-            android:layout_width="@dimen/dp22"
-            android:layout_height="@dimen/dp22"
+            android:layout_width="@dimen/dp34"
+            android:layout_height="@dimen/dp34"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/dp6"
-            android:layout_marginEnd="@dimen/dp6"
+            android:padding="@dimen/dp6"
             android:src="@mipmap/icon_delete_pic"
             android:visibility="gone"/>
     </com.sun.base.widget.RoundLayout>
