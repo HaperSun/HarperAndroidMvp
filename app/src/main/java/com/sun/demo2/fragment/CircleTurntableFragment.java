@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import com.sun.base.base.fragment.BaseMvpFragment;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.FragmentCircleTurntableBinding;
-import com.sun.luck.i.RotateListener;
-import com.sun.luck.view.LuckDrawView;
+import com.sun.library.luck.turntable.i.RotateListener;
+import com.sun.library.luck.turntable.view.LuckDrawView;
 
 import java.util.ArrayList;
 import java.util.List;

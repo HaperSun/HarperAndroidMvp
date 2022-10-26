@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.ProcessLifecycleOwner;
 
-import com.rich.text.XRichText;
+import com.sun.library.rich.text.XRichText;
 import com.sun.base.bean.AppConfig;
 import com.sun.base.db.entity.UserInfo;
 import com.sun.base.db.manager.UserInfoManager;

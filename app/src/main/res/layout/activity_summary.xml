@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.rich.text.RichTextEditor
+            <com.sun.library.rich.text.RichTextEditor
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:rt_editor_image_bottom="10"
@@ -37,7 +37,7 @@
                 app:rt_editor_text_line_space="0dp"
                 app:rt_editor_text_size="@dimen/sp16"/>
 
-            <com.rich.text.RichTextView
+            <com.sun.library.rich.text.RichTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:rt_view_image_bottom="10"

@@ -12,7 +12,7 @@ import com.sun.base.adapter.BaseAdapter;
 import com.sun.base.adapter.BaseViewHolder;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityExpandableTextBinding;
-import com.sun.emoji.ExpandableTextView;
+import com.sun.library.emoji.ExpandableTextView;
 
 import java.util.ArrayList;
 import java.util.List;

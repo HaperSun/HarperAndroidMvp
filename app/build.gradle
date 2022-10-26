@@ -128,9 +128,9 @@ dependencies {
 
     implementation project(':LibBase')
     implementation project(':LibChart')
-    implementation project(':LibRichText')
+//    implementation project(':LibRichText')
     implementation project(':LibBdFace')
     implementation project(':LibMedia')
-    implementation project(':LibEmoji')
-    implementation project(':LibLuckDraw')
+    implementation project(':Libraries')
+//    implementation project(':LibLuckDraw')
 }

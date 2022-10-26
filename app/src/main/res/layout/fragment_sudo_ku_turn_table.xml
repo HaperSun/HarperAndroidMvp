@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:background="@color/black">
 
-        <com.sun.luck.view.LuckyMonkeyPanelView
+        <com.sun.library.luck.turntable.view.LuckyMonkeyPanelView
             android:id="@+id/lucky_panel"
             android:layout_width="@dimen/dp300"
             android:layout_height="@dimen/dp300"
