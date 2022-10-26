@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources >
+<resources>
     <declare-styleable name="RoundLayout">
         <attr name="radius" format="dimension" />
         <attr name="topLeftRadius" format="dimension" />
@@ -8,18 +8,14 @@
         <attr name="bottomRightRadius" format="dimension" />
     </declare-styleable>
 
-    <attr name="borderRadius" format="dimension"/>
-    <attr name="borderColor" format="color"/>
-    <attr name="type">
-        <enum name="circle" value="0"/>
-        <enum name="round" value="1"/>
-    </attr>
-
     <declare-styleable name="RoundImageView">
-        <attr name="borderRadius"/>
-        <attr name="borderWidth"/>
-        <attr name="borderColor"/>
-        <attr name="type"/>
+        <attr name="borderRadius" format="dimension" />
+        <attr name="borderWidth" format="dimension" />
+        <attr name="borderColor" format="color" />
+        <attr name="shapeType">
+            <enum name="circle" value="0" />
+            <enum name="round" value="1" />
+        </attr>
     </declare-styleable>
 
     <!--SwitchButton-->

@@ -7,6 +7,9 @@ import androidx.annotation.IntDef;
 import com.sun.media.img.GlideImageLoaderStrategy;
 import com.sun.media.img.i.IImageLoaderStrategy;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * @author: Harper
  * @date: 2021/12/10
@@ -22,6 +25,7 @@ public class ImgLoaderManager {
     //默认策略
     public final static int STRATEGY_DEFAULT = STRATEGY_GLIDE;
 
+    @Retention(RetentionPolicy.SOURCE)
     @IntDef({STRATEGY_GLIDE, STRATEGY_IMAGE_LOADER})
     public @interface StrategyType {
     }

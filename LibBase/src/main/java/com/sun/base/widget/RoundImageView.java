@@ -77,7 +77,7 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, BORDER_RADIUS_DEFAULT,
                         getResources().getDisplayMetrics()));
         // 默认为圆形
-        type = typedArray.getInt(R.styleable.RoundImageView_type, TYPE_CIRCLE);
+        type = typedArray.getInt(R.styleable.RoundImageView_shapeType, TYPE_CIRCLE);
         mBorderColor = typedArray.getColor(R.styleable.RoundImageView_borderColor, Color.WHITE);
         mBorderWidth = typedArray.getDimensionPixelSize(R.styleable.RoundImageView_borderWidth, 0);
         typedArray.recycle();

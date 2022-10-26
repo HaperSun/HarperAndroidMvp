@@ -54,8 +54,8 @@ android {
     }
 
     //启动dataBinding
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
 }
 

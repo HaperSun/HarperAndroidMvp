@@ -213,63 +213,63 @@ public class LuckDrawView extends RelativeLayout {
         //文字颜色
         private int mTextColor = 0;
 
-        public final Builder setmType(int mType) {
-            this.mType = mType;
+        public final Builder setType(int type) {
+            this.mType = type;
             return this;
         }
 
-        public final Builder setmTypeNum(int mTypeNum) {
-            this.mTypeNum = mTypeNum;
+        public final Builder setTypeNum(int typeNum) {
+            this.mTypeNum = typeNum;
             return this;
         }
 
-        public final Builder setmGoImgRes(int mGoImgRes) {
-            this.mGoImgRes = mGoImgRes;
+        public final Builder setGoImgRes(int goImgRes) {
+            this.mGoImgRes = goImgRes;
             return this;
         }
 
-        public final Builder setmMinTimes(int mMinTimes) {
-            this.mMinTimes = mMinTimes;
+        public final Builder setMinTimes(int minTimes) {
+            this.mMinTimes = minTimes;
             return this;
         }
 
-        public final Builder setmVarTime(int mVarTime) {
-            this.mVarTime = mVarTime;
+        public final Builder setVarTime(int varTime) {
+            this.mVarTime = varTime;
             return this;
         }
 
-        public final Builder setmDeses(String[] mDeses) {
-            this.mDeses = mDeses;
+        public final Builder setDeses(String[] deses) {
+            this.mDeses = deses;
             return this;
         }
 
-        public final Builder setmIcons(List<Bitmap> mIcons) {
-            this.mIcons = mIcons;
+        public final Builder setIcons(List<Bitmap> icons) {
+            this.mIcons = icons;
             return this;
         }
 
-        public final Builder setmColors(Integer[] mColors) {
-            this.mColors = mColors;
+        public final Builder setColors(Integer[] colors) {
+            this.mColors = colors;
             return this;
         }
 
-        public final Builder setmMainImgRes(Integer mMainImgRes) {
-            this.mMainImgRes = mMainImgRes;
+        public final Builder setMainImgRes(Integer mainImgRes) {
+            this.mMainImgRes = mainImgRes;
             return this;
         }
 
-        public final Builder setmHuanImgRes(Integer mHuanImgRes) {
-            this.mHuanImgRes = mHuanImgRes;
+        public final Builder setHuanImgRes(Integer huanImgRes) {
+            this.mHuanImgRes = huanImgRes;
             return this;
         }
 
-        public final Builder setmTextSize(float mTextSize) {
-            this.mTextSize = mTextSize;
+        public final Builder setTextSize(float textSize) {
+            this.mTextSize = textSize;
             return this;
         }
 
-        public final Builder setmTextColor(int mTextColor) {
-            this.mTextColor = mTextColor;
+        public final Builder setTextColor(int textColor) {
+            this.mTextColor = textColor;
             return this;
         }
 

@@ -23,6 +23,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        //项目中还有许多依赖是通过该库来实现的，不能注释掉
         jcenter() // Warning: this repository is going to shut down soon
         maven { url "https://jitpack.io" }
         //阿里与Google镜像

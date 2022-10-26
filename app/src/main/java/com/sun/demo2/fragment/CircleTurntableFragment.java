@@ -137,11 +137,11 @@ public class CircleTurntableFragment extends BaseMvpFragment<FragmentCircleTurnt
 
         //获取第三个视图
         LuckDrawView.Builder build = new LuckDrawView.Builder()
-                .setmColors(colors)
-                .setmDeses(des)
-                .setmIcons(mListBitmap)
-                .setmType(1)
-                .setmTypeNum(7)
+                .setColors(colors)
+                .setDeses(des)
+                .setIcons(mListBitmap)
+                .setType(1)
+                .setTypeNum(7)
                 .build();
         bind.luckDrawView3.setConfig(build);
         bind.luckDrawView3.setRotateListener(new RotateListener() {

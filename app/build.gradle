@@ -41,7 +41,7 @@ android {
         dev {
             applicationId "com.sun.demo2"
             manifestPlaceholders = [
-                    APP_NAME : "Harper测试",
+                    APP_NAME     : "Harper测试",
                     UMENG_APP_KEY: config.app.umeng_app_key //友盟
             ]
             buildConfigField "String", "Base_URL", config.server.urlTest
@@ -52,7 +52,7 @@ android {
         pro {
             applicationId "com.sun.demo2"
             manifestPlaceholders = [
-                    APP_NAME : "Harper",
+                    APP_NAME     : "Harper",
                     UMENG_APP_KEY: config.app.umeng_app_key //友盟
             ]
             buildConfigField "String", "Base_URL", config.server.urlRelease
@@ -92,15 +92,17 @@ android {
         targetCompatibility build_version.version_java
     }
 
-    //启动dataBinding
-    dataBinding {
-        enabled = true
+    //老的dataBinding启动方式报警告：DSL element 'android.dataBinding.enabled' is obsolete and has been replaced with 'android.buildFeatu
+    //老的dataBinding启动方式报警告：It will be removed in version 7.0 of the Android Gradle plugin
+    //新的启动dataBinding方式
+    buildFeatures {
+        dataBinding = true
     }
 }
 
 dependencies {
     //引入libs中的aar文件(下拉菜单MaterialSpinner)
-    implementation (fileTree(dir: 'libs'))
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
 
     implementation target.constraintlayout
     implementation target.multidex

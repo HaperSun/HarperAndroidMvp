@@ -23,12 +23,12 @@ android {
         targetCompatibility build_version.version_java
     }
     //启动dataBinding
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
 }
 
 dependencies {
-    api (fileTree(dir: 'libs'))
+    compileOnly fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation project(':LibBase')
 }
