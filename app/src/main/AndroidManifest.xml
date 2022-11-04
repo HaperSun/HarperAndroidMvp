@@ -220,8 +220,23 @@
             android:name=".activity.ChoosePhotoVideoActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.TestActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
 
         <service android:name=".observer.MyLocationService" />
+        <service android:name=".service.MyService" />
+
+        <!--静态广播注册，从android 8.0（API26）开始，对清单文件中静态注册广播接收者增加了限制-->
+        <receiver
+            android:name=".service.MyBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="io.rong.push" />
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name="androidx.core.content.FileProvider"

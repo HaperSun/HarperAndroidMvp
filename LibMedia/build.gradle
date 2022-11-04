@@ -34,7 +34,7 @@ dependencies {
     //关于Library中.jar和.aar文件引入步骤：
     // 1、在改Library中添加libs文件夹并加入.aar文件。
     // 2、在Library的dependencies中添加compileOnly fileTree(include: ['*.jar', '*.aar'], dir: 'libs')。
-    // 3、如果需要在主项目中引用.aar中的代码，需要在主项目的libs文件夹下也加入该.aar文件，并在主项目的dependencies中添加implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    // 3、在主项目的libs文件夹下也加入该.aar文件，并在主项目的dependencies中添加implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     compileOnly fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation target.photoView
     api target.ffmpeg

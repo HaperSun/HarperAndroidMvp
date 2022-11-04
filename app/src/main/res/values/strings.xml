@@ -20,4 +20,5 @@
     <string name="account_not_exist">账号不存在</string>
     <string name="input_user_password">请输入用户密码</string>
     <string name="logging">登录中…</string>
+    <string name="token_invalid">登录已过期，请重新登录</string>
 </resources>

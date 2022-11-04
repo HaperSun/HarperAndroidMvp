@@ -24,7 +24,7 @@ import okhttp3.ResponseBody;
 
 public class HttpInterceptor implements Interceptor {
 
-    public static final String TAG = "LogInterceptor";
+    public static final String TAG = HttpInterceptor.class.getSimpleName();
 
     @NonNull
     @Override

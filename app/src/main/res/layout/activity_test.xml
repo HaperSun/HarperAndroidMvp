@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:context=".activity.TestActivity">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp40"
+            android:layout_marginTop="@dimen/dp10"
+            android:onClick="onStartService"
+            android:text="start 开启service"
+            android:textColor="@color/blue" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp40"
+            android:layout_marginTop="@dimen/dp10"
+            android:onClick="onDestroyService"
+            android:text="destroy 停止service"
+            android:textColor="@color/blue" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp40"
+            android:layout_marginTop="@dimen/dp10"
+            android:onClick="onBindService"
+            android:text="bind 开启service"
+            android:textColor="@color/blue" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp40"
+            android:layout_marginTop="@dimen/dp10"
+            android:onClick="onUnbindService"
+            android:text="unbind 停止service"
+            android:textColor="@color/blue" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp40"
+            android:layout_marginTop="@dimen/dp10"
+            android:onClick="onSendStaticReceiver"
+            android:text="静态发送 BroadcastReceiver"
+            android:textColor="@color/blue" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp40"
+            android:layout_marginTop="@dimen/dp10"
+            android:onClick="onSendReceiver"
+            android:text="动态发送 BroadcastReceiver"
+            android:textColor="@color/blue" />
+    </LinearLayout>
+</layout>

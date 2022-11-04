@@ -4,7 +4,6 @@ import android.app.Application;
 
 import androidx.lifecycle.ProcessLifecycleOwner;
 
-import com.sun.library.rich.text.XRichText;
 import com.sun.base.bean.AppConfig;
 import com.sun.base.db.entity.UserInfo;
 import com.sun.base.db.manager.UserInfoManager;
@@ -13,18 +12,26 @@ import com.sun.base.disk.DiskCacheConst;
 import com.sun.base.disk.DiskCacheManager;
 import com.sun.base.net.NetWork;
 import com.sun.base.net.NetWorks;
+import com.sun.base.net.exception.ERROR;
+import com.sun.base.net.vo.TokenInvalidEvent;
 import com.sun.base.service.IAccountService;
 import com.sun.base.service.ServiceFactory;
+import com.sun.base.toast.ToastHelper;
 import com.sun.base.util.AppUtil;
 import com.sun.base.util.LogHelper;
 import com.sun.base.util.XRichEditorUtil;
+import com.sun.demo2.activity.LoginActivity;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.demo2.observer.ApplicationObserver;
+import com.sun.library.rich.text.XRichText;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.x;
 
 import nl.bravobit.ffmpeg.FFmpeg;
@@ -43,6 +50,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
     @Override
     public void onCreate() {
         super.onCreate();
+        EventBus.getDefault().register(this);
         ctx = this;
         AppUtil.init(getBaseConfig());
         //初始化LogUtil,默认debug模式可打印所有级别的log
@@ -156,5 +164,17 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
 
     public static MainApplication getContext() {
         return ctx;
+    }
+
+    /**
+     * 处理 Token 失效
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onTokenInvalid(TokenInvalidEvent event) {
+        if (event.getCode() == ERROR.WRONG_TOKEN && getCurrentUserInfo() != null) {
+            UserInfoManager.getInstance(this).clear();
+            LoginActivity.start(ctx);
+            ToastHelper.showToast( R.string.token_invalid);
+        }
     }
 }

@@ -104,6 +104,7 @@ public class HomepageActivity extends BaseMvpActivity<ActivityHomepageBinding> {
         beans.add("可展开的TextView实例");
         beans.add("DrawerLayout+toolBar");
         beans.add("图片视频的选择和展示");
+        beans.add("service 和 广播");
         Adapter adapter = new Adapter(R.layout.adapter_main_recycler_view, beans);
         bind.recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener((adapter1, view, position) -> doClick(position));
@@ -185,6 +186,9 @@ public class HomepageActivity extends BaseMvpActivity<ActivityHomepageBinding> {
                 break;
             case 24:
                 ChoosePhotoVideoActivity.start(mContext);
+                break;
+            case 25:
+                TestActivity.start(mContext);
                 break;
             default:
                 break;

@@ -19,12 +19,14 @@ import retrofit2.HttpException;
 
 /**
  * @author: Harper
- * @date:   2021/11/12
+ * @date: 2021/11/12
  * @note:
  */
 public class ExceptionEngine {
 
-    //对应HTTP的状态码
+    /**
+     * 对应HTTP的状态码
+     */
     private static final int UNAUTHORIZED = 401;
     private static final int FORBIDDEN = 403;
     private static final int NOT_FOUND = 404;
@@ -34,12 +36,14 @@ public class ExceptionEngine {
     private static final int SERVICE_UNAVAILABLE = 503;
     private static final int GATEWAY_TIMEOUT = 504;
 
-    private ExceptionEngine() {}
+    private ExceptionEngine() {
+    }
 
     public static ApiException handleException(Throwable e) {
         ApiException ex;
-        String errorMsg = null;
-        if (e instanceof HttpException) {             // HTTP错误
+        String errorMsg;
+        if (e instanceof HttpException) {
+            // HTTP错误
             HttpException httpException = (HttpException) e;
             ex = new ApiException(e, ERROR.HTTP_ERROR);
             switch (httpException.code()) {
@@ -59,10 +63,12 @@ public class ExceptionEngine {
                 case BAD_GATEWAY:
                 case SERVICE_UNAVAILABLE:
                 default:
-                    errorMsg = "网络错误"; // 均视为网络错误
+                    // 均视为网络错误
+                    errorMsg = "网络错误";
                     break;
             }
-        } else if (e instanceof ServerException) {    // 服务器返回的错误
+        } else if (e instanceof ServerException) {
+            // 服务器返回的错误
             ServerException resultException = (ServerException) e;
             int code = resultException.getCode();
             if (code == ERROR.WRONG_TOKEN) {
@@ -77,17 +83,20 @@ public class ExceptionEngine {
                 || e instanceof JSONException
                 || e instanceof ParseException) {
             ex = new ApiException(e, ERROR.PARSE_ERROR);
-            errorMsg = "解析错误"; // 均视为解析错误
+            // 均视为解析错误
+            errorMsg = "解析错误";
         } else if (e instanceof ConnectException
-                   || e instanceof ConnectTimeoutException
-                   || e instanceof SocketTimeoutException
-                   || e instanceof UnknownHostException) {
-            LogHelper.e("NetWorkException", e.getMessage(),e);
+                || e instanceof ConnectTimeoutException
+                || e instanceof SocketTimeoutException
+                || e instanceof UnknownHostException) {
+            LogHelper.e("NetWorkException", e.getMessage(), e);
             ex = new ApiException(e, ERROR.NETWORD_ERROR);
-            errorMsg = "网络异常，请检查网络后重试！"; // 均视为网络错误
+            // 均视为网络错误
+            errorMsg = "网络异常，请检查网络后重试！";
         } else {
             ex = new ApiException(e, ERROR.UNKNOWN);
-            errorMsg = "失败！"; // 未知错误
+            // 未知错误
+            errorMsg = "失败！";
         }
         ex.setDisplayMessage(errorMsg);
         LogHelper.e("ExceptionEngine", errorMsg, ex);

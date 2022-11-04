@@ -2,6 +2,7 @@ package com.sun.base.toast;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,65 +22,6 @@ import com.sun.base.util.AppUtil;
  * showCommonToast展示普通的Toast
  */
 public class ToastHelper {
-
-    //--------------------------------------------自定义---------------------------------------------
-
-    @SuppressLint("StaticFieldLeak")
-    private static CustomToast sCustomToast;
-
-    private static CustomToast getCustomToast() {
-        try {
-            if (sCustomToast == null) {
-                Context applicationContext = AppUtil.getCtx();
-                sCustomToast = new CustomToast.Builder(applicationContext)
-                        .build();
-            } else {
-                sCustomToast.cancel();
-                Context applicationContext = AppUtil.getCtx();
-                sCustomToast = new CustomToast.Builder(applicationContext)
-                        .build();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return sCustomToast;
-    }
-
-    public static void showCustomToast(CharSequence msg, @CustomToast.TOAST_TYPE int type, int duration) {
-        try {
-            CustomToast customToast = getCustomToast();
-            customToast.setText(msg);
-            customToast.setType(type);
-            customToast.setDuration(duration != 1 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
-            customToast.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void showCustomToast(@StringRes int resId) {
-        try {
-            showCustomToast(AppUtil.getCtx().getString(resId), CustomToast.WARNING, Toast.LENGTH_SHORT);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void showCustomToast(CharSequence msg) {
-        showCustomToast(msg, CustomToast.WARNING, Toast.LENGTH_SHORT);
-    }
-
-    public static void showCustomToast(@StringRes int resId, @CustomToast.TOAST_TYPE int type) {
-        try {
-            showCustomToast(AppUtil.getCtx().getString(resId), type, Toast.LENGTH_SHORT);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void showCustomToast(CharSequence msg, @CustomToast.TOAST_TYPE int type) {
-        showCustomToast(msg, type, Toast.LENGTH_SHORT);
-    }
 
     //--------------------------------------------通用-----------------------------------------------
 
@@ -107,7 +49,7 @@ public class ToastHelper {
 
     public static void showToast(String msg, int duration) {
         Context applicationContext = AppUtil.getCtx();
-        if (applicationContext == null) {
+        if (applicationContext == null || TextUtils.isEmpty(msg)) {
             return;
         }
         if (sToast != null) {
@@ -123,4 +65,65 @@ public class ToastHelper {
         sToast.show();
     }
 
+    //--------------------------------------------自定义---------------------------------------------
+
+    @SuppressLint("StaticFieldLeak")
+    private static CustomToast sCustomToast;
+
+    public static void showCustomToast(@StringRes int resId) {
+        try {
+            showCustomToast(AppUtil.getCtx().getString(resId), CustomToast.WARNING, Toast.LENGTH_SHORT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showCustomToast(CharSequence msg) {
+        showCustomToast(msg, CustomToast.WARNING, Toast.LENGTH_SHORT);
+    }
+
+    public static void showCustomToast(@StringRes int resId, @CustomToast.TOAST_TYPE int type) {
+        try {
+            showCustomToast(AppUtil.getCtx().getString(resId), type, Toast.LENGTH_SHORT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showCustomToast(CharSequence msg, @CustomToast.TOAST_TYPE int type) {
+        showCustomToast(msg, type, Toast.LENGTH_SHORT);
+    }
+
+    public static void showCustomToast(CharSequence msg, @CustomToast.TOAST_TYPE int type, int duration) {
+        try {
+            if (TextUtils.isEmpty(msg)) {
+                return;
+            }
+            CustomToast customToast = getCustomToast();
+            customToast.setText(msg);
+            customToast.setType(type);
+            customToast.setDuration(duration != 1 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
+            customToast.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static CustomToast getCustomToast() {
+        try {
+            if (sCustomToast == null) {
+                Context applicationContext = AppUtil.getCtx();
+                sCustomToast = new CustomToast.Builder(applicationContext)
+                        .build();
+            } else {
+                sCustomToast.cancel();
+                Context applicationContext = AppUtil.getCtx();
+                sCustomToast = new CustomToast.Builder(applicationContext)
+                        .build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sCustomToast;
+    }
 }
