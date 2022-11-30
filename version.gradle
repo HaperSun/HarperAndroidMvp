@@ -45,6 +45,7 @@ version.imageCropper = "2.8.+" //图片裁剪
 version.ffmpeg = "1.1.5" //视频裁剪
 version.slidinguppanel = "3.4.0" //android 开源库 AndroidSlidingUpPanel可向上拖动的view
 version.qcloud= "5.9.+" //腾讯cos
+version.preference= "1.1.1"
 
 
 def target = [:]
@@ -96,6 +97,8 @@ target.imageCropper = "com.theartofdev.edmodo:android-image-cropper:$version.ima
 //视频裁剪
 target.ffmpeg = "nl.bravobit:android-ffmpeg:$version.ffmpeg"
 target.slidinguppanel = "com.sothree.slidinguppanel:library:$version.slidinguppanel"
+//android.preference.PreferenceManager过时了，替换成androidx.preference.PreferenceManager
+target.preference = "androidx.preference:preference:$version.preference"
 
 
 ext.target = target

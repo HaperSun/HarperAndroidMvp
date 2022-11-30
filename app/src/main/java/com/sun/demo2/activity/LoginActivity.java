@@ -8,7 +8,7 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 
-import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.db.entity.UserInfo;
 import com.sun.base.db.manager.UserInfoManager;
@@ -18,6 +18,7 @@ import com.sun.base.net.response.Response;
 import com.sun.base.net.state.NetStateChangeObserver;
 import com.sun.base.net.state.NetworkStateChangeReceiver;
 import com.sun.base.net.state.NetworkUtil;
+import com.sun.base.util.GsonUtil;
 import com.sun.base.util.StringUtil;
 import com.sun.base.util.TimeUtil;
 import com.sun.demo2.R;
@@ -88,7 +89,7 @@ public class LoginActivity extends BaseMvpActivity<ActivityLoginBinding> impleme
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_clear_account:
                 bind.etAccount.setText("");
                 break;
@@ -118,9 +119,9 @@ public class LoginActivity extends BaseMvpActivity<ActivityLoginBinding> impleme
         List<DataBean> dataBeans = new ArrayList<>();
         dataBeans.add(new DataBean());
         dataBeans.add(null);
-        if (dataBeans.get(1)== null){
+        if (dataBeans.get(1) == null) {
             showToast("aa");
-        }else {
+        } else {
             showToast("bb");
         }
     }
@@ -137,6 +138,12 @@ public class LoginActivity extends BaseMvpActivity<ActivityLoginBinding> impleme
             }
         }
         System.out.print(list.toString());
+        String str = GsonUtil.getGson().toJson(list);
+        //解析成集合
+        List<String> newList = GsonUtil.getGson().fromJson(str, new TypeToken<List<String>>() {
+        }.getType());
+        //解析成对象
+        Response s = GsonUtil.getGson().fromJson(str,Response.class);
     }
 
     @Override
@@ -192,7 +199,7 @@ public class LoginActivity extends BaseMvpActivity<ActivityLoginBinding> impleme
             bind.etPassword.requestFocus();
             return;
         }
-        if (!mHasNetwork){
+        if (!mHasNetwork) {
             showToast("当前网络不可用~");
             return;
         }
@@ -229,7 +236,7 @@ public class LoginActivity extends BaseMvpActivity<ActivityLoginBinding> impleme
                 DiskCacheManager.getInstance().saveCacheData(response);
 
                 //3、SharedPreferences保存登录成功后的信息
-                LoginInfoSp.getInstance().save(new Gson().toJson(response));
+                LoginInfoSp.getSp().save(GsonUtil.getGson().toJson(response));
             }
         }
         dismissLoadingDialog();
@@ -246,14 +253,14 @@ public class LoginActivity extends BaseMvpActivity<ActivityLoginBinding> impleme
         LoginResponse loginResponse = DiskCacheManager.getInstance().getCacheData(LoginResponse.class);
 
         //3、SharedPreferences获取登录成功后的信息
-        String json = LoginInfoSp.getInstance().get();
-        LoginResponse response1 = new Gson().fromJson(json, LoginResponse.class);
+        String json = LoginInfoSp.getSp().get();
+        LoginResponse response = GsonUtil.getGson().fromJson(json, LoginResponse.class);
 
         dismissLoadingDialog();
         jumpToHomepage();
     }
 
-    private void jumpToHomepage(){
+    private void jumpToHomepage() {
         HomepageActivity.start(mContext);
         close();
     }

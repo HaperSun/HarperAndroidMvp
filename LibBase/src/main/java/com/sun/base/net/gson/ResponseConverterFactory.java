@@ -3,6 +3,7 @@ package com.sun.base.net.gson;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
+import com.sun.base.util.GsonUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
@@ -24,7 +25,7 @@ public class ResponseConverterFactory extends Converter.Factory {
      * decoding from JSON (when no charset is specified by a header) will use UTF-8.
      */
     public static ResponseConverterFactory create() {
-        return create(new Gson());
+        return create(GsonUtil.getGson());
     }
 
     /**

@@ -13,65 +13,66 @@ public abstract class AbstractSharePreferenceOperate<T> {
     /**
      * 指定哪一个SharedPreferences 子类指定
      *
-     * @return
+     * @return SharedPreferences
      */
     protected abstract SharedPreferences getSharedPreferences();
 
     /**
      * key值 子类指定
      *
-     * @return
+     * @return String
      */
     protected abstract String getKey();
 
     /**
      * 取值
      *
-     * @param key key值
-     * @return
+     * @param sharedPreferences sharedPreferences
+     * @param key               key值
+     * @return T
      */
     protected abstract T get(SharedPreferences sharedPreferences, String key);
 
     /**
      * 存值
      *
-     * @param sharedPreferences
+     * @param sharedPreferences sharedPreferences
      * @param key               key值
      * @param t                 要存的数据
-     * @return
+     * @return boolean
      */
     protected abstract boolean save(SharedPreferences sharedPreferences, String key, T t);
 
     /**
      * 检查key值
      *
-     * @return
+     * @return boolean
      */
     private boolean checkKey() {
-        return !TextUtils.isEmpty(getKey());
+        return TextUtils.isEmpty(getKey());
     }
 
     /**
      * 检查SharedPreferences
      *
-     * @return
+     * @return boolean
      */
     private boolean checkSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences();
-        return sharedPreferences != null;
+        return sharedPreferences == null;
     }
 
 
     /**
      * 取值
      *
-     * @return
+     * @return T
      */
     public T get() {
-        if (!checkSharedPreferences()) {
+        if (checkSharedPreferences()) {
             return null;
         }
-        if (!checkKey()) {
+        if (checkKey()) {
             return null;
         }
         return get(getSharedPreferences(), getKey());
@@ -82,13 +83,13 @@ public abstract class AbstractSharePreferenceOperate<T> {
      * 存值
      *
      * @param t 要存的数据
-     * @return
+     * @return boolean
      */
     public boolean save(T t) {
-        if (!checkSharedPreferences()) {
+        if (checkSharedPreferences()) {
             return false;
         }
-        if (!checkKey()) {
+        if (checkKey()) {
             return false;
         }
         return save(getSharedPreferences(), getKey(), t);

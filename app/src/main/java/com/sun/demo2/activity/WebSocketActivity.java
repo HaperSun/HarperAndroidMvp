@@ -5,17 +5,17 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.google.gson.Gson;
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.util.CollectionUtil;
+import com.sun.base.util.GsonUtil;
 import com.sun.demo2.R;
 import com.sun.demo2.databinding.ActivityWebSocketBinding;
 import com.sun.demo2.model.AddressBook1Bean;
 import com.sun.demo2.model.response.LoginResponse;
 import com.sun.media.video.model.SuperPlayerModel;
-import com.sun.media.video.ui.activity.VideoPlayActivity;
 import com.sun.media.video.ui.activity.FeedVideoActivity;
 import com.sun.media.video.ui.activity.ShortVideoActivity;
+import com.sun.media.video.ui.activity.VideoPlayActivity;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.java_websocket.WebSocket;
@@ -79,7 +79,7 @@ public class WebSocketActivity extends BaseMvpActivity<ActivityWebSocketBinding>
                     // 收到消息的回调
                     if (!TextUtils.isEmpty(s)) {
                         try {
-                            LoginResponse response = new Gson().fromJson(s, LoginResponse.class);
+                            LoginResponse response = GsonUtil.getGson().fromJson(s, LoginResponse.class);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -112,11 +112,11 @@ public class WebSocketActivity extends BaseMvpActivity<ActivityWebSocketBinding>
     }
 
     private String getSocketRequestStr(List<AddressBook1Bean> list) {
-        String tags = CollectionUtil.isEmpty(list) ? "" : new Gson().toJson(list);
+        String tags = CollectionUtil.isEmpty(list) ? "" : GsonUtil.getGson().toJson(list);
         Map<String, String> map = new HashMap<>();
         map.put("key", "mMapKey");
         map.put("tags", tags);
-        return new Gson().toJson(map);
+        return GsonUtil.getGson().toJson(map);
     }
 
     private void startTimer(String s) {

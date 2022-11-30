@@ -107,7 +107,7 @@ public class CommonUtil {
      */
     public static <T> T deepClone(final T data, final Type type) {
         try {
-            Gson gson = new Gson();
+            Gson gson = GsonUtil.getGson();
             return gson.fromJson(gson.toJson(data), type);
         } catch (Exception e) {
             LogHelper.e(TAG, "Exception", e);

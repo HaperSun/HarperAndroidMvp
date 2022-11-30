@@ -6,12 +6,12 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.collection.ArrayMap;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.sun.base.bean.Constant;
 import com.sun.base.util.CipherUtil;
 import com.sun.base.util.FileUtil;
+import com.sun.base.util.GsonUtil;
 import com.sun.base.util.LogHelper;
-import com.sun.base.bean.Constant;
 
 import java.io.File;
 
@@ -180,7 +180,7 @@ public class DiskCacheManager {
         String tDataStr = saveDataStr.substring((firstLine + savedVersion + "\n\n").length());
         if (!TextUtils.isEmpty(tDataStr)) {
             try {
-                return new Gson().fromJson(tDataStr, returnType);
+                return GsonUtil.getGson().fromJson(tDataStr, returnType);
             } catch (JsonSyntaxException e) {
                 LogHelper.e(TAG, "JsonSyntaxException ", e);
             }
@@ -213,7 +213,7 @@ public class DiskCacheManager {
             throw new RuntimeException(TData.getClass() + "cacheFileRule is null!Please call registerClassCacheFile() first before use saveCacheData!");
         }
         String cacheFilePath = getCacheFilePath(cacheFileRule, filePrefix);
-        String tDataStr = new Gson().toJson(TData);
+        String tDataStr = GsonUtil.getGson().toJson(TData);
         String cacheHeaderStr = buildCacheHeaderStr(cacheFileRule);
         String saveDataStr = cacheHeaderStr + tDataStr;
         //保存到本地时为了安全起见，做一层加密

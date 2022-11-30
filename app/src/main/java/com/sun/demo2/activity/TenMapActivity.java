@@ -11,10 +11,10 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.RadioGroup;
 
-import com.google.gson.Gson;
+import com.sun.base.toast.ToastHelper;
+import com.sun.base.util.GsonUtil;
 import com.sun.base.util.LogHelper;
 import com.sun.base.util.PermissionUtil;
-import com.sun.base.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.tencent.map.geolocation.TencentLocation;
 import com.tencent.map.geolocation.TencentLocationListener;
@@ -137,7 +137,7 @@ public class TenMapActivity extends SupportMapFragmentActivity implements Locati
             //显示回调的实时位置信息
             runOnUiThread(() -> {
                 //打印tencentLocation的json字符串
-//                    ToastHelper.showCommonToast(new Gson().toJson(location));
+//                    ToastHelper.showCommonToast(GsonUtil.getGson().toJson(location));
             });
         }
     }
@@ -182,7 +182,7 @@ public class TenMapActivity extends SupportMapFragmentActivity implements Locati
         location.setLongitude(latLng.longitude);
         location.setAccuracy(20);
         locationChangedListener.onLocationChanged(location);
-        LogHelper.i("long click", new Gson().toJson(latLng));
+        LogHelper.i("long click", GsonUtil.getGson().toJson(latLng));
     }
 
     @Override

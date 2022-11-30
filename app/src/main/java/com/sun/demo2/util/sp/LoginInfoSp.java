@@ -3,8 +3,8 @@ package com.sun.demo2.util.sp;
 import android.content.SharedPreferences;
 
 import com.sun.base.sp.AbstractSharePreferenceOperate;
-import com.sun.base.sp.SPHelper;
-import com.sun.demo2.MainApplication;
+import com.sun.base.sp.SpHelper;
+import com.sun.base.util.AppUtil;
 
 /**
  * @author Harper
@@ -13,10 +13,9 @@ import com.sun.demo2.MainApplication;
  */
 public class LoginInfoSp extends AbstractSharePreferenceOperate<String> {
 
-    private static final String KEY = LoginInfoSp.class.getSimpleName();
     private static volatile LoginInfoSp mInstance = null;
 
-    public static LoginInfoSp getInstance() {
+    public static LoginInfoSp getSp() {
         if (mInstance == null) {
             synchronized (LoginInfoSp.class) {
                 if (mInstance == null) {
@@ -29,12 +28,12 @@ public class LoginInfoSp extends AbstractSharePreferenceOperate<String> {
 
     @Override
     protected SharedPreferences getSharedPreferences() {
-        return SPHelper.getHomeworkSharedPreferences(MainApplication.getContext());
+        return SpHelper.getAppSharedPreferences(AppUtil.getCtx());
     }
 
     @Override
     protected String getKey() {
-        return KEY;
+        return LoginInfoSp.class.getSimpleName();
     }
 
     @Override

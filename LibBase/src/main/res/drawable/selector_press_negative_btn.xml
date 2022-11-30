@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/shape_rec_solid_grey_stroke_white_radius_dp5" android:state_pressed="true"/>
-    <item android:drawable="@drawable/shape_rec_solid_white_stroke_white_radius_dp5"/>
+    <item android:drawable="@drawable/shape_rec_solid_white_stroke_white_radius_dp5" android:state_pressed="false"/>
 </selector>

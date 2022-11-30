@@ -85,6 +85,7 @@ dependencies {
     api target.annotation
     api target.eventbus
     api target.rxpermissions
+    api target.preference
     //数据库
     api target.greendao
     api target.generator
