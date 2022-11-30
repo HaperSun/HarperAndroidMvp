@@ -54,7 +54,7 @@ public class ImagePreviewFragment extends BaseMvpFragment<FragmentImagePreviewBi
     @Override
     public void initView() {
         String imgOri = mImageItem.getImageOri();
-        ImageLoader.getInstance().loadImage(imgOri, bind.image, new ImageLoadListener() {
+        ImageLoader.load().loadImage(imgOri, bind.image, new ImageLoadListener() {
             @Override
             public void onLoadingStarted() {
                 showLoadingDialog(R.string.loading);

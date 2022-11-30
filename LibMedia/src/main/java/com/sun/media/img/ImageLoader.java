@@ -26,7 +26,7 @@ public class ImageLoader {
      *
      * @return ImageLoader
      */
-    public static ImageLoader getInstance() {
+    public static ImageLoader load() {
         if (mInstance == null) {
             synchronized (ImageLoader.class) {
                 if (mInstance == null) {

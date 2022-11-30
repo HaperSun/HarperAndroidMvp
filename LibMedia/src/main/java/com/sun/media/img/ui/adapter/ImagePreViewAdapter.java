@@ -52,7 +52,7 @@ public class ImagePreViewAdapter extends PagerAdapter {
             imageView = new PinchImageView(mContext);
         }
         try {
-            ImageLoader.getInstance().loadImage(mMediaFileList.get(position).getPath(), imageView);
+            ImageLoader.load().loadImage(mMediaFileList.get(position).getPath(), imageView);
         } catch (Exception e) {
             e.printStackTrace();
         }

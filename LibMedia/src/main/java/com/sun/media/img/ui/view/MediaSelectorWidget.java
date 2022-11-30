@@ -285,7 +285,7 @@ public class MediaSelectorWidget extends FrameLayout {
             });
             holder.img.setTag(R.id.iv_picture, url);
             //为了解决图片加载错乱问题
-            ImageLoader.getInstance().loadVideo(url, holder.img, new ImageLoadListener() {
+            ImageLoader.load().loadVideo(url, holder.img, new ImageLoadListener() {
                 @Override
                 public void onLoadingStarted() {
                     holder.img.setImageResource(R.drawable.color_blank);
@@ -316,7 +316,7 @@ public class MediaSelectorWidget extends FrameLayout {
                 doClickImg(url);
             });
             //为了解决图片加载错乱问题
-            ImageLoader.getInstance().loadImage(url, holder.img, new ImageLoadListener() {
+            ImageLoader.load().loadImage(url, holder.img, new ImageLoadListener() {
                 @Override
                 public void onLoadingStarted() {
                     holder.img.setImageResource(R.drawable.color_blank);

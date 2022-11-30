@@ -119,7 +119,7 @@ public class VideoEditActivity extends BaseMvpActivity<ActivityVideoEditBinding>
     }
 
     private void initVideoSize() {
-        ImageLoader.getInstance().loadImage(mCurSelectPath, new ImageView(this), new ImageLoadListener() {
+        ImageLoader.load().loadImage(mCurSelectPath, new ImageView(this), new ImageLoadListener() {
             @Override
             public void onLoadingStarted() {
 

@@ -146,7 +146,7 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
                     holder.mImageGif.setVisibility(View.GONE);
                 }
                 try {
-                    ImageLoader.getInstance().loadImage(path, mediaHolder.mImageView);
+                    ImageLoader.load().loadImage(path, mediaHolder.mImageView);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -157,7 +157,7 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
                 String duration = TimeHelp.getVideoDuration(mediaFile.getDuration());
                 holder.mVideoDuration.setText(duration);
                 try {
-                    ImageLoader.getInstance().loadVideo(path, mediaHolder.mImageView);
+                    ImageLoader.load().loadVideo(path, mediaHolder.mImageView);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

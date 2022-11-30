@@ -113,7 +113,7 @@ public class MediaDisplayWidget extends FrameLayout {
         if (mediaType == MediaFile.PHOTO) {
             mIvPlay.setVisibility(GONE);
             mImageView.setOnClickListener(v -> ImagePreviewActivity.start(mContext, 0, url));
-            ImageLoader.getInstance().loadImage(url, width, height, mImageView, new ImageLoadListener() {
+            ImageLoader.load().loadImage(url, width, height, mImageView, new ImageLoadListener() {
                 @Override
                 public void onLoadingStarted() {
                     mImageView.setImageResource(R.drawable.color_blank);
@@ -137,7 +137,7 @@ public class MediaDisplayWidget extends FrameLayout {
         } else if (mediaType == MediaFile.VIDEO) {
             mIvPlay.setVisibility(VISIBLE);
             mIvPlay.setOnClickListener(v -> VideoPlayActivity.start(mContext, new SuperPlayerModel(url)));
-            ImageLoader.getInstance().loadVideo(url, mImageView, new ImageLoadListener() {
+            ImageLoader.load().loadVideo(url, mImageView, new ImageLoadListener() {
                 @Override
                 public void onLoadingStarted() {
                     mImageView.setImageResource(R.drawable.color_blank);
@@ -215,7 +215,7 @@ public class MediaDisplayWidget extends FrameLayout {
                         }
                         ImagePreviewActivity.start(mContext, clickIndex, strings);
                     });
-                    ImageLoader.getInstance().loadImage(url, holder.imageView, new ImageLoadListener() {
+                    ImageLoader.load().loadImage(url, holder.imageView, new ImageLoadListener() {
                         @Override
                         public void onLoadingStarted() {
                             holder.imageView.setImageResource(R.drawable.color_blank);
@@ -239,7 +239,7 @@ public class MediaDisplayWidget extends FrameLayout {
                 } else if (item.itemType == MediaFile.VIDEO) {
                     holder.ivPlay.setVisibility(VISIBLE);
                     holder.ivPlay.setOnClickListener(v -> VideoPlayActivity.start(mContext, new SuperPlayerModel(url)));
-                    ImageLoader.getInstance().loadVideo(url, holder.imageView, new ImageLoadListener() {
+                    ImageLoader.load().loadVideo(url, holder.imageView, new ImageLoadListener() {
                         @Override
                         public void onLoadingStarted() {
                             holder.imageView.setImageResource(R.drawable.color_blank);

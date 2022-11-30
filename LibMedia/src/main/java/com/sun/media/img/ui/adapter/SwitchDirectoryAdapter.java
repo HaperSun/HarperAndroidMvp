@@ -92,7 +92,7 @@ public class SwitchDirectoryAdapter extends RecyclerView.Adapter<SwitchDirectory
             }
             //加载图片
             try {
-                ImageLoader.getInstance().loadImage(folderCover, mImageCover);
+                ImageLoader.load().loadImage(folderCover, mImageCover);
             } catch (Exception e) {
                 e.printStackTrace();
             }
