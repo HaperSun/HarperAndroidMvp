@@ -26,8 +26,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
+import com.sun.base.toast.ToastHelper;
 import com.sun.base.util.IntentUtils;
 import com.sun.media.R;
 import com.sun.media.video.i.ISuperPlayerListener;
@@ -1012,22 +1012,16 @@ public class SuperPlayerView extends RelativeLayout {
         @Override
         public void onSwitchStreamStart(boolean success, SuperPlayerDef.PlayerType playerType, VideoQuality quality) {
             if (playerType == SuperPlayerDef.PlayerType.LIVE) {
-                if (success) {
-                    Toast.makeText(mContext, "正在切换到" + quality.title + "...", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(mContext, "切换" + quality.title + "清晰度失败，请稍候重试", Toast.LENGTH_SHORT).show();
-                }
+                String toast = success ? "正在切换到" + quality.title + "..." : "切换" + quality.title + "清晰度失败，请稍候重试";
+                ToastHelper.showToast(toast);
             }
         }
 
         @Override
         public void onSwitchStreamEnd(boolean success, SuperPlayerDef.PlayerType playerType, VideoQuality quality) {
             if (playerType == SuperPlayerDef.PlayerType.LIVE) {
-                if (success) {
-                    Toast.makeText(mContext, "清晰度切换成功", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(mContext, "清晰度切换失败", Toast.LENGTH_SHORT).show();
-                }
+                String toast = success ? "清晰度切换成功" : "清晰度切换失败";
+                ToastHelper.showToast(toast);
             }
         }
 
@@ -1078,11 +1072,11 @@ public class SuperPlayerView extends RelativeLayout {
     ;
 
     private void showToast(String message) {
-        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+        ToastHelper.showToast(message);
     }
 
     private void showToast(int resId) {
-        Toast.makeText(mContext, resId, Toast.LENGTH_SHORT).show();
+        ToastHelper.showToast(resId);
     }
 
     /**

@@ -15,8 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.sun.base.toast.ToastHelper;
 import com.sun.demo2.R;
 import com.tencent.lbssearch.TencentSearch;
 import com.tencent.lbssearch.httpresponse.BaseObject;
@@ -124,8 +124,6 @@ public class SearchBasicActivity extends SupportMapFragmentActivity {
         }
     };
 
-
-
     /**
      * poi检索
      */
@@ -150,9 +148,8 @@ public class SearchBasicActivity extends SupportMapFragmentActivity {
         tencentSearch.search(searchParam, new HttpResponseListener<BaseObject>() {
 
             @Override
-            public void onFailure(int arg0, String arg2,
-                                  Throwable arg3) {
-                Toast.makeText(getApplicationContext(), arg2, Toast.LENGTH_LONG).show();
+            public void onFailure(int arg0, String arg2, Throwable arg3) {
+                ToastHelper.showToast(arg2);
             }
 
             @Override

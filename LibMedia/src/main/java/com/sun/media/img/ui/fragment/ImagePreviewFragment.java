@@ -57,18 +57,15 @@ public class ImagePreviewFragment extends BaseMvpFragment<FragmentImagePreviewBi
         ImageLoader.load().loadImage(imgOri, bind.image, new ImageLoadListener() {
             @Override
             public void onLoadingStarted() {
-                showLoadingDialog(R.string.loading);
             }
 
             @Override
             public void onLoadingFailed(Exception e) {
-                dismissLoadingDialog();
                 showFailToast(R.string.loading_image_failed);
             }
 
             @Override
             public void onLoadingComplete(Bitmap bitmap) {
-                dismissLoadingDialog();
                 bind.image.setImageBitmap(bitmap);
                 mOriImgBitmap = bitmap;
             }

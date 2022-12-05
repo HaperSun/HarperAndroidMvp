@@ -1,6 +1,7 @@
 package com.sun.media.img.ui.activity;
 
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -9,16 +10,24 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sun.base.base.activity.BaseActivity;
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.bean.MediaFile;
 import com.sun.base.bean.Parameter;
@@ -26,25 +35,27 @@ import com.sun.base.executors.CommonExecutor;
 import com.sun.base.toast.ToastHelper;
 import com.sun.base.util.CollectionUtil;
 import com.sun.base.util.DataUtil;
+import com.sun.base.util.FileUtil;
 import com.sun.base.util.MediaFileUtil;
 import com.sun.base.util.PermissionUtil;
 import com.sun.base.util.RotateUtils;
 import com.sun.base.util.TimeHelp;
 import com.sun.base.util.ViewUtils;
 import com.sun.media.R;
-import com.sun.media.camera.CameraActivity;
 import com.sun.media.databinding.ActivityImagePickerBinding;
 import com.sun.media.img.MediaSelector;
 import com.sun.media.img.i.IMediaLoadCallback;
 import com.sun.media.img.manager.MediaConfig;
 import com.sun.media.img.model.MediaFolder;
 import com.sun.media.img.model.bean.AlbumIndexBean;
+import com.sun.media.img.provider.ImagePickerProvider;
 import com.sun.media.img.task.ImageLoadTask;
 import com.sun.media.img.task.MediaLoadTask;
 import com.sun.media.img.task.VideoLoadTask;
 import com.sun.media.img.ui.adapter.ImagePickerAdapter;
 import com.sun.media.video.ui.activity.VideoEditActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,15 +70,12 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     //表示屏幕亮暗
     private static final int LIGHT_OFF = 0;
     private static final int LIGHT_ON = 1;
-    //用于在大图预览页中点击提交按钮标识
-    private static final int REQUEST_SELECT_IMAGES_CODE = 0x01;
-    //权限相关
-    private static final int REQUEST_PERMISSION_CAMERA_CODE = 0x03;
     private boolean mOnlySelectImage;
     private boolean mOnlySelectVideo;
     private boolean mSelectBoth;
     private int mMaxCount;
     private Context mContext;
+    private BaseActivity mActivity;
     private ProgressDialog mProgressDialog;
     private GridLayoutManager mGridLayoutManager;
     private ImagePickerAdapter mImagePickerAdapter;
@@ -84,6 +92,7 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     private int mAlreadySelectVideoCount;
     private List<AlbumIndexBean> mAlbumIndexBeans;
     private boolean mAlbumCanTakePhoto;
+    private String mLocalPhotoPath;
 
     /**
      * 通过Activity启动
@@ -122,6 +131,7 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     @Override
     public void initView() {
         mContext = this;
+        mActivity = this;
         mMediaFileList = new ArrayList<>();
         mCurrentSelectedFiles = new ArrayList<>();
         mAlbumIndexBeans = new ArrayList<>();
@@ -150,13 +160,10 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
         setConfirmText();
         initAlbumIndexBean();
         //进行权限的判断
-        boolean hasPermission = PermissionUtil.checkCamera();
-        if (!hasPermission) {
-            PermissionUtil.requestCamera(this, state -> {
-                if (state) {
-                    startScannerTask();
-                }
-            });
+        if (!PermissionUtil.checkCamera()) {
+            ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.CAMERA,
+                    Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, Parameter.REQUEST_CODE_PERMISSION_CAMERA);
         } else {
             startScannerTask();
         }
@@ -271,23 +278,35 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_PERMISSION_CAMERA_CODE) {
+        if (requestCode == Parameter.REQUEST_CODE_PERMISSION_CAMERA) {
             if (grantResults.length >= 1) {
-                //相机权限
-                int cameraResult = grantResults[0];
-                //sd卡权限
-                int sdResult = grantResults[1];
-                //拍照权限
-                boolean cameraGranted = cameraResult == PackageManager.PERMISSION_GRANTED;
-                //拍照权限
-                boolean sdGranted = sdResult == PackageManager.PERMISSION_GRANTED;
-                if (cameraGranted && sdGranted) {
-                    //具有拍照权限，sd卡权限，开始扫描任务
-                    startScannerTask();
-                } else {
-                    //没有权限
-                    ToastHelper.showToast(R.string.permission_tip);
-                    finish();
+                try {
+                    //相机权限
+                    int cameraResult = grantResults[0];
+                    //音频权限
+                    int audioResult = grantResults[1];
+                    //sd卡读取权限
+                    int sdReadResult = grantResults[2];
+                    //sd卡写入权限
+                    int sdWriteResult = grantResults[3];
+                    //拍照权限
+                    boolean cameraGranted = cameraResult == PackageManager.PERMISSION_GRANTED;
+                    //音频权限
+                    boolean audioGranted = audioResult == PackageManager.PERMISSION_GRANTED;
+                    //sd卡读取权限
+                    boolean sdReadGranted = sdReadResult == PackageManager.PERMISSION_GRANTED;
+                    //sd卡写入权限
+                    boolean sdWriteGranted = sdWriteResult == PackageManager.PERMISSION_GRANTED;
+                    if (cameraGranted && audioGranted && sdReadGranted && sdWriteGranted) {
+                        //具有拍照权限，sd卡权限，开始扫描任务
+                        startScannerTask();
+                    } else {
+                        //没有权限
+                        ToastHelper.showToast(R.string.permission_tip);
+                        close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -439,19 +458,22 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     /**
      * 点击图片
      *
-     * @param position
+     * @param position 位置
      */
     @Override
     public void onMediaClick(int position, int itemType) {
         if (itemType == MediaFile.BUTTON_CAMERA) {
-            CameraActivity.startActivityResult(this, Parameter.REQUEST_CODE_MEDIA, MediaSelector.getInstance().config.mediaFileType);
+            //启用本地相机拍照
+            takePhoto();
+//            //启用CameraView拍照
+//            CameraActivity.startActivityResult(this, Parameter.REQUEST_CODE_MEDIA, MediaSelector.getInstance().config.mediaFileType);
         } else {
             MediaFile mediaFile = mMediaFileList.get(position);
             ArrayList<MediaFile> mediaFiles = new ArrayList<>();
             if (itemType == MediaFile.VIDEO) {
                 mediaFiles.add(mediaFile);
                 DataUtil.getInstance().setMediaData(mediaFiles);
-                VideoEditActivity.startForResult(this, Parameter.REQUEST_CODE_MEDIA);
+                VideoEditActivity.startForResult(mActivity, Parameter.REQUEST_CODE_MEDIA);
             } else {
                 for (MediaFile file : mMediaFileList) {
                     if (file != null && file.itemType != MediaFile.BUTTON_CAMERA && file.itemType != MediaFile.VIDEO) {
@@ -467,9 +489,24 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
                     }
                 }
                 DataUtil.getInstance().setMediaData(mediaFiles);
-                ImageEditActivity.startForResult(this, Parameter.REQUEST_CODE_MEDIA, index);
+                ImageEditActivity.startForResult(mActivity, Parameter.REQUEST_CODE_MEDIA, index);
             }
         }
+    }
+
+    private void takePhoto() {
+        //拍照存放路径
+        mLocalPhotoPath = FileUtil.getMediaFileName() + File.separator + System.currentTimeMillis() + ".jpg";
+        //启用本地相机拍照
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Uri uri;
+        if (Build.VERSION.SDK_INT >= 24) {
+            uri = FileProvider.getUriForFile(mContext, ImagePickerProvider.getFileProviderName(mContext), new File(mLocalPhotoPath));
+        } else {
+            uri = Uri.fromFile(new File(mLocalPhotoPath));
+        }
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(intent, Parameter.REQUEST_CODE_TAKE_PHOTO);
     }
 
     /**
@@ -545,7 +582,26 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
+        if (requestCode == Parameter.REQUEST_CODE_TAKE_PHOTO) {
+            //拍照成功后通知媒体库刷新
+            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + mLocalPhotoPath)));
+            ArrayList<MediaFile> mediaFiles = new ArrayList<>();
+            MediaFile mediaFile = new MediaFile();
+            mediaFile.setFolderName("temp");
+            mediaFile.setMime("image/jpg");
+            mediaFile.setPath(mLocalPhotoPath);
+            Bitmap bitmap = BitmapFactory.decodeFile(mLocalPhotoPath);
+            if (bitmap != null) {
+                mediaFile.setWidth(bitmap.getWidth());
+                mediaFile.setHeight(bitmap.getHeight());
+                bitmap.recycle();
+            }
+            mediaFile.setItemType(MediaFile.PHOTO);
+            mediaFiles.add(mediaFile);
+            DataUtil.getInstance().setMediaData(mediaFiles);
+            //跳转到图片编辑页面
+            ImageEditActivity.startForResult(mActivity, Parameter.REQUEST_CODE_MEDIA, 0);
+        } else if (data != null) {
             if (requestCode == Parameter.REQUEST_CODE_MEDIA && resultCode == Parameter.RESULT_CODE_MEDIA) {
                 Intent intent = new Intent();
                 ArrayList<MediaFile> mediaFiles = data.getParcelableArrayListExtra(Parameter.FILE_PATH);

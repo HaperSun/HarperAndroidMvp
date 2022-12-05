@@ -153,7 +153,6 @@ public class RichTextEditor extends ScrollView {
                         onRtImageClickListener.onRtImageClick(imageView, imageView.getAbsolutePath());
                     }
                 } else if (v instanceof ImageView) {
-                    //Toast.makeText(getContext(),"点击关闭",Toast.LENGTH_SHORT).show();
                     RelativeLayout parentView = (RelativeLayout) v.getParent();
                     onImageCloseClick(parentView);
                 }

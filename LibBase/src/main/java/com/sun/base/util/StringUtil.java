@@ -55,6 +55,16 @@ public class StringUtil {
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,32}$");
 
     /**
+     * 字符串空处理
+     *
+     * @param s string
+     * @return string
+     */
+    public static String trimEmpty(String s) {
+        return null == s || "".equals(s) || "null".equals(s) ? "" : s;
+    }
+
+    /**
      * 以友好的方式显示时间
      *
      * @param sdate

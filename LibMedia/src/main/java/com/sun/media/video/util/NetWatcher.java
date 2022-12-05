@@ -6,8 +6,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.sun.base.toast.ToastHelper;
 import com.tencent.rtmp.TXLivePlayer;
 
 import java.lang.ref.WeakReference;
@@ -117,9 +117,9 @@ public class NetWatcher {
                     if (player != null && !TextUtils.isEmpty(videoUrl)) {
                         int result = player.switchStream(videoUrl);
                         if (result < 0) {
-                            Toast.makeText(context, "切换高清清晰度失败，请稍候重试", Toast.LENGTH_SHORT).show();
+                            ToastHelper.showToast("切换高清清晰度失败，请稍候重试");
                         } else {
-                            Toast.makeText(context, "正在为您切换为高清清晰度，请稍候...", Toast.LENGTH_SHORT).show();
+                            ToastHelper.showToast("正在为您切换为高清清晰度，请稍候...");
                         }
                     }
                     dialog.dismiss();

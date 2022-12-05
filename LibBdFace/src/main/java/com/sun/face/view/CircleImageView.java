@@ -163,11 +163,9 @@ public class CircleImageView extends ImageView {
 
     private Bitmap getBitmapFromDrawable(Drawable drawable) {
         try {
-
             if (drawable instanceof BitmapDrawable) {
                 return ((BitmapDrawable) drawable).getBitmap();
             }
-
             Bitmap bitmap;
             if (drawable instanceof ColorDrawable) {
                 bitmap = Bitmap.createBitmap(COLORDRAWABLE_DIMENSION, COLORDRAWABLE_DIMENSION,

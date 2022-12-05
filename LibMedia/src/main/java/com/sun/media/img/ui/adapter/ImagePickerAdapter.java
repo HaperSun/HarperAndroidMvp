@@ -40,7 +40,7 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
         this.mContext = context;
         this.mMediaFileList = mediaFiles;
         this.albumCanTakePhoto = MediaSelector.getInstance().config.albumCanTakePhoto;
-        mMaxVideoLength = MediaSelector.getInstance().config.maxVideoLength;
+        this.mMaxVideoLength = MediaSelector.getInstance().config.maxVideoLength;
     }
 
     @Override

@@ -40,18 +40,13 @@ public class MediaUtils {
     }
 
     public static File getOutputMediaFile(int type) {
-        File mediaStorageDir = new File(FileUtil.getMediaFileName());
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                return null;
-            }
-        }
+        String absolutePath = FileUtil.getMediaFileName() + File.separator;
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
+            mediaFile = new File(absolutePath + "IMG_" + timeStamp + ".jpg");
         } else if (type == MEDIA_TYPE_VIDEO) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "VID_" + timeStamp + ".mp4");
+            mediaFile = new File(absolutePath + "VID_" + timeStamp + ".mp4");
         } else {
             return null;
         }
@@ -83,7 +78,7 @@ public class MediaUtils {
             String path = params[0];
             try {
                 if (path.startsWith("http"))
-                    //获取网络视频第一帧图片
+                //获取网络视频第一帧图片
                 {
                     mmr.setDataSource(path, new HashMap());
                 } else
@@ -98,7 +93,7 @@ public class MediaUtils {
             Bitmap bitmap = mmr.getFrameAtTime(-1, MediaMetadataRetriever.OPTION_CLOSEST);
             // 保存图片
             File f = getOutputMediaFile(MEDIA_TYPE_IMAGE);
-            if(bitmap==null){
+            if (bitmap == null) {
                 return f;
             }
             if (f.exists()) {

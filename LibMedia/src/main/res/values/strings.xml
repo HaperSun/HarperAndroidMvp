@@ -74,7 +74,7 @@
     <string name="take_video">拍摄视频</string>
     <string name="take_photo_or_take_video">拍摄照片或拍摄视频</string>
     <string name="choose_video_tips">"不能选择过长的视频哦！"</string>
-    <string name="permission_tip">当前没有读取存储卡或摄像头权限</string>
+    <string name="permission_tip">当前没有读取存储卡读写或摄像头权限</string>
     <string name="all_video">所有视频</string>
     <string name="select_max_count">最多选择%1$d个文件</string>
     <string name="select_image_max">最多选择%1$d张图片</string>

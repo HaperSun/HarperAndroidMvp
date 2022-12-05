@@ -18,11 +18,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sun.base.toast.ToastHelper;
 import com.sun.media.R;
 import com.sun.media.video.i.IVideoTrimmerView;
 import com.sun.media.video.i.SingleCallback;
@@ -257,7 +257,7 @@ public class VideoTrimmerView extends FrameLayout implements IVideoTrimmerView {
 
     private void onSaveClicked() {
         if (mRightProgressPos - mLeftProgressPos < VideoTrimmerUtil.MIN_SHOOT_DURATION) {
-            Toast.makeText(mContext, "视频长不足3秒,无法上传", Toast.LENGTH_SHORT).show();
+            ToastHelper.showToast("视频长不足3秒,无法上传");
         } else {
             mVideoView.pause();
             VideoTrimmerUtil.trim(mContext,
