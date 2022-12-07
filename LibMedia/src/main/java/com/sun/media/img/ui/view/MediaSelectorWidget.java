@@ -136,6 +136,23 @@ public class MediaSelectorWidget extends FrameLayout {
         }
     }
 
+    /**
+     * 获取控件中图片或视频数据
+     *
+     * @return ArrayList
+     */
+    public ArrayList<MediaFile> getWidgetData() {
+        ArrayList<MediaFile> models = new ArrayList<>();
+        if (CollectionUtil.notEmpty(mModels)) {
+            for (MediaFile file : mModels) {
+                if (file.itemType == MediaFile.PHOTO || file.itemType == MediaFile.VIDEO) {
+                    models.add(file);
+                }
+            }
+        }
+        return models;
+    }
+
     private ArrayList<MediaFile> checkPhotoVideoModels(ArrayList<MediaFile> models) {
         if (CollectionUtil.notEmpty(models)) {
             Iterator<MediaFile> iterator = models.iterator();

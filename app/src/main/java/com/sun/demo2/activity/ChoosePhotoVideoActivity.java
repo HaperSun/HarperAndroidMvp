@@ -66,6 +66,7 @@ public class ChoosePhotoVideoActivity extends BaseMvpActivity<ActivityChoosePhot
                 .maxVideoCount(2)
                 .build()
                 .show());
+        ArrayList<MediaFile> files= vdb.msw.getWidgetData();
     }
 
     @Override
