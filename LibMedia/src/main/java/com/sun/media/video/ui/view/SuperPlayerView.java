@@ -28,7 +28,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.sun.base.toast.ToastHelper;
-import com.sun.base.util.IntentUtils;
+import com.sun.base.util.IntentUtil;
 import com.sun.media.R;
 import com.sun.media.video.i.ISuperPlayerListener;
 import com.sun.media.video.i.SuperPlayer;
@@ -470,7 +470,7 @@ public class SuperPlayerView extends RelativeLayout {
                     showToast(R.string.superplayer_float_play_fail);
                     return;
                 }
-                IntentUtils.safeStartActivity(mContext, intent);
+                IntentUtil.safeStartActivity(mContext, intent);
                 mSuperPlayer.pause();
                 if (mLayoutParamWindowMode == null) {
                     return;
@@ -514,7 +514,7 @@ public class SuperPlayerView extends RelativeLayout {
             if (!Settings.canDrawOverlays(mContext)) {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                 intent.setData(Uri.parse("package:" + mContext.getPackageName()));
-                IntentUtils.safeStartActivity(mContext, intent);
+                IntentUtil.safeStartActivity(mContext, intent);
                 return;
             }
         } else {
@@ -699,7 +699,7 @@ public class SuperPlayerView extends RelativeLayout {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("https://cloud.tencent.com/document/product/454/18872"));
             if (getContext() instanceof Activity) {
-                IntentUtils.safeStartActivity(getContext(), intent);
+                IntentUtil.safeStartActivity(getContext(), intent);
             }
         }
 

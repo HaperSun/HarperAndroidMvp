@@ -6,14 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.base.bean.Parameter;
 import com.sun.media.R;
 import com.sun.media.databinding.ActivityImagePreviewBinding;
 import com.sun.media.img.model.bean.ImageItem;
@@ -30,13 +31,6 @@ import java.util.List;
  */
 public class ImagePreviewActivity extends BaseMvpActivity<ActivityImagePreviewBinding> {
 
-    private static final String STATE_POSITION = "STATE_POSITION";
-    private static final String EXTRA_IMAGE_INDEX = "image_index";
-    private static final String EXTRA_IMAGE_ITEMS = "image_items";
-    private static final String EXTRA_NEED_ANIM = "need_anim";
-
-    private ViewPager mViewPager;
-    private TextView mIndicator;
     private int mPagerPosition;
     private ArrayList<ImageItem> mImgItems;
     private boolean mNeedAnim;
@@ -173,9 +167,9 @@ public class ImagePreviewActivity extends BaseMvpActivity<ActivityImagePreviewBi
      */
     public static void startImageItem(Context context, int pagerPosition, boolean needAnim, ImageItem... imgItems) {
         Intent intent = new Intent(context, ImagePreviewActivity.class);
-        intent.putExtra(EXTRA_IMAGE_INDEX, pagerPosition);
-        intent.putExtra(EXTRA_IMAGE_ITEMS, imgItems);
-        intent.putExtra(EXTRA_NEED_ANIM, needAnim);
+        intent.putExtra(Parameter.INDEX, pagerPosition);
+        intent.putExtra(Parameter.ITEM, imgItems);
+        intent.putExtra(Parameter.NEED_ANIMATION, needAnim);
         context.startActivity(intent);
         if (context instanceof Activity && needAnim) {
             // 第一个参数描述的是将要跳转到的activity的进入方式,第二个参数描述的是本界面退出的方式
@@ -205,14 +199,14 @@ public class ImagePreviewActivity extends BaseMvpActivity<ActivityImagePreviewBi
      */
     public static void startImageItem(Context context, int pagerPosition, List<ImageItem> imgItems, boolean needAnim) {
         Intent intent = new Intent(context, ImagePreviewActivity.class);
-        intent.putExtra(EXTRA_IMAGE_INDEX, pagerPosition);
+        intent.putExtra(Parameter.INDEX, pagerPosition);
         if (imgItems != null) {
             int size = imgItems.size();
             ImageItem[] imgItemArray = new ImageItem[size];
             imgItemArray = imgItems.toArray(imgItemArray);
-            intent.putExtra(EXTRA_IMAGE_ITEMS, imgItemArray);
+            intent.putExtra(Parameter.ITEM, imgItemArray);
         }
-        intent.putExtra(EXTRA_NEED_ANIM, needAnim);
+        intent.putExtra(Parameter.NEED_ANIMATION, needAnim);
         context.startActivity(intent);
         if (context instanceof Activity && needAnim) {
             // 第一个参数描述的是将要跳转到的activity的进入方式,第二个参数描述的是本界面退出的方式
@@ -241,8 +235,8 @@ public class ImagePreviewActivity extends BaseMvpActivity<ActivityImagePreviewBi
     public void initData() {
         try {
             Intent intent = getIntent();
-            mPagerPosition = intent.getIntExtra(EXTRA_IMAGE_INDEX, 0);
-            Parcelable[] imgItems = intent.getParcelableArrayExtra(EXTRA_IMAGE_ITEMS);
+            mPagerPosition = intent.getIntExtra(Parameter.INDEX, 0);
+            Parcelable[] imgItems = intent.getParcelableArrayExtra(Parameter.ITEM);
             if (imgItems.length <= 0) {
                 return;
             }
@@ -250,7 +244,7 @@ public class ImagePreviewActivity extends BaseMvpActivity<ActivityImagePreviewBi
             for (Parcelable imgItem : imgItems) {
                 mImgItems.add((ImageItem) imgItem);
             }
-            mNeedAnim = intent.getBooleanExtra(EXTRA_NEED_ANIM, true);
+            mNeedAnim = intent.getBooleanExtra(Parameter.NEED_ANIMATION, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -258,17 +252,15 @@ public class ImagePreviewActivity extends BaseMvpActivity<ActivityImagePreviewBi
 
     @Override
     public void initView() {
-        mViewPager = bind.pager;
-        mIndicator = bind.indicator;
-        bind.previewClose.setOnClickListener(view -> onBackPressed());
+        vdb.previewClose.setOnClickListener(view -> onBackPressed());
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ImagePagerAdapter adapter = new ImagePagerAdapter(getSupportFragmentManager(), mImgItems);
-        mViewPager.setAdapter(adapter);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        vdb.pager.setAdapter(adapter);
+        vdb.pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 //do nothing
@@ -277,7 +269,7 @@ public class ImagePreviewActivity extends BaseMvpActivity<ActivityImagePreviewBi
             @Override
             public void onPageSelected(int position) {
                 String txt = (position + 1) + "/" + mImgItems.size();
-                mIndicator.setText(txt);
+                vdb.indicator.setText(txt);
             }
 
             @Override
@@ -286,23 +278,19 @@ public class ImagePreviewActivity extends BaseMvpActivity<ActivityImagePreviewBi
             }
         });
         if (savedInstanceState != null) {
-            mPagerPosition = savedInstanceState.getInt(STATE_POSITION);
+            mPagerPosition = savedInstanceState.getInt(Parameter.STATE_POSITION);
         }
         String txt = (mPagerPosition + 1) + "/" + mImgItems.size();
-        mIndicator.setText(txt);
-        mViewPager.setCurrentItem(mPagerPosition);
+        vdb.indicator.setText(txt);
+        vdb.pager.setCurrentItem(mPagerPosition);
         //只有一张图片时不显示下标指示
-        if (mImgItems.size() < 2) {
-            mIndicator.setVisibility(View.GONE);
-        } else {
-            mIndicator.setVisibility(View.VISIBLE);
-        }
+        vdb.indicator.setVisibility(mImgItems.size() < 2 ? View.GONE : View.VISIBLE);
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(STATE_POSITION, mViewPager.getCurrentItem());
+        outState.putInt(Parameter.STATE_POSITION, vdb.pager.getCurrentItem());
     }
 
     private class ImagePagerAdapter extends FragmentStatePagerAdapter {

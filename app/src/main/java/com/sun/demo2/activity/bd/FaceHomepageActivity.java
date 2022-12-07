@@ -59,8 +59,8 @@ public class FaceHomepageActivity extends BaseMvpActivity<ActivityFaceHomepageBi
         FaceInitBean.livenessList.add(LivenessTypeEnum.Eye);
         FaceInitBean.livenessList.add(LivenessTypeEnum.Mouth);
         FaceInitBean.livenessList.add(LivenessTypeEnum.HeadRight);
-        bind.butStartSetting.setOnClickListener(this);
-        bind.butStartDetect.setOnClickListener(this);
+        vdb.butStartSetting.setOnClickListener(this);
+        vdb.butStartDetect.setOnClickListener(this);
     }
 
     @Override
@@ -224,7 +224,7 @@ public class FaceHomepageActivity extends BaseMvpActivity<ActivityFaceHomepageBi
         Bitmap bmp = base64ToBitmap(bmpStr);
         bmp = FaceSDKManager.getInstance().scaleImage(bmp, DensityUtils.dip2px(getApplicationContext(), 97),
                 DensityUtils.dip2px(getApplicationContext(), 97));
-        bind.circleHead.setImageBitmap(bmp);
+        vdb.circleHead.setImageBitmap(bmp);
     }
 
     private Bitmap base64ToBitmap(String base64Data) {

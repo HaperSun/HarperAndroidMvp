@@ -45,8 +45,21 @@ public abstract class AppUtil {
      *
      * @return boolean
      */
-    public static boolean isTestApi() {
+    public static boolean isDebugApk() {
         return BuildConfig.DEBUG;
+    }
+
+    /**
+     * 判断安装的版本是不是debug版本 <br/>
+     */
+    public static boolean isDebugApk2() {
+        try {
+            ApplicationInfo info = mAppConfig.ctx.getApplicationInfo();
+            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
@@ -72,18 +85,5 @@ public abstract class AppUtil {
      */
     public static String getPackageName() {
         return mAppConfig.packageName;
-    }
-
-    /**
-     * 判断安装的版本是不是debug版本 <br/>
-     */
-    public static boolean isApkDebugEnable() {
-        try {
-            ApplicationInfo info = mAppConfig.ctx.getApplicationInfo();
-            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 }

@@ -22,7 +22,7 @@ public class MyService extends Service {
 
     public static void onStartService(Context context,String type){
         Intent intent = new Intent(context, MyService.class);
-        intent.putExtra(Parameter.ENTRY_TYPE,type);
+        intent.putExtra(Parameter.TYPE,type);
         context.startService(intent);
     }
 
@@ -45,7 +45,7 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null){
-            String type = intent.getStringExtra(Parameter.ENTRY_TYPE);
+            String type = intent.getStringExtra(Parameter.TYPE);
             ToastHelper.showCustomToast(type);
         }
         LogHelper.e(TAG,"onStartCommand service");

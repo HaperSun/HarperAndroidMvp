@@ -5,5 +5,9 @@ package com.sun.media.video.model;
  * @date 2022/6/22
  * note:
  */
-public class ShortVideoListBackEvent {
+public class MediaEvent {
+
+    public static class ShortVideoListBackEvent{
+
+    }
 }

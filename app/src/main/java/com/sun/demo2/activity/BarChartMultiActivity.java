@@ -51,10 +51,10 @@ public class BarChartMultiActivity extends BaseMvpActivity<ActivityBarChartMulti
 
     @Override
     public void initData() {
-        bind.multiBarChart.getDescription().setEnabled(false);
-        bind.multiBarChart.setPinchZoom(false);
-        bind.multiBarChart.setDrawBarShadow(false);
-        bind.multiBarChart.setDrawGridBackground(false);
+        vdb.multiBarChart.getDescription().setEnabled(false);
+        vdb.multiBarChart.setPinchZoom(false);
+        vdb.multiBarChart.setDrawBarShadow(false);
+        vdb.multiBarChart.setDrawGridBackground(false);
 //        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
 //        mv.setChartView(chart);
 //        chart.setMarker(mv);
@@ -69,7 +69,7 @@ public class BarChartMultiActivity extends BaseMvpActivity<ActivityBarChartMulti
 //        l.setYEntrySpace(0f);
 //        l.setTextSize(8f);
 
-        XAxis xAxis = bind.multiBarChart.getXAxis();
+        XAxis xAxis = vdb.multiBarChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
 //        xAxis.setLabelCount(3);
@@ -78,14 +78,14 @@ public class BarChartMultiActivity extends BaseMvpActivity<ActivityBarChartMulti
         xAxis.setCenterAxisLabels(true);
         xAxis.setValueFormatter((value, axis) -> String.valueOf((int) value));
 
-        YAxis leftAxis = bind.multiBarChart.getAxisLeft();
+        YAxis leftAxis = vdb.multiBarChart.getAxisLeft();
 //        leftAxis.setTypeface(tfLight);
         leftAxis.setValueFormatter(new LargeValueFormatter());
         leftAxis.setDrawGridLines(false);
         leftAxis.setSpaceTop(35f);
         leftAxis.setAxisMinimum(0f);
-        bind.multiBarChart.getAxisRight().setEnabled(false);
-        bind.multiBarChart.getLegend().setEnabled(false);
+        vdb.multiBarChart.getAxisRight().setEnabled(false);
+        vdb.multiBarChart.getLegend().setEnabled(false);
         initBarChart(8, 100);
     }
 
@@ -136,11 +136,11 @@ public class BarChartMultiActivity extends BaseMvpActivity<ActivityBarChartMulti
         BarData data = new BarData(set1, set2);
         data.setValueFormatter(new LargeValueFormatter());
         data.setValueTypeface(tfLight);
-        bind.multiBarChart.setData(data);
-        bind.multiBarChart.getBarData().setBarWidth(barWidth);
-        bind.multiBarChart.getXAxis().setAxisMinimum(startYear);
-        bind.multiBarChart.getXAxis().setAxisMaximum(startYear + bind.multiBarChart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
-        bind.multiBarChart.groupBars(startYear, groupSpace, barSpace);
-        bind.multiBarChart.invalidate();
+        vdb.multiBarChart.setData(data);
+        vdb.multiBarChart.getBarData().setBarWidth(barWidth);
+        vdb.multiBarChart.getXAxis().setAxisMinimum(startYear);
+        vdb.multiBarChart.getXAxis().setAxisMaximum(startYear + vdb.multiBarChart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
+        vdb.multiBarChart.groupBars(startYear, groupSpace, barSpace);
+        vdb.multiBarChart.invalidate();
     }
 }

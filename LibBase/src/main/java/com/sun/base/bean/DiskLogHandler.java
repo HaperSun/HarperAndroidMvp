@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 
+import com.sun.base.util.CollectionUtil;
 import com.sun.base.util.FileUtil;
 
 import java.io.File;
@@ -22,16 +23,25 @@ public class DiskLogHandler extends Handler {
 
     /**
      * 默认日志输出单个文件最大缓存大小，单位字节
+     * 500K averages to a 4000 lines per file
      */
-    public static final long DEFAULT_MAX_FILE_BYTES = 500 * 1024L; // 500K averages to a 4000 lines per file
+    public static final long DEFAULT_MAX_FILE_BYTES = 500 * 1024L;
     /**
-     * 默认日志输出文件夹最大缓存大小，单位字节
+     * 默认日志输出文件夹最大缓存大小，单位字节 5M
      */
-    public static final long DEFAULT_MAX_FOLDER_BYTES = 5 * 1024 * 1024L; // 5M
-
-    private final String folder; //目录文件夹路径
-    private final long maxFileSize;//单个文件最大缓存大小，单位字节
-    private final long maxFolderSize;//日志文件夹最大大小，单位字节
+    public static final long DEFAULT_MAX_FOLDER_BYTES = 5 * 1024 * 1024L;
+    /**
+     * 目录文件夹路径
+     */
+    private final String folder;
+    /**
+     * 单个文件最大缓存大小，单位字节
+     */
+    private final long maxFileSize;
+    /**
+     * 日志文件夹最大大小，单位字节
+     */
+    private final long maxFolderSize;
 
     /**
      * Creates a disk log handler
@@ -47,7 +57,7 @@ public class DiskLogHandler extends Handler {
     public DiskLogHandler(Looper looper, String folder, long maxFileSize, long maxFolderSize) {
         super(looper);
         if (TextUtils.isEmpty(folder)) {
-            folder = Constant.DirName.LOGGER;
+            folder = Constant.DIRECTORY_NAME_LOGGER;
         }
         if (maxFileSize <= 0) {
             maxFileSize = DEFAULT_MAX_FILE_BYTES;
@@ -70,13 +80,12 @@ public class DiskLogHandler extends Handler {
     @Override
     public void handleMessage(Message msg) {
         String content = (String) msg.obj;
-
         FileWriter fileWriter = null;
-        File logFile = getLogFile(folder, "logs");
-
+        File logFile = getLogFile(folder, Constant.DIRECTORY_NAME_LOGGER);
         try {
             fileWriter = new FileWriter(logFile, true);
-            if (logFile.length() <= 0) {//说明待写入的文件内容还是空的，先写入额外信息
+            if (logFile.length() <= 0) {
+                //说明待写入的文件内容还是空的，先写入额外信息
                 writeLog(fileWriter, getExtraInfo());
             }
             writeLog(fileWriter, content);
@@ -105,37 +114,30 @@ public class DiskLogHandler extends Handler {
     }
 
     private File getLogFile(String folderName, String fileName) {
-
         File folder = new File(folderName);
         if (!folder.exists()) {
             folder.mkdirs();
         }
-
         int newFileCount = 0;
         File newFile;
         File existingFile = null;
-
         checkFolderSize(folder);
-
         newFile = new File(folder, String.format("%s_%s.csv", fileName, newFileCount));
         while (newFile.exists()) {
             existingFile = newFile;
             newFileCount++;
             newFile = new File(folder, String.format("%s_%s.csv", fileName, newFileCount));
-
             // This block is needed when we delete an old log and create a new one.
             if (existingFile.length() <= maxFileSize) {
                 break;
             }
         }
-
         if (existingFile != null) {
             if (existingFile.length() >= maxFileSize) {
                 return newFile;
             }
             return existingFile;
         }
-
         return newFile;
     }
 
@@ -156,36 +158,32 @@ public class DiskLogHandler extends Handler {
     private void deleteOlderLog(File folder) {
         long lastModified = Long.MAX_VALUE;
         File choice = null;
-        for (File file : folder.listFiles()) {
-            if (file.isFile()) {
-                if (file.lastModified() < lastModified) {
-                    choice = file;
-                    lastModified = file.lastModified();
+        File[] files = folder.listFiles();
+        if (CollectionUtil.notEmpty(files)) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    if (file.lastModified() < lastModified) {
+                        choice = file;
+                        lastModified = file.lastModified();
+                    }
                 }
             }
-        }
-        if (choice != null) {
-            choice.delete();
+            if (choice != null) {
+                choice.delete();
+            }
         }
     }
 
     /**
      * 获取一些其他要保存的额外信息，比如设备信息、版本信息等等
      *
-     * @return
+     * @return String
      */
     private String getExtraInfo() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("这里开始记录一些额外信息---------------\n")
-                .append("versionName:" + TDevice.getVersionName() + "\n")
-                .append("versionCode:" + TDevice.getVersionCode() + "\n")
-                .append("MANUFACTURER:" + Build.MANUFACTURER + "\n")
-                .append("BRAND:" + Build.BRAND + "\n")
-                .append("MODEL:" + Build.MODEL + "\n")
-                .append("PRODUCT:" + Build.PRODUCT + "\n")
-                .append("Android Version:" + Build.VERSION.RELEASE + "\n")
-                .append("API:" + Build.VERSION.SDK_INT + "\n")
-                .append("额外信息记录结束---------------\n");
-        return stringBuilder.toString();
+        return "这里开始记录一些额外信息---------------\n" + "versionName:" + TDevice.getVersionName() + "\n" +
+                "versionCode:" + TDevice.getVersionCode() + "\n" + "MANUFACTURER:" + Build.MANUFACTURER + "\n" +
+                "BRAND:" + Build.BRAND + "\n" + "MODEL:" + Build.MODEL + "\n" +
+                "PRODUCT:" + Build.PRODUCT + "\n" + "Android Version:" + Build.VERSION.RELEASE + "\n" +
+                "API:" + Build.VERSION.SDK_INT + "\n" + "额外信息记录结束---------------\n";
     }
 }

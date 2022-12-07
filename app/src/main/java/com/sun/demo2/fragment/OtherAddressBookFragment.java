@@ -48,7 +48,7 @@ public class OtherAddressBookFragment extends BaseMvpFragment<FragmentOtherAddre
     @Override
     public void initView() {
         mActivity = getActivity();
-        bind.indexBar.setOnCharSelectedListener(this);
+        vdb.indexBar.setOnCharSelectedListener(this);
     }
 
     @Override
@@ -79,21 +79,21 @@ public class OtherAddressBookFragment extends BaseMvpFragment<FragmentOtherAddre
             }
         }
         if (!TextUtils.isEmpty(letters)) {
-            bind.indexBar.setLettersData(letters.toString());
+            vdb.indexBar.setLettersData(letters.toString());
         }
         Adapter adapter = new Adapter();
-        bind.listView.setAdapter(adapter);
+        vdb.listView.setAdapter(adapter);
     }
 
     @Override
     public void onCharSelected(char c) {
-        bind.tvBig.setText(c + "");
-        bind.tvBig.setVisibility(View.VISIBLE);
+        vdb.tvBig.setText(c + "");
+        vdb.tvBig.setVisibility(View.VISIBLE);
         mHandler.removeCallbacks(mRunnable);
         mHandler.postDelayed(mRunnable, 400);
         for (int i = 0; i < mItems.size(); i++) {
             if (AnyItem.TYPE1 == mItems.get(i).type && c == ((String) mItems.get(i).object).charAt(0)) {
-                bind.listView.smoothScrollToPositionFromTop(i, 0, 300);
+                vdb.listView.smoothScrollToPositionFromTop(i, 0, 300);
                 break;
             }
         }
@@ -102,7 +102,7 @@ public class OtherAddressBookFragment extends BaseMvpFragment<FragmentOtherAddre
     private final Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
-            mActivity.runOnUiThread(() -> bind.tvBig.setVisibility(View.GONE));
+            mActivity.runOnUiThread(() -> vdb.tvBig.setVisibility(View.GONE));
         }
     };
 

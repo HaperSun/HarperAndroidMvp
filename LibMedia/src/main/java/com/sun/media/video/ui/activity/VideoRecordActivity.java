@@ -16,7 +16,7 @@ import com.sun.base.bean.TDevice;
 import com.sun.base.util.DataUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogHelper;
-import com.sun.base.util.MediaUtils;
+import com.sun.base.util.MediaUtil;
 import com.sun.base.util.PermissionUtil;
 import com.sun.media.R;
 import com.sun.media.databinding.ActivityVideoRecordBinding;
@@ -80,10 +80,10 @@ public class VideoRecordActivity extends BaseMvpActivity<ActivityVideoRecordBind
 
     @Override
     public void initView() {
-        bind.videoRecordPhoto.setOnClickListener(this);
-        bind.videoRecordSelect.setOnClickListener(this);
-        bind.videoRecordStart.setOnClickListener(this);
-        bind.videoRecordStart.setVisibility(TDevice.hasFrontCamera(mContext) ? View.VISIBLE : View.GONE);
+        vdb.videoRecordPhoto.setOnClickListener(this);
+        vdb.videoRecordSelect.setOnClickListener(this);
+        vdb.videoRecordStart.setOnClickListener(this);
+        vdb.videoRecordStart.setVisibility(TDevice.hasFrontCamera(mContext) ? View.VISIBLE : View.GONE);
         if (!PermissionUtil.checkCamera()) {
             PermissionUtil.requestCamera(this, state -> {
 
@@ -108,7 +108,7 @@ public class VideoRecordActivity extends BaseMvpActivity<ActivityVideoRecordBind
 
     @Override
     protected void onDestroy() {
-        bind.movieRecorderView.stop();
+        vdb.movieRecorderView.stop();
         if (mExecutorService != null) {
             mExecutorService.shutdownNow();
         }
@@ -143,7 +143,7 @@ public class VideoRecordActivity extends BaseMvpActivity<ActivityVideoRecordBind
      */
     private void reversalCamera() {
         try {
-            bind.movieRecorderView.changeCamera();
+            vdb.movieRecorderView.changeCamera();
         } catch (Exception e) {
             LogHelper.d("reversalCamera", e.getMessage());
         }
@@ -153,14 +153,14 @@ public class VideoRecordActivity extends BaseMvpActivity<ActivityVideoRecordBind
         if (mExecutorService != null) {
             mExecutorService.shutdownNow();
         }
-        bind.videoRecordPhoto.setVisibility(View.VISIBLE);
-        bind.videoRecordStart.setBackgroundResource(R.mipmap.icon_take_photo_start);
-        bind.movieRecorderView.stop();
-        File file = bind.movieRecorderView.getmVecordFile();
+        vdb.videoRecordPhoto.setVisibility(View.VISIBLE);
+        vdb.videoRecordStart.setBackgroundResource(R.mipmap.icon_take_photo_start);
+        vdb.movieRecorderView.stop();
+        File file = vdb.movieRecorderView.getmVecordFile();
         if (file.isFile() && file.exists()) {
-            String path = bind.movieRecorderView.getmVecordFile().getPath();
+            String path = vdb.movieRecorderView.getmVecordFile().getPath();
             if (FileUtil.isFileExist(path)) {
-                MediaUtils.getImageForVideo(path, file1 -> {
+                MediaUtil.getImageForVideo(path, file1 -> {
                     try {
                         if (isFinishing() || isDestroyed()) {
                             return;
@@ -190,7 +190,7 @@ public class VideoRecordActivity extends BaseMvpActivity<ActivityVideoRecordBind
                 DataUtil.getInstance().setMediaData(mediaFiles);
                 //还原参数
                 mTimeLength = 0;
-                bind.videoRecordProgress.setProgress(0);
+                vdb.videoRecordProgress.setProgress(0);
                 //去预览页面
                 if (!mNoNeedToPreview) {
                     VideoEditActivity.startForResult(this, REQUEST_CODE_RECORD);
@@ -223,12 +223,12 @@ public class VideoRecordActivity extends BaseMvpActivity<ActivityVideoRecordBind
             mTimeLength++;
             runOnUiThread(() -> {
                 if (mTimeLength > mMaxTime) {
-                    bind.videoRecordProgress.setProgress(100);
+                    vdb.videoRecordProgress.setProgress(100);
                     stopRecord();
                 } else {
                     double progress = BigDecimal.valueOf((float) mTimeLength / mMaxTime)
                             .setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() * 100;
-                    bind.videoRecordProgress.setProgress((int) progress);
+                    vdb.videoRecordProgress.setProgress((int) progress);
                 }
             });
         }, 1, 1, TimeUnit.SECONDS);
@@ -238,10 +238,10 @@ public class VideoRecordActivity extends BaseMvpActivity<ActivityVideoRecordBind
      * 开启录制
      */
     private void startRecord() {
-        bind.videoRecordPhoto.setVisibility(View.INVISIBLE);
-        bind.videoRecordStart.setBackgroundResource(R.mipmap.icon_take_photo_ing);
-        bind.movieRecorderView.setVisibility(View.VISIBLE);
-        bind.movieRecorderView.record(new MovieRecorderView.OnRecordStateListener() {
+        vdb.videoRecordPhoto.setVisibility(View.INVISIBLE);
+        vdb.videoRecordStart.setBackgroundResource(R.mipmap.icon_take_photo_ing);
+        vdb.movieRecorderView.setVisibility(View.VISIBLE);
+        vdb.movieRecorderView.record(new MovieRecorderView.OnRecordStateListener() {
             @Override
             public void onRecordStart() {
                 startTime();

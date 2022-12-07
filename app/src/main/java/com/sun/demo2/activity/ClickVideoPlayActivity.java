@@ -55,8 +55,8 @@ public class ClickVideoPlayActivity extends BaseMvpActivity<ActivityClickVideoPl
 
     @Override
     public void initView() {
-        bind.superPlayerView.setPlayerViewCallback(this);
-        bind.refreshLayout.setOnRefreshListener(this);
+        vdb.superPlayerView.setPlayerViewCallback(this);
+        vdb.refreshLayout.setOnRefreshListener(this);
         adjustSuperPlayerViewAndMaskHeight();
         initSuperVodGlobalSetting();
     }
@@ -66,10 +66,10 @@ public class ClickVideoPlayActivity extends BaseMvpActivity<ActivityClickVideoPl
      */
     private void adjustSuperPlayerViewAndMaskHeight() {
         final int screenWidth = getWindowManager().getDefaultDisplay().getWidth();
-        ViewGroup.LayoutParams layoutParams = bind.superPlayerView.getLayoutParams();
+        ViewGroup.LayoutParams layoutParams = vdb.superPlayerView.getLayoutParams();
         layoutParams.width = screenWidth;
         layoutParams.height = (int) (screenWidth * PLAYER_VIEW_DISPLAY_RATIO);
-        bind.superPlayerView.setLayoutParams(layoutParams);
+        vdb.superPlayerView.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class ClickVideoPlayActivity extends BaseMvpActivity<ActivityClickVideoPl
         List<VideoModel> models = getData();
         mAdapter.setAdapterData(models);
         mAdapter.setOnItemClickListener(this);
-        bind.recyclerView.setAdapter(mAdapter);
+        vdb.recyclerView.setAdapter(mAdapter);
         onItemClick(models.get(0));
     }
 
@@ -112,7 +112,7 @@ public class ClickVideoPlayActivity extends BaseMvpActivity<ActivityClickVideoPl
         playerModel.title = model.title;
         playerModel.duration = model.duration;
         playerModel.placeholderImage = model.placeholderImage;
-        bind.superPlayerView.playWithModel(playerModel);
+        vdb.superPlayerView.playWithModel(playerModel);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class ClickVideoPlayActivity extends BaseMvpActivity<ActivityClickVideoPl
     @Override
     public void onClickFloatCloseBtn() {
         // 点击悬浮窗关闭按钮，那么结束整个播放
-        bind.superPlayerView.resetPlayer();
+        vdb.superPlayerView.resetPlayer();
         finish();
     }
 
@@ -170,7 +170,7 @@ public class ClickVideoPlayActivity extends BaseMvpActivity<ActivityClickVideoPl
     @Override
     public void onBackPressed() {
         if (mIsFullScreen) {
-            bind.superPlayerView.switchPlayMode(SuperPlayerDef.PlayerMode.WINDOW);
+            vdb.superPlayerView.switchPlayMode(SuperPlayerDef.PlayerMode.WINDOW);
             //当从全屏模式返回窗口模式时，SuperPlayerView会clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
             //导致activity中的theme设置失效，需要重新设置下
         } else {
@@ -181,17 +181,17 @@ public class ClickVideoPlayActivity extends BaseMvpActivity<ActivityClickVideoPl
     @Override
     protected void onResume() {
         super.onResume();
-        if (bind.superPlayerView.getPlayerState() == SuperPlayerDef.PlayerState.PLAYING
-                || bind.superPlayerView.getPlayerState() == SuperPlayerDef.PlayerState.PAUSE) {
-            Log.i(TAG, "onResume state :" + bind.superPlayerView.getPlayerState());
-            if (!bind.superPlayerView.isShowingVipView() && !mPlayStatePause) {
-                bind.superPlayerView.onResume();
+        if (vdb.superPlayerView.getPlayerState() == SuperPlayerDef.PlayerState.PLAYING
+                || vdb.superPlayerView.getPlayerState() == SuperPlayerDef.PlayerState.PAUSE) {
+            Log.i(TAG, "onResume state :" + vdb.superPlayerView.getPlayerState());
+            if (!vdb.superPlayerView.isShowingVipView() && !mPlayStatePause) {
+                vdb.superPlayerView.onResume();
             }
-            if (bind.superPlayerView.getPlayerMode() == SuperPlayerDef.PlayerMode.FLOAT) {
-                bind.superPlayerView.switchPlayMode(SuperPlayerDef.PlayerMode.WINDOW);
+            if (vdb.superPlayerView.getPlayerMode() == SuperPlayerDef.PlayerMode.FLOAT) {
+                vdb.superPlayerView.switchPlayMode(SuperPlayerDef.PlayerMode.WINDOW);
             }
         }
-        if (bind.superPlayerView.getPlayerMode() == SuperPlayerDef.PlayerMode.FULLSCREEN) {
+        if (vdb.superPlayerView.getPlayerMode() == SuperPlayerDef.PlayerMode.FULLSCREEN) {
             //隐藏虚拟按键，并且全屏
             View decorView = getWindow().getDecorView();
             if (decorView == null) {
@@ -206,27 +206,27 @@ public class ClickVideoPlayActivity extends BaseMvpActivity<ActivityClickVideoPl
                 decorView.setSystemUiVisibility(uiOptions);
             }
         }
-        bind.superPlayerView.setNeedToPause(false);
+        vdb.superPlayerView.setNeedToPause(false);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(TAG, "onPause state :" + bind.superPlayerView.getPlayerState());
-        if (bind.superPlayerView.getPlayerMode() != SuperPlayerDef.PlayerMode.FLOAT) {
+        Log.i(TAG, "onPause state :" + vdb.superPlayerView.getPlayerState());
+        if (vdb.superPlayerView.getPlayerMode() != SuperPlayerDef.PlayerMode.FLOAT) {
             // 有手动暂停
-            mPlayStatePause = bind.superPlayerView.getPlayerState() == SuperPlayerDef.PlayerState.PAUSE;
-            bind.superPlayerView.onPause();
-            bind.superPlayerView.setNeedToPause(true);
+            mPlayStatePause = vdb.superPlayerView.getPlayerState() == SuperPlayerDef.PlayerState.PAUSE;
+            vdb.superPlayerView.onPause();
+            vdb.superPlayerView.setNeedToPause(true);
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bind.superPlayerView.release();
-        if (bind.superPlayerView.getPlayerMode() != SuperPlayerDef.PlayerMode.FLOAT) {
-            bind.superPlayerView.resetPlayer();
+        vdb.superPlayerView.release();
+        if (vdb.superPlayerView.getPlayerMode() != SuperPlayerDef.PlayerMode.FLOAT) {
+            vdb.superPlayerView.resetPlayer();
         }
         VideoDataMgr.getInstance().setGetVideoInfoListListener(null);
     }

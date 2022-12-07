@@ -59,10 +59,10 @@ public class PieChartsBasicActivity extends BaseMvpActivity<ActivityPieChartsBas
         baseBind.title.setTitle("Pie Charts 饼状图");
         baseBind.title.setOnTitleClickListener(view -> close());
 
-        chart = bind.basicPieChart;
+        chart = vdb.basicPieChart;
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
         tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
-        ImageView iv = bind.imgView;
+        ImageView iv = vdb.imgView;
         iv.setBackgroundColor(Color.rgb(217, 80, 138));
     }
 

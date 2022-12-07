@@ -58,27 +58,20 @@ public class MediaSelector {
     }
 
     public void show() {
-        switch (config.operationType) {
-            case MediaConfig.TAKE_PHOTO:
-            case MediaConfig.TAKE_VIDEO:
-            case MediaConfig.TAKE_BOTH:
-                //启动相机
-                if (activity != null) {
-                    CameraActivity.startActivityResult(activity, Parameter.REQUEST_CODE_MEDIA, config.mediaFileType);
-                } else if (fragment != null) {
-                    CameraActivity.startActivityResult(fragment, Parameter.REQUEST_CODE_MEDIA, config.mediaFileType);
-                }
-                break;
-            case MediaConfig.FROM_ALBUM:
-                //启动相册
-                if (activity != null) {
-                    ImagePickerActivity.startActivityResult(activity, Parameter.REQUEST_CODE_MEDIA);
-                } else if (fragment != null) {
-                    ImagePickerActivity.startActivityResult(fragment, Parameter.REQUEST_CODE_MEDIA);
-                }
-                break;
-            default:
-                break;
+        if (config.fromCamera){
+            //启动相机
+            if (activity != null) {
+                CameraActivity.startActivityResult(activity, Parameter.REQUEST_CODE_MEDIA, config.mediaFileType);
+            } else if (fragment != null) {
+                CameraActivity.startActivityResult(fragment, Parameter.REQUEST_CODE_MEDIA, config.mediaFileType);
+            }
+        }else {
+            //启动相册
+            if (activity != null) {
+                ImagePickerActivity.startActivityResult(activity, Parameter.REQUEST_CODE_MEDIA);
+            } else if (fragment != null) {
+                ImagePickerActivity.startActivityResult(fragment, Parameter.REQUEST_CODE_MEDIA);
+            }
         }
     }
 
@@ -132,21 +125,22 @@ public class MediaSelector {
         private long maxVideoLength;
         //视频大小，单位：MB
         private int maxVideoSize;
-        //操作类型
-        private String operationType;
+        //操作类型：只包含拍照和相册两种
+        private boolean fromCamera;
+        //选择文件类型，默认图片和视频都可选择
         private int mediaFileType;
-        //最大选择视频数
+        //最大选择视频数，默认是1个
         private int maxVideoSelectCount;
-        //在本地显示，不用上传到网络
-        public boolean needUploadFile;
-        //可以删除
-        public boolean showDelete;
-        //相册中是否可以拍照
-        public boolean albumCanTakePhoto;
+        //是否需要上传到网络，默认不上传
+        private boolean needUploadFile;
+        //是否展示删除按钮，默认展示
+        private boolean showDelete;
+        //从相册中选择文件时，是否可以拍照，默认可以
+        private boolean albumCanTakePhoto;
         //是否过滤GIF图片，默认过滤
-        public boolean filterGif;
-        //旋转摄像头
-        public boolean switchCamera;
+        private boolean filterGif;
+        //（拍摄时默认使用的是前置摄像头）是否需要旋转摄像头，默认不需要
+        private boolean switchCamera;
 
         public Builder() {
             setDefault();
@@ -154,11 +148,13 @@ public class MediaSelector {
 
         private Builder(Activity activity) {
             this.activity = activity;
+            //重新设置下默认值，避免多处使用时，设置的相互影响
             setDefault();
         }
 
         private Builder(Fragment fragment) {
             this.fragment = fragment;
+            //重新设置下默认值，避免多处使用时，设置的相互影响
             setDefault();
         }
 
@@ -174,12 +170,15 @@ public class MediaSelector {
             maxImageSize = 15;
             maxVideoLength = 301 * 1000L;
             maxVideoSize = 20;
-            operationType = MediaConfig.TAKE_PHOTO;
+            //默认从相册中选择
+            fromCamera = false;
+            //默认既可以选择图片又可以选择视频
             mediaFileType = MediaConfig.PHOTO;
             maxVideoSelectCount = 1;
             needUploadFile = false;
             showDelete = true;
             albumCanTakePhoto = true;
+            //默认过滤GIF，暂不支持GIF
             filterGif = true;
             switchCamera = false;
         }
@@ -231,8 +230,8 @@ public class MediaSelector {
             return this;
         }
 
-        public Builder operationType(String operationType) {
-            this.operationType = operationType;
+        public Builder fromCamera(boolean fromCamera) {
+            this.fromCamera = fromCamera;
             return this;
         }
 
@@ -285,7 +284,7 @@ public class MediaSelector {
             config.maxImageSize = maxImageSize;
             config.maxVideoLength = maxVideoLength;
             config.maxVideoSize = maxVideoSize;
-            config.operationType = operationType;
+            config.fromCamera = fromCamera;
             config.mediaFileType = mediaFileType;
             config.maxVideoSelectCount = maxVideoSelectCount;
             config.needUploadFile = needUploadFile;

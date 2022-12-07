@@ -66,7 +66,6 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
     protected SurfaceView mSurfaceView;
     protected SurfaceHolder mSurfaceHolder;
     private ImageView mImageAnim;
-    public View mViewBg;
     // 人脸信息
     protected FaceConfig mFaceConfig;
     protected ILivenessStrategy iLiveNessStrategy;
@@ -124,21 +123,20 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
         FrameLayout.LayoutParams cameraFL = new FrameLayout.LayoutParams((int) (w * FaceDetectRoundView.SURFACE_RATIO),
                 (int) (h * FaceDetectRoundView.SURFACE_RATIO), Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         mSurfaceView.setLayoutParams(cameraFL);
-        bind.livenessSurfaceLayout.addView(mSurfaceView);
-        bind.livenessClose.setOnClickListener(v -> onBackPressed());
-        bind.livenessFaceRound.setIsActiveLive(true);
-        bind.livenessSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2
+        vdb.livenessSurfaceLayout.addView(mSurfaceView);
+        vdb.livenessClose.setOnClickListener(v -> onBackPressed());
+        vdb.livenessFaceRound.setIsActiveLive(true);
+        vdb.livenessSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2
                 : R.drawable.selector_collect_image_voice);
-        bind.livenessSound.setOnClickListener(v -> {
+        vdb.livenessSound.setOnClickListener(v -> {
             mIsEnableSound = !mIsEnableSound;
-            bind.livenessSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2
+            vdb.livenessSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2
                     : R.drawable.selector_collect_image_voice);
             if (iLiveNessStrategy != null) {
                 iLiveNessStrategy.setLivenessStrategySoundEnable(mIsEnableSound);
             }
         });
         addImageView();
-        mViewBg = findViewById(R.id.view_live_bg);
     }
 
     @Override
@@ -158,7 +156,7 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
      * 动态加载ImageView
      */
     private void addImageView() {
-        bind.livenessFaceRound.post(() -> {
+        vdb.livenessFaceRound.post(() -> {
             mImageAnim = new ImageView(mContext);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup
                     .LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -166,14 +164,14 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
             layoutParams.height = DensityUtils.dip2px(mContext, 110);
             // 设置图片的宽度
             layoutParams.width = DensityUtils.dip2px(mContext, 87);
-            float halfHeight = bind.livenessFaceRound.getHeight() / 2;
+            float halfHeight = vdb.livenessFaceRound.getHeight() / 2;
             layoutParams.setMargins(0, (int) (halfHeight - (halfHeight * FaceDetectRoundView.HEIGHT_RATIO))
                     - layoutParams.height / 2, 0, 0);
             layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
             mImageAnim.setLayoutParams(layoutParams);
             // 使图片充满控件大小
             mImageAnim.setScaleType(ImageView.ScaleType.FIT_XY);
-            bind.relativeAddImageView.addView(mImageAnim);
+            vdb.relativeAddImageView.addView(mImageAnim);
         });
     }
 
@@ -182,7 +180,7 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
         super.onResume();
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mVolumeReceiver = VolumeUtils.registerVolumeReceiver(this, this);
-        bind.livenessFaceRound.setTipTopText("请将脸移入取景框");
+        vdb.livenessFaceRound.setTipTopText("请将脸移入取景框");
         startPreview();
     }
 
@@ -199,7 +197,7 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
         }
         VolumeUtils.unRegisterVolumeReceiver(this, mVolumeReceiver);
         mVolumeReceiver = null;
-        bind.livenessFaceRound.setProcessCount(0,
+        vdb.livenessFaceRound.setProcessCount(0,
                 mFaceConfig.getLivenessTypeList().size());
         super.onPause();
         stopPreview();
@@ -223,7 +221,7 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
             if (am != null) {
                 int cv = am.getStreamVolume(AudioManager.STREAM_MUSIC);
                 mIsEnableSound = cv > 0;
-                bind.livenessSound.setImageResource(mIsEnableSound
+                vdb.livenessSound.setImageResource(mIsEnableSound
                         ? R.mipmap.icon_titlebar_voice2 : R.mipmap.icon_titlebar_voice1);
                 if (iLiveNessStrategy != null) {
                     iLiveNessStrategy.setLivenessStrategySoundEnable(mIsEnableSound);
@@ -429,9 +427,9 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
             case DetectRemindCodeBeyondPreviewFrame:
             case DetectRemindCodeNoFaceDetected:
                 // onRefreshTipsView(false, message);
-                bind.livenessFaceRound.setTipTopText(message);
-                bind.livenessFaceRound.setTipSecondText("");
-                bind.livenessFaceRound.setProcessCount(currentLivenessCount,
+                vdb.livenessFaceRound.setTipTopText(message);
+                vdb.livenessFaceRound.setTipSecondText("");
+                vdb.livenessFaceRound.setProcessCount(currentLivenessCount,
                         mFaceConfig.getLivenessTypeList().size());
                 // onRefreshSuccessView(true);
                 stopAnim();
@@ -443,9 +441,9 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
             case FaceLivenessActionTypeLiveYawLeft:
             case FaceLivenessActionTypeLiveYawRight:
             case FaceLivenessActionTypeLiveYaw:
-                bind.livenessFaceRound.setTipTopText(message);
-                bind.livenessFaceRound.setTipSecondText("");
-                bind.livenessFaceRound.setProcessCount(currentLivenessCount,
+                vdb.livenessFaceRound.setTipTopText(message);
+                vdb.livenessFaceRound.setTipSecondText("");
+                vdb.livenessFaceRound.setProcessCount(currentLivenessCount,
                         mFaceConfig.getLivenessTypeList().size());
                 // onRefreshTipsView(false, message);
                 // onRefreshSuccessView(false);
@@ -454,18 +452,18 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
             case DetectRemindCodePitchOutofDownRange:
             case DetectRemindCodeYawOutofLeftRange:
             case DetectRemindCodeYawOutofRightRange:
-                bind.livenessFaceRound.setTipTopText("请保持正脸");
-                bind.livenessFaceRound.setTipSecondText(message);
-                bind.livenessFaceRound.setProcessCount(currentLivenessCount, mFaceConfig.getLivenessTypeList().size());
+                vdb.livenessFaceRound.setTipTopText("请保持正脸");
+                vdb.livenessFaceRound.setTipSecondText(message);
+                vdb.livenessFaceRound.setProcessCount(currentLivenessCount, mFaceConfig.getLivenessTypeList().size());
                 // onRefreshSuccessView(false);
                 // onRefreshTipsView(true, message);
                 break;
             case FaceLivenessActionCodeTimeout:
                 // 动作超时，播放教程动画
-                bind.livenessFaceRound.setProcessCount(currentLivenessCount, mFaceConfig.getLivenessTypeList().size());
+                vdb.livenessFaceRound.setProcessCount(currentLivenessCount, mFaceConfig.getLivenessTypeList().size());
                 // 帧动画开启
-                if (bind.relativeAddImageView.getVisibility() == View.INVISIBLE) {
-                    bind.relativeAddImageView.setVisibility(View.VISIBLE);
+                if (vdb.relativeAddImageView.getVisibility() == View.INVISIBLE) {
+                    vdb.relativeAddImageView.setVisibility(View.VISIBLE);
                 }
                 loadAnimSource();
                 // 监听帧动画时间
@@ -477,9 +475,9 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
                 TimeManager.getInstance().setActiveAnimTime(duration);
                 break;
             default:
-                bind.livenessFaceRound.setTipTopText("请保持正脸");
-                bind.livenessFaceRound.setTipSecondText(message);
-                bind.livenessFaceRound.setProcessCount(currentLivenessCount, mFaceConfig.getLivenessTypeList().size());
+                vdb.livenessFaceRound.setTipTopText("请保持正脸");
+                vdb.livenessFaceRound.setTipSecondText(message);
+                vdb.livenessFaceRound.setProcessCount(currentLivenessCount, mFaceConfig.getLivenessTypeList().size());
                 // onRefreshSuccessView(false);
                 // onRefreshTipsView(false, message);
                 break;
@@ -528,7 +526,7 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
 
     @Override
     public void viewReset() {
-        bind.livenessFaceRound.setProcessCount(0, 1);
+        vdb.livenessFaceRound.setProcessCount(0, 1);
     }
 
     @Override
@@ -549,8 +547,8 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
             mAnimationDrawable.stop();
             mAnimationDrawable = null;
         }
-        if (bind.relativeAddImageView.getVisibility() == View.VISIBLE) {
-            bind.relativeAddImageView.setVisibility(View.INVISIBLE);
+        if (vdb.relativeAddImageView.getVisibility() == View.VISIBLE) {
+            vdb.relativeAddImageView.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -585,23 +583,23 @@ public class FaceLiveActivity extends BaseMvpActivity<ActivityFaceLivenessBindin
 
     private void setImageView1(List<Map.Entry<String, ImageInfo>> list) {
         Bitmap bmp;
-        bind.livenessResultImageLayout.removeAllViews();
+        vdb.livenessResultImageLayout.removeAllViews();
         for (Map.Entry<String, ImageInfo> entry : list) {
             bmp = base64ToBitmap(entry.getValue().getBase64());
             ImageView iv = new ImageView(this);
             iv.setImageBitmap(bmp);
-            bind.livenessResultImageLayout.addView(iv, new LinearLayout.LayoutParams(300, 300));
+            vdb.livenessResultImageLayout.addView(iv, new LinearLayout.LayoutParams(300, 300));
         }
     }
 
     private void setImageView2(List<Map.Entry<String, ImageInfo>> list) {
         Bitmap bmp;
-        bind.livenessResultImageLayout2.removeAllViews();
+        vdb.livenessResultImageLayout2.removeAllViews();
         for (Map.Entry<String, ImageInfo> entry : list) {
             bmp = base64ToBitmap(entry.getValue().getBase64());
             ImageView iv = new ImageView(this);
             iv.setImageBitmap(bmp);
-            bind.livenessResultImageLayout2.addView(iv, new LinearLayout.LayoutParams(300, 300));
+            vdb.livenessResultImageLayout2.addView(iv, new LinearLayout.LayoutParams(300, 300));
         }
     }
 }

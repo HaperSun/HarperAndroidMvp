@@ -47,9 +47,7 @@ public class FaceLiveExpendActivity extends FaceLiveActivity implements TimeoutD
             // 获取最优图片
             getBestImage(base64ImageCropMap, base64ImageSrcMap);
         } else if (status == FaceStatusNewEnum.DetectRemindCodeTimeout) {
-            if (mViewBg != null) {
-                mViewBg.setVisibility(View.VISIBLE);
-            }
+            vdb.viewLiveBg.setVisibility(View.VISIBLE);
             showMessageDialog();
         }
     }
@@ -133,9 +131,7 @@ public class FaceLiveExpendActivity extends FaceLiveActivity implements TimeoutD
         if (mTimeoutDialog != null) {
             mTimeoutDialog.dismiss();
         }
-        if (mViewBg != null) {
-            mViewBg.setVisibility(View.GONE);
-        }
+        vdb.viewLiveBg.setVisibility(View.GONE);
         onResume();
     }
 

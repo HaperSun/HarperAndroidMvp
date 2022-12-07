@@ -15,7 +15,7 @@ import com.sun.base.base.fragment.BaseMvpFragment;
 import com.sun.media.R;
 import com.sun.media.databinding.ActivityShortVideoBinding;
 import com.sun.media.video.model.ShortVideoBean;
-import com.sun.media.video.model.ShortVideoListBackEvent;
+import com.sun.media.video.model.MediaEvent;
 import com.sun.media.video.model.ShortVideoModel;
 import com.sun.media.video.ui.adapter.ShortVideoListAdapter;
 import com.sun.media.video.ui.fragment.ShortVideoListFragment;
@@ -65,9 +65,9 @@ public class ShortVideoActivity extends BaseMvpActivity<ActivityShortVideoBindin
         mFragments.add(mPlayFragment);
         mFragments.add(mListFragment);
         mListFragment.setShortVideoClickListener(this);
-        bind.viewPager.setAdapter(new ShortVideoPageAdapter(getSupportFragmentManager()));
-        bind.viewPager.addOnPageChangeListener(this);
-        bind.viewPager.setCurrentItem(PLAY_FRAGMENT);
+        vdb.viewPager.setAdapter(new ShortVideoPageAdapter(getSupportFragmentManager()));
+        vdb.viewPager.addOnPageChangeListener(this);
+        vdb.viewPager.setCurrentItem(PLAY_FRAGMENT);
     }
 
     @Override
@@ -112,14 +112,14 @@ public class ShortVideoActivity extends BaseMvpActivity<ActivityShortVideoBindin
 
     @Override
     public void onItemClick(int position) {
-        bind.viewPager.setCurrentItem(PLAY_FRAGMENT);
+        vdb.viewPager.setCurrentItem(PLAY_FRAGMENT);
         mPlayFragment.onItemClick(position);
         Log.i(TAG, "from list position " + position);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(ShortVideoListBackEvent event) {
-        bind.viewPager.setCurrentItem(PLAY_FRAGMENT);
+    public void onEvent(MediaEvent.ShortVideoListBackEvent event) {
+        vdb.viewPager.setCurrentItem(PLAY_FRAGMENT);
     }
 
     class ShortVideoPageAdapter extends FragmentPagerAdapter {

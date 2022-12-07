@@ -12,7 +12,6 @@ import android.os.Environment;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -24,7 +23,7 @@ import java.util.HashMap;
  * @date: 2022/7/21
  * @note:
  */
-public class MediaUtils {
+public class MediaUtil {
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
     public static File file;
@@ -66,7 +65,7 @@ public class MediaUtils {
     }
 
     public static class LoadVideoImageTask extends AsyncTask<String, Integer, File> {
-        private OnLoadVideoImageListener listener;
+        private final OnLoadVideoImageListener listener;
 
         public LoadVideoImageTask(OnLoadVideoImageListener listener) {
             this.listener = listener;
@@ -77,19 +76,17 @@ public class MediaUtils {
             MediaMetadataRetriever mmr = new MediaMetadataRetriever();
             String path = params[0];
             try {
-                if (path.startsWith("http"))
-                //获取网络视频第一帧图片
-                {
+
+                if (path.startsWith("http")) {
+                    //获取网络视频第一帧图片
                     mmr.setDataSource(path, new HashMap());
-                } else
+                } else if (FileUtil.isFileExist(path)) {
                     //本地视频
-                    if (FileUtil.isFileExist(path)) {
-                        mmr.setDataSource(path);
-                    }
+                    mmr.setDataSource(path);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             Bitmap bitmap = mmr.getFrameAtTime(-1, MediaMetadataRetriever.OPTION_CLOSEST);
             // 保存图片
             File f = getOutputMediaFile(MEDIA_TYPE_IMAGE);
@@ -104,8 +101,6 @@ public class MediaUtils {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
                 out.flush();
                 out.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -141,40 +136,30 @@ public class MediaUtils {
     public static Bitmap getVideoThumbnail(String videoPath, int width, int height, int kind) {
         Bitmap bitmap = null;
         // 获取视频的缩略图
-        bitmap = ThumbnailUtils.createVideoThumbnail(videoPath, kind); //調用ThumbnailUtils類的靜態方法createVideoThumbnail獲取視頻的截圖；
+        //調用ThumbnailUtils類的靜態方法createVideoThumbnail獲取視頻的截圖；
+        bitmap = ThumbnailUtils.createVideoThumbnail(videoPath, kind);
         if (bitmap != null) {
-            bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height,
-                    ThumbnailUtils.OPTIONS_RECYCLE_INPUT);//調用ThumbnailUtils類的靜態方法extractThumbnail將原圖片（即上方截取的圖片）轉化為指定大小；
+            //調用ThumbnailUtils類的靜態方法extractThumbnail將原圖片（即上方截取的圖片）轉化為指定大小；
+            bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
         }
         return bitmap;
     }
 
     public static String bitmap2File(Bitmap bitmap, String name) {
-
         File f = new File(Environment.getExternalStorageDirectory() + name + ".jpg");
-
-        if (f.exists()) f.delete();
-
-        FileOutputStream fOut = null;
-
-        try {
-
-            fOut = new FileOutputStream(f);
-
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-
-            fOut.flush();
-
-            fOut.close();
-
-        } catch (IOException e) {
-
-            return null;
-
+        if (f.exists()) {
+            f.delete();
         }
-
+        FileOutputStream fOut = null;
+        try {
+            fOut = new FileOutputStream(f);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+        } catch (IOException e) {
+            return null;
+        }
         return f.getAbsolutePath();
-
     }
 
 }

@@ -44,27 +44,27 @@ public class ShortVideoPlayFragment extends BaseMvpFragment<FragmentShortVideoPl
      * @param position 位置
      */
     public void onItemClick(final int position) {
-        bind.superShortVideoView.onItemClick(position);
+        vdb.superShortVideoView.onItemClick(position);
     }
 
     public void onListPageScrolled() {
-        bind.superShortVideoView.onListPageScrolled();
+        vdb.superShortVideoView.onListPageScrolled();
     }
 
     public void onLoaded(List<ShortVideoBean> shortVideoBeanList) {
-        bind.superShortVideoView.setDataSource(shortVideoBeanList);
+        vdb.superShortVideoView.setDataSource(shortVideoBeanList);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        bind.superShortVideoView.pause();
+        vdb.superShortVideoView.pause();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        bind.superShortVideoView.releasePlayer();
+        vdb.superShortVideoView.releasePlayer();
     }
 
 }

@@ -10,7 +10,7 @@ import com.sun.base.base.fragment.BaseMvpFragment;
 import com.sun.media.R;
 import com.sun.media.databinding.FragmentShortVideoListBinding;
 import com.sun.media.video.model.ShortVideoBean;
-import com.sun.media.video.model.ShortVideoListBackEvent;
+import com.sun.media.video.model.MediaEvent;
 import com.sun.media.video.ui.adapter.ShortVideoListAdapter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -50,7 +50,7 @@ public class ShortVideoListFragment extends BaseMvpFragment<FragmentShortVideoLi
 
     @Override
     public void initData() {
-        bind.ibBack.setOnClickListener(v -> EventBus.getDefault().post(new ShortVideoListBackEvent()));
+        vdb.ibBack.setOnClickListener(v -> EventBus.getDefault().post(new MediaEvent.ShortVideoListBackEvent()));
     }
 
     public void setShortVideoClickListener(ShortVideoListAdapter.OnItemClickListener listener) {
@@ -62,8 +62,8 @@ public class ShortVideoListFragment extends BaseMvpFragment<FragmentShortVideoLi
         mAdapter = new ShortVideoListAdapter(getContext(), mOnItemClickListener, mShortVideoBeanList);
         final RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mActivity.runOnUiThread(() -> {
-            bind.recyclerView.setLayoutManager(layoutManager);
-            bind.recyclerView.setAdapter(mAdapter);
+            vdb.recyclerView.setLayoutManager(layoutManager);
+            vdb.recyclerView.setAdapter(mAdapter);
         });
     }
 }

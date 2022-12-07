@@ -15,7 +15,6 @@ import android.view.Gravity;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -78,7 +77,6 @@ public class FaceDetectActivity extends BaseMvpActivity<ActivityFaceDetectBindin
     protected int mPreviewDegree;
     // 监听系统音量广播
     protected BroadcastReceiver mVolumeReceiver;
-    public View mViewBg;
 
     @Override
     public int layoutId() {
@@ -88,7 +86,6 @@ public class FaceDetectActivity extends BaseMvpActivity<ActivityFaceDetectBindin
 
     @Override
     public void initView() {
-        mViewBg = bind.viewBg;
         DisplayMetrics dm = new DisplayMetrics();
         Display display = this.getWindowManager().getDefaultDisplay();
         display.getMetrics(dm);
@@ -110,13 +107,13 @@ public class FaceDetectActivity extends BaseMvpActivity<ActivityFaceDetectBindin
                 (int) (w * FaceDetectRoundView.SURFACE_RATIO), (int) (h * FaceDetectRoundView.SURFACE_RATIO),
                 Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         mSurfaceView.setLayoutParams(cameraFL);
-        bind.detectSurfaceLayout.addView(mSurfaceView);
-        bind.detectClose.setOnClickListener(v -> onBackPressed());
-        bind.detectFaceRound.setIsActiveLive(false);
-        bind.detectSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2 : R.drawable.selector_collect_image_voice);
-        bind.detectSound.setOnClickListener(v -> {
+        vdb.detectSurfaceLayout.addView(mSurfaceView);
+        vdb.detectClose.setOnClickListener(v -> onBackPressed());
+        vdb.detectFaceRound.setIsActiveLive(false);
+        vdb.detectSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2 : R.drawable.selector_collect_image_voice);
+        vdb.detectSound.setOnClickListener(v -> {
             mIsEnableSound = !mIsEnableSound;
-            bind.detectSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2 : R.drawable.selector_collect_image_voice);
+            vdb.detectSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2 : R.drawable.selector_collect_image_voice);
             if (iDetectStrategy != null) {
                 iDetectStrategy.setDetectStrategySoundEnable(mIsEnableSound);
             }
@@ -144,7 +141,7 @@ public class FaceDetectActivity extends BaseMvpActivity<ActivityFaceDetectBindin
         super.onResume();
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mVolumeReceiver = VolumeUtils.registerVolumeReceiver(this, this);
-        bind.detectFaceRound.setTipTopText("请将脸移入取景框");
+        vdb.detectFaceRound.setTipTopText("请将脸移入取景框");
         startPreview();
     }
 
@@ -177,7 +174,7 @@ public class FaceDetectActivity extends BaseMvpActivity<ActivityFaceDetectBindin
             if (am != null) {
                 int cv = am.getStreamVolume(AudioManager.STREAM_MUSIC);
                 mIsEnableSound = cv > 0;
-                bind.detectSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2 : R.mipmap.icon_titlebar_voice1);
+                vdb.detectSound.setImageResource(mIsEnableSound ? R.mipmap.icon_titlebar_voice2 : R.mipmap.icon_titlebar_voice1);
                 if (iDetectStrategy != null) {
                     iDetectStrategy.setDetectStrategySoundEnable(mIsEnableSound);
                 }
@@ -348,7 +345,7 @@ public class FaceDetectActivity extends BaseMvpActivity<ActivityFaceDetectBindin
         if (mIsCompletion) {
             return;
         }
-        if (iDetectStrategy == null && bind.detectFaceRound.getRound() > 0) {
+        if (iDetectStrategy == null && vdb.detectFaceRound.getRound() > 0) {
             iDetectStrategy = FaceSDKManager.getInstance().getDetectStrategyModule();
             iDetectStrategy.setPreviewDegree(mPreviewDegree);
             iDetectStrategy.setDetectStrategySoundEnable(mIsEnableSound);
@@ -382,7 +379,7 @@ public class FaceDetectActivity extends BaseMvpActivity<ActivityFaceDetectBindin
     private void onRefreshView(FaceStatusNewEnum status, String message) {
         switch (status) {
             case OK:
-                bind.detectFaceRound.setTipTopText(message);
+                vdb.detectFaceRound.setTipTopText(message);
                 // onRefreshSuccessView(true);
                 // onRefreshTipsView(false, message);
                 break;
@@ -390,12 +387,12 @@ public class FaceDetectActivity extends BaseMvpActivity<ActivityFaceDetectBindin
             case DetectRemindCodePitchOutofDownRange:
             case DetectRemindCodeYawOutofLeftRange:
             case DetectRemindCodeYawOutofRightRange:
-                bind.detectFaceRound.setTipTopText(message);
+                vdb.detectFaceRound.setTipTopText(message);
                 // onRefreshTipsView(true, message);
                 // onRefreshSuccessView(false);
                 break;
             default:
-                bind.detectFaceRound.setTipTopText(message);
+                vdb.detectFaceRound.setTipTopText(message);
                 // onRefreshTipsView(false, message);
                 // onRefreshSuccessView(false);
         }
@@ -437,23 +434,23 @@ public class FaceDetectActivity extends BaseMvpActivity<ActivityFaceDetectBindin
 
     private void setImageView1(List<Map.Entry<String, ImageInfo>> list) {
         Bitmap bmp;
-        bind.detectResultImageLayout.removeAllViews();
+        vdb.detectResultImageLayout.removeAllViews();
         for (Map.Entry<String, ImageInfo> entry : list) {
             bmp = base64ToBitmap(entry.getValue().getBase64());
             ImageView iv = new ImageView(this);
             iv.setImageBitmap(bmp);
-            bind.detectResultImageLayout.addView(iv, new LinearLayout.LayoutParams(300, 300));
+            vdb.detectResultImageLayout.addView(iv, new LinearLayout.LayoutParams(300, 300));
         }
     }
 
     private void setImageView2(List<Map.Entry<String, ImageInfo>> list) {
         Bitmap bmp;
-        bind.detectResultImageLayout2.removeAllViews();
+        vdb.detectResultImageLayout2.removeAllViews();
         for (Map.Entry<String, ImageInfo> entry : list) {
             bmp = base64ToBitmap(entry.getValue().getBase64());
             ImageView iv = new ImageView(this);
             iv.setImageBitmap(bmp);
-            bind.detectResultImageLayout2.addView(iv, new LinearLayout.LayoutParams(300, 300));
+            vdb.detectResultImageLayout2.addView(iv, new LinearLayout.LayoutParams(300, 300));
         }
     }
 }

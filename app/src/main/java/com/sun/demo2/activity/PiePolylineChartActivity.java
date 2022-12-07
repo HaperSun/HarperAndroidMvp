@@ -48,31 +48,31 @@ public class PiePolylineChartActivity extends BaseMvpActivity<ActivityPiePolylin
 
     @Override
     public void initView() {
-        bind.chart.setUsePercentValues(true);
-        bind.chart.getDescription().setEnabled(false);
-        bind.chart.setExtraOffsets(5, 10, 5, 5);
-        bind.chart.setDragDecelerationFrictionCoef(0.95f);
+        vdb.chart.setUsePercentValues(true);
+        vdb.chart.getDescription().setEnabled(false);
+        vdb.chart.setExtraOffsets(5, 10, 5, 5);
+        vdb.chart.setDragDecelerationFrictionCoef(0.95f);
         tf = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
-        bind.chart.setCenterTextTypeface(Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf"));
-        bind.chart.setCenterText(generateCenterSpannableText());
-        bind.chart.setExtraOffsets(20.f, 0.f, 20.f, 0.f);
+        vdb.chart.setCenterTextTypeface(Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf"));
+        vdb.chart.setCenterText(generateCenterSpannableText());
+        vdb.chart.setExtraOffsets(20.f, 0.f, 20.f, 0.f);
         //控制中心圆的显示
-        bind.chart.setDrawHoleEnabled(true);
-        bind.chart.setTransparentCircleColor(Color.WHITE);
+        vdb.chart.setDrawHoleEnabled(true);
+        vdb.chart.setTransparentCircleColor(Color.WHITE);
         //设置Label名称的颜色
-        bind.chart.setEntryLabelColor(Color.BLACK);
-        bind.chart.setTransparentCircleAlpha(110);
-        bind.chart.setHoleRadius(58f);
-        bind.chart.setTransparentCircleRadius(61f);
-        bind.chart.setDrawCenterText(true);
-        bind.chart.setRotationAngle(0);
-        bind.chart.setRotationEnabled(true);
-        bind.chart.setHighlightPerTapEnabled(true);
+        vdb.chart.setEntryLabelColor(Color.BLACK);
+        vdb.chart.setTransparentCircleAlpha(110);
+        vdb.chart.setHoleRadius(58f);
+        vdb.chart.setTransparentCircleRadius(61f);
+        vdb.chart.setDrawCenterText(true);
+        vdb.chart.setRotationAngle(0);
+        vdb.chart.setRotationEnabled(true);
+        vdb.chart.setHighlightPerTapEnabled(true);
 
-        bind.chart.animateY(1400, Easing.EaseInOutQuad);
+        vdb.chart.animateY(1400, Easing.EaseInOutQuad);
         // chart.spin(2000, 0, 360);
 
-        Legend l = bind.chart.getLegend();
+        Legend l = vdb.chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
@@ -120,9 +120,9 @@ public class PiePolylineChartActivity extends BaseMvpActivity<ActivityPiePolylin
         //设置Label值的颜色
         data.setValueTextColor(Color.BLACK);
         data.setValueTypeface(tf);
-        bind.chart.setData(data);
-        bind.chart.highlightValues(null);
-        bind.chart.invalidate();
+        vdb.chart.setData(data);
+        vdb.chart.highlightValues(null);
+        vdb.chart.invalidate();
     }
 
     private SpannableString generateCenterSpannableText() {

@@ -36,7 +36,7 @@ public class EditTextInRecyclerViewActivity extends BaseMvpActivity<ActivityEdit
 
     @Override
     public void initView() {
-        bind.ivAddItem.setOnClickListener(v -> {
+        vdb.ivAddItem.setOnClickListener(v -> {
             mDataBeans.add(new DataBean("",0));
             mAdapter.notifyDataSetChanged();
         });
@@ -50,7 +50,7 @@ public class EditTextInRecyclerViewActivity extends BaseMvpActivity<ActivityEdit
         }
         mAdapter = new EditTextInRecyclerViewAdapter();
         mAdapter.setAdapterData(mDataBeans);
-        bind.recyclerView.setAdapter(mAdapter);
+        vdb.recyclerView.setAdapter(mAdapter);
         //解决recyclerview在NestScrollView中是使用时，滑动卡顿问题
 //        mViewDataBinding.recyclerView.setNestedScrollingEnabled(false);
         mAdapter.setOnAdapterClickListener(this);

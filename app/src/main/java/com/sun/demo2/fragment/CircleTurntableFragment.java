@@ -44,10 +44,10 @@ public class CircleTurntableFragment extends BaseMvpFragment<FragmentCircleTurnt
 
     @Override
     public void initData() {
-        bind.circleTurntableView.initData(2, 6);
-        bind.circleTurntableView.setOnResultListener(position -> showToast("您抽中的奖品等级是：" + position));
+        vdb.circleTurntableView.initData(2, 6);
+        vdb.circleTurntableView.setOnResultListener(position -> showToast("您抽中的奖品等级是：" + position));
 
-        bind.luckDrawView1.setRotateListener(new RotateListener() {
+        vdb.luckDrawView1.setRotateListener(new RotateListener() {
             @Override
             public void rotateEnd(int position, String des) {
                 showToast("结束了 " + position + "   " + des);
@@ -61,11 +61,11 @@ public class CircleTurntableFragment extends BaseMvpFragment<FragmentCircleTurnt
             @Override
             public void rotateBefore(ImageView goImg) {
                 int position = new Random().nextInt(7) + 1;
-                bind.luckDrawView1.startRotate(position);
+                vdb.luckDrawView1.startRotate(position);
             }
         });
 
-        bind.luckDrawView2.setRotateListener(new RotateListener() {
+        vdb.luckDrawView2.setRotateListener(new RotateListener() {
             @Override
             public void rotateEnd(int position, String des) {
                 showToast("结束了 位置：" + position + "   描述：" + des);
@@ -80,7 +80,7 @@ public class CircleTurntableFragment extends BaseMvpFragment<FragmentCircleTurnt
             public void rotateBefore(ImageView goImg) {
                 //模拟位置
                 int position = new Random().nextInt(7) + 1;
-                bind.luckDrawView2.startRotate(position);
+                vdb.luckDrawView2.startRotate(position);
             }
         });
         setThird();
@@ -143,8 +143,8 @@ public class CircleTurntableFragment extends BaseMvpFragment<FragmentCircleTurnt
                 .setType(1)
                 .setTypeNum(7)
                 .build();
-        bind.luckDrawView3.setConfig(build);
-        bind.luckDrawView3.setRotateListener(new RotateListener() {
+        vdb.luckDrawView3.setConfig(build);
+        vdb.luckDrawView3.setRotateListener(new RotateListener() {
             @Override
             public void rotateEnd(int position, String des) {
                 showToast("结束了 位置：" + position + "   描述：" + des);
@@ -159,7 +159,7 @@ public class CircleTurntableFragment extends BaseMvpFragment<FragmentCircleTurnt
             public void rotateBefore(ImageView goImg) {
                 //模拟位置
                 int position = new Random().nextInt(7) + 1;
-                bind.luckDrawView3.startRotate(position);
+                vdb.luckDrawView3.startRotate(position);
             }
         });
     }

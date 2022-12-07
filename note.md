@@ -48,3 +48,7 @@ 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
          SHA256: 03:02:AB:5A:64:93:F2:2D:1E:F7:62:9A:B3:03:AB:A8:69:E4:4C:FD:F6:80:FA:E5:83:1B:41:10:BD:33:37:48
 签名算法名称: SHA256withRSA
 主体公共密钥算法: 2048 位 RSA 密钥
+
+十六进制：0 1 2 3 4 5 6 7 8 9 A B C D E F
+0x表示十六进制，0x0101转成十进制：0x16^3 + 1x16^2 + 0x16^1 + 1x16^0 = 257
+0x010A = 266    0x010F = 271

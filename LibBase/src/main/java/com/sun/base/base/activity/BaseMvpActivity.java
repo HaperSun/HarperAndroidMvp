@@ -36,14 +36,14 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
     protected final String TAG = this.getClass().getSimpleName();
     private Set<BasePresenter> mPresenters;
     protected ActivityBaseBinding baseBind;
-    protected VDB bind;
+    protected VDB vdb;
     protected int mStatusBarColor;
     protected int mTitleColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!enableScreenOff()) {
+        if (enableKeepScreenBright()) {
             //让屏幕保持不暗不关闭
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
@@ -89,11 +89,11 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
     private void initBinding() {
         //获取ViewDataBinding
         baseBind = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_base, null, false);
-        bind = DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
+        vdb = DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        bind.getRoot().setLayoutParams(params);
+        vdb.getRoot().setLayoutParams(params);
         FrameLayout container = (FrameLayout) baseBind.getRoot().findViewById(R.id.container);
-        container.addView(bind.getRoot());
+        container.addView(vdb.getRoot());
         getWindow().setContentView(baseBind.getRoot());
     }
 
@@ -131,8 +131,8 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
      *
      * @return boolean
      */
-    protected boolean enableScreenOff() {
-        return false;
+    protected boolean enableKeepScreenBright() {
+        return true;
     }
 
     /**
@@ -172,7 +172,7 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
 
     @Override
     protected void onDestroy() {
-        if (!enableScreenOff()) {
+        if (enableKeepScreenBright()) {
             //让屏幕保持不暗不关闭
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
@@ -185,8 +185,8 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
             }
             mPresenters = null;
         }
-        if (bind != null) {
-            bind.unbind();
+        if (vdb != null) {
+            vdb.unbind();
         }
         super.onDestroy();
     }

@@ -21,12 +21,14 @@ public class ViewInjectUtil {
     public static void initInActivity(Activity activity) {
         try {
             Field[] fields = activity.getClass().getDeclaredFields();
-            if (null != fields && fields.length > 0) {
+            if (fields.length > 0) {
                 for (Field field : fields) {
-                    ViewInject viewInject = field.getAnnotation(ViewInject.class);//返回ViewInject中声明的所有注解
+                    //返回ViewInject中声明的所有注解
+                    ViewInject viewInject = field.getAnnotation(ViewInject.class);
                     if (null != viewInject) {
                         int viewId = viewInject.id();
-                        field.setAccessible(true);//暴力反射private
+                        //暴力反射private
+                        field.setAccessible(true);
                         field.set(activity, activity.findViewById(viewId));
                         boolean clickMethod = viewInject.needClick();
                         if (clickMethod) {
@@ -48,12 +50,14 @@ public class ViewInjectUtil {
     public static void initNotInActivity(Object o, View convertView) {
         try {
             Field[] fields = o.getClass().getDeclaredFields();
-            if (null != fields && fields.length > 0) {
+            if (fields.length > 0) {
                 for (Field field : fields) {
-                    ViewInject viewInject = field.getAnnotation(ViewInject.class);//返回ViewInject中声明的所有注解
+                    //返回ViewInject中声明的所有注解
+                    ViewInject viewInject = field.getAnnotation(ViewInject.class);
                     if (null != viewInject) {
                         int viewId = viewInject.id();
-                        field.setAccessible(true);//暴力反射private
+                        //暴力反射private
+                        field.setAccessible(true);
                         field.set(o, convertView.findViewById(viewId));
                         boolean clickMethod = viewInject.needClick();
                         if (clickMethod) {

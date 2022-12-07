@@ -46,10 +46,10 @@ public class PickingPictureActivity extends BaseMvpActivity<ActivityPickingPictu
 
     @Override
     public void initView() {
-        bind.btnMethod1.setOnClickListener(this);
-        bind.btnMethod2.setOnClickListener(this);
-        bind.ivShare.setOnClickListener(v -> {
-            new BottomShareDialog.Builder(mThis())
+        vdb.btnMethod1.setOnClickListener(this);
+        vdb.btnMethod2.setOnClickListener(this);
+        vdb.ivShare.setOnClickListener(v -> {
+            new BottomShareDialog.Builder(mContext())
                     .setConfig("","","","")
                     .build().show();
         });
@@ -98,12 +98,12 @@ public class PickingPictureActivity extends BaseMvpActivity<ActivityPickingPictu
                         LogHelper.d("with=" + resource.getWidth() + "--height=" + resource.getHeight());
                         time = System.currentTimeMillis();
                         if (isMethod1) {
-                            bind.ivMain.setImageBitmap(getImageToChange(resource));
+                            vdb.ivMain.setImageBitmap(getImageToChange(resource));
                         } else {
-                            bind.ivMain.setImageBitmap(handleBimap(resource));
+                            vdb.ivMain.setImageBitmap(handleBimap(resource));
                         }
                         time = System.currentTimeMillis() - time;
-                        bind.tvTime.setText("耗时: " + (time / 1000f) + "s");
+                        vdb.tvTime.setText("耗时: " + (time / 1000f) + "s");
 
 
                     }
@@ -117,7 +117,7 @@ public class PickingPictureActivity extends BaseMvpActivity<ActivityPickingPictu
         bgColors[0] = darkColor;
         bgColors[1] = color;
 
-        Bitmap bgBitmap = Bitmap.createBitmap(bind.ivBg.getWidth(), bind.ivBg.getHeight(), Bitmap.Config.ARGB_4444);
+        Bitmap bgBitmap = Bitmap.createBitmap(vdb.ivBg.getWidth(), vdb.ivBg.getHeight(), Bitmap.Config.ARGB_4444);
         Canvas canvas = new Canvas();
         Paint paint = new Paint();
         canvas.setBitmap(bgBitmap);
@@ -128,7 +128,7 @@ public class PickingPictureActivity extends BaseMvpActivity<ActivityPickingPictu
         RectF rectF = new RectF(0, 0, bgBitmap.getWidth(), bgBitmap.getHeight());
         canvas.drawRoundRect(rectF, 20, 20, paint);
         canvas.drawRect(rectF, paint);
-        bind.ivBg.setImageBitmap(bgBitmap);
+        vdb.ivBg.setImageBitmap(bgBitmap);
     }
 
 

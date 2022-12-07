@@ -67,9 +67,9 @@ public class TbsReaderActivity extends BaseMvpActivity<ActivityTbsReaderBinding>
 
     private void prepareOpenFile() {
         mFileName = mFileName.substring(mFileName.lastIndexOf(File.separator) + 1);
-        File folderPath = FileUtil.getExternalFileDir(getContext(), Constant.DirName.TEMP);
+        File folderPath = FileUtil.getExternalFileDir(Constant.DIRECTORY_NAME_TEMP);
         String folderPathStr = folderPath.getAbsolutePath();
-        String fileUrl = Constant.Url.QI_NIU + mFileName;
+        String fileUrl = Constant.URL_QI_NIU + mFileName;
         String saveFilePath = folderPathStr + "/" + mFileName;
         DownloadUtil.getInstance().download(fileUrl, saveFilePath, new DownloadUtil.OnDownloadListener() {
             @Override
@@ -134,7 +134,7 @@ public class TbsReaderActivity extends BaseMvpActivity<ActivityTbsReaderBinding>
     private void openFile(String localFileName) {
         mTbsReaderView = new TbsReaderView(this, (integer, o, o1) -> {
         });
-        bind.fragmentContainer.addView(mTbsReaderView, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+        vdb.fragmentContainer.addView(mTbsReaderView, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT));
         File file = new File(localFileName);
         if (!file.exists()) {

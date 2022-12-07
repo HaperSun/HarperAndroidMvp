@@ -38,17 +38,17 @@ public class FileUtil {
     private static final String TAG = FileUtil.class.getSimpleName();
 
     private FileUtil() {
-        throw new RuntimeException("You cannot initialize me!");
+        throw new RuntimeException("You cannot initialize FileUtil!");
     }
 
     /**
      * 返回sd卡程序包名下文件路径，卸载程序时会一起跟着清空
      *
-     * @param context
      * @param dir     文件夹名
-     * @return
+     * @return File
      */
-    public static File getExternalFileDir(Context context, String dir) {
+    public static File getExternalFileDir(String dir) {
+        Context context= AppUtil.getCtx();
         if (context == null) {
             return null;
         }
@@ -65,32 +65,12 @@ public class FileUtil {
     }
 
     /**
-     * 返回sd卡程序包名下缓存文件路径，卸载程序时会一起跟着清空
-     *
-     * @param context
-     * @param dir     文件夹名
-     * @return
-     */
-    public static File getExternalCacheDir(Context context, String dir) {
-        File appFiles = context.getExternalCacheDir();
-        if (appFiles == null) {
-            String packageName = context.getPackageName();
-            File externalPath = Environment.getExternalStorageDirectory();
-            appFiles = new File(externalPath.getAbsolutePath() + "/Android/data/" + packageName + "/cache/" + dir);
-            if (!appFiles.exists()) {
-                appFiles.mkdirs();
-            }
-        }
-        return appFiles;
-    }
-
-    /**
      * 将指定数据保存到指定文件中去
      *
      * @param data     要保存的数据
      * @param filePath 要保存的文件路径
      * @param append   是否加在文件末尾，false会覆盖文件内容
-     * @return
+     * @return boolean
      */
     public static boolean saveStrToFile(String data, String filePath, boolean append) {
         if (!TextUtils.isEmpty(data) && !TextUtils.isEmpty(filePath)) {
@@ -117,7 +97,7 @@ public class FileUtil {
      * 读取指定文件中的数据
      *
      * @param filePath 文件路径
-     * @return
+     * @return String
      */
     public static String readStrFromFile(String filePath) {
         if (TextUtils.isEmpty(filePath)) {
@@ -226,8 +206,8 @@ public class FileUtil {
                 }
                 return;
             }
-            for (int i = 0; i < childFiles.length; i++) {
-                delete(childFiles[i]);
+            for (File childFile : childFiles) {
+                delete(childFile);
             }
             if (deleteRootFile) {
                 file.delete();
@@ -480,9 +460,9 @@ public class FileUtil {
 
     public static String toHexString(byte[] b) {
         StringBuilder sb = new StringBuilder(b.length * 2);
-        for (int i = 0; i < b.length; i++) {
-            sb.append(HEX_DIGITS[(b[i] & 0xf0) >>> 4]);
-            sb.append(HEX_DIGITS[b[i] & 0x0f]);
+        for (byte value : b) {
+            sb.append(HEX_DIGITS[(value & 0xf0) >>> 4]);
+            sb.append(HEX_DIGITS[value & 0x0f]);
         }
         return sb.toString();
     }

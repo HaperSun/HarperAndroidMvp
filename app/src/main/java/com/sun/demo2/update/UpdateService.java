@@ -10,15 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.sun.base.base.widget.BaseMvpService;
+import com.sun.base.bean.Constant;
 import com.sun.base.bean.TDevice;
 import com.sun.base.net.exception.ApiException;
 import com.sun.base.util.CollectionUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogHelper;
-import com.sun.base.bean.Constant;
 import com.sun.demo2.BuildConfig;
 import com.sun.demo2.R;
-import com.sun.demo2.event.UpgradeApkDownloadSuccessEvent;
+import com.sun.demo2.model.AppEvent;
 import com.sun.demo2.update.ivew.IGetUpdateInfoView;
 import com.sun.demo2.update.model.GetUpdateInfoResponse;
 import com.sun.demo2.update.presenter.GetUpdateInfoPresenter;
@@ -323,7 +323,7 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
 
                 inputStream = urlConnection.getInputStream();
 
-                File file = FileUtil.getExternalFileDir(getContext(), Constant.DirName.TEMP);
+                File file = FileUtil.getExternalFileDir(Constant.DIRECTORY_NAME_TEMP);
                 apkFile = new File(file, getContext().getString(R.string.app_name) + "_" + mUpdateInfo.getVersion());
                 if (apkFile.exists()) {
                     apkFile.delete();
@@ -353,7 +353,7 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
                 // 下载完成
                 dispatchOnDownloadSuccess();
                 LogHelper.d(TAG, "run: 下载完成，发送安装事件");
-                EventBus.getDefault().post(new UpgradeApkDownloadSuccessEvent(mUpdateInfo));
+                EventBus.getDefault().post(new AppEvent.UpgradeApkDownloadSuccessEvent(mUpdateInfo));
             } catch (IOException e) {
                 LogHelper.e(TAG, "IOException", e);
                 dispatchOnDownloadError();

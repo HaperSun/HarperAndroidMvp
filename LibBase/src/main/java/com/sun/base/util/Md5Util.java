@@ -9,29 +9,38 @@ import java.security.NoSuchAlgorithmException;
  * @date: 2021/12/14
  * @note: md5 加密算法工具类 <br/>
  */
-public final class MD5 {
+public final class Md5Util {
 
-    // 全局数组
-    private final static String[] strDigits = {"0", "1", "2", "3", "4", "5",
+    /**
+     * 全局数组
+     */
+    private final static String[] STR_DIGITS = {"0", "1", "2", "3", "4", "5",
             "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
 
-    private MD5() {
-        throw new UnsupportedOperationException("unsupported operation");
+    private Md5Util() {
+        throw new UnsupportedOperationException("you cannot new Md5Util!");
     }
 
-    // 返回形式为数字跟字符串
+    /**
+     * 返回形式为数字跟字符串
+     * @param bByte byte
+     * @return String
+     */
     private static String byteToArrayString(byte bByte) {
         int iRet = bByte;
-        // System.out.println("iRet="+iRet);
         if (iRet < 0) {
             iRet += 256;
         }
         int iD1 = iRet / 16;
         int iD2 = iRet % 16;
-        return strDigits[iD1] + strDigits[iD2];
+        return STR_DIGITS[iD1] + STR_DIGITS[iD2];
     }
 
-    // 返回形式只为数字
+    /**
+     * 返回形式只为数字
+     * @param bByte  byte
+     * @return String
+     */
     private static String byteToNum(byte bByte) {
         int iRet = bByte;
         System.out.println("iRet1=" + iRet);
@@ -41,16 +50,20 @@ public final class MD5 {
         return String.valueOf(iRet);
     }
 
-    // 转换字节数组为16进制字串
+    /**
+     * 转换字节数组为16进制字串
+     * @param bByte byte[]
+     * @return String
+     */
     private static String byteToString(byte[] bByte) {
-        StringBuffer sBuffer = new StringBuffer();
-        for (int i = 0; i < bByte.length; i++) {
-            sBuffer.append(byteToArrayString(bByte[i]));
+        StringBuilder sBuffer = new StringBuilder();
+        for (byte b : bByte) {
+            sBuffer.append(byteToArrayString(b));
         }
         return sBuffer.toString();
     }
 
-    public static String getMD5Code(String strObj) {
+    public static String getMd5Code(String strObj) {
         String resultString = null;
         try {
             resultString = strObj;

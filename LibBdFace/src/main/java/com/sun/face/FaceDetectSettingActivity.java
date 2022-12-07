@@ -40,13 +40,13 @@ public class FaceDetectSettingActivity extends BaseMvpActivity<ActivityFaceDetec
 
     @Override
     public void initView() {
-        bind.butSettingReturn.setOnClickListener(v -> onBackPressed());
-        bind.actionliveBlinkCheckbox.setTag(LivenessTypeEnum.Eye);
-        bind.actionliveLeftTurnCheckbox.setTag(LivenessTypeEnum.HeadLeft);
-        bind.actionliveRightTurnCheckbox.setTag(LivenessTypeEnum.HeadRight);
-        bind.actionliveNodCheckbox.setTag(LivenessTypeEnum.HeadDown);
-        bind.actionliveLookUpCheckbox.setTag(LivenessTypeEnum.HeadUp);
-        bind.actionliveOpenMouthCheckbox.setTag(LivenessTypeEnum.Mouth);
+        vdb.butSettingReturn.setOnClickListener(v -> onBackPressed());
+        vdb.actionliveBlinkCheckbox.setTag(LivenessTypeEnum.Eye);
+        vdb.actionliveLeftTurnCheckbox.setTag(LivenessTypeEnum.HeadLeft);
+        vdb.actionliveRightTurnCheckbox.setTag(LivenessTypeEnum.HeadRight);
+        vdb.actionliveNodCheckbox.setTag(LivenessTypeEnum.HeadDown);
+        vdb.actionliveLookUpCheckbox.setTag(LivenessTypeEnum.HeadUp);
+        vdb.actionliveOpenMouthCheckbox.setTag(LivenessTypeEnum.Mouth);
         settingChecked();
     }
 
@@ -56,16 +56,16 @@ public class FaceDetectSettingActivity extends BaseMvpActivity<ActivityFaceDetec
         int qualityLevel = (int) mSharedPreferencesUtil.getSharedPreference(FaceConst.KEY_QUALITY_LEVEL_SAVE, -1);
         if (qualityLevel == -1) {
             // 默认正常
-            bind.textEnterQuality.setText(getResources().getString(R.string.setting_quality_normal_txt));
+            vdb.textEnterQuality.setText(getResources().getString(R.string.setting_quality_normal_txt));
         } else {
             if (qualityLevel == FaceConst.QUALITY_NORMAL) {
-                bind.textEnterQuality.setText(getResources().getString(R.string.setting_quality_normal_txt));
+                vdb.textEnterQuality.setText(getResources().getString(R.string.setting_quality_normal_txt));
             } else if (qualityLevel == FaceConst.QUALITY_LOW) {
-                bind.textEnterQuality.setText(getResources().getString(R.string.setting_quality_low_txt));
+                vdb.textEnterQuality.setText(getResources().getString(R.string.setting_quality_low_txt));
             } else if (qualityLevel == FaceConst.QUALITY_HIGH) {
-                bind.textEnterQuality.setText(getResources().getString(R.string.setting_quality_high_txt));
+                vdb.textEnterQuality.setText(getResources().getString(R.string.setting_quality_high_txt));
             } else if (qualityLevel == FaceConst.QUALITY_CUSTOM) {
-                bind.textEnterQuality.setText(getResources().getString(R.string.setting_quality_custom_txt));
+                vdb.textEnterQuality.setText(getResources().getString(R.string.setting_quality_custom_txt));
             }
         }
         initListener();
@@ -73,53 +73,53 @@ public class FaceDetectSettingActivity extends BaseMvpActivity<ActivityFaceDetec
 
     private void settingChecked() {
         // 语音播报开关
-        bind.announcementsSwitch.setChecked(FaceInitBean.isOpenSound);
+        vdb.announcementsSwitch.setChecked(FaceInitBean.isOpenSound);
         // 活体检测开关
-        bind.liveDetectSwitch.setChecked(FaceInitBean.isActionLive);
+        vdb.liveDetectSwitch.setChecked(FaceInitBean.isActionLive);
         // 动作活体随机开关
-        bind.actionliveSwitch.setChecked(FaceInitBean.isLivenessRandom);
-        if (!bind.liveDetectSwitch.isChecked()) {
-            bind.actionliveLayout.setVisibility(View.GONE);
-            bind.layoutActiveType.setVisibility(View.GONE);
+        vdb.actionliveSwitch.setChecked(FaceInitBean.isLivenessRandom);
+        if (!vdb.liveDetectSwitch.isChecked()) {
+            vdb.actionliveLayout.setVisibility(View.GONE);
+            vdb.layoutActiveType.setVisibility(View.GONE);
         } else {
-            bind.actionliveLayout.setVisibility(View.VISIBLE);
-            bind.layoutActiveType.setVisibility(View.VISIBLE);
+            vdb.actionliveLayout.setVisibility(View.VISIBLE);
+            vdb.layoutActiveType.setVisibility(View.VISIBLE);
         }
         List<LivenessTypeEnum> list = FaceInitBean.livenessList;
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i) == LivenessTypeEnum.Eye) {
-                    bind.actionliveBlinkCheckbox.setChecked(true);
+                    vdb.actionliveBlinkCheckbox.setChecked(true);
                     if (!mLiveNessList.contains(LivenessTypeEnum.Eye)) {
                         mLiveNessList.add(LivenessTypeEnum.Eye);
                     }
                 }
                 if (list.get(i) == LivenessTypeEnum.Mouth) {
-                    bind.actionliveOpenMouthCheckbox.setChecked(true);
+                    vdb.actionliveOpenMouthCheckbox.setChecked(true);
                     if (!mLiveNessList.contains(LivenessTypeEnum.Mouth)) {
                         mLiveNessList.add(LivenessTypeEnum.Mouth);
                     }
                 }
                 if (list.get(i) == LivenessTypeEnum.HeadRight) {
-                    bind.actionliveRightTurnCheckbox.setChecked(true);
+                    vdb.actionliveRightTurnCheckbox.setChecked(true);
                     if (!mLiveNessList.contains(LivenessTypeEnum.HeadRight)) {
                         mLiveNessList.add(LivenessTypeEnum.HeadRight);
                     }
                 }
                 if (list.get(i) == LivenessTypeEnum.HeadLeft) {
-                    bind.actionliveLeftTurnCheckbox.setChecked(true);
+                    vdb.actionliveLeftTurnCheckbox.setChecked(true);
                     if (!mLiveNessList.contains(LivenessTypeEnum.HeadLeft)) {
                         mLiveNessList.add(LivenessTypeEnum.HeadLeft);
                     }
                 }
                 if (list.get(i) == LivenessTypeEnum.HeadUp) {
-                    bind.actionliveLookUpCheckbox.setChecked(true);
+                    vdb.actionliveLookUpCheckbox.setChecked(true);
                     if (!mLiveNessList.contains(LivenessTypeEnum.HeadUp)) {
                         mLiveNessList.add(LivenessTypeEnum.HeadUp);
                     }
                 }
                 if (list.get(i) == LivenessTypeEnum.HeadDown) {
-                    bind.actionliveNodCheckbox.setChecked(true);
+                    vdb.actionliveNodCheckbox.setChecked(true);
                     if (!mLiveNessList.contains(LivenessTypeEnum.HeadDown)) {
                         mLiveNessList.add(LivenessTypeEnum.HeadDown);
                     }
@@ -129,149 +129,149 @@ public class FaceDetectSettingActivity extends BaseMvpActivity<ActivityFaceDetec
     }
 
     private void initListener() {
-        bind.liveDetectSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        vdb.liveDetectSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (!isChecked) {
-                bind.actionliveLayout.setVisibility(View.GONE);
-                bind.layoutActiveType.setVisibility(View.GONE);
+                vdb.actionliveLayout.setVisibility(View.GONE);
+                vdb.layoutActiveType.setVisibility(View.GONE);
             } else {
-                bind.actionliveLayout.setVisibility(View.VISIBLE);
-                bind.layoutActiveType.setVisibility(View.VISIBLE);
+                vdb.actionliveLayout.setVisibility(View.VISIBLE);
+                vdb.layoutActiveType.setVisibility(View.VISIBLE);
             }
         });
-        bind.blinkLayout.setOnClickListener(v -> {
-            if (!bind.actionliveBlinkCheckbox.isChecked()) {
-                bind.actionliveBlinkCheckbox.setChecked(true);
+        vdb.blinkLayout.setOnClickListener(v -> {
+            if (!vdb.actionliveBlinkCheckbox.isChecked()) {
+                vdb.actionliveBlinkCheckbox.setChecked(true);
                 if (!mLiveNessList.contains(LivenessTypeEnum.Eye)) {
                     mLiveNessList.add(LivenessTypeEnum.Eye);
                 }
             } else {
-                bind.actionliveBlinkCheckbox.setChecked(false);
+                vdb.actionliveBlinkCheckbox.setChecked(false);
                 mLiveNessList.remove(LivenessTypeEnum.Eye);
             }
         });
-        bind.actionliveBlinkCheckbox.setOnClickListener(v -> {
-            if (bind.actionliveBlinkCheckbox.isChecked()) {
-                bind.actionliveBlinkCheckbox.setChecked(true);
+        vdb.actionliveBlinkCheckbox.setOnClickListener(v -> {
+            if (vdb.actionliveBlinkCheckbox.isChecked()) {
+                vdb.actionliveBlinkCheckbox.setChecked(true);
                 if (!mLiveNessList.contains(LivenessTypeEnum.Eye)) {
                     mLiveNessList.add(LivenessTypeEnum.Eye);
                 }
             } else {
-                bind.actionliveBlinkCheckbox.setChecked(false);
+                vdb.actionliveBlinkCheckbox.setChecked(false);
                 mLiveNessList.remove(LivenessTypeEnum.Eye);
             }
         });
-        bind.leftTurnLayout.setOnClickListener(v -> {
-            if (!bind.actionliveLeftTurnCheckbox.isChecked()) {
-                bind.actionliveLeftTurnCheckbox.setChecked(true);
+        vdb.leftTurnLayout.setOnClickListener(v -> {
+            if (!vdb.actionliveLeftTurnCheckbox.isChecked()) {
+                vdb.actionliveLeftTurnCheckbox.setChecked(true);
                 if (!mLiveNessList.contains(LivenessTypeEnum.HeadLeft)) {
                     mLiveNessList.add(LivenessTypeEnum.HeadLeft);
                 }
             } else {
-                bind.actionliveLeftTurnCheckbox.setChecked(false);
+                vdb.actionliveLeftTurnCheckbox.setChecked(false);
                 mLiveNessList.remove(LivenessTypeEnum.HeadLeft);
             }
         });
-        bind.actionliveLeftTurnCheckbox.setOnClickListener(v -> {
-            if (bind.actionliveLeftTurnCheckbox.isChecked()) {
-                bind.actionliveLeftTurnCheckbox.setChecked(true);
+        vdb.actionliveLeftTurnCheckbox.setOnClickListener(v -> {
+            if (vdb.actionliveLeftTurnCheckbox.isChecked()) {
+                vdb.actionliveLeftTurnCheckbox.setChecked(true);
                 if (!mLiveNessList.contains(LivenessTypeEnum.HeadLeft)) {
                     mLiveNessList.add(LivenessTypeEnum.HeadLeft);
                 }
             } else {
-                bind.actionliveLeftTurnCheckbox.setChecked(false);
+                vdb.actionliveLeftTurnCheckbox.setChecked(false);
                 mLiveNessList.remove(LivenessTypeEnum.HeadLeft);
             }
         });
-        bind.rightTurnLayout.setOnClickListener(v -> {
-            if (!bind.actionliveRightTurnCheckbox.isChecked()) {
-                bind.actionliveRightTurnCheckbox.setChecked(true);
+        vdb.rightTurnLayout.setOnClickListener(v -> {
+            if (!vdb.actionliveRightTurnCheckbox.isChecked()) {
+                vdb.actionliveRightTurnCheckbox.setChecked(true);
                 if (!mLiveNessList.contains(LivenessTypeEnum.HeadRight)) {
                     mLiveNessList.add(LivenessTypeEnum.HeadRight);
                 }
             } else {
-                bind.actionliveRightTurnCheckbox.setChecked(false);
+                vdb.actionliveRightTurnCheckbox.setChecked(false);
                 mLiveNessList.remove(LivenessTypeEnum.HeadRight);
             }
         });
-        bind.actionliveRightTurnCheckbox.setOnClickListener(v -> {
-            if (bind.actionliveRightTurnCheckbox.isChecked()) {
-                bind.actionliveRightTurnCheckbox.setChecked(true);
+        vdb.actionliveRightTurnCheckbox.setOnClickListener(v -> {
+            if (vdb.actionliveRightTurnCheckbox.isChecked()) {
+                vdb.actionliveRightTurnCheckbox.setChecked(true);
                 if (!mLiveNessList.contains(LivenessTypeEnum.HeadRight)) {
                     mLiveNessList.add(LivenessTypeEnum.HeadRight);
                 }
             } else {
-                bind.actionliveRightTurnCheckbox.setChecked(false);
+                vdb.actionliveRightTurnCheckbox.setChecked(false);
                 mLiveNessList.remove(LivenessTypeEnum.HeadRight);
             }
         });
-        bind.nodLayout.setOnClickListener(v -> {
-            if (!bind.actionliveNodCheckbox.isChecked()) {
-                bind.actionliveNodCheckbox.setChecked(true);
+        vdb.nodLayout.setOnClickListener(v -> {
+            if (!vdb.actionliveNodCheckbox.isChecked()) {
+                vdb.actionliveNodCheckbox.setChecked(true);
                 if (!mLiveNessList.contains(LivenessTypeEnum.HeadDown)) {
                     mLiveNessList.add(LivenessTypeEnum.HeadDown);
                 }
             } else {
-                bind.actionliveNodCheckbox.setChecked(false);
+                vdb.actionliveNodCheckbox.setChecked(false);
                 mLiveNessList.remove(LivenessTypeEnum.HeadDown);
             }
         });
-        bind.actionliveNodCheckbox.setOnClickListener(v -> {
-            if (bind.actionliveNodCheckbox.isChecked()) {
-                bind.actionliveNodCheckbox.setChecked(true);
+        vdb.actionliveNodCheckbox.setOnClickListener(v -> {
+            if (vdb.actionliveNodCheckbox.isChecked()) {
+                vdb.actionliveNodCheckbox.setChecked(true);
                 if (!mLiveNessList.contains(LivenessTypeEnum.HeadDown)) {
                     mLiveNessList.add(LivenessTypeEnum.HeadDown);
                 }
             } else {
-                bind.actionliveNodCheckbox.setChecked(false);
+                vdb.actionliveNodCheckbox.setChecked(false);
                 mLiveNessList.remove(LivenessTypeEnum.HeadDown);
             }
         });
-        bind.lookUpLayout.setOnClickListener(v -> {
-            if (!bind.actionliveLookUpCheckbox.isChecked()) {
-                bind.actionliveLookUpCheckbox.setChecked(true);
+        vdb.lookUpLayout.setOnClickListener(v -> {
+            if (!vdb.actionliveLookUpCheckbox.isChecked()) {
+                vdb.actionliveLookUpCheckbox.setChecked(true);
                 if (!mLiveNessList.contains(LivenessTypeEnum.HeadUp)) {
                     mLiveNessList.add(LivenessTypeEnum.HeadUp);
                 }
             } else {
-                bind.actionliveLookUpCheckbox.setChecked(false);
+                vdb.actionliveLookUpCheckbox.setChecked(false);
                 mLiveNessList.remove(LivenessTypeEnum.HeadUp);
             }
         });
-        bind.actionliveLookUpCheckbox.setOnClickListener(v -> {
-            if (bind.actionliveLookUpCheckbox.isChecked()) {
-                bind.actionliveLookUpCheckbox.setChecked(true);
+        vdb.actionliveLookUpCheckbox.setOnClickListener(v -> {
+            if (vdb.actionliveLookUpCheckbox.isChecked()) {
+                vdb.actionliveLookUpCheckbox.setChecked(true);
                 if (!mLiveNessList.contains(LivenessTypeEnum.HeadUp)) {
                     mLiveNessList.add(LivenessTypeEnum.HeadUp);
                 }
             } else {
-                bind.actionliveLookUpCheckbox.setChecked(false);
+                vdb.actionliveLookUpCheckbox.setChecked(false);
                 mLiveNessList.remove(LivenessTypeEnum.HeadUp);
             }
         });
-        bind.openMouthLayout.setOnClickListener(v -> {
-            if (!bind.actionliveOpenMouthCheckbox.isChecked()) {
-                bind.actionliveOpenMouthCheckbox.setChecked(true);
+        vdb.openMouthLayout.setOnClickListener(v -> {
+            if (!vdb.actionliveOpenMouthCheckbox.isChecked()) {
+                vdb.actionliveOpenMouthCheckbox.setChecked(true);
                 if (!mLiveNessList.contains(LivenessTypeEnum.Mouth)) {
                     mLiveNessList.add(LivenessTypeEnum.Mouth);
                 }
             } else {
-                bind.actionliveOpenMouthCheckbox.setChecked(false);
+                vdb.actionliveOpenMouthCheckbox.setChecked(false);
                 mLiveNessList.remove(LivenessTypeEnum.Mouth);
             }
         });
-        bind.actionliveOpenMouthCheckbox.setOnClickListener(v -> {
-            if (bind.actionliveOpenMouthCheckbox.isChecked()) {
-                bind.actionliveOpenMouthCheckbox.setChecked(true);
+        vdb.actionliveOpenMouthCheckbox.setOnClickListener(v -> {
+            if (vdb.actionliveOpenMouthCheckbox.isChecked()) {
+                vdb.actionliveOpenMouthCheckbox.setChecked(true);
                 if (!mLiveNessList.contains(LivenessTypeEnum.Mouth)) {
                     mLiveNessList.add(LivenessTypeEnum.Mouth);
                 }
             } else {
-                bind.actionliveOpenMouthCheckbox.setChecked(false);
+                vdb.actionliveOpenMouthCheckbox.setChecked(false);
                 mLiveNessList.remove(LivenessTypeEnum.Mouth);
             }
         });
-        bind.qualityLayout.setOnClickListener(v -> QualityControlActivity.startActivityResult(this,
-                FaceConst.REQUEST_QUALITY_CONTROL, bind.textEnterQuality.getText().toString().trim()));
+        vdb.qualityLayout.setOnClickListener(v -> QualityControlActivity.startActivityResult(this,
+                FaceConst.REQUEST_QUALITY_CONTROL, vdb.textEnterQuality.getText().toString().trim()));
     }
 
     @Override
@@ -280,15 +280,15 @@ public class FaceDetectSettingActivity extends BaseMvpActivity<ActivityFaceDetec
         FaceInitBean.livenessList.clear();
         Collections.sort(this.mLiveNessList, new ComparatorValues());
         FaceInitBean.livenessList = this.mLiveNessList;
-        FaceInitBean.isLivenessRandom = bind.actionliveSwitch.isChecked();
-        FaceInitBean.isOpenSound = bind.announcementsSwitch.isChecked();
-        FaceInitBean.isActionLive = bind.liveDetectSwitch.isChecked();
+        FaceInitBean.isLivenessRandom = vdb.actionliveSwitch.isChecked();
+        FaceInitBean.isOpenSound = vdb.announcementsSwitch.isChecked();
+        FaceInitBean.isActionLive = vdb.liveDetectSwitch.isChecked();
         setFaceConfig();
     }
 
     @Override
     public void onBackPressed() {
-        if (mLiveNessList.size() < VALUE_MIN_ACTIVE_NUM && bind.liveDetectSwitch.isChecked()) {
+        if (mLiveNessList.size() < VALUE_MIN_ACTIVE_NUM && vdb.liveDetectSwitch.isChecked()) {
             showToast("至少需要选择一项活体动作");
             return;
         }
@@ -335,7 +335,7 @@ public class FaceDetectSettingActivity extends BaseMvpActivity<ActivityFaceDetec
         if (requestCode == FaceConst.REQUEST_QUALITY_CONTROL
                 && resultCode == FaceConst.RESULT_QUALITY_CONTROL) {
             if (data != null) {
-                bind.textEnterQuality.setText(data.getStringExtra(FaceConst.INTENT_QUALITY_LEVEL));
+                vdb.textEnterQuality.setText(data.getStringExtra(FaceConst.INTENT_QUALITY_LEVEL));
             }
         }
     }

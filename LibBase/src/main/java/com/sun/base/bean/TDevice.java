@@ -45,11 +45,10 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.FileProvider;
 
 import com.sun.base.R;
-import com.sun.base.util.LogHelper;
-import com.sun.base.util.StringUtil;
-import com.sun.base.util.ToastUtil;
 import com.sun.base.toast.ToastHelper;
 import com.sun.base.util.AppUtil;
+import com.sun.base.util.LogHelper;
+import com.sun.base.util.StringUtil;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -521,9 +520,8 @@ public class TDevice {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 boolean hasInstallPermission = context.getPackageManager().canRequestPackageInstalls();
                 if (!hasInstallPermission) {
-                    ToastUtil.showShort(context, "请设置本应用未知来源应用权限为允许");
+                    ToastHelper.showToast("请设置本应用未知来源应用权限为允许");
                     startInstallPermissionSettingActivity(context);
-                    return;
                 }
             }
         }

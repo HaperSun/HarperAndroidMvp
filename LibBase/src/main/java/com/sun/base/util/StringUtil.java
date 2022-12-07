@@ -61,7 +61,7 @@ public class StringUtil {
      * @return string
      */
     public static String trimEmpty(String s) {
-        return null == s || "".equals(s) || "null".equals(s) ? "" : s;
+        return null == s || 0 == s.length() || "null".equals(s) ? "" : s;
     }
 
     /**
@@ -479,8 +479,8 @@ public class StringUtil {
             return "";
         }
         try {
-           return str.substring(start, start + num);
-        }catch (Exception e){
+            return str.substring(start, start + num);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "";

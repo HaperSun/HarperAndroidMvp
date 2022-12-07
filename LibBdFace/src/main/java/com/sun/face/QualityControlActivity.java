@@ -42,19 +42,19 @@ public class QualityControlActivity extends BaseMvpActivity<ActivityQualityContr
     @Override
     public void initView() {
         mContext = this;
-        bind.butQualityReturn.setOnClickListener(this);
-        bind.relativeLow.setOnClickListener(this);
-        bind.relativeNormal.setOnClickListener(this);
-        bind.relativeHigh.setOnClickListener(this);
-        bind.relativeCustom.setOnClickListener(this);
-        bind.radioLow.setOnCheckedChangeListener(this);
-        bind.radioNormal.setOnCheckedChangeListener(this);
-        bind.radioHigh.setOnCheckedChangeListener(this);
-        bind.radioCustom.setOnCheckedChangeListener(this);
-        bind.textLowEnter.setOnClickListener(this);
-        bind.textNormalEnter.setOnClickListener(this);
-        bind.textHighEnter.setOnClickListener(this);
-        bind.textCustomEnter.setOnClickListener(this);
+        vdb.butQualityReturn.setOnClickListener(this);
+        vdb.relativeLow.setOnClickListener(this);
+        vdb.relativeNormal.setOnClickListener(this);
+        vdb.relativeHigh.setOnClickListener(this);
+        vdb.relativeCustom.setOnClickListener(this);
+        vdb.radioLow.setOnCheckedChangeListener(this);
+        vdb.radioNormal.setOnCheckedChangeListener(this);
+        vdb.radioHigh.setOnCheckedChangeListener(this);
+        vdb.radioCustom.setOnCheckedChangeListener(this);
+        vdb.textLowEnter.setOnClickListener(this);
+        vdb.textNormalEnter.setOnClickListener(this);
+        vdb.textHighEnter.setOnClickListener(this);
+        vdb.textCustomEnter.setOnClickListener(this);
     }
 
     @Override
@@ -66,20 +66,20 @@ public class QualityControlActivity extends BaseMvpActivity<ActivityQualityContr
             mSelectQuality = qualityLevel;
             // 正常
             if (getResources().getString(R.string.setting_quality_normal_txt).equals(qualityLevel)) {
-                bind.radioNormal.setChecked(true);
-                bind.textNormalEnter.setVisibility(View.VISIBLE);
+                vdb.radioNormal.setChecked(true);
+                vdb.textNormalEnter.setVisibility(View.VISIBLE);
                 // 宽松
             } else if (getResources().getString(R.string.setting_quality_low_txt).equals(qualityLevel)) {
-                bind.radioLow.setChecked(true);
-                bind.textLowEnter.setVisibility(View.VISIBLE);
+                vdb.radioLow.setChecked(true);
+                vdb.textLowEnter.setVisibility(View.VISIBLE);
                 // 严格
             } else if (getResources().getString(R.string.setting_quality_high_txt).equals(qualityLevel)) {
-                bind.radioHigh.setChecked(true);
-                bind.textHighEnter.setVisibility(View.VISIBLE);
+                vdb.radioHigh.setChecked(true);
+                vdb.textHighEnter.setVisibility(View.VISIBLE);
                 // 自定义
             } else if (getResources().getString(R.string.setting_quality_custom_txt).equals(qualityLevel)) {
-                bind.radioCustom.setChecked(true);
-                bind.textCustomEnter.setVisibility(View.VISIBLE);
+                vdb.radioCustom.setChecked(true);
+                vdb.textCustomEnter.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -171,27 +171,27 @@ public class QualityControlActivity extends BaseMvpActivity<ActivityQualityContr
 
     private void handleSelectStatus(int qualityLevel) {
         if (qualityLevel == FaceConst.QUALITY_NORMAL) {
-            bind.radioNormal.setChecked(true);
-            mSelectQuality = bind.radioNormal.getText().toString();
-            bind.textNormalEnter.setVisibility(View.VISIBLE);
+            vdb.radioNormal.setChecked(true);
+            mSelectQuality = vdb.radioNormal.getText().toString();
+            vdb.textNormalEnter.setVisibility(View.VISIBLE);
             setFaceConfig(FaceConst.QUALITY_NORMAL);
             mFaceSpUtil.put(FaceConst.KEY_QUALITY_LEVEL_SAVE, FaceConst.QUALITY_NORMAL);
         } else if (qualityLevel == FaceConst.QUALITY_LOW) {
-            bind.radioLow.setChecked(true);
-            mSelectQuality = bind.radioLow.getText().toString();
-            bind.textLowEnter.setVisibility(View.VISIBLE);
+            vdb.radioLow.setChecked(true);
+            mSelectQuality = vdb.radioLow.getText().toString();
+            vdb.textLowEnter.setVisibility(View.VISIBLE);
             setFaceConfig(FaceConst.QUALITY_LOW);
             mFaceSpUtil.put(FaceConst.KEY_QUALITY_LEVEL_SAVE, FaceConst.QUALITY_LOW);
         } else if (qualityLevel == FaceConst.QUALITY_HIGH) {
-            bind.radioHigh.setChecked(true);
-            mSelectQuality = bind.radioHigh.getText().toString();
-            bind.textHighEnter.setVisibility(View.VISIBLE);
+            vdb.radioHigh.setChecked(true);
+            mSelectQuality = vdb.radioHigh.getText().toString();
+            vdb.textHighEnter.setVisibility(View.VISIBLE);
             setFaceConfig(FaceConst.QUALITY_HIGH);
             mFaceSpUtil.put(FaceConst.KEY_QUALITY_LEVEL_SAVE, FaceConst.QUALITY_HIGH);
         } else if (qualityLevel == FaceConst.QUALITY_CUSTOM) {
-            bind.radioCustom.setChecked(true);
-            mSelectQuality = bind.radioCustom.getText().toString();
-            bind.textCustomEnter.setVisibility(View.VISIBLE);
+            vdb.radioCustom.setChecked(true);
+            mSelectQuality = vdb.radioCustom.getText().toString();
+            vdb.textCustomEnter.setVisibility(View.VISIBLE);
             setFaceConfig(FaceConst.QUALITY_CUSTOM);
             mFaceSpUtil.put(FaceConst.KEY_QUALITY_LEVEL_SAVE, FaceConst.QUALITY_CUSTOM);
         }
@@ -204,21 +204,21 @@ public class QualityControlActivity extends BaseMvpActivity<ActivityQualityContr
      * @param viewId
      */
     private void disableOthers(int viewId) {
-        if (R.id.radio_low != viewId && bind.radioLow.isChecked()) {
-            bind.radioLow.setChecked(false);
-            bind.textLowEnter.setVisibility(View.GONE);
+        if (R.id.radio_low != viewId && vdb.radioLow.isChecked()) {
+            vdb.radioLow.setChecked(false);
+            vdb.textLowEnter.setVisibility(View.GONE);
         }
-        if (R.id.radio_normal != viewId && bind.radioNormal.isChecked()) {
-            bind.radioNormal.setChecked(false);
-            bind.textNormalEnter.setVisibility(View.GONE);
+        if (R.id.radio_normal != viewId && vdb.radioNormal.isChecked()) {
+            vdb.radioNormal.setChecked(false);
+            vdb.textNormalEnter.setVisibility(View.GONE);
         }
-        if (R.id.radio_high != viewId && bind.radioHigh.isChecked()) {
-            bind.radioHigh.setChecked(false);
-            bind.textHighEnter.setVisibility(View.GONE);
+        if (R.id.radio_high != viewId && vdb.radioHigh.isChecked()) {
+            vdb.radioHigh.setChecked(false);
+            vdb.textHighEnter.setVisibility(View.GONE);
         }
-        if (R.id.radio_custom != viewId && bind.radioCustom.isChecked()) {
-            bind.radioCustom.setChecked(false);
-            bind.textCustomEnter.setVisibility(View.GONE);
+        if (R.id.radio_custom != viewId && vdb.radioCustom.isChecked()) {
+            vdb.radioCustom.setChecked(false);
+            vdb.textCustomEnter.setVisibility(View.GONE);
         }
     }
 

@@ -10,7 +10,6 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 
@@ -28,11 +27,7 @@ import com.sun.base.util.LogHelper;
  */
 public class WebViewFragment extends BaseMvpFragment<FragmentWebViewBinding> {
 
-    protected WebViewX mWebViewX;
-    //加载进度条
-    private ProgressBar mProgressBar;
     //网页加载失败显示
-    private View mWebLoadFailContainer;
     //收到错误消息后，onPageStart，mFinishCount加载的序号
     private int mFailStartNum = -1;
     private int mFailFinishNum = -1;
@@ -60,12 +55,9 @@ public class WebViewFragment extends BaseMvpFragment<FragmentWebViewBinding> {
 
     @Override
     public void initView() {
-        mWebViewX = bind.webView;
-        mProgressBar = bind.progressBar;
-        mWebLoadFailContainer = bind.webLoadFailContainer;
-        mWebLoadFailContainer.setOnClickListener(v -> refreshWebView());
+        vdb.webLoadFailContainer.setOnClickListener(v -> refreshWebView());
         if (mOnInitViewCompleteListener != null) {
-            mOnInitViewCompleteListener.onInitViewCompleted(mWebViewX);
+            mOnInitViewCompleteListener.onInitViewCompleted(vdb.webView);
         }
     }
 
@@ -78,18 +70,17 @@ public class WebViewFragment extends BaseMvpFragment<FragmentWebViewBinding> {
         initWebView();
         mFailStartNum = -1;
         mFailFinishNum = -1;
-        mWebViewX.loadUrl(mUrl);
-        mWebViewX.addJavascriptInterface(new IJsConfig(getActivity()), "IJsSdk");
+        vdb.webView.loadUrl(mUrl);
+        vdb.webView.addJavascriptInterface(new IJsConfig(getActivity()), "IJsSdk");
     }
 
     public void loadUrl() {
+
     }
 
     @Override
     public void onDestroy() {
-        if (mWebViewX != null) {
-            mWebViewX.destroy();
-        }
+        vdb.webView.destroy();
         super.onDestroy();
     }
 
@@ -98,7 +89,7 @@ public class WebViewFragment extends BaseMvpFragment<FragmentWebViewBinding> {
      */
     protected void initWebView() {
         if (mNeedSupportZoom) {
-            WebSettings settings = mWebViewX.getSettings();
+            WebSettings settings = vdb.webView.getSettings();
             settings.setBuiltInZoomControls(true);
             settings.setSupportZoom(true);
         }
@@ -110,20 +101,20 @@ public class WebViewFragment extends BaseMvpFragment<FragmentWebViewBinding> {
     }
 
     private void initWebViewListener() {
-        mWebViewX.setOnWebViewListener(new WebViewX.OnWebViewListener() {
+        vdb.webView.setOnWebViewListener(new WebViewX.OnWebViewListener() {
             @Override
             public void loadProgress(int progress) {
                 //加载进度条
                 if (mShowProgressBar) {
-                    mProgressBar.setProgress(progress);
+                    vdb.progressBar.setProgress(progress);
                     boolean isCompleted = progress >= 100;
                     if (isCompleted) {
-                        mProgressBar.setVisibility(View.GONE);
+                        vdb.progressBar.setVisibility(View.GONE);
                         if (mOnWebLoadCompleteListener != null) {
-                            mOnWebLoadCompleteListener.onWebLoadCompleted(mWebViewX);
+                            mOnWebLoadCompleteListener.onWebLoadCompleted(vdb.webView);
                         }
                     } else {
-                        mProgressBar.setVisibility(View.VISIBLE);
+                        vdb.progressBar.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -131,7 +122,7 @@ public class WebViewFragment extends BaseMvpFragment<FragmentWebViewBinding> {
             @Override
             public void scrollChanged(int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 //webView滚动监听
-                float mWebViewTotalHeight = mWebViewX.getContentHeight() * mWebViewX.getScale() - mWebViewX.getHeight();
+                float mWebViewTotalHeight = vdb.webView.getContentHeight() * vdb.webView.getScale() - vdb.webView.getHeight();
                 if (mOnWebScrollBottomListener != null) {
                     mOnWebScrollBottomListener.onWebLoadCompletedHeight(scrollX, scrollY, oldScrollX, oldScrollY,
                             mWebViewTotalHeight);
@@ -142,7 +133,7 @@ public class WebViewFragment extends BaseMvpFragment<FragmentWebViewBinding> {
     }
 
     private void initWebViewClient() {
-        mWebViewX.setWebViewClientExt(new WebViewClient() {
+        vdb.webView.setWebViewClientExt(new WebViewClient() {
 
             @Nullable
             @Override
@@ -189,8 +180,8 @@ public class WebViewFragment extends BaseMvpFragment<FragmentWebViewBinding> {
                 super.onReceivedError(view, errorCode, description, failingUrl);
                 LogHelper.d(TAG, "onReceivedError errorCode=" + errorCode + " description=" + description + " " +
                         "failingUrl=" + failingUrl);
-                mWebViewX.setVisibility(View.GONE);
-                mWebLoadFailContainer.setVisibility(View.VISIBLE);
+                vdb.webView.setVisibility(View.GONE);
+                vdb.webLoadFailContainer.setVisibility(View.VISIBLE);
                 mFailStartNum = mStartCount + 1;
                 mFailFinishNum = mFinishCount + 1;
             }
@@ -201,10 +192,10 @@ public class WebViewFragment extends BaseMvpFragment<FragmentWebViewBinding> {
                 LogHelper.d("WebViewFragment", "onPageStarted ：时间戳" + System.currentTimeMillis());
                 mStartCount++;
                 if (mStartCount == mFailStartNum) {
-                    mWebViewX.setVisibility(View.GONE);
-                    mWebLoadFailContainer.setVisibility(View.VISIBLE);
+                    vdb.webView.setVisibility(View.GONE);
+                    vdb.webLoadFailContainer.setVisibility(View.VISIBLE);
                 } else if (mStartCount > mFailStartNum) {
-                    mWebLoadFailContainer.setVisibility(View.GONE);
+                    vdb.webLoadFailContainer.setVisibility(View.GONE);
                 }
                 mHasEnterPageFinished = false;
             }
@@ -216,8 +207,8 @@ public class WebViewFragment extends BaseMvpFragment<FragmentWebViewBinding> {
                 mFinishCount++;
                 //有的手机上onPageFinished会多执行一次
                 if (mFinishCount > mFailFinishNum && !mHasEnterPageFinished) {
-                    mWebViewX.setVisibility(View.VISIBLE);
-                    mWebLoadFailContainer.setVisibility(View.GONE);
+                    vdb.webView.setVisibility(View.VISIBLE);
+                    vdb.webLoadFailContainer.setVisibility(View.GONE);
                 }
                 mHasEnterPageFinished = true;
             }
@@ -249,7 +240,7 @@ public class WebViewFragment extends BaseMvpFragment<FragmentWebViewBinding> {
     private void refreshWebView() {
         mFailStartNum = -1;
         mFailFinishNum = -1;
-        mWebViewX.reload();
+        vdb.webView.reload();
     }
 
     public void setOnInitViewCompleteListener(OnInitViewCompleteListener onInitViewCompleteListener) {

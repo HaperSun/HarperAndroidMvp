@@ -55,13 +55,13 @@ public class RecyclerViewImageActivity extends BaseMvpActivity<ActivityRecyclerV
     @Override
     public void initData() {
         mContext = this;
-        bind.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        vdb.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mItems = new ArrayList<>();
         mAdapter = new Adapter();
-        bind.recyclerView.setAdapter(mAdapter);
-        bind.smartRefreshLayout.autoRefresh(200, 100, 1, false);
-        bind.smartRefreshLayout.setOnRefreshListener(layout -> refreshData());
-        bind.smartRefreshLayout.setOnLoadMoreListener(refreshLayout -> getData());
+        vdb.recyclerView.setAdapter(mAdapter);
+        vdb.smartRefreshLayout.autoRefresh(200, 100, 1, false);
+        vdb.smartRefreshLayout.setOnRefreshListener(layout -> refreshData());
+        vdb.smartRefreshLayout.setOnLoadMoreListener(refreshLayout -> getData());
     }
 
     private void refreshData() {
@@ -80,11 +80,11 @@ public class RecyclerViewImageActivity extends BaseMvpActivity<ActivityRecyclerV
     private void getDataSuccess(List<String> beans) {
         //设置分页列表数据
         if (mPage == 1) {
-            bind.smartRefreshLayout.finishRefresh(200);
+            vdb.smartRefreshLayout.finishRefresh(200);
         } else {
-            bind.smartRefreshLayout.finishLoadMore();
+            vdb.smartRefreshLayout.finishLoadMore();
         }
-        bind.smartRefreshLayout.setEnableLoadMore(beans != null && beans.size() == mPageSize);
+        vdb.smartRefreshLayout.setEnableLoadMore(beans != null && beans.size() == mPageSize);
         if (mPage == 1) {
             mItems.clear();
         }

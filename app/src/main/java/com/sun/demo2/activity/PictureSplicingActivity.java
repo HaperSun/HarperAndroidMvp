@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
-import android.view.ViewGroup;
 
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.dialog.BottomDialogFragment;
@@ -26,8 +25,6 @@ import java.io.IOException;
  */
 public class PictureSplicingActivity extends BaseMvpActivity<ActivityPictureSplicingBinding> {
 
-    private ViewGroup mRelativeLayout;
-
     public static void start(Context context) {
         Intent intent = new Intent(context, PictureSplicingActivity.class);
         context.startActivity(intent);
@@ -41,12 +38,11 @@ public class PictureSplicingActivity extends BaseMvpActivity<ActivityPictureSpli
     @Override
     public void initView() {
         StatusBarUtil.setImmersiveStatusBar(getWindow(), true);
-        mRelativeLayout = bind.container;
     }
 
     @Override
     public void initData() {
-        bind.container.setOnClickListener(v -> {
+        vdb.container.setOnClickListener(v -> {
             new BottomDialogFragment.Builder().addDialogItem(new BottomDialogFragment.DialogItem(getResources().getString(R.string.save_to_album),
                     view1 -> {
                         if (PermissionUtil.checkWriteStorage()) {
@@ -70,14 +66,14 @@ public class PictureSplicingActivity extends BaseMvpActivity<ActivityPictureSpli
     }
 
     private Bitmap saveLayoutAsImg() {
-        mRelativeLayout.setDrawingCacheEnabled(true);
-        mRelativeLayout.buildDrawingCache();
-        return mRelativeLayout.getDrawingCache();
+        vdb.container.setDrawingCacheEnabled(true);
+        vdb.container.buildDrawingCache();
+        return vdb.container.getDrawingCache();
     }
 
     @Override
     protected void onDestroy() {
-        mRelativeLayout.destroyDrawingCache();
+        vdb.container.destroyDrawingCache();
         super.onDestroy();
     }
 

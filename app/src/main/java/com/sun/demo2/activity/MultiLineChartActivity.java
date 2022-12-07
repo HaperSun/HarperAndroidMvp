@@ -61,9 +61,9 @@ public class MultiLineChartActivity extends BaseMvpActivity<ActivityMultiLineCha
     @Override
     public void initView() {
         Typeface tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
-        bind.chart.getDescription().setEnabled(false);
-        bind.chart.setPinchZoom(false);
-        bind.chart.setDrawGridBackground(false);
+        vdb.chart.getDescription().setEnabled(false);
+        vdb.chart.setPinchZoom(false);
+        vdb.chart.setDrawGridBackground(false);
 //        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
 //        mv.setChartView(bind.chart);
 //        bind.chart.setMarker(mv);
@@ -78,7 +78,7 @@ public class MultiLineChartActivity extends BaseMvpActivity<ActivityMultiLineCha
 //        l.setYEntrySpace(0f);
 //        l.setTextSize(8f);
 
-        XAxis xAxis = bind.chart.getXAxis();
+        XAxis xAxis = vdb.chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
 //        xAxis.setLabelCount(3);
@@ -88,15 +88,15 @@ public class MultiLineChartActivity extends BaseMvpActivity<ActivityMultiLineCha
         xAxis.setCenterAxisLabels(false);
 //        xAxis.setValueFormatter((value, axis) -> String.valueOf((int) value));
 
-        YAxis leftAxis = bind.chart.getAxisLeft();
+        YAxis leftAxis = vdb.chart.getAxisLeft();
 //        leftAxis.setTypeface(tfLight);
         leftAxis.setValueFormatter(new LargeValueFormatter());
         leftAxis.setDrawGridLines(false);
         leftAxis.setSpaceTop(35f);
         leftAxis.setAxisMinimum(0f);
-        bind.chart.getAxisRight().setEnabled(false);
-        bind.chart.getLegend().setEnabled(true);
-        bind.chart.getAxisLeft().setAxisMaximum(100);
+        vdb.chart.getAxisRight().setEnabled(false);
+        vdb.chart.getLegend().setEnabled(true);
+        vdb.chart.getAxisLeft().setAxisMaximum(100);
 
 //        bind.chart.setDrawGridBackground(false);
 //        bind.chart.getDescription().setEnabled(false);
@@ -131,7 +131,7 @@ public class MultiLineChartActivity extends BaseMvpActivity<ActivityMultiLineCha
 //        bind.chart.getLegend().setEnabled(true);
 
 
-        Legend l = bind.chart.getLegend();
+        Legend l = vdb.chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
@@ -152,7 +152,7 @@ public class MultiLineChartActivity extends BaseMvpActivity<ActivityMultiLineCha
     };
 
     private void setChartData(int progressX,int progressY){
-        bind.chart.resetTracking();
+        vdb.chart.resetTracking();
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
         for (int z = 0; z < 2; z++) {
@@ -190,7 +190,7 @@ public class MultiLineChartActivity extends BaseMvpActivity<ActivityMultiLineCha
 //        ((LineDataSet) dataSets.get(0)).setCircleColors(ColorTemplate.VORDIPLOM_COLORS);
 
         LineData data = new LineData(dataSets);
-        bind.chart.setData(data);
-        bind.chart.invalidate();
+        vdb.chart.setData(data);
+        vdb.chart.invalidate();
     }
 }

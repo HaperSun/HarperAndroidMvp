@@ -7,15 +7,15 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.sun.base.adapter.BaseAdapter;
+import com.sun.base.adapter.BaseViewHolder;
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.dialog.CommonAlertDialog;
 import com.sun.base.net.exception.ApiException;
-import com.sun.base.adapter.BaseAdapter;
-import com.sun.base.adapter.BaseViewHolder;
 import com.sun.demo2.R;
 import com.sun.demo2.activity.bd.FaceHomepageActivity;
 import com.sun.demo2.databinding.ActivityHomepageBinding;
-import com.sun.demo2.event.UpgradeApkDownloadSuccessEvent;
+import com.sun.demo2.model.AppEvent;
 import com.sun.demo2.update.UpdateService;
 import com.sun.demo2.update.model.GetUpdateInfoResponse;
 import com.sun.demo2.update.view.UpdateAppDialogFragment;
@@ -47,8 +47,8 @@ public class HomepageActivity extends BaseMvpActivity<ActivityHomepageBinding> {
 
     @Override
     protected boolean enableDarkStatusBarAndSetTitle() {
-        mStatusBarColor = com.sun.media.R.color.cl_323232;
-        mTitleColor = com.sun.media.R.color.cl_323232;
+        mStatusBarColor = R.color.cl_323232;
+        mTitleColor = R.color.cl_323232;
         return true;
     }
 
@@ -71,7 +71,7 @@ public class HomepageActivity extends BaseMvpActivity<ActivityHomepageBinding> {
 
     @Override
     public void initData() {
-        mContext = HomepageActivity.this;
+        mContext = this;
         setAdapter();
         //App更新
         initUpdateService();
@@ -106,7 +106,7 @@ public class HomepageActivity extends BaseMvpActivity<ActivityHomepageBinding> {
         beans.add("图片视频的选择和展示");
         beans.add("service 和 广播");
         Adapter adapter = new Adapter(R.layout.adapter_main_recycler_view, beans);
-        bind.recyclerView.setAdapter(adapter);
+        vdb.recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener((adapter1, view, position) -> doClick(position));
     }
 
@@ -246,7 +246,7 @@ public class HomepageActivity extends BaseMvpActivity<ActivityHomepageBinding> {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onUpgradeApkDownloadSuccessEvent(UpgradeApkDownloadSuccessEvent event) {
+    public void onUpgradeApkDownloadSuccessEvent(AppEvent.UpgradeApkDownloadSuccessEvent event) {
         GetUpdateInfoResponse.DataBean updateInfo = event.getUpdateInfo();
         UpdateAppDialogFragment.newInstance(String.valueOf(updateInfo.getVersion()), updateInfo.getInfo(),
                 true, updateInfo.isForceUpdate()).show(getSupportFragmentManager(), TAG);

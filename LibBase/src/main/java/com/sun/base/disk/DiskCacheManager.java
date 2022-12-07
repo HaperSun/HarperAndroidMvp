@@ -57,7 +57,7 @@ public class DiskCacheManager {
         if (context == null) {
             throw new RuntimeException("Please call init method first before use DiskCacheManager!");
         }
-        DIR_CACHE_ROOT = FileUtil.getExternalFileDir(context, Constant.DirName.CACHE);
+        DIR_CACHE_ROOT = FileUtil.getExternalFileDir(Constant.DIRECTORY_NAME_CACHE);
     }
 
     /**

@@ -46,23 +46,23 @@ public class ImageSelectActivity extends BaseMvpActivity<ActivityImageSelectBind
     @Override
     public void initView() {
         mContext = this;
-        bind.ivMusic.setOnClickListener(v -> bind.drawerLayout.openDrawer(Gravity.END));
-        bind.tvLeft.setOnClickListener(v -> bind.drawerLayout.closeDrawer(Gravity.START));
-        bind.tvRight.setOnClickListener(v -> bind.drawerLayout.closeDrawer(Gravity.END));
-        bind.ivMusic.setOnLongClickListener(this);
+        vdb.ivMusic.setOnClickListener(v -> vdb.drawerLayout.openDrawer(Gravity.END));
+        vdb.tvLeft.setOnClickListener(v -> vdb.drawerLayout.closeDrawer(Gravity.START));
+        vdb.tvRight.setOnClickListener(v -> vdb.drawerLayout.closeDrawer(Gravity.END));
+        vdb.ivMusic.setOnLongClickListener(this);
         initStatusBar();
     }
 
     private void initStatusBar() {
-        StatusBarUtil.setColorNoTranslucentForDrawerLayout(this, bind.drawerLayout, ContextCompat.getColor(mContext, R.color.lightPink));
-        ViewGroup.LayoutParams layoutParams = bind.viewStatus.getLayoutParams();
+        StatusBarUtil.setColorNoTranslucentForDrawerLayout(this, vdb.drawerLayout, ContextCompat.getColor(mContext, R.color.lightPink));
+        ViewGroup.LayoutParams layoutParams = vdb.viewStatus.getLayoutParams();
         layoutParams.height = StatusBarUtil.getStatusBarHeight(mContext);
-        bind.viewStatus.setLayoutParams(layoutParams);
+        vdb.viewStatus.setLayoutParams(layoutParams);
     }
 
     @Override
     public void initData() {
-        setSupportActionBar(bind.toolBar);
+        setSupportActionBar(vdb.toolBar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu);
@@ -74,7 +74,7 @@ public class ImageSelectActivity extends BaseMvpActivity<ActivityImageSelectBind
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         //Menu icon
         if (item.getItemId() == android.R.id.home) {
-            bind.drawerLayout.openDrawer(Gravity.LEFT);
+            vdb.drawerLayout.openDrawer(Gravity.LEFT);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -82,7 +82,7 @@ public class ImageSelectActivity extends BaseMvpActivity<ActivityImageSelectBind
 
     @Override
     public boolean onLongClick(View v) {
-        bind.drawerLayout.closeDrawers();
+        vdb.drawerLayout.closeDrawers();
         return true;
     }
 }

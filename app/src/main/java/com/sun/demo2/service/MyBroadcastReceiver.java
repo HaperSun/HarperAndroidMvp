@@ -20,7 +20,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent != null) {
-            String s = intent.getStringExtra(Parameter.ENTRY_TYPE);
+            String s = intent.getStringExtra(Parameter.TYPE);
             ToastHelper.showCustomToast(s);
         }
         LogHelper.e(TAG, "MyBroadcastReceiver 广播接收者");

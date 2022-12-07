@@ -64,12 +64,12 @@ public class VideoTrimmerActivity extends BaseMvpActivity<ActivityVideoTrimmerBi
         baseBind.title.setOnTitleClickListener(view -> onBackPressed());
         if (!PermissionUtil.checkCamera()){
             PermissionUtil.requestCamera(this, state -> {
-                bind.trimmerView.setOnTrimVideoListener(this);
-                bind.trimmerView.initVideoByURI(Uri.parse(mPath));
+                vdb.trimmerView.setOnTrimVideoListener(this);
+                vdb.trimmerView.initVideoByURI(Uri.parse(mPath));
             });
         }else {
-            bind.trimmerView.setOnTrimVideoListener(this);
-            bind.trimmerView.initVideoByURI(Uri.parse(mPath));
+            vdb.trimmerView.setOnTrimVideoListener(this);
+            vdb.trimmerView.initVideoByURI(Uri.parse(mPath));
         }
     }
 
@@ -102,19 +102,19 @@ public class VideoTrimmerActivity extends BaseMvpActivity<ActivityVideoTrimmerBi
     @Override
     protected void onPause() {
         super.onPause();
-        bind.trimmerView.onVideoPause();
-        bind.trimmerView.setRestoreState(true);
+        vdb.trimmerView.onVideoPause();
+        vdb.trimmerView.setRestoreState(true);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bind.trimmerView.onDestroy();
+        vdb.trimmerView.onDestroy();
     }
 
     @Override
     public void onCancel() {
-        bind.trimmerView.onDestroy();
+        vdb.trimmerView.onDestroy();
         close();
     }
 

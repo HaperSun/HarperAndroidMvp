@@ -31,7 +31,7 @@ import android.widget.CompoundButton;
 import androidx.core.content.ContextCompat;
 
 import com.sun.base.R;
-import com.sun.base.util.ColorUtils;
+import com.sun.base.util.ColorUtil;
 
 /**
  * @author Harper
@@ -224,7 +224,7 @@ public class SwitchButton extends CompoundButton {
             }
         }
         if (!mIsThumbUseDrawable && mThumbColor == null) {
-            mThumbColor = ColorUtils.generateThumbColorWithTintColor(mTintColor);
+            mThumbColor = ColorUtil.generateThumbColorWithTintColor(mTintColor);
             mCurrThumbColor = mThumbColor.getDefaultColor();
         }
 
@@ -237,7 +237,7 @@ public class SwitchButton extends CompoundButton {
         mBackColor = backColor;
         mIsBackUseDrawable = mBackDrawable != null;
         if (!mIsBackUseDrawable && mBackColor == null) {
-            mBackColor = ColorUtils.generateBackColorWithTintColor(mTintColor);
+            mBackColor = ColorUtil.generateBackColorWithTintColor(mTintColor);
             mCurrBackColor = mBackColor.getDefaultColor();
             mNextBackColor = mBackColor.getColorForState(CHECKED_PRESSED_STATE, mCurrBackColor);
         }
@@ -1036,8 +1036,8 @@ public class SwitchButton extends CompoundButton {
 
     public void setTintColor(@SuppressWarnings("SameParameterValue") int tintColor) {
         mTintColor = tintColor;
-        mThumbColor = ColorUtils.generateThumbColorWithTintColor(mTintColor);
-        mBackColor = ColorUtils.generateBackColorWithTintColor(mTintColor);
+        mThumbColor = ColorUtil.generateThumbColorWithTintColor(mTintColor);
+        mBackColor = ColorUtil.generateBackColorWithTintColor(mTintColor);
         mIsBackUseDrawable = false;
         mIsThumbUseDrawable = false;
         // call this method to refresh color states

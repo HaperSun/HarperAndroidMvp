@@ -52,7 +52,7 @@ public class ExpandableTextActivity extends BaseMvpActivity<ActivityExpandableTe
     @SuppressLint("WrongConstant")
     @Override
     public void initData() {
-        bind.ivMenu.setOnClickListener(v -> bind.drawerLayout.openDrawer(Gravity.START));
+        vdb.ivMenu.setOnClickListener(v -> vdb.drawerLayout.openDrawer(Gravity.START));
         initRecyclerView();
     }
 
@@ -69,7 +69,7 @@ public class ExpandableTextActivity extends BaseMvpActivity<ActivityExpandableTe
         beans.add("黄奕在参加综艺节目时，就曾透露说，琼瑶选演员的时候，对于哭戏是比较注重的，哭戏好看的话那么会更加的入戏，也才能进入琼瑶的眼。在琼瑶阿姨看来，会演戏的人就必须拥有哭感，双眼中必须能够包含泪水的，既要让泪水饱含在眼睛中，又不能流在脸部，整一个过程可以达到楚楚可怜的状态。");
         beans.add("黄奕在参加综艺节目时，就曾透露说，琼瑶选演员的时候，对于哭戏是比较注重的，哭戏好看的话那么会更加的入戏，也才能进入琼瑶的眼。在琼瑶阿姨看来，会演戏的人就必须拥有哭感，双眼中必须能够包含泪水的，既要让泪水饱含在眼睛中，又不能流在脸部，整一个过程可以达到楚楚可怜的状态。");
         Adapter adapter = new Adapter(R.layout.item_expandable_text, beans);
-        bind.recyclerView.setAdapter(adapter);
+        vdb.recyclerView.setAdapter(adapter);
         //adapter重新设置数据
         adapter.setNewData(beans);
         //item的子view点击事件

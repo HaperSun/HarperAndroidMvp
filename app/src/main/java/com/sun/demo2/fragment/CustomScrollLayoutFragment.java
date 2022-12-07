@@ -40,8 +40,8 @@ public class CustomScrollLayoutFragment extends BaseMvpFragment<FragmentViewPage
 
     @Override
     public void initView() {
-        bind.title.setBackgroundColor(Color.argb(0, 63, 81, 181));
-        bind.scrollLayout.setBackgroundColor(Color.argb(0, 0, 0, 0));
+        vdb.title.setBackgroundColor(Color.argb(0, 63, 81, 181));
+        vdb.scrollLayout.setBackgroundColor(Color.argb(0, 0, 0, 0));
     }
 
     @Override
@@ -51,32 +51,32 @@ public class CustomScrollLayoutFragment extends BaseMvpFragment<FragmentViewPage
             mList.add("我是中国人：" + i);
         }
         Adapter adapter = new Adapter();
-        bind.scrollRecyclerView.setAdapter(adapter);
+        vdb.scrollRecyclerView.setAdapter(adapter);
         initClick();
     }
 
     private void initClick() {
-        bind.scrollLayout.setOnScrollChangedListener(new ScrollLayout.OnScrollChangedListener() {
+        vdb.scrollLayout.setOnScrollChangedListener(new ScrollLayout.OnScrollChangedListener() {
             @Override
             public void onScrollChange(int status) {
-                bind.scrollTextView.setVisibility(status == ScrollLayout.STATUS_CLOSE ? View.VISIBLE : View.GONE);
+                vdb.scrollTextView.setVisibility(status == ScrollLayout.STATUS_CLOSE ? View.VISIBLE : View.GONE);
             }
 
             @Override
             public void onScrollProgress(int progress) {
                 if (progress > 0) {
-                    bind.title.setVisibility(View.VISIBLE);
+                    vdb.title.setVisibility(View.VISIBLE);
                 } else {
-                    bind.title.setVisibility(View.INVISIBLE);
+                    vdb.title.setVisibility(View.INVISIBLE);
                 }
-                bind.title.setBackgroundColor(Color.argb(progress, 63, 81, 181));
-                bind.scrollLayout.setBackgroundColor(Color.argb(progress, 0, 0, 0));
+                vdb.title.setBackgroundColor(Color.argb(progress, 63, 81, 181));
+                vdb.scrollLayout.setBackgroundColor(Color.argb(progress, 0, 0, 0));
             }
         });
 
-        bind.scrollTextView.setOnTextViewListener(v -> bind.scrollLayout.toggle(ScrollLayout.STATUS_DEFAULT));
+        vdb.scrollTextView.setOnTextViewListener(v -> vdb.scrollLayout.toggle(ScrollLayout.STATUS_DEFAULT));
 
-        bind.news.setOnClickListener(v -> showToast("新闻"));
+        vdb.news.setOnClickListener(v -> showToast("新闻"));
     }
 
     class Adapter extends RecyclerView.Adapter<Adapter.Holder> {

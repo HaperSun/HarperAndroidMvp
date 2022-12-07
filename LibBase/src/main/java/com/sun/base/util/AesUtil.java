@@ -18,6 +18,10 @@ public class AesUtil {
     private static final String ALGORITHM = "AES";
     private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
 
+    private AesUtil() {
+        throw new RuntimeException("you cannot new AesUtil!");
+    }
+
     /**
      * 加密
      *
@@ -32,13 +36,11 @@ public class AesUtil {
             IvParameterSpec ips = new IvParameterSpec(iv.getBytes());
             cipher.init(Cipher.ENCRYPT_MODE, spec, ips);
             byte[] encrypted = cipher.doFinal(sSrc.getBytes(ENCODING));
-
             return Base64.encodeToString(encrypted, Base64.NO_WRAP);
         } catch (Exception e) {
             e.printStackTrace();
             LogHelper.e(TAG, "encrypt", e);
         }
-
         return null;
     }
 
@@ -58,15 +60,11 @@ public class AesUtil {
             cipher.init(Cipher.DECRYPT_MODE, spec, ips);
             byte[] s = Base64.decode(sSrc, Base64.NO_WRAP);
             byte[] encrypted = cipher.doFinal(s);
-
             return new String(encrypted, ENCODING);
         } catch (Exception e) {
             e.printStackTrace();
             LogHelper.e(TAG, "decrypt", e);
         }
-
         return null;
     }
-
-    private AesUtil() {}
 }

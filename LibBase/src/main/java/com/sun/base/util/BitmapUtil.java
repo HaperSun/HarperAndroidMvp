@@ -20,10 +20,14 @@ import java.io.IOException;
  */
 public class BitmapUtil {
 
-    // 图片标准宽度
-    private static int IMG_DEFAULT_STANDARD_W_SIZE = 1024;
-    // 图片标准高度
-    private static int IMG_DEFAULT_STANDARD_H_SIZE = 768;
+    /**
+     * 图片标准宽度
+     */
+    private static final int IMG_DEFAULT_STANDARD_W_SIZE = 1024;
+    /**
+     * 图片标准高度
+     */
+    private static final int IMG_DEFAULT_STANDARD_H_SIZE = 768;
 
     private BitmapUtil() {
         throw new RuntimeException("you cannot new BitmapUtil!");
@@ -35,7 +39,7 @@ public class BitmapUtil {
      * @param path      原图路径
      * @param newWidth  新图宽度
      * @param newHeight 新图高度
-     * @return
+     * @return Bitmap
      */
     public static Bitmap getBitmapPath(String path, int newWidth, int newHeight) {
         Bitmap src = loadBitmap(path);
@@ -66,7 +70,7 @@ public class BitmapUtil {
      * @param bm        原bitmap
      * @param newWidth  新的宽度
      * @param newHeight 新的高度
-     * @return
+     * @return Bitmap
      */
     public static Bitmap getNewSizeBitmap(Bitmap bm, int newWidth, int newHeight, boolean needToRecycle) {
         if (bm == null || newWidth <= 0 || newHeight <= 0) {
@@ -135,17 +139,15 @@ public class BitmapUtil {
     }
 
     private static int getSize(Point pt) {
-        return pt.x > pt.y ? pt.x : pt.y;
+        return Math.max(pt.x, pt.y);
     }
 
     public static Bitmap zoomImage(Bitmap bgimage, int newWidth, int newHeight) {
         // 获取这个图片的宽和高
         int width = bgimage.getWidth();
         int height = bgimage.getHeight();
-
         // 创建操作图片用的matrix对象
         Matrix matrix = new Matrix();
-
         // 计算缩放率，新尺寸除原始尺寸s
         if (newWidth == 0) {
             newWidth = IMG_DEFAULT_STANDARD_W_SIZE;
@@ -155,13 +157,10 @@ public class BitmapUtil {
         }
         float scaleWidth = ((float) newWidth) / width;
         float scaleHeight = ((float) newHeight) / height;
-
         // 缩放图片动作
         float scale = Math.min(scaleWidth, scaleHeight);
-
         matrix.postScale(scale, scale);
-        return Bitmap.createBitmap(bgimage, 0, 0, width, height,
-                matrix, true);
+        return Bitmap.createBitmap(bgimage, 0, 0, width, height, matrix, true);
     }
 
     /**
@@ -179,12 +178,12 @@ public class BitmapUtil {
         int height = origin.getHeight();
         Matrix matrix = new Matrix();
         matrix.preScale(ratio, ratio);
-        Bitmap newBM = Bitmap.createBitmap(origin, 0, 0, width, height, matrix, false);
-        if (newBM.equals(origin)) {
-            return newBM;
+        Bitmap newBitmap = Bitmap.createBitmap(origin, 0, 0, width, height, matrix, false);
+        if (newBitmap.equals(origin)) {
+            return newBitmap;
         }
         origin.recycle();
-        return newBM;
+        return newBitmap;
     }
 
     public static boolean saveBitmap(Bitmap bm, String path) {

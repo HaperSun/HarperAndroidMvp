@@ -31,7 +31,6 @@ import java.util.ArrayList;
  */
 public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> implements ICameraListener, IErrorListener {
 
-    private boolean granted = false;
     private int mTakeType;
     private boolean mSwitchCamera;
 
@@ -44,7 +43,7 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
      */
     public static void startActivityResult(Activity activity, int requestCode, int takeType) {
         Intent intent = new Intent(activity, CameraActivity.class);
-        intent.putExtra(Parameter.ENTRY_TYPE, takeType);
+        intent.putExtra(Parameter.TYPE, takeType);
         activity.startActivityForResult(intent, requestCode);
     }
 
@@ -57,7 +56,7 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
      */
     public static void startActivityResult(Fragment fragment, int requestCode, int takeType) {
         Intent intent = new Intent(fragment.getContext(), CameraActivity.class);
-        intent.putExtra(Parameter.ENTRY_TYPE, takeType);
+        intent.putExtra(Parameter.TYPE, takeType);
         fragment.startActivityForResult(intent, requestCode);
     }
 
@@ -70,17 +69,16 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
     protected void initIntent() {
         Intent intent = getIntent();
         if (intent != null) {
-            mTakeType = intent.getIntExtra(Parameter.ENTRY_TYPE, CameraView.TAKE_PHOTO);
+            mTakeType = intent.getIntExtra(Parameter.TYPE, CameraView.TAKE_PHOTO);
         }
+        mSwitchCamera = MediaSelector.getInstance().config.switchCamera;
     }
 
     @Override
     public void initView() {
         if (!PermissionUtil.checkCamera()) {
             PermissionUtil.requestCamera(this, state -> {
-                if (state) {
-                    granted = true;
-                } else {
+                if (!state) {
                     showFailToast("请到设置-权限管理中开启相关权限~");
                     close();
                 }
@@ -90,31 +88,36 @@ public class CameraActivity extends BaseMvpActivity<ActivityCameraBinding> imple
 
     @Override
     public void initData() {
-        mSwitchCamera = MediaSelector.getInstance().config.switchCamera;
         //设置拍摄类型
-        bind.cameraView.setCameraType(mTakeType);
+        vdb.cameraView.setCameraType(mTakeType);
         //设置视频保存路径
-        bind.cameraView.setSaveVideoPath(FileUtil.getMediaFileName());
+        vdb.cameraView.setSaveVideoPath(FileUtil.getMediaFileName());
         //JCameraView监听
-        bind.cameraView.setCameraListener(this);
-        bind.cameraView.setErrorListener(this);
+        vdb.cameraView.setCameraListener(this);
+        vdb.cameraView.setErrorListener(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (granted) {
-            if (mSwitchCamera) {
-                bind.cameraView.switchCamera();
-            }
-            bind.cameraView.onResume();
+        if (mSwitchCamera) {
+            vdb.cameraView.switchCamera();
         }
+        vdb.cameraView.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mSwitchCamera){
+            vdb.cameraView.switchCamera();
+        }
+        super.onBackPressed();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        bind.cameraView.onPause();
+        vdb.cameraView.onPause();
     }
 
     @Override

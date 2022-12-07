@@ -36,15 +36,15 @@ public class SudokuTurnTableFragment extends BaseMvpFragment<FragmentSudoKuTurnT
 
     @Override
     public void initView() {
-        bind.idDrawBtn.setOnClickListener(v -> {
+        vdb.idDrawBtn.setOnClickListener(v -> {
             if (System.currentTimeMillis() - drawTime < 5000) {
                 showToast("心急吃不了热豆腐，请5秒后再点击哦");
                 return;
             }
             //开始抽奖
-            if (!bind.luckyPanel.isGameRunning()) {
+            if (!vdb.luckyPanel.isGameRunning()) {
                 drawTime = System.currentTimeMillis();
-                bind.luckyPanel.startGame();
+                vdb.luckyPanel.startGame();
                 getLuck();
             }
         });
@@ -66,8 +66,8 @@ public class SudokuTurnTableFragment extends BaseMvpFragment<FragmentSudoKuTurnT
             if (mActivity.isFinishing()) {
                 return;
             }
-            bind.luckyPanel.tryToStop(getPrizePosition(MARK_LUCKY));
-            bind.luckyPanel.setGameListener(() -> {
+            vdb.luckyPanel.tryToStop(getPrizePosition(MARK_LUCKY));
+            vdb.luckyPanel.setGameListener(() -> {
                 //延长1S弹出抽奖结果
                 handler.postDelayed(() -> showToast(getPrizeName(MARK_LUCKY)), 1000);
             });

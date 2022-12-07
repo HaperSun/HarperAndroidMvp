@@ -66,16 +66,16 @@ public class QualityParamsActivity extends BaseMvpActivity<ActivityQualityParams
         Intent intent = getIntent();
         if (intent != null) {
             String title = intent.getStringExtra(FaceConst.INTENT_QUALITY_TITLE);
-            bind.textParamsTitle.setText(title);
+            vdb.textParamsTitle.setText(title);
             if (getResources().getString(R.string.setting_quality_custom_params_txt).equals(title)) {
-                bind.textDefault.setVisibility(View.GONE);
+                vdb.textDefault.setVisibility(View.GONE);
             } else {
-                bind.textDefault.setVisibility(View.VISIBLE);
+                vdb.textDefault.setVisibility(View.VISIBLE);
             }
         }
-        bind.btnQualityParamReturn.setOnClickListener(this);
-        bind.textDefault.setOnClickListener(this);
-        bind.textSave.setOnClickListener(this);
+        vdb.btnQualityParamReturn.setOnClickListener(this);
+        vdb.textDefault.setOnClickListener(this);
+        vdb.textSave.setOnClickListener(this);
         mSelectDialog = new SelectDialog(mContext);
         mSelectDialog.setDialogListener(this);
         mSelectDialog.setCanceledOnTouchOutside(false);
@@ -87,132 +87,132 @@ public class QualityParamsActivity extends BaseMvpActivity<ActivityQualityParams
     public void initData() {
         mConfig = FaceSDKManager.getInstance().getFaceConfig();
         // minIllum
-        bind.amountMinIllum.setAmount(mConfig.getBrightnessValue());
-        bind.amountMinIllum.setMinNum(20);
-        bind.amountMinIllum.setMaxNum(60);
-        bind.amountMinIllum.setInterval(1);
-        bind.amountMinIllum.setQuality(AmountView.QUALITY_ILLUM);
-        bind.amountMinIllum.setOnAmountChangeListener((view, amount) -> {
+        vdb.amountMinIllum.setAmount(mConfig.getBrightnessValue());
+        vdb.amountMinIllum.setMinNum(20);
+        vdb.amountMinIllum.setMaxNum(60);
+        vdb.amountMinIllum.setInterval(1);
+        vdb.amountMinIllum.setQuality(AmountView.QUALITY_ILLUM);
+        vdb.amountMinIllum.setOnAmountChangeListener((view, amount) -> {
             mMinIllum = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // maxIllum
-        bind.amountMaxIllum.setAmount(mConfig.getBrightnessMaxValue());
-        bind.amountMaxIllum.setMinNum(200);
-        bind.amountMaxIllum.setMaxNum(240);
-        bind.amountMaxIllum.setInterval(1);
-        bind.amountMaxIllum.setQuality(AmountView.QUALITY_ILLUM);
-        bind.amountMaxIllum.setOnAmountChangeListener((view, amount) -> {
+        vdb.amountMaxIllum.setAmount(mConfig.getBrightnessMaxValue());
+        vdb.amountMaxIllum.setMinNum(200);
+        vdb.amountMaxIllum.setMaxNum(240);
+        vdb.amountMaxIllum.setInterval(1);
+        vdb.amountMaxIllum.setQuality(AmountView.QUALITY_ILLUM);
+        vdb.amountMaxIllum.setOnAmountChangeListener((view, amount) -> {
             mMaxIllum = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // blur
-        bind.amountBlur.setAmount(mConfig.getBlurnessValue());
-        bind.amountBlur.setMinNum(0.1f);
-        bind.amountBlur.setMaxNum(0.9f);
-        bind.amountBlur.setInterval(0.05f);
-        bind.amountBlur.setQuality(AmountView.QUALITY_BLUR);
-        bind.amountBlur.setOnAmountChangeListener((view, amount) -> {
+        vdb.amountBlur.setAmount(mConfig.getBlurnessValue());
+        vdb.amountBlur.setMinNum(0.1f);
+        vdb.amountBlur.setMaxNum(0.9f);
+        vdb.amountBlur.setInterval(0.05f);
+        vdb.amountBlur.setQuality(AmountView.QUALITY_BLUR);
+        vdb.amountBlur.setOnAmountChangeListener((view, amount) -> {
             mBlur = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // left_eye
-        bind.amountLeftEye.setAmount(mConfig.getOcclusionLeftEyeValue());
-        bind.amountLeftEye.setMinNum(0.3f);
-        bind.amountLeftEye.setMaxNum(1.0f);
-        bind.amountLeftEye.setInterval(0.05f);
-        bind.amountLeftEye.setQuality(AmountView.QUALITY_OCCLU);
-        bind.amountLeftEye.setOnAmountChangeListener((view, amount) -> {
+        vdb.amountLeftEye.setAmount(mConfig.getOcclusionLeftEyeValue());
+        vdb.amountLeftEye.setMinNum(0.3f);
+        vdb.amountLeftEye.setMaxNum(1.0f);
+        vdb.amountLeftEye.setInterval(0.05f);
+        vdb.amountLeftEye.setQuality(AmountView.QUALITY_OCCLU);
+        vdb.amountLeftEye.setOnAmountChangeListener((view, amount) -> {
             mLeftEye = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // right_eye
-        bind.amountRightEye.setAmount(mConfig.getOcclusionRightEyeValue());
-        bind.amountRightEye.setMinNum(0.3f);
-        bind.amountRightEye.setMaxNum(1.0f);
-        bind.amountRightEye.setInterval(0.05f);
-        bind.amountRightEye.setQuality(AmountView.QUALITY_OCCLU);
-        bind.amountRightEye.setOnAmountChangeListener((view, amount) -> {
+        vdb.amountRightEye.setAmount(mConfig.getOcclusionRightEyeValue());
+        vdb.amountRightEye.setMinNum(0.3f);
+        vdb.amountRightEye.setMaxNum(1.0f);
+        vdb.amountRightEye.setInterval(0.05f);
+        vdb.amountRightEye.setQuality(AmountView.QUALITY_OCCLU);
+        vdb.amountRightEye.setOnAmountChangeListener((view, amount) -> {
             mRightEye = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // nose
-        bind.amountNose.setAmount(mConfig.getOcclusionNoseValue());
-        bind.amountNose.setMinNum(0.3f);
-        bind.amountNose.setMaxNum(1.0f);
-        bind.amountNose.setInterval(0.05f);
-        bind.amountNose.setQuality(AmountView.QUALITY_OCCLU);
-        bind.amountNose.setOnAmountChangeListener((view, amount) -> {
+        vdb.amountNose.setAmount(mConfig.getOcclusionNoseValue());
+        vdb.amountNose.setMinNum(0.3f);
+        vdb.amountNose.setMaxNum(1.0f);
+        vdb.amountNose.setInterval(0.05f);
+        vdb.amountNose.setQuality(AmountView.QUALITY_OCCLU);
+        vdb.amountNose.setOnAmountChangeListener((view, amount) -> {
             mNose = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // mouth
-        bind.amountMouth.setAmount(mConfig.getOcclusionMouthValue());
-        bind.amountMouth.setMinNum(0.3f);
-        bind.amountMouth.setMaxNum(1.0f);
-        bind.amountMouth.setInterval(0.05f);
-        bind.amountMouth.setQuality(AmountView.QUALITY_OCCLU);
-        bind.amountMouth.setOnAmountChangeListener((view, amount) -> {
+        vdb.amountMouth.setAmount(mConfig.getOcclusionMouthValue());
+        vdb.amountMouth.setMinNum(0.3f);
+        vdb.amountMouth.setMaxNum(1.0f);
+        vdb.amountMouth.setInterval(0.05f);
+        vdb.amountMouth.setQuality(AmountView.QUALITY_OCCLU);
+        vdb.amountMouth.setOnAmountChangeListener((view, amount) -> {
             mMouth = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // left_cheek
-        bind.amountLeftCheek.setAmount(mConfig.getOcclusionLeftContourValue());
-        bind.amountLeftCheek.setMinNum(0.3f);
-        bind.amountLeftCheek.setMaxNum(1.0f);
-        bind.amountLeftCheek.setInterval(0.05f);
-        bind.amountLeftCheek.setQuality(AmountView.QUALITY_OCCLU);
-        bind.amountLeftCheek.setOnAmountChangeListener((view, amount) -> {
+        vdb.amountLeftCheek.setAmount(mConfig.getOcclusionLeftContourValue());
+        vdb.amountLeftCheek.setMinNum(0.3f);
+        vdb.amountLeftCheek.setMaxNum(1.0f);
+        vdb.amountLeftCheek.setInterval(0.05f);
+        vdb.amountLeftCheek.setQuality(AmountView.QUALITY_OCCLU);
+        vdb.amountLeftCheek.setOnAmountChangeListener((view, amount) -> {
             mLeftCheek = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // right_cheek
-        bind.amountRightCheek.setAmount(mConfig.getOcclusionRightContourValue());
-        bind.amountRightCheek.setMinNum(0.3f);
-        bind.amountRightCheek.setMaxNum(1.0f);
-        bind.amountRightCheek.setInterval(0.05f);
-        bind.amountRightCheek.setQuality(AmountView.QUALITY_OCCLU);
-        bind.amountRightCheek.setOnAmountChangeListener((view, amount) -> {
+        vdb.amountRightCheek.setAmount(mConfig.getOcclusionRightContourValue());
+        vdb.amountRightCheek.setMinNum(0.3f);
+        vdb.amountRightCheek.setMaxNum(1.0f);
+        vdb.amountRightCheek.setInterval(0.05f);
+        vdb.amountRightCheek.setQuality(AmountView.QUALITY_OCCLU);
+        vdb.amountRightCheek.setOnAmountChangeListener((view, amount) -> {
             mRightCheek = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // chin
-        bind.amountChin.setAmount(mConfig.getOcclusionChinValue());
-        bind.amountChin.setMinNum(0.3f);
-        bind.amountChin.setMaxNum(1.0f);
-        bind.amountChin.setInterval(0.05f);
-        bind.amountChin.setQuality(AmountView.QUALITY_OCCLU);
-        bind.amountChin.setOnAmountChangeListener((view, amount) -> {
+        vdb.amountChin.setAmount(mConfig.getOcclusionChinValue());
+        vdb.amountChin.setMinNum(0.3f);
+        vdb.amountChin.setMaxNum(1.0f);
+        vdb.amountChin.setInterval(0.05f);
+        vdb.amountChin.setQuality(AmountView.QUALITY_OCCLU);
+        vdb.amountChin.setOnAmountChangeListener((view, amount) -> {
             mChin = StringUtil.parseFloat(amount);
             modifyViewColor();
         });
         // pitch
-        bind.amountPitch.setAmount(mConfig.getHeadPitchValue());
-        bind.amountPitch.setMinNum(10);
-        bind.amountPitch.setMaxNum(50);
-        bind.amountPitch.setInterval(1);
-        bind.amountPitch.setQuality(AmountView.QUALITY_HEADPOSE);
-        bind.amountPitch.setOnAmountChangeListener((view, amount) -> {
+        vdb.amountPitch.setAmount(mConfig.getHeadPitchValue());
+        vdb.amountPitch.setMinNum(10);
+        vdb.amountPitch.setMaxNum(50);
+        vdb.amountPitch.setInterval(1);
+        vdb.amountPitch.setQuality(AmountView.QUALITY_HEADPOSE);
+        vdb.amountPitch.setOnAmountChangeListener((view, amount) -> {
             mPitch = StringUtil.parseInt(amount);
             modifyViewColor();
         });
         // yaw
-        bind.amountYaw.setAmount(mConfig.getHeadYawValue());
-        bind.amountYaw.setMinNum(10);
-        bind.amountYaw.setMaxNum(50);
-        bind.amountYaw.setInterval(1);
-        bind.amountYaw.setQuality(AmountView.QUALITY_HEADPOSE);
-        bind.amountYaw.setOnAmountChangeListener((view, amount) -> {
+        vdb.amountYaw.setAmount(mConfig.getHeadYawValue());
+        vdb.amountYaw.setMinNum(10);
+        vdb.amountYaw.setMaxNum(50);
+        vdb.amountYaw.setInterval(1);
+        vdb.amountYaw.setQuality(AmountView.QUALITY_HEADPOSE);
+        vdb.amountYaw.setOnAmountChangeListener((view, amount) -> {
             mYaw = StringUtil.parseInt(amount);
             modifyViewColor();
         });
         // roll
-        bind.amountRoll.setAmount(mConfig.getHeadRollValue());
-        bind.amountRoll.setMinNum(10);
-        bind.amountRoll.setMaxNum(50);
-        bind.amountRoll.setInterval(1);
-        bind.amountRoll.setQuality(AmountView.QUALITY_HEADPOSE);
-        bind.amountRoll.setOnAmountChangeListener((view, amount) -> {
+        vdb.amountRoll.setAmount(mConfig.getHeadRollValue());
+        vdb.amountRoll.setMinNum(10);
+        vdb.amountRoll.setMaxNum(50);
+        vdb.amountRoll.setInterval(1);
+        vdb.amountRoll.setQuality(AmountView.QUALITY_HEADPOSE);
+        vdb.amountRoll.setOnAmountChangeListener((view, amount) -> {
             mRoll = StringUtil.parseInt(amount);
             modifyViewColor();
         });
@@ -227,7 +227,7 @@ public class QualityParamsActivity extends BaseMvpActivity<ActivityQualityParams
                 finish();
                 return;
             }
-            if ("自定义".equals(bind.textParamsTitle.getText().toString())) {
+            if ("自定义".equals(vdb.textParamsTitle.getText().toString())) {
                 showMessageDialog(R.string.dialog_is_save_modify, R.string.dialog_tips3, R.string.dialog_button_exit,
                         R.string.dialog_button_save, FaceConst.DIALOG_SAVE_CUSTOM_MODIFY);
             } else {
@@ -245,7 +245,7 @@ public class QualityParamsActivity extends BaseMvpActivity<ActivityQualityParams
             // 如果参数未改动
             if (judgeIsModified()) {
                 // 恢复默认配置
-                String title = bind.textParamsTitle.getText().toString();
+                String title = vdb.textParamsTitle.getText().toString();
                 int id = 0;
                 if (title.contains("宽松")) {
                     id = R.string.dialog_is_low_default;
@@ -306,11 +306,11 @@ public class QualityParamsActivity extends BaseMvpActivity<ActivityQualityParams
      */
     private void modifyViewColor() {
         if (!judgeIsModified()) {
-            bind.textSave.setTextColor(ContextCompat.getColor(mContext, R.color.grey));
-            bind.textDefault.setTextColor(ContextCompat.getColor(mContext, R.color.grey));
+            vdb.textSave.setTextColor(ContextCompat.getColor(mContext, R.color.grey));
+            vdb.textDefault.setTextColor(ContextCompat.getColor(mContext, R.color.grey));
         } else {
-            bind.textSave.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
-            bind.textDefault.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
+            vdb.textSave.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
+            vdb.textDefault.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
         }
     }
 
@@ -319,31 +319,31 @@ public class QualityParamsActivity extends BaseMvpActivity<ActivityQualityParams
      */
     private void resetDefaultParams() {
         // minIllum
-        bind.amountMinIllum.setAmount(mConfig.getBrightnessValue());
+        vdb.amountMinIllum.setAmount(mConfig.getBrightnessValue());
         // maxIllum
-        bind.amountMaxIllum.setAmount(mConfig.getBrightnessMaxValue());
+        vdb.amountMaxIllum.setAmount(mConfig.getBrightnessMaxValue());
         // blur
-        bind.amountBlur.setAmount(mConfig.getBlurnessValue());
+        vdb.amountBlur.setAmount(mConfig.getBlurnessValue());
         // left_eye
-        bind.amountLeftEye.setAmount(mConfig.getOcclusionLeftEyeValue());
+        vdb.amountLeftEye.setAmount(mConfig.getOcclusionLeftEyeValue());
         // right_eye
-        bind.amountRightEye.setAmount(mConfig.getOcclusionRightEyeValue());
+        vdb.amountRightEye.setAmount(mConfig.getOcclusionRightEyeValue());
         // nose
-        bind.amountNose.setAmount(mConfig.getOcclusionNoseValue());
+        vdb.amountNose.setAmount(mConfig.getOcclusionNoseValue());
         // mouth
-        bind.amountMouth.setAmount(mConfig.getOcclusionMouthValue());
+        vdb.amountMouth.setAmount(mConfig.getOcclusionMouthValue());
         // left_cheek
-        bind.amountLeftCheek.setAmount(mConfig.getOcclusionLeftContourValue());
+        vdb.amountLeftCheek.setAmount(mConfig.getOcclusionLeftContourValue());
         // right_cheek
-        bind.amountRightCheek.setAmount(mConfig.getOcclusionRightContourValue());
+        vdb.amountRightCheek.setAmount(mConfig.getOcclusionRightContourValue());
         // chin
-        bind.amountChin.setAmount(mConfig.getOcclusionChinValue());
+        vdb.amountChin.setAmount(mConfig.getOcclusionChinValue());
         // pitch
-        bind.amountPitch.setAmount(mConfig.getHeadPitchValue());
+        vdb.amountPitch.setAmount(mConfig.getHeadPitchValue());
         // yaw
-        bind.amountYaw.setAmount(mConfig.getHeadYawValue());
+        vdb.amountYaw.setAmount(mConfig.getHeadYawValue());
         // roll
-        bind.amountRoll.setAmount(mConfig.getHeadRollValue());
+        vdb.amountRoll.setAmount(mConfig.getHeadRollValue());
     }
 
     private void showMessageDialog(int titleId, int tipsId, int cancelId, int confirmId, int dialogType) {
@@ -382,7 +382,7 @@ public class QualityParamsActivity extends BaseMvpActivity<ActivityQualityParams
             case FaceConst.DIALOG_RESET_DEFAULT:
                 dismissDialog();
                 resetDefaultParams();
-                bind.scrollView.scrollTo(0, 0);
+                vdb.scrollView.scrollTo(0, 0);
                 showToast();
                 break;
             default:
@@ -407,7 +407,7 @@ public class QualityParamsActivity extends BaseMvpActivity<ActivityQualityParams
     }
 
     public void showToast() {
-        String title = bind.textParamsTitle.getText().toString();
+        String title = vdb.textParamsTitle.getText().toString();
         if (title.contains("宽松")) {
             showToast("已恢复为宽松默认参数");
         } else if (title.contains("正常")) {

@@ -136,7 +136,7 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
     /**
      * 获取Activity
      *
-     * @return
+     * @return BaseActivity
      */
     public BaseActivity getBaseActivity() {
         if (mActivity == null) {

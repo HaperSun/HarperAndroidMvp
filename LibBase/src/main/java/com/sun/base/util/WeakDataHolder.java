@@ -14,6 +14,7 @@ public class WeakDataHolder {
     private static volatile WeakDataHolder sInstance = null;
 
     private WeakDataHolder() {
+        throw new RuntimeException("you cannot new WeakDataHolder!");
     }
 
     public static WeakDataHolder getInstance() {
@@ -27,13 +28,13 @@ public class WeakDataHolder {
         return sInstance;
     }
 
-    private Map<String, WeakReference<Object>> map = new HashMap<>();
+    private final Map<String, WeakReference<Object>> map = new HashMap<>();
 
     /**
      * 数据存储
      *
-     * @param id
-     * @param object
+     * @param id id
+     * @param object object
      */
     public void saveData(String id, Object object) {
         map.put(id, new WeakReference<>(object));
@@ -42,12 +43,14 @@ public class WeakDataHolder {
     /**
      * 获取数据
      *
-     * @param id
-     * @return
+     * @param id id
+     * @return Object
      */
     public Object getData(String id) {
         WeakReference<Object> weakReference = map.get(id);
-        if (weakReference == null) return null;
+        if (weakReference == null) {
+            return null;
+        }
         return weakReference.get();
     }
 }

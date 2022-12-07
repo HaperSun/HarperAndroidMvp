@@ -148,10 +148,6 @@
             android:theme="@style/CommonAppTheme"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.ViewModelActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".activity.HorizontalBarChartActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

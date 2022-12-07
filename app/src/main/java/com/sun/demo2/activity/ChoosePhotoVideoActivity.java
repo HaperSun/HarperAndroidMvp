@@ -55,9 +55,9 @@ public class ChoosePhotoVideoActivity extends BaseMvpActivity<ActivityChoosePhot
     @Override
     public void initView() {
         ArrayList<MediaFile> models = new ArrayList<>();
-        bind.msw.initWidgetData(models, () -> MediaSelector.builder(this)
-                //从相册中选择
-                .operationType(MediaConfig.FROM_ALBUM)
+        vdb.msw.initWidgetData(models, () -> MediaSelector.builder(this)
+                //是否通过相机拍摄
+                .fromCamera(true)
                 //文件类型：图片或视频
                 .mediaFileType(MediaConfig.BOTH)
                 //最大选择数
@@ -78,7 +78,7 @@ public class ChoosePhotoVideoActivity extends BaseMvpActivity<ActivityChoosePhot
         mBeans.add(new ImageDisplayBean(getDataByCount(2)));
 
         Adapter adapter = new Adapter(R.layout.adapter_image_display, mBeans);
-        bind.recyclerView.setAdapter(adapter);
+        vdb.recyclerView.setAdapter(adapter);
     }
 
     private List<MediaFile> getDataByCount(int count){
@@ -111,7 +111,7 @@ public class ChoosePhotoVideoActivity extends BaseMvpActivity<ActivityChoosePhot
         if (data != null) {
             if (requestCode == Parameter.REQUEST_CODE_MEDIA && resultCode == Parameter.RESULT_CODE_MEDIA) {
                 ArrayList<MediaFile> models = data.getParcelableArrayListExtra(Parameter.FILE_PATH);
-                bind.msw.refreshWidgetData(models);
+                vdb.msw.refreshWidgetData(models);
             }
         }
     }

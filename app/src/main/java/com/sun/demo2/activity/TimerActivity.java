@@ -48,21 +48,21 @@ public class TimerActivity extends BaseMvpActivity<ActivityTimerBinding> impleme
 
     @Override
     public void initView() {
-        bind.tvTimer.setOnClickListener(this);
-        bind.tvSes.setOnClickListener(this);
-        bind.header.setTitle("计时器");
-        bind.header.setHeaderClickListener((type, view) -> {
+        vdb.tvTimer.setOnClickListener(this);
+        vdb.tvSes.setOnClickListener(this);
+        vdb.header.setTitle("计时器");
+        vdb.header.setHeaderClickListener((type, view) -> {
             if (type == MagicInt.ZERO) {
                 finish();
             }
         });
         //RadioGroup+RadioButton
-        bind.radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            bind.rb1.setChecked(R.id.rb1 == checkedId);
-            bind.rb2.setChecked(R.id.rb2 == checkedId);
+        vdb.radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            vdb.rb1.setChecked(R.id.rb1 == checkedId);
+            vdb.rb2.setChecked(R.id.rb2 == checkedId);
         });
         //CheckBox
-        bind.cb.setOnCheckedChangeListener((buttonView, isChecked) -> mIsChecked = isChecked);
+        vdb.cb.setOnCheckedChangeListener((buttonView, isChecked) -> mIsChecked = isChecked);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class TimerActivity extends BaseMvpActivity<ActivityTimerBinding> impleme
             public void run() {
                 if (mStopTime) {
                     mCount1++;
-                    runOnUiThread(() -> bind.tvTimer.setText(mCount1 + ""));
+                    runOnUiThread(() -> vdb.tvTimer.setText(mCount1 + ""));
                 }
             }
         }, 1000, 1000);
@@ -118,7 +118,7 @@ public class TimerActivity extends BaseMvpActivity<ActivityTimerBinding> impleme
         mExecutorService.scheduleAtFixedRate(() -> {
             if (mStopSes) {
                 mCount2++;
-                runOnUiThread(() -> bind.tvSes.setText(mCount2 + ""));
+                runOnUiThread(() -> vdb.tvSes.setText(mCount2 + ""));
             }
         }, 0, 1, TimeUnit.SECONDS);
     }

@@ -35,7 +35,7 @@ public class AddressBookActivity extends BaseMvpActivity<ActivityAddressBookBind
     }
 
     @Override
-    protected boolean enableScreenOff() {
+    protected boolean enableKeepScreenBright() {
         return true;
     }
 
@@ -58,11 +58,11 @@ public class AddressBookActivity extends BaseMvpActivity<ActivityAddressBookBind
         fragments.add(WechatAddressBookFragment.getInstance());
         fragments.add(OtherAddressBookFragment.getInstance());
         AddressBookPagerAdapter adapter = AddressBookPagerAdapter.create(getSupportFragmentManager(), mContext, titles, fragments);
-        bind.viewPager.setAdapter(adapter);
-        bind.viewPager.setCurrentItem(MagicInt.ZERO);
-        bind.tabLayout.setupWithViewPager(bind.viewPager);
+        vdb.viewPager.setAdapter(adapter);
+        vdb.viewPager.setCurrentItem(MagicInt.ZERO);
+        vdb.tabLayout.setupWithViewPager(vdb.viewPager);
         for (int i = 0; i < adapter.getCount(); i++) {
-            TabLayout.Tab customTab = bind.tabLayout.getTabAt(i);
+            TabLayout.Tab customTab = vdb.tabLayout.getTabAt(i);
             if (customTab != null) {
                 customTab.setCustomView(adapter.getTabView(i));
                 if (i == MagicInt.ZERO) {
@@ -77,7 +77,7 @@ public class AddressBookActivity extends BaseMvpActivity<ActivityAddressBookBind
             }
         }
 
-        bind.tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(bind.viewPager) {
+        vdb.tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vdb.viewPager) {
             @Override
             public void onTabSelected(@NonNull TabLayout.Tab tab) {
                 super.onTabSelected(tab);

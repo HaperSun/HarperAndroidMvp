@@ -43,9 +43,9 @@ public class InvertedImageActivity extends BaseMvpActivity<ActivityInvertedImage
 
     @Override
     public void initData() {
-        bind.ivInvert.setImageBitmap(getReverseBitmapById(this, R.mipmap.bg_invert_image, 0.5f));
+        vdb.ivInvert.setImageBitmap(getReverseBitmapById(this, R.mipmap.bg_invert_image, 0.5f));
         TranslateAnimation animation = new TranslateAnimation(0, 100, 0, 100);
-        bind.ivInvert.setAnimation(animation);
+        vdb.ivInvert.setAnimation(animation);
     }
 
     /**

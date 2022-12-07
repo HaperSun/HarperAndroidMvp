@@ -32,7 +32,7 @@ public abstract class BaseMvpFragment<VDB extends ViewDataBinding> extends BaseF
     protected final String TAG = getClass().getSimpleName();
     private Set<BasePresenter> mPresenters;
     protected View mRootView;
-    public VDB bind;
+    protected VDB vdb;
 
     public BaseMvpFragment() {
         // Required empty public constructor
@@ -42,8 +42,8 @@ public abstract class BaseMvpFragment<VDB extends ViewDataBinding> extends BaseF
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //获取ViewDataBinding
-        bind = DataBindingUtil.inflate(inflater, layoutId(), container, false);
-        mRootView = bind.getRoot();
+        vdb = DataBindingUtil.inflate(inflater, layoutId(), container, false);
+        mRootView = vdb.getRoot();
         //处理fragment的Bundle
         initBundle();
         //是否接收EventBus消息

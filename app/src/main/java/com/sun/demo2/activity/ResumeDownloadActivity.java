@@ -38,9 +38,9 @@ public class ResumeDownloadActivity extends BaseMvpActivity<ActivityResumeDownlo
 
     @Override
     public void initView() {
-        recyclerview = bind.recyclerview;
-        clearEt = bind.clearEt;
-        btnStart = bind.btnStart;
+        recyclerview = vdb.recyclerview;
+        clearEt = vdb.clearEt;
+        btnStart = vdb.btnStart;
     }
 
     @Override

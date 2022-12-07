@@ -332,10 +332,7 @@ public class RichTextEditor extends ScrollView {
         if (TextUtils.isEmpty(path)) {
             return true;
         }
-        if (Constant.Url.DEFAULT_INIT_PATH.equals(path)) {
-            return true;
-        }
-        return false;
+        return "https://".equals(path);
     }
 
     /**
@@ -347,7 +344,7 @@ public class RichTextEditor extends ScrollView {
             return;
         }
         if (isImagePathEmpty(imagePath)) {
-            imagePath = Constant.Url.UPLOAD_PIC_FAILURE;
+            imagePath = Constant.URL_ERROR_PICTURE;
         }
         try {
             //lastFocusEdit获取焦点的EditText

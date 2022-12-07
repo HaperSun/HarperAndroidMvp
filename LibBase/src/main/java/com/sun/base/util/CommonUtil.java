@@ -16,16 +16,15 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.collection.ArrayMap;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
-
 
 import com.google.gson.Gson;
 import com.sun.base.bean.TDevice;
@@ -49,7 +48,7 @@ public class CommonUtil {
     private static final String TAG = CommonUtil.class.getSimpleName();
 
     private CommonUtil() {
-        throw new UnsupportedOperationException("CommonUtils不能被构造");
+        throw new UnsupportedOperationException("you cannot new CommonUtil");
     }
 
     /**
@@ -60,7 +59,7 @@ public class CommonUtil {
     /**
      * 判断是否快速点击，避免重复点击
      *
-     * @return
+     * @return boolean
      */
     public static boolean isFastDoubleClick() {
         long time = System.currentTimeMillis();
@@ -77,17 +76,14 @@ public class CommonUtil {
     /**
      * 对象深拷贝
      *
-     * @param input
-     * @param <T>
-     * @return
+     * @param input 序列化的对象
+     * @return T
      */
     public static <T> T copy(Parcelable input) {
         Parcel parcel = null;
-
         try {
             parcel = Parcel.obtain();
             parcel.writeParcelable(input, 0);
-
             parcel.setDataPosition(0);
             return parcel.readParcelable(input.getClass().getClassLoader());
         } finally {
@@ -116,119 +112,76 @@ public class CommonUtil {
     }
 
     /**
-     * 获取小数点后maxcount位，并且四舍五入(如果已经是maxcount位则不处理)
+     * 获取小数点后maxCount位，并且四舍五入
+     * (如果已经是maxCount位则不处理)
      *
-     * @param number   数字
-     * @param maxcount 小数点后maxcount位数
-     * @return
+     * @param f        数字
+     * @param maxCount 小数点后maxCount位数
+     * @return float
      */
-    public static float getNumber(float number, int maxcount) {
-        float resultnumber = number;
-
+    public static float getNumber(float f, int maxCount) {
+        float newFloat = f;
         try {
-            BigDecimal b = BigDecimal.valueOf(number);
+            BigDecimal b = BigDecimal.valueOf(f);
             int count = b.scale();
-            if (count <= maxcount) {
-                return resultnumber;
+            if (count <= maxCount) {
+                return newFloat;
             }
+            b = b.setScale(maxCount, BigDecimal.ROUND_HALF_UP);
+            newFloat = b.floatValue();
+        } catch (Exception ex) {
+            LogHelper.e(TAG, "Exception", ex);
+        }
+        return newFloat;
+    }
 
-            b = b.setScale(maxcount, BigDecimal.ROUND_HALF_UP);
-            resultnumber = b.floatValue();
-
+    /**
+     * 获取小数点后maxCount位，并且四舍五入
+     * (如果已经是maxCount位则不处理)
+     *
+     * @param d        数字
+     * @param maxCount 小数点后maxCount位数
+     * @return double
+     */
+    public static double getNumber(double d, int maxCount) {
+        double newDouble = d;
+        try {
+            BigDecimal b = BigDecimal.valueOf(d);
+            int count = b.scale();
+            if (count <= maxCount) {
+                return newDouble;
+            }
+            b = b.setScale(maxCount, BigDecimal.ROUND_HALF_UP);
+            newDouble = b.doubleValue();
         } catch (Exception ex) {
             LogHelper.e(TAG, "Exception", ex);
         }
 
-        return resultnumber;
+        return newDouble;
     }
 
+
     /**
-     * 获取小数点后maxcount位，并且四舍五入(如果已经是maxcount位则不处理)
+     * 获取小数点后maxCount位，并且四舍五入(如果已经是maxCount位则不处理)
      *
-     * @param number   数字
-     * @param maxcount 小数点后maxcount位数
-     * @return
+     * @param l        数字
+     * @param maxCount 小数点后maxCount位数
+     * @return long
      */
-    public static double getNumber(double number, int maxcount) {
-        double resultnumber = number;
-
+    public static long getNumber(long l, int maxCount) {
+        long newLong = l;
         try {
-            BigDecimal b = BigDecimal.valueOf(number);
+            BigDecimal b = BigDecimal.valueOf(l);
             int count = b.scale();
-            if (count <= maxcount) {
-                return resultnumber;
+            if (count <= maxCount) {
+                return newLong;
             }
-
-            b = b.setScale(maxcount, BigDecimal.ROUND_HALF_UP);
-            resultnumber = b.doubleValue();
-
+            b = b.setScale(maxCount, BigDecimal.ROUND_HALF_UP);
+            newLong = b.longValue();
         } catch (Exception ex) {
             LogHelper.e(TAG, "Exception", ex);
         }
-
-        return resultnumber;
-    }
-
-
-    /**
-     * 获取小数点后maxcount位，并且四舍五入(如果已经是maxcount位则不处理)
-     *
-     * @param number   数字
-     * @param maxcount 小数点后maxcount位数
-     * @return
-     */
-    public static long getNumber(long number, int maxcount) {
-        long resultnumber = number;
-
-        try {
-            BigDecimal b = BigDecimal.valueOf(number);
-            int count = b.scale();
-            if (count <= maxcount) {
-                return resultnumber;
-            }
-
-            b = b.setScale(maxcount, BigDecimal.ROUND_HALF_UP);
-            resultnumber = b.longValue();
-
-        } catch (Exception ex) {
-            LogHelper.e(TAG, "Exception", ex);
-        }
-
-        return resultnumber;
-    }
-
-
-    private static final String OLD_FS_URL_PREFIX = "http://fs.yixuexiao.cn";//旧的阿里云文件前缀
-    private static final String NEW_FS_URL_PREFIX = "http://zhixue-ugc.oss-cn-hangzhou.aliyuncs.com";//新的阿里云文件前缀
-
-    /**
-     * 获取url完整路径
-     *
-     * @param url 服务端返回的url，有可能不完整
-     * @return
-     */
-    public static String getFsUrl(String url) {
-        return getFsUrl(url, false);
-    }
-
-    /**
-     * 获取url完整路径
-     *
-     * @param url   服务端返回的url，有可能不完整
-     * @param isNew 是否用新的阿里云文件前缀
-     * @return
-     */
-    public static String getFsUrl(String url, boolean isNew) {
-        if (URLUtil.isNetworkUrl(url)) {//如果已经是完整的url了，就直接返回
-            return url;
-        }
-        final String prefix = isNew ? NEW_FS_URL_PREFIX : OLD_FS_URL_PREFIX;
-        if (url.startsWith("/")) {
-            url = prefix + url;
-        } else {
-            url = prefix + "/" + url;
-        }
-        return url;
+        return newLong;
     }
 
     /**
@@ -255,14 +208,15 @@ public class CommonUtil {
         int paddingRight = view.getPaddingRight();
         int paddingBottom = view.getPaddingBottom();
         //设置背景
-        if (!needCatchOOM) {
-            view.setBackgroundResource(resId);
-        } else {
-            int inSampleSize = 1;//缩放比例
-            boolean isSuccess = false;//设置背景是否成功
+        if (needCatchOOM) {
+            //缩放比例
+            int inSampleSize = 1;
+            //设置背景是否成功
+            boolean isSuccess = false;
             while (!isSuccess) {
                 try {
-                    if (inSampleSize == 1) {//代表不缩放，直接设置背景
+                    if (inSampleSize == 1) {
+                        //代表不缩放，直接设置背景
                         view.setBackgroundResource(resId);
                     } else {//代表缩放
                         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -273,9 +227,12 @@ public class CommonUtil {
                     isSuccess = true;
                 } catch (OutOfMemoryError outOfMemoryError) {
                     LogHelper.e(TAG, "setViewBackground OutOfMemoryError", outOfMemoryError);
-                    inSampleSize *= 2;//发现OOM了，就将缩放比例乘以2
+                    //发现OOM了，就将缩放比例乘以2
+                    inSampleSize *= 2;
                 }
             }
+        } else {
+            view.setBackgroundResource(resId);
         }
         //恢复padding值
         view.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
@@ -290,28 +247,31 @@ public class CommonUtil {
      */
     public static void setImageViewResourceWithTint(ImageView imageView, @DrawableRes int resId, @ColorInt int tintColor) {
         //1:通过图片资源文件生成Drawable实例
-        Drawable drawable = imageView.getResources().getDrawable(resId).mutate();
-        //2:先调用DrawableCompat的wrap方法
-        drawable = DrawableCompat.wrap(drawable);
-        //3:再调用DrawableCompat的setTint方法，为Drawable实例进行着色
-        DrawableCompat.setTint(drawable, tintColor);
-        //4:最后将着色的Drawable设置给ImageView
-        imageView.setImageDrawable(drawable);
+        Drawable d = ContextCompat.getDrawable(imageView.getContext(), resId);
+        if (d != null) {
+            Drawable drawable = d.mutate();
+            //2:先调用DrawableCompat的wrap方法
+            drawable = DrawableCompat.wrap(drawable);
+            //3:再调用DrawableCompat的setTint方法，为Drawable实例进行着色
+            DrawableCompat.setTint(drawable, tintColor);
+            //4:最后将着色的Drawable设置给ImageView
+            imageView.setImageDrawable(drawable);
+        }
     }
 
     /**
      * 使用Map按key进行排序
      *
      * @param map 待排序的map
-     * @return
+     * @return Map
      */
     public static <T> Map<Integer, T> sortMapByKey(Map<Integer, T> map) {
-        if (map == null || map.isEmpty()) {
-            return null;
+        if (CollectionUtil.notEmpty(map)) {
+            Map<Integer, T> sortMap = new TreeMap<>(new MapKeyComparator());
+            sortMap.putAll(map);
+            return sortMap;
         }
-        Map<Integer, T> sortMap = new TreeMap<>(new MapKeyComparator());
-        sortMap.putAll(map);
-        return sortMap;
+        return null;
     }
 
 
@@ -333,22 +293,20 @@ public class CommonUtil {
      * @param enabled   true表示可以，false表示不可以
      */
     public static void setMotionEventSplittingEnabled(ViewGroup viewGroup, boolean enabled) {
-        if (viewGroup == null) {
-            return;
-        }
-        viewGroup.setMotionEventSplittingEnabled(enabled);
-        //ListView要额外处理headerView和FooterView
-        if (viewGroup instanceof ListView) {
-            setListViewMotionEventSplittingEnabled(enabled, (ListView) viewGroup);
-        }
-        int childCount = viewGroup.getChildCount();
-        if (childCount <= 0) {
-            return;
-        }
-        for (int i = 0; i < childCount; i++) {
-            View child = viewGroup.getChildAt(i);
-            if (child instanceof ViewGroup) {
-                setMotionEventSplittingEnabled((ViewGroup) child, enabled);
+        if (viewGroup != null) {
+            viewGroup.setMotionEventSplittingEnabled(enabled);
+            //ListView要额外处理headerView和FooterView
+            if (viewGroup instanceof ListView) {
+                setListViewMotionEventSplittingEnabled(enabled, (ListView) viewGroup);
+            }
+            int childCount = viewGroup.getChildCount();
+            if (childCount > 0) {
+                for (int i = 0; i < childCount; i++) {
+                    View child = viewGroup.getChildAt(i);
+                    if (child instanceof ViewGroup) {
+                        setMotionEventSplittingEnabled((ViewGroup) child, enabled);
+                    }
+                }
             }
         }
     }
@@ -356,8 +314,8 @@ public class CommonUtil {
     /**
      * ListView要额外处理headerView和FooterView
      *
-     * @param enabled
-     * @param listView
+     * @param enabled  enabled
+     * @param listView listView
      */
     private static void setListViewMotionEventSplittingEnabled(boolean enabled, ListView listView) {
         int headerViewsCount = listView.getHeaderViewsCount();
@@ -505,13 +463,12 @@ public class CommonUtil {
     /**
      * 获取当前应用渠道号(application中用meta-data标记的友盟渠道号)
      *
-     * @param context
      * @return
      */
-    public static String getVendor(Context context) {
+    public static String getVendor() {
         String vendor = null;
         try {
-            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(),
+            ApplicationInfo appInfo = AppUtil.getCtx().getPackageManager().getApplicationInfo(AppUtil.getPackageName(),
                     PackageManager.GET_META_DATA);
             vendor = appInfo.metaData.getString("UMENG_CHANNEL");
         } catch (PackageManager.NameNotFoundException e) {
@@ -524,18 +481,14 @@ public class CommonUtil {
     /**
      * 从assets中获取文件输入流
      *
-     * @param context
      * @param filePath 文件路径（相对assets）
-     * @return
+     * @return InputStream
      */
-    public static InputStream getInputStreamFromAssets(Context context, String filePath) throws IOException {
-        if (context == null) {
-            return null;
-        }
+    public static InputStream getInputStreamFromAssets(String filePath) throws IOException {
         if (TextUtils.isEmpty(filePath)) {
             return null;
         }
-        return context.getResources().getAssets().open(filePath);
+        return AppUtil.getCtx().getResources().getAssets().open(filePath);
     }
 
     /**
@@ -557,28 +510,21 @@ public class CommonUtil {
     /**
      * 判断Fragment是否脱离界面了
      *
-     * @param fragment
-     * @return
+     * @param fragment fragment
+     * @return boolean
      */
     public static boolean isFragmentDetached(Fragment fragment) {
-        return fragment.isDetached()
-                || fragment.getActivity() == null
-                || !fragment.isAdded();
+        return fragment.isDetached() || fragment.getActivity() == null || !fragment.isAdded();
     }
 
     /**
-     * 判断横竖屏
+     * 判断设备是否是竖屏
+     * true 竖屏，false 横屏
      *
-     * @return
+     * @return boolean
      */
-    public static boolean isScreenOrientationVertical(Context context) {
-        if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //竖屏
-            return true;
-        } else {
-            //横屏
-            return false;
-        }
+    public static boolean isScreenOrientationVertical() {
+        return AppUtil.getCtx().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
     /**
@@ -599,16 +545,12 @@ public class CommonUtil {
     public static boolean isHuaWeiC5() {
         String deviceBrand = TDevice.getDeviceBrand();
         String phoneType = TDevice.getPhoneType();
-        if ((TextUtils.equals(deviceBrand, PHONE_BRAND) && (TextUtils.equals(phoneType, PHONE_TYPE_01)
+        return (TextUtils.equals(deviceBrand, PHONE_BRAND) && (TextUtils.equals(phoneType, PHONE_TYPE_01)
                 || TextUtils.equals(phoneType, PHONE_TYPE_02))) || TextUtils.equals(phoneType, PHONE_TYPE_03)
                 || TextUtils.equals(phoneType, PHONE_TYPE_04)
                 || TextUtils.equals(phoneType, PHONE_TYPE_05)
                 || TextUtils.equals(phoneType, PHONE_TYPE_06)
-                || TextUtils.equals(phoneType, PHONE_TYPE_07)) {
-            return true;
-        } else {
-            return false;
-        }
+                || TextUtils.equals(phoneType, PHONE_TYPE_07);
     }
 
     public static boolean isTeacherHuaWeiC5() {
@@ -624,11 +566,10 @@ public class CommonUtil {
      *
      * @param dialog 对话框
      */
-    public static void dismissWithTryCatch(Dialog dialog) {
+    public static void dialogDismiss(Dialog dialog) {
         try {
             dialog.dismiss();
         } catch (final IllegalArgumentException e) {
-            // Do nothing.
             LogHelper.d(TAG, "Dialog对话框崩溃了，exception->" + e);
         } finally {
             dialog = null;

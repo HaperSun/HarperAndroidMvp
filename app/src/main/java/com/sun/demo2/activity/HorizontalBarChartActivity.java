@@ -45,31 +45,31 @@ public class HorizontalBarChartActivity extends BaseMvpActivity<ActivityHorizont
         getData();
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
 
-        bind.chart.setDrawBarShadow(false);
-        bind.chart.setDrawValueAboveBar(false);
-        bind.chart.getDescription().setEnabled(false);
-        bind.chart.setMaxVisibleValueCount(60);
-        bind.chart.setPinchZoom(false);
-        bind.chart.setDrawGridBackground(false);
-        XAxis xl = bind.chart.getXAxis();
+        vdb.chart.setDrawBarShadow(false);
+        vdb.chart.setDrawValueAboveBar(false);
+        vdb.chart.getDescription().setEnabled(false);
+        vdb.chart.setMaxVisibleValueCount(60);
+        vdb.chart.setPinchZoom(false);
+        vdb.chart.setDrawGridBackground(false);
+        XAxis xl = vdb.chart.getXAxis();
         xl.setPosition(XAxis.XAxisPosition.BOTTOM);
         xl.setTypeface(tfLight);
         xl.setDrawAxisLine(false);
         xl.setDrawGridLines(false);
         xl.setGranularity(10f);
-        YAxis yl = bind.chart.getAxisLeft();
+        YAxis yl = vdb.chart.getAxisLeft();
         yl.setTypeface(tfLight);
         yl.setDrawAxisLine(false);
         yl.setDrawGridLines(false);
         yl.setAxisMinimum(0f);
-        YAxis yr = bind.chart.getAxisRight();
+        YAxis yr = vdb.chart.getAxisRight();
         yr.setTypeface(tfLight);
         yr.setDrawAxisLine(false);
         yr.setDrawGridLines(false);
         yr.setAxisMinimum(0f);
-        bind.chart.setFitBars(true);
-        bind.chart.animateY(2500);
-        Legend l = bind.chart.getLegend();
+        vdb.chart.setFitBars(true);
+        vdb.chart.animateY(2500);
+        Legend l = vdb.chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
@@ -100,11 +100,11 @@ public class HorizontalBarChartActivity extends BaseMvpActivity<ActivityHorizont
             values.add(new BarEntry(i * spaceForBar, bean.getData(), bean.getName()));
         }
         BarDataSet set1;
-        if (bind.chart.getData() != null && bind.chart.getData().getDataSetCount() > 0) {
-            set1 = (BarDataSet) bind.chart.getData().getDataSetByIndex(0);
+        if (vdb.chart.getData() != null && vdb.chart.getData().getDataSetCount() > 0) {
+            set1 = (BarDataSet) vdb.chart.getData().getDataSetByIndex(0);
             set1.setValues(values);
-            bind.chart.getData().notifyDataChanged();
-            bind.chart.notifyDataSetChanged();
+            vdb.chart.getData().notifyDataChanged();
+            vdb.chart.notifyDataSetChanged();
         } else {
 //            List<Fill> gradientFills = new ArrayList<>();
 //            int startColor1 = ContextCompat.getColor(this, android.R.color.holo_orange_light);
@@ -119,7 +119,7 @@ public class HorizontalBarChartActivity extends BaseMvpActivity<ActivityHorizont
             data.setValueTextSize(10f);
             data.setValueTypeface(tfLight);
             data.setBarWidth(barWidth);
-            bind.chart.setData(data);
+            vdb.chart.setData(data);
         }
     }
 

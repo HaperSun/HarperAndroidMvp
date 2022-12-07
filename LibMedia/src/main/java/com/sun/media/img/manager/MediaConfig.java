@@ -9,21 +9,12 @@ public class MediaConfig {
 
     /**
      * （*注*）
-     * 操作类型operation：拍照，拍视频，拍照或视频，从相册中选择
-     */
-    public static final String TAKE_PHOTO = "1";
-    public static final String TAKE_VIDEO = "2";
-    public static final String TAKE_BOTH = "3";
-    public static final String FROM_ALBUM = "4";
-
-    /**
-     * （*注*）
      * selectMediaType：照片、视频、照片和视频
-     * 和CameraView中的是一一对应的
+     * 这里的int值是和CameraView中的是一一对应的，切勿修改！！！
      */
-    public static final int PHOTO = 0x101;
-    public static final int VIDEO = 0x102;
-    public static final int BOTH = 0x103;
+    public static final int PHOTO = 0x0101;
+    public static final int VIDEO = 0x0102;
+    public static final int BOTH = 0x0103;
 
     /**
      * 前置摄像头拍摄是否启用镜像 默认开启
@@ -71,13 +62,13 @@ public class MediaConfig {
     public int maxVideoSize;
 
     /**
-     * 操作类型
+     * 操作类型：只包含拍照和相册两种
      */
-    public String operationType;
+    public boolean fromCamera;
 
     /**
      * 注：只有 PHOTO、VIDEO、BOTH
-     * 选择类型
+     * 选择文件类型
      */
     public int mediaFileType;
 

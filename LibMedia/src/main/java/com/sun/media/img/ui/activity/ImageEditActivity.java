@@ -59,17 +59,17 @@ public class ImageEditActivity extends BaseMvpActivity<ActivityImageEditBinding>
     public void initView() {
         baseBind.title.setTitle("相册预览");
         baseBind.title.setOnTitleClickListener(view -> onBackPressed());
-        bind.ivCropper.setOnClickListener(this);
+        vdb.ivCropper.setOnClickListener(this);
         mMediaFileList = DataUtil.getInstance().getMediaData();
         ImagePreViewAdapter mImagePreViewAdapter = new ImagePreViewAdapter(this, mMediaFileList);
-        bind.vpMainPreImage.setAdapter(mImagePreViewAdapter);
-        bind.vpMainPreImage.setCurrentItem(mPosition);
+        vdb.vpMainPreImage.setAdapter(mImagePreViewAdapter);
+        vdb.vpMainPreImage.setCurrentItem(mPosition);
         mCurMediaFile = mMediaFileList.get(mPosition);
     }
 
     @Override
     public void initData() {
-        bind.vpMainPreImage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        vdb.vpMainPreImage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -85,8 +85,8 @@ public class ImageEditActivity extends BaseMvpActivity<ActivityImageEditBinding>
 
             }
         });
-        bind.ivCropper.setOnClickListener(this);
-        bind.tvActionBarCommit.setOnClickListener(this);
+        vdb.ivCropper.setOnClickListener(this);
+        vdb.tvActionBarCommit.setOnClickListener(this);
     }
 
     @Override

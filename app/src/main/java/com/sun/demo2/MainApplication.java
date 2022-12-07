@@ -13,7 +13,7 @@ import com.sun.base.disk.DiskCacheManager;
 import com.sun.base.net.NetWork;
 import com.sun.base.net.NetWorks;
 import com.sun.base.net.exception.ERROR;
-import com.sun.base.net.vo.TokenInvalidEvent;
+import com.sun.base.bean.BaseEvent;
 import com.sun.base.service.IAccountService;
 import com.sun.base.service.ServiceFactory;
 import com.sun.base.toast.ToastHelper;
@@ -170,7 +170,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
      * 处理 Token 失效
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onTokenInvalid(TokenInvalidEvent event) {
+    public void onTokenInvalid(BaseEvent.TokenInvalidEvent event) {
         if (event.getCode() == ERROR.WRONG_TOKEN && getCurrentUserInfo() != null) {
             UserInfoManager.getInstance(this).clear();
             LoginActivity.start(ctx);

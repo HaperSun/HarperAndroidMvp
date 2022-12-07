@@ -1,7 +1,7 @@
 package com.sun.base.net.exception;
 
 import com.google.gson.JsonParseException;
-import com.sun.base.net.vo.TokenInvalidEvent;
+import com.sun.base.bean.BaseEvent;
 import com.sun.base.util.LogHelper;
 
 
@@ -52,7 +52,7 @@ public class ExceptionEngine {
                     break;
                 case UNAUTHORIZED:
                     // token 错误需要跳转登录页面时通知 application
-                    EventBus.getDefault().post(new TokenInvalidEvent(((HttpException) e).code()));
+                    EventBus.getDefault().post(new BaseEvent.TokenInvalidEvent(((HttpException) e).code()));
                     errorMsg = "登录已过期，请重新登录";
                     break;
                 case FORBIDDEN:
@@ -73,7 +73,7 @@ public class ExceptionEngine {
             int code = resultException.getCode();
             if (code == ERROR.WRONG_TOKEN) {
                 // token 错误需要跳转登录页面时通知 application
-                EventBus.getDefault().post(new TokenInvalidEvent(code));
+                EventBus.getDefault().post(new BaseEvent.TokenInvalidEvent(code));
                 errorMsg = "登录已过期，请重新登录";
             } else {
                 errorMsg = resultException.getMsg();

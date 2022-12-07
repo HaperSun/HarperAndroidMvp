@@ -7,10 +7,15 @@ import android.content.res.ColorStateList;
  * @date 2022/6/30
  * note:
  */
-public class ColorUtils {
+public class ColorUtil {
+
     private static final int ENABLE_ATTR = android.R.attr.state_enabled;
     private static final int CHECKED_ATTR = android.R.attr.state_checked;
     private static final int PRESSED_ATTR = android.R.attr.state_pressed;
+
+    private ColorUtil() {
+        throw new RuntimeException("you cannot new ColorUtil!");
+    }
 
     public static ColorStateList generateThumbColorWithTintColor(final int tintColor) {
         int[][] states = new int[][]{
@@ -21,7 +26,6 @@ public class ColorUtils {
                 {CHECKED_ATTR},
                 {-CHECKED_ATTR}
         };
-
         int[] colors = new int[]{
                 tintColor - 0xAA000000,
                 0xFFBABABA,
@@ -42,7 +46,6 @@ public class ColorUtils {
                 {CHECKED_ATTR},
                 {-CHECKED_ATTR}
         };
-
         int[] colors = new int[]{
                 tintColor - 0xE1000000,
                 0x10000000,

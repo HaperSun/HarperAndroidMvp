@@ -53,7 +53,7 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
     public void initData() {
         baseBind.title.setTitle(R.string.app_feed_title);
         baseBind.title.setOnTitleClickListener(view -> onBackPressed());
-        bind.feedView.setFeedViewCallBack(this);
+        vdb.feedView.setFeedViewCallBack(this);
     }
 
     @Override
@@ -104,8 +104,8 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
                     return;
                 }
                 mPage++;
-                bind.feedView.addData(videoModels, false);
-                bind.feedView.finishLoadMore(true, false);
+                vdb.feedView.addData(videoModels, false);
+                vdb.feedView.finishLoadMore(true, false);
             }
 
             @Override
@@ -113,7 +113,7 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
                 if (isDestroyed()) {
                     return;
                 }
-                bind.feedView.finishLoadMore(false, true);
+                vdb.feedView.finishLoadMore(false, true);
             }
         });
     }
@@ -126,9 +126,9 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
                 if (isDestroyed()) {
                     return;
                 }
-                bind.feedView.addData(videoModels, true);
+                vdb.feedView.addData(videoModels, true);
                 if (isRefresh) {
-                    bind.feedView.finishRefresh(true);
+                    vdb.feedView.finishRefresh(true);
                 }
             }
 
@@ -149,7 +149,7 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
                 if (isDestroyed()) {
                     return;
                 }
-                bind.feedView.addDetailListData(videoModels);
+                vdb.feedView.addDetailListData(videoModels);
             }
 
             @Override
@@ -160,7 +160,7 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
 
     @Override
     public void onBackPressed() {
-        if (!bind.feedView.goBack()) {
+        if (!vdb.feedView.goBack()) {
             super.onBackPressed();
         }
     }
@@ -168,7 +168,7 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
     @Override
     protected void onResume() {
         super.onResume();
-        bind.feedView.onResume();
+        vdb.feedView.onResume();
         if (mIsFullScreen) {
             //隐藏虚拟按键，并且全屏
             View decorView = getWindow().getDecorView();
@@ -189,12 +189,12 @@ public class FeedVideoActivity extends BaseMvpActivity<ActivityFeedVideoBinding>
     @Override
     protected void onPause() {
         super.onPause();
-        bind.feedView.onPause();
+        vdb.feedView.onPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bind.feedView.onDestroy();
+        vdb.feedView.onDestroy();
     }
 }

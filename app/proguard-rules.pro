@@ -125,7 +125,8 @@
 -keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
 public static java.lang.String TABLENAME;
 }
--keep class **$Properties
+#-keep class **$Properties报错，替换成-keep class **$Properties{*;}后ok了，why???
+-keep class **$Properties{*;}
 #native
 -keepclassmembers class * {
     native <methods>;

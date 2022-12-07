@@ -9,7 +9,12 @@ import android.widget.TextView;
  * @date: 2022/7/19
  * @note: View 的工具类
  */
-public class ViewUtils {
+public class ViewUtil {
+
+    private ViewUtil() {
+        throw new RuntimeException("you cannot new ViewUtil!");
+    }
+
     /**
      * 获取 View 的高度
      */
@@ -59,8 +64,8 @@ public class ViewUtils {
     /**
      * 设置View的paddingLeft
      *
-     * @param view
-     * @param paddingLeft
+     * @param view        view
+     * @param paddingLeft paddingLeft
      */
     public static void setPaddingLeft(View view, int paddingLeft) {
         view.setPadding(paddingLeft, view.getPaddingTop(), view.getPaddingRight(), view.getPaddingBottom());
@@ -69,8 +74,8 @@ public class ViewUtils {
     /**
      * 设置View的paddingTop
      *
-     * @param view
-     * @param paddingTop
+     * @param view       view
+     * @param paddingTop paddingTop
      */
     public static void setPaddingTop(View view, int paddingTop) {
         view.setPadding(view.getPaddingLeft(), paddingTop, view.getPaddingRight(), view.getPaddingBottom());
@@ -79,8 +84,8 @@ public class ViewUtils {
     /**
      * 设置View的paddingRight
      *
-     * @param view
-     * @param paddingRight
+     * @param view         view
+     * @param paddingRight paddingRight
      */
     public static void setPaddingRight(View view, int paddingRight) {
         view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), paddingRight, view.getPaddingBottom());
@@ -89,13 +94,10 @@ public class ViewUtils {
     /**
      * 设置View的paddingBottom
      *
-     * @param view
-     * @param paddingBottom
+     * @param view          view
+     * @param paddingBottom paddingBottom
      */
     public static void setPaddingBottom(View view, int paddingBottom) {
         view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), paddingBottom);
-    }
-
-    private ViewUtils() {
     }
 }

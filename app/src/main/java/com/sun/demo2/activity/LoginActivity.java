@@ -78,11 +78,11 @@ public class LoginActivity extends BaseMvpActivity<ActivityLoginBinding> impleme
             showToast("当前网络可用~");
         }
         NetworkStateChangeReceiver.registerObserver(this);
-        bind.ivClearAccount.setOnClickListener(this);
-        bind.ivSwitchPassword.setOnClickListener(this);
-        bind.btLogin.setOnClickListener(this);
-        bind.etAccount.setText("13805242701");
-        bind.etPassword.setText("111111a");
+        vdb.ivClearAccount.setOnClickListener(this);
+        vdb.ivSwitchPassword.setOnClickListener(this);
+        vdb.btLogin.setOnClickListener(this);
+        vdb.etAccount.setText("13805242701");
+        vdb.etPassword.setText("111111a");
         listTest();
     }
 
@@ -91,15 +91,15 @@ public class LoginActivity extends BaseMvpActivity<ActivityLoginBinding> impleme
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_clear_account:
-                bind.etAccount.setText("");
+                vdb.etAccount.setText("");
                 break;
             case R.id.iv_switch_password:
                 if (mShowPassword) {
-                    bind.etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    bind.ivSwitchPassword.setImageResource(R.mipmap.ic_show_psw_press);
+                    vdb.etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    vdb.ivSwitchPassword.setImageResource(R.mipmap.ic_show_psw_press);
                 } else {
-                    bind.etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    bind.ivSwitchPassword.setImageResource(R.mipmap.ic_show_psw);
+                    vdb.etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    vdb.ivSwitchPassword.setImageResource(R.mipmap.ic_show_psw);
                 }
                 mShowPassword = !mShowPassword;
                 break;
@@ -143,7 +143,7 @@ public class LoginActivity extends BaseMvpActivity<ActivityLoginBinding> impleme
         List<String> newList = GsonUtil.getGson().fromJson(str, new TypeToken<List<String>>() {
         }.getType());
         //解析成对象
-        Response s = GsonUtil.getGson().fromJson(str,Response.class);
+        Response s = GsonUtil.getGson().fromJson(str, Response.class);
     }
 
     @Override
@@ -177,26 +177,26 @@ public class LoginActivity extends BaseMvpActivity<ActivityLoginBinding> impleme
     }
 
     private void doLogin() {
-        String account = bind.etAccount.getText().toString().trim();
+        String account = vdb.etAccount.getText().toString().trim();
         if (TextUtils.isEmpty(account)) {
             showToast(R.string.input_user_account);
-            bind.etAccount.requestFocus();
+            vdb.etAccount.requestFocus();
             return;
         }
         if (!StringUtil.isLegalPhone(account)) {
             showToast(R.string.account_not_exist);
-            bind.etAccount.requestFocus();
+            vdb.etAccount.requestFocus();
             return;
         }
-        String password = bind.etPassword.getText().toString().trim();
+        String password = vdb.etPassword.getText().toString().trim();
         if (TextUtils.isEmpty(password)) {
             showToast(R.string.input_user_password);
-            bind.etPassword.requestFocus();
+            vdb.etPassword.requestFocus();
             return;
         }
         if (!StringUtil.isLegalPassword(password)) {
             showToast("密码格式不正确！");
-            bind.etPassword.requestFocus();
+            vdb.etPassword.requestFocus();
             return;
         }
         if (!mHasNetwork) {

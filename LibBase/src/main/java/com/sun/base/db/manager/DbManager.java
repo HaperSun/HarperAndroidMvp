@@ -31,7 +31,7 @@ public class DbManager {
         // 初始化数据库信息
         mDbOpenHelper = new DbOpenHelper(context, DB_NAME);
         //debug 模式下打印sql信息，方便查找错误
-        boolean isDebug = AppUtil.isApkDebugEnable();
+        boolean isDebug = AppUtil.isDebugApk();
         QueryBuilder.LOG_SQL = isDebug;
         QueryBuilder.LOG_VALUES = isDebug;
     }

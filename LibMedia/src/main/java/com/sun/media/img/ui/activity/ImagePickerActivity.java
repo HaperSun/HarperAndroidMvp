@@ -38,9 +38,9 @@ import com.sun.base.util.DataUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.MediaFileUtil;
 import com.sun.base.util.PermissionUtil;
-import com.sun.base.util.RotateUtils;
+import com.sun.base.util.RotateUtil;
 import com.sun.base.util.TimeHelp;
-import com.sun.base.util.ViewUtils;
+import com.sun.base.util.ViewUtil;
 import com.sun.media.R;
 import com.sun.media.databinding.ActivityImagePickerBinding;
 import com.sun.media.img.MediaSelector;
@@ -145,15 +145,15 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
         mMaxCount = mediaConfig.maxCount;
         mProgressDialog = ProgressDialog.show(mContext, null, getString(R.string.scanner_image));
         mGridLayoutManager = new GridLayoutManager(mContext, 4);
-        bind.rvMainImages.setLayoutManager(mGridLayoutManager);
+        vdb.rvMainImages.setLayoutManager(mGridLayoutManager);
         //注释说当知道Adapter内Item的改变不会影响RecyclerView宽高的时候，可以设置为true让RecyclerView避免重新计算大小。
-        bind.rvMainImages.setHasFixedSize(true);
-        bind.rvMainImages.setItemViewCacheSize(60);
-        bind.layoutActionBar.bringToFront();
+        vdb.rvMainImages.setHasFixedSize(true);
+        vdb.rvMainImages.setItemViewCacheSize(60);
+        vdb.layoutActionBar.bringToFront();
         mImagePickerAdapter = new ImagePickerAdapter(mContext, mMediaFileList);
         mImagePickerAdapter.setOnItemClickListener(this);
-        bind.rvMainImages.setAdapter(mImagePickerAdapter);
-        bind.ivActionBarBack.setOnClickListener(v -> onBackPressed());
+        vdb.rvMainImages.setAdapter(mImagePickerAdapter);
+        vdb.ivActionBarBack.setOnClickListener(v -> onBackPressed());
         ArrayList<MediaFile> selectFileList = MediaSelector.getInstance().getSelectedFiles();
         mSurplusCount = mediaConfig.maxCount - CollectionUtil.size(selectFileList);
         mAlreadySelectVideoCount = getAlreadySelectVideoCount(selectFileList);
@@ -190,15 +190,15 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
 
     @Override
     public void initData() {
-        bind.tvActionBarCommit.setOnClickListener(v -> commitSelection());
-        bind.selectContainer.setOnClickListener(view -> {
-            if (mCurrentType == RotateUtils.CLICK_ARROW_DOWN) {
+        vdb.tvActionBarCommit.setOnClickListener(v -> commitSelection());
+        vdb.selectContainer.setOnClickListener(view -> {
+            if (mCurrentType == RotateUtil.CLICK_ARROW_DOWN) {
                 showDirectoryList();
-            } else if (mCurrentType == RotateUtils.CLICK_ARROW_UP) {
+            } else if (mCurrentType == RotateUtil.CLICK_ARROW_UP) {
                 hideDirectoryList();
             }
         });
-        bind.rvMainImages.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        vdb.rvMainImages.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -211,38 +211,38 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
                 updateImageTime();
             }
         });
-        bind.viewMask.setOnClickListener(view -> hideDirectoryList());
+        vdb.viewMask.setOnClickListener(view -> hideDirectoryList());
     }
 
     private void setConfirmText() {
         if (CollectionUtil.size(mCurrentSelectedFiles) == 0) {
-            bind.tvActionBarCommit.setEnabled(false);
-            bind.tvActionBarCommit.setBackgroundResource(R.drawable.shape_rec_solid_5e5e5e_radius_dp5);
+            vdb.tvActionBarCommit.setEnabled(false);
+            vdb.tvActionBarCommit.setBackgroundResource(R.drawable.shape_rec_solid_5e5e5e_radius_dp5);
         } else {
-            bind.tvActionBarCommit.setEnabled(true);
-            bind.tvActionBarCommit.setBackgroundResource(R.drawable.shape_rec_solid_ff8c4a_radius_dp5);
+            vdb.tvActionBarCommit.setEnabled(true);
+            vdb.tvActionBarCommit.setBackgroundResource(R.drawable.shape_rec_solid_ff8c4a_radius_dp5);
         }
-        bind.tvActionBarCommit.setText(mContext.getString(R.string.confirm_selected_count,
+        vdb.tvActionBarCommit.setText(mContext.getString(R.string.confirm_selected_count,
                 CollectionUtil.size(mCurrentSelectedFiles), mSurplusCount));
     }
 
     /**
      * 显示文件夹
      */
-    private int mCurrentType = RotateUtils.CLICK_ARROW_DOWN;
+    private int mCurrentType = RotateUtil.CLICK_ARROW_DOWN;
 
     private void showDirectoryList() {
         setLightMode(LIGHT_OFF);
-        mCurrentType = RotateUtils.CLICK_ARROW_UP;
-        RotateUtils.rotateArrow(bind.ivArrow, mCurrentType);
-        int height = ViewUtils.getHeight(bind.switchDirectory);
-        ObjectAnimator animator = ObjectAnimator.ofFloat(bind.switchDirectory, "translationY", -height, 0).setDuration(300);
+        mCurrentType = RotateUtil.CLICK_ARROW_UP;
+        RotateUtil.rotateArrow(vdb.ivArrow, mCurrentType);
+        int height = ViewUtil.getHeight(vdb.switchDirectory);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(vdb.switchDirectory, "translationY", -height, 0).setDuration(300);
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
-                bind.switchDirectory.setVisibility(View.VISIBLE);
-                bind.viewMask.setVisibility(View.VISIBLE);
+                vdb.switchDirectory.setVisibility(View.VISIBLE);
+                vdb.viewMask.setVisibility(View.VISIBLE);
             }
         });
         animator.start();
@@ -253,16 +253,16 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
      */
     public void hideDirectoryList() {
         setLightMode(LIGHT_ON);
-        mCurrentType = RotateUtils.CLICK_ARROW_DOWN;
-        RotateUtils.rotateArrow(bind.ivArrow, mCurrentType);
-        ObjectAnimator animator = ObjectAnimator.ofFloat(bind.switchDirectory, "translationY",
-                0, -bind.switchDirectory.getHeight()).setDuration(300);
+        mCurrentType = RotateUtil.CLICK_ARROW_DOWN;
+        RotateUtil.rotateArrow(vdb.ivArrow, mCurrentType);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(vdb.switchDirectory, "translationY",
+                0, -vdb.switchDirectory.getHeight()).setDuration(300);
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                bind.switchDirectory.setVisibility(View.GONE);
-                bind.viewMask.setVisibility(View.GONE);
+                vdb.switchDirectory.setVisibility(View.GONE);
+                vdb.viewMask.setVisibility(View.GONE);
             }
         });
         animator.start();
@@ -362,13 +362,13 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
                     }
                     //某个文件夹中的数据
                     mMediaFolderList = new ArrayList<>(mediaFolderList);
-                    bind.switchDirectory.setData(mMediaFolderList);
-                    bind.switchDirectory.setOnImageFolderChangeListener((view, position) -> {
+                    vdb.switchDirectory.setData(mMediaFolderList);
+                    vdb.switchDirectory.setOnImageFolderChangeListener((view, position) -> {
                         MediaFolder mediaFolder = mMediaFolderList.get(position);
                         //更新当前文件夹名
                         String folderName = mediaFolder.getFolderName();
                         if (!TextUtils.isEmpty(folderName)) {
-                            bind.tvSelect.setText(folderName);
+                            vdb.tvSelect.setText(folderName);
                         }
                         //更新图片列表数据源
                         mMediaFileList.clear();
@@ -403,7 +403,7 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     private void hideImageTime() {
         if (isShowTime) {
             isShowTime = false;
-            ObjectAnimator.ofFloat(bind.tvImageTime, "alpha", 1, 0).setDuration(300).start();
+            ObjectAnimator.ofFloat(vdb.tvImageTime, "alpha", 1, 0).setDuration(300).start();
         }
     }
 
@@ -413,7 +413,7 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
     private void showImageTime() {
         if (!isShowTime) {
             isShowTime = true;
-            ObjectAnimator.ofFloat(bind.tvImageTime, "alpha", 0, 1).setDuration(300).start();
+            ObjectAnimator.ofFloat(vdb.tvImageTime, "alpha", 0, 1).setDuration(300).start();
         }
     }
 
@@ -425,11 +425,11 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
         if (position != RecyclerView.NO_POSITION) {
             MediaFile mediaFile = mImagePickerAdapter.getMediaFile(position);
             if (mediaFile != null) {
-                if (bind.tvImageTime.getVisibility() != View.VISIBLE) {
-                    bind.tvImageTime.setVisibility(View.VISIBLE);
+                if (vdb.tvImageTime.getVisibility() != View.VISIBLE) {
+                    vdb.tvImageTime.setVisibility(View.VISIBLE);
                 }
                 String time = TimeHelp.getImageTime(mediaFile.getDateToken());
-                bind.tvImageTime.setText(time);
+                vdb.tvImageTime.setText(time);
                 showImageTime();
                 mMyHandler.removeCallbacks(mHideRunnable);
                 mMyHandler.postDelayed(mHideRunnable, 1500);
@@ -631,7 +631,7 @@ public class ImagePickerActivity extends BaseMvpActivity<ActivityImagePickerBind
 
     @Override
     public void onBackPressed() {
-        if (mCurrentType == RotateUtils.CLICK_ARROW_UP) {
+        if (mCurrentType == RotateUtil.CLICK_ARROW_UP) {
             hideDirectoryList();
             return;
         }

@@ -33,10 +33,10 @@ public class WechatAddressBookFragment extends BaseMvpFragment<FragmentWechatAdd
 
     @Override
     public void initView() {
-        bind.sideBar.setOnStrSelectCallBack((index, selectStr) -> {
+        vdb.sideBar.setOnStrSelectCallBack((index, selectStr) -> {
             for (int i = 0; i < mBeans.size(); i++) {
                 if (selectStr.equalsIgnoreCase(mBeans.get(i).getStart())){
-                    bind.recyclerView.scrollToPosition(i);
+                    vdb.recyclerView.scrollToPosition(i);
                     return;
                 }
             }
@@ -48,6 +48,6 @@ public class WechatAddressBookFragment extends BaseMvpFragment<FragmentWechatAdd
         mBeans = AddressBook1Bean.getData();
         AddressBookAdapter adapter = new AddressBookAdapter();
         adapter.setAdapterData(mBeans);
-        bind.recyclerView.setAdapter(adapter);
+        vdb.recyclerView.setAdapter(adapter);
     }
 }

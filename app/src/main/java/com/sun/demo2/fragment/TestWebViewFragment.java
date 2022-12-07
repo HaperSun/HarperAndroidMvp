@@ -35,9 +35,9 @@ public class TestWebViewFragment extends WebViewFragment {
     protected void initWebView() {
         super.initWebView();
         //开启LocalStorage
-        mWebViewX.getSettings().setDomStorageEnabled(true);
+        vdb.webView.getSettings().setDomStorageEnabled(true);
         //Js调我
-        mWebViewX.addJavascriptInterface(new JsNative(getContext()), TAG);
+        vdb.webView.addJavascriptInterface(new JsNative(getContext()), TAG);
     }
 
     static class JsNative {
@@ -54,30 +54,9 @@ public class TestWebViewFragment extends WebViewFragment {
         }
 
         @JavascriptInterface
-        public void onToAnswerClick() {
-            //TODO 跳转到我要回答
-        }
-
-        @JavascriptInterface
         public void entryPicturePreview(String imgUrl) {
             //TODO 图片预览
             ImagePreviewActivity.start(mContext, imgUrl);
-        }
-
-        @JavascriptInterface
-        public void entryPersonalHomepage(String info) {
-            //TODO 进入个人主页
-
-        }
-
-        @JavascriptInterface
-        public void needLoginOut() {
-            //TODO 退出登录
-        }
-
-        @JavascriptInterface
-        public void changeFollowState() {
-            //TODO 改变关注状态
         }
     }
 }

@@ -46,7 +46,7 @@ public class VideoPlayActivity extends BaseMvpActivity<ActivityVidoPalyBinding> 
 
     @Override
     public void initData() {
-        bind.superPlayerView.setPlayerViewCallback(this);
+        vdb.superPlayerView.setPlayerViewCallback(this);
         startPlayVideo();
     }
 
@@ -54,7 +54,7 @@ public class VideoPlayActivity extends BaseMvpActivity<ActivityVidoPalyBinding> 
         mPlayerModel.url = "http://1252463788.vod2.myqcloud.com/95576ef5vodtransgzp1252463788/287432344564972819219071668/master_playlist.m3u8";
         mPlayerModel.placeholderImage = "http://1252463788.vod2.myqcloud.com/e12fcc4dvodgzp1252463788/287432344564972819219071668/4564972819212551204.jpeg";
         mPlayerModel.title = "小直播 - 主播连麦";
-        bind.superPlayerView.playWithModel(mPlayerModel);
+        vdb.superPlayerView.playWithModel(mPlayerModel);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class VideoPlayActivity extends BaseMvpActivity<ActivityVidoPalyBinding> 
     @Override
     public void onClickFloatCloseBtn() {
         //点击浮窗模式关闭按钮，那么结束整个播放
-        bind.superPlayerView.resetPlayer();
+        vdb.superPlayerView.resetPlayer();
         finish();
     }
 
@@ -111,7 +111,7 @@ public class VideoPlayActivity extends BaseMvpActivity<ActivityVidoPalyBinding> 
     @Override
     public void onBackPressed() {
         if (mIsFullScreen) {
-            bind.superPlayerView.switchPlayMode(SuperPlayerDef.PlayerMode.WINDOW);
+            vdb.superPlayerView.switchPlayMode(SuperPlayerDef.PlayerMode.WINDOW);
             //当从全屏模式返回窗口模式时，SuperPlayerView会clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
             //导致窗口模式的全屏失效，需要重新设置下
             TDevice.setFullScreen(this);
@@ -124,10 +124,10 @@ public class VideoPlayActivity extends BaseMvpActivity<ActivityVidoPalyBinding> 
      * 悬浮窗播放
      */
     private void showFloatWindow() {
-        if (bind.superPlayerView.getPlayerState() == SuperPlayerDef.PlayerState.PLAYING) {
-            bind.superPlayerView.switchPlayMode(SuperPlayerDef.PlayerMode.FLOAT);
+        if (vdb.superPlayerView.getPlayerState() == SuperPlayerDef.PlayerState.PLAYING) {
+            vdb.superPlayerView.switchPlayMode(SuperPlayerDef.PlayerMode.FLOAT);
         } else {
-            bind.superPlayerView.resetPlayer();
+            vdb.superPlayerView.resetPlayer();
             finish();
         }
     }
@@ -135,7 +135,7 @@ public class VideoPlayActivity extends BaseMvpActivity<ActivityVidoPalyBinding> 
     @Override
     protected void onResume() {
         super.onResume();
-        bind.superPlayerView.onResume();
+        vdb.superPlayerView.onResume();
         if (mIsFullScreen) {
             //隐藏虚拟按键，并且全屏
             View decorView = getWindow().getDecorView();
@@ -156,12 +156,12 @@ public class VideoPlayActivity extends BaseMvpActivity<ActivityVidoPalyBinding> 
     @Override
     protected void onPause() {
         super.onPause();
-        bind.superPlayerView.onPause();
+        vdb.superPlayerView.onPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bind.superPlayerView.release();
+        vdb.superPlayerView.release();
     }
 }

@@ -39,9 +39,7 @@ public class FaceDetectExpendActivity extends FaceDetectActivity implements Time
             // 获取最优图片
             getBestImage(base64ImageCropMap, base64ImageSrcMap);
         } else if (status == FaceStatusNewEnum.DetectRemindCodeTimeout) {
-            if (mViewBg != null) {
-                mViewBg.setVisibility(View.VISIBLE);
-            }
+            vdb.viewBg.setVisibility(View.VISIBLE);
             showMessageDialog();
         }
     }
@@ -122,9 +120,7 @@ public class FaceDetectExpendActivity extends FaceDetectActivity implements Time
         if (mTimeoutDialog != null) {
             mTimeoutDialog.dismiss();
         }
-        if (mViewBg != null) {
-            mViewBg.setVisibility(View.GONE);
-        }
+        vdb.viewBg.setVisibility(View.GONE);
         onResume();
     }
 

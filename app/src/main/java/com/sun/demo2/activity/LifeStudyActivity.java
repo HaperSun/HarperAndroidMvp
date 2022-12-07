@@ -36,15 +36,15 @@ public class LifeStudyActivity extends BaseMvpActivity<ActivityLifeStudyBinding>
 
     @Override
     public void initView() {
-        getLifecycle().addObserver(bind.chronometer);
+        getLifecycle().addObserver(vdb.chronometer);
     }
 
     @Override
     public void initData() {
         mMyViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(MyViewModel.class);
-        bind.textView.setText(String.valueOf(mMyViewModel.number));
-        bind.textView2.setText(String.valueOf(mMyViewModel.getSecond().getValue()));
-        mMyViewModel.getSecond().observe(this, integer -> bind.textView2.setText(String.valueOf(integer)));
+        vdb.textView.setText(String.valueOf(mMyViewModel.number));
+        vdb.textView2.setText(String.valueOf(mMyViewModel.getSecond().getValue()));
+        mMyViewModel.getSecond().observe(this, integer -> vdb.textView2.setText(String.valueOf(integer)));
         startTimer();
     }
 
@@ -57,7 +57,7 @@ public class LifeStudyActivity extends BaseMvpActivity<ActivityLifeStudyBinding>
     }
 
     public void plusNumber(View view) {
-        bind.textView.setText(String.valueOf(++mMyViewModel.number));
+        vdb.textView.setText(String.valueOf(++mMyViewModel.number));
     }
 
 

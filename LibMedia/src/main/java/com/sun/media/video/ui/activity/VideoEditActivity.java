@@ -91,10 +91,10 @@ public class VideoEditActivity extends BaseMvpActivity<ActivityVideoEditBinding>
     public void initData() {
         baseBind.title.setTitle("视频预览");
         baseBind.title.setOnTitleClickListener(view -> onBackPressed());
-        bind.bottomContainer.setVisibility(mJustCheck ? View.GONE : View.VISIBLE);
-        bind.ivCropper.setOnClickListener(this);
-        bind.tvActionBarCommit.setOnClickListener(this);
-        bind.textureView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
+        vdb.bottomContainer.setVisibility(mJustCheck ? View.GONE : View.VISIBLE);
+        vdb.ivCropper.setOnClickListener(this);
+        vdb.tvActionBarCommit.setOnClickListener(this);
+        vdb.textureView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
             @Override
             public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
                 surfaceTexture = surface;
@@ -133,10 +133,10 @@ public class VideoEditActivity extends BaseMvpActivity<ActivityVideoEditBinding>
             @Override
             public void onLoadingComplete(Bitmap bitmap) {
                 float ra = bitmap.getWidth() * 1f / bitmap.getHeight();
-                ViewGroup.LayoutParams layoutParams = bind.textureView.getLayoutParams();
+                ViewGroup.LayoutParams layoutParams = vdb.textureView.getLayoutParams();
                 layoutParams.width = TDevice.getScreenWidth();
                 layoutParams.height = (int) (layoutParams.width / ra);
-                bind.textureView.setLayoutParams(layoutParams);
+                vdb.textureView.setLayoutParams(layoutParams);
             }
         });
     }

@@ -65,13 +65,13 @@ public class ScanActivity extends BaseMvpActivity<ActivityScanBinding> implement
 
     @Override
     public void initData() {
-        bind.tvFlight.setOnClickListener(v -> {
+        vdb.tvFlight.setOnClickListener(v -> {
             if (mIsFlightOpen) {
                 closeLight();
-                bind.tvFlight.setSelected(false);
+                vdb.tvFlight.setSelected(false);
             } else {
                 openLight();
-                bind.tvFlight.setSelected(true);
+                vdb.tvFlight.setSelected(true);
             }
             mIsFlightOpen = !mIsFlightOpen;
         });
@@ -83,7 +83,7 @@ public class ScanActivity extends BaseMvpActivity<ActivityScanBinding> implement
         animation.setDuration(1500);
         animation.setRepeatCount(-1);
         animation.setRepeatMode(Animation.RESTART);
-        bind.captureScanLine.startAnimation(animation);
+        vdb.captureScanLine.startAnimation(animation);
     }
 
     /**
@@ -133,11 +133,11 @@ public class ScanActivity extends BaseMvpActivity<ActivityScanBinding> implement
             // The activity was paused but not stopped, so the surface still
             // exists. Therefore
             // surfaceCreated() won't be called, so init the camera here.
-            initCamera(bind.surfaceView.getHolder());
+            initCamera(vdb.surfaceView.getHolder());
         } else {
             // Install the callback and wait for surfaceCreated() to init the
             // camera.
-            bind.surfaceView.getHolder().addCallback(this);
+            vdb.surfaceView.getHolder().addCallback(this);
         }
 
         mInactivityTimer.onResume();
@@ -156,7 +156,7 @@ public class ScanActivity extends BaseMvpActivity<ActivityScanBinding> implement
             mCameraManager.closeDriver();
             mCameraManager.stopPreview();
         }
-        bind.surfaceView.getHolder().removeCallback(this);
+        vdb.surfaceView.getHolder().removeCallback(this);
         super.onDestroy();
     }
 
@@ -270,17 +270,17 @@ public class ScanActivity extends BaseMvpActivity<ActivityScanBinding> implement
 
         // 获取布局中扫描框的位置信息
         int[] location = new int[2];
-        bind.captureCropView.getLocationInWindow(location);
+        vdb.captureCropView.getLocationInWindow(location);
 
         int cropLeft = location[0];
         int cropTop = location[1] - getStatusBarHeight();
 
-        int cropWidth = bind.captureCropView.getWidth();
-        int cropHeight = bind.captureCropView.getHeight();
+        int cropWidth = vdb.captureCropView.getWidth();
+        int cropHeight = vdb.captureCropView.getHeight();
 
         //获取布局容器的宽高
-        int containerWidth = bind.captureCropView.getWidth();
-        int containerHeight = bind.captureCropView.getHeight();
+        int containerWidth = vdb.captureCropView.getWidth();
+        int containerHeight = vdb.captureCropView.getHeight();
 
         //计算最终截取的矩形的左上角顶点x坐标
         int x = cropLeft * cameraWidth / containerWidth;

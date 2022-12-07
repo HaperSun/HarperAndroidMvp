@@ -99,13 +99,13 @@ public class TestActivity extends BaseMvpActivity<ActivityTestBinding> {
         // 从android 8.0（API26）开始，对清单文件中静态注册广播接收者增加了限制，需要设置ComponentName
         Intent intent = new Intent("io.rong.push");
         intent.setComponent(new ComponentName(this,"com.sun.demo2.service.MyBroadcastReceiver"));
-        intent.putExtra(Parameter.ENTRY_TYPE,"发送静态广播");
+        intent.putExtra(Parameter.TYPE,"发送静态广播");
         sendBroadcast(intent);
     }
 
     public void onSendReceiver(View view) {
         Intent intent = new Intent("com.sun.demo3");
-        intent.putExtra(Parameter.ENTRY_TYPE,"发送动态广播");
+        intent.putExtra(Parameter.TYPE,"发送动态广播");
         sendOrderedBroadcast(intent,null);
     }
 

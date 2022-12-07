@@ -13,7 +13,7 @@ public class URLDecoderUtil {
     private static final String TAG = URLDecoderUtil.class.getSimpleName();
 
     private URLDecoderUtil() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
+        throw new UnsupportedOperationException("you cannot new URLDecoderUtil");
     }
 
     public static String getDecodeStr(String decodeStr) {

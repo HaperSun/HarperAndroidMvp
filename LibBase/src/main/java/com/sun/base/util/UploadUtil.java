@@ -251,10 +251,8 @@ public class UploadUtil {
                 postRenewalUpRequest(mUpUrl, mPath, mParams, mOnUploadListener);
                 break;
             case 3:
-
                 break;
             case 4:
-
                 break;
             default:
                 break;

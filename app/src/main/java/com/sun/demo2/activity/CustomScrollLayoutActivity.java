@@ -50,7 +50,7 @@ public class CustomScrollLayoutActivity extends BaseMvpActivity<ActivityCustomSc
     @Override
     public void initView() {
         mContext = this;
-        bind.cbSelect.setOnCheckedChangeListener((buttonView, isChecked) -> clickCheckBox(isChecked));
+        vdb.cbSelect.setOnCheckedChangeListener((buttonView, isChecked) -> clickCheckBox(isChecked));
     }
 
     private void clickCheckBox(boolean isChecked) {
@@ -61,7 +61,7 @@ public class CustomScrollLayoutActivity extends BaseMvpActivity<ActivityCustomSc
                 mPopupWindow.setPopupWindowListener(this);
             }
             if (!mPopupWindow.isShowing()) {
-                mPopupWindow.showAsDropDown(bind.cbSelect, -220, 20);
+                mPopupWindow.showAsDropDown(vdb.cbSelect, -220, 20);
             }
         } else {
             if (mPopupWindow.isShowing()) {
@@ -76,7 +76,7 @@ public class CustomScrollLayoutActivity extends BaseMvpActivity<ActivityCustomSc
     }
 
     private void initViewPager() {
-        bind.viewPager.setScroll(false);
+        vdb.viewPager.setScroll(false);
         List<String> titles = new ArrayList<>();
         titles.add("安徽");
         titles.add("圆盘抽奖");
@@ -86,12 +86,12 @@ public class CustomScrollLayoutActivity extends BaseMvpActivity<ActivityCustomSc
         mFragments.add(CircleTurntableFragment.getInstance());
         mFragments.add(SudokuTurnTableFragment.getInstance());
         ViewPagerAdapter adapter = ViewPagerAdapter.create(getSupportFragmentManager(), this, titles, mFragments);
-        bind.viewPager.setAdapter(adapter);
-        bind.viewPager.setCurrentItem(MagicInt.ZERO);
-        bind.tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        bind.tabLayout.setupWithViewPager(bind.viewPager);
+        vdb.viewPager.setAdapter(adapter);
+        vdb.viewPager.setCurrentItem(MagicInt.ZERO);
+        vdb.tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        vdb.tabLayout.setupWithViewPager(vdb.viewPager);
         for (int i = 0; i < adapter.getCount(); i++) {
-            TabLayout.Tab customTab = bind.tabLayout.getTabAt(i);
+            TabLayout.Tab customTab = vdb.tabLayout.getTabAt(i);
             if (customTab != null) {
                 customTab.setCustomView(adapter.getTabView(i));
                 if (i == MagicInt.ZERO) {
@@ -105,16 +105,16 @@ public class CustomScrollLayoutActivity extends BaseMvpActivity<ActivityCustomSc
             }
         }
 
-        bind.tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(bind.viewPager) {
+        vdb.tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vdb.viewPager) {
             @Override
             public void onTabSelected(@NonNull TabLayout.Tab tab) {
                 super.onTabSelected(tab);
                 int position = tab.getPosition();
-                bind.cbSelect.setVisibility(position == 0 ? View.VISIBLE : View.GONE);
+                vdb.cbSelect.setVisibility(position == 0 ? View.VISIBLE : View.GONE);
                 if (mPopupWindow != null) {
                     if (position == 0 && mChecked) {
                         if (!mPopupWindow.isShowing()) {
-                            mPopupWindow.showAsDropDown(bind.cbSelect, -220, 20);
+                            mPopupWindow.showAsDropDown(vdb.cbSelect, -220, 20);
                         }
                     } else {
                         if (mPopupWindow.isShowing()) {

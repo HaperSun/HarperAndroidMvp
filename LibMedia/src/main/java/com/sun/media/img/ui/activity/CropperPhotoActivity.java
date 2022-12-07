@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.sun.base.base.activity.BaseMvpActivity;
+import com.sun.base.bean.Constant;
 import com.sun.base.bean.MediaFile;
 import com.sun.base.bean.Parameter;
 import com.sun.base.util.FileUtil;
@@ -74,10 +75,10 @@ public class CropperPhotoActivity extends BaseMvpActivity<ActivityCropperPhotoBi
         baseBind.title.setTitle("相册裁剪");
         baseBind.title.setOnTitleClickListener(view -> onBackPressed());
         Uri uri = Uri.fromFile(new File(mOriPath));
-        bind.civImage.setImageUriAsync(uri);
-        bind.civImage.setOnCropImageCompleteListener(this);
-        bind.tvCropperCancel.setOnClickListener(this);
-        bind.tvCropperSure.setOnClickListener(this);
+        vdb.civImage.setImageUriAsync(uri);
+        vdb.civImage.setOnCropImageCompleteListener(this);
+        vdb.tvCropperCancel.setOnClickListener(this);
+        vdb.tvCropperSure.setOnClickListener(this);
     }
 
     @Override
@@ -100,12 +101,12 @@ public class CropperPhotoActivity extends BaseMvpActivity<ActivityCropperPhotoBi
      */
     private void clickCropperSure() {
         String ext = FileUtil.getExtension(mOriPath);
-        File cropperFile = FileUtil.getExternalCacheDir(this, null);
+        File cropperFile = FileUtil.getExternalFileDir(Constant.DIRECTORY_NAME_CACHE);
         mCropperPath = cropperFile.getAbsolutePath().concat(File.separator)
                 .concat(UUID.randomUUID() + "_" + StringUtil.getDataTime("yyyy-MM-dd HH-mm-ss"))
                 .concat(".").concat(ext);
         Uri outputUri = Uri.fromFile(new File(mCropperPath));
-        bind.civImage.saveCroppedImageAsync(outputUri, Bitmap.CompressFormat.JPEG, 100);
+        vdb.civImage.saveCroppedImageAsync(outputUri, Bitmap.CompressFormat.JPEG, 100);
     }
 
     @Override

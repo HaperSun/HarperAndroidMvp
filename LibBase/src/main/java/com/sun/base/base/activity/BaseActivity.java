@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -18,9 +19,9 @@ import androidx.fragment.app.FragmentManager;
 import com.sun.base.base.iview.IBaseActivity;
 import com.sun.base.base.iview.IBaseView;
 import com.sun.base.base.widget.LoadingDialog;
-import com.sun.base.util.CommonUtil;
 import com.sun.base.toast.CustomToast;
 import com.sun.base.toast.ToastHelper;
+import com.sun.base.util.CommonUtil;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -33,9 +34,13 @@ import io.reactivex.disposables.Disposable;
 public abstract class BaseActivity extends AppCompatActivity implements IBaseView, IBaseActivity {
 
     protected FragmentManager mFragmentManager;
-    //如果点击空白处不需要立即隐藏键盘，则给该变量赋值false
+    /**
+     * 如果点击空白处不需要立即隐藏键盘，则给该变量赋值false
+     */
     public boolean needClickHideSoftInput = true;
-    //一次性对象容器
+    /**
+     * 一次性对象容器
+     */
     private CompositeDisposable mCompositeDisposable;
     protected LoadingDialog mLoadingDialog;
 
@@ -71,20 +76,19 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     /**
      * 判定是否需要隐藏
      *
-     * @param v
-     * @param ev
-     * @return
+     * @param v View
+     * @param ev MotionEvent
+     * @return boolean
      */
     private boolean isHideInput(View v, MotionEvent ev) {
-        // 如果不需要 则立即返回
-        if (!needClickHideSoftInput) {
-            return needClickHideSoftInput;
-        }
-        if (v instanceof EditText) {
-            int[] l = {0, 0};
-            v.getLocationInWindow(l);
-            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left + v.getWidth();
-            return !(ev.getX() > left && ev.getX() < right && ev.getY() > top && ev.getY() < bottom);
+        //如果不需要 则立即返回
+        if (needClickHideSoftInput){
+            if (v instanceof EditText) {
+                int[] l = {0, 0};
+                v.getLocationInWindow(l);
+                int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left + v.getWidth();
+                return !(ev.getX() > left && ev.getX() < right && ev.getY() > top && ev.getY() < bottom);
+            }
         }
         return false;
     }
@@ -92,7 +96,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     /**
      * 隐藏软键盘
      *
-     * @param token
+     * @param token windowToken
      */
     private void hideSoftInput(IBinder token) {
         if (token != null) {
@@ -125,7 +129,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     /**
      * 显示Toast，对勾类型
      *
-     * @param resId
+     * @param resId 字符串ID
      */
     public void showSuccessToast(int resId) {
         if (!isFinishing()) {
@@ -136,7 +140,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     /**
      * 显示Toast，对勾类型
      *
-     * @param s
+     * @param s 字符串
      */
     public void showSuccessToast(String s) {
         if (!isFinishing()) {
@@ -147,7 +151,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     /**
      * 显示Toast，对勾类型
      *
-     * @param s
+     * @param s 字符串
      */
     public void showLongSuccessToast(String s) {
         if (!isFinishing()) {
@@ -158,7 +162,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     /**
      * 显示Toast，感叹号类型
      *
-     * @param resId
+     * @param resId 字符串Id
      */
     public void showFailToast(int resId) {
         if (!isFinishing()) {
@@ -169,7 +173,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     /**
      * 显示Toast，感叹号类型
      *
-     * @param s
+     * @param s 字符串
      */
     public void showFailToast(String s) {
         if (!isFinishing()) {
@@ -180,7 +184,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     /**
      * 显示Toast，感叹号类型
      *
-     * @param s
+     * @param s 字符串
      */
     public void showLongFailToast(String s) {
         if (!isFinishing()) {
@@ -193,7 +197,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         ActivityCompat.finishAfterTransition(this);
     }
 
-
     @Override
     public void beforeSetContentView(Bundle savedInstanceState) {
         //暂不做任何事，重写是因为不是每个界面都需要在设置布局之前有操作
@@ -204,7 +207,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         //注释掉，解决内存不足回来一些奇怪问题
         if (!disableOnSaveInstanceState()) {
             super.onSaveInstanceState(outState);
@@ -214,7 +217,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     /**
      * 默认禁止调用onSaveInstanceState，解决内存不足回来一些奇怪问题，子类可以复写该方法自行处理
      *
-     * @return
+     * @return boolean
      */
     protected boolean disableOnSaveInstanceState() {
         return true;
@@ -241,8 +244,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         showLoadingDialog(getString(titleResId));
     }
 
-    protected BaseActivity mThis() {
-        return BaseActivity.this;
+    protected BaseActivity mContext() {
+        return this;
     }
 
     @Override

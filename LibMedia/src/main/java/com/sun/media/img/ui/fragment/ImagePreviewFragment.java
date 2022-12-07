@@ -54,7 +54,7 @@ public class ImagePreviewFragment extends BaseMvpFragment<FragmentImagePreviewBi
     @Override
     public void initView() {
         String imgOri = mImageItem.getImageOri();
-        ImageLoader.load().loadImage(imgOri, bind.image, new ImageLoadListener() {
+        ImageLoader.load().loadImage(imgOri, vdb.image, new ImageLoadListener() {
             @Override
             public void onLoadingStarted() {
             }
@@ -66,7 +66,7 @@ public class ImagePreviewFragment extends BaseMvpFragment<FragmentImagePreviewBi
 
             @Override
             public void onLoadingComplete(Bitmap bitmap) {
-                bind.image.setImageBitmap(bitmap);
+                vdb.image.setImageBitmap(bitmap);
                 mOriImgBitmap = bitmap;
             }
         });
@@ -79,12 +79,12 @@ public class ImagePreviewFragment extends BaseMvpFragment<FragmentImagePreviewBi
 
     private void initClick() {
         FragmentActivity activity = getActivity();
-        bind.image.setOnPhotoTapListener((view, x, y) -> {
+        vdb.image.setOnPhotoTapListener((view, x, y) -> {
             //单击退出当前页面
             close();
         });
         try {
-            bind.image.setOnLongClickListener(view -> {
+            vdb.image.setOnLongClickListener(view -> {
                 if (mOriImgBitmap == null) {
                     return true;
                 }

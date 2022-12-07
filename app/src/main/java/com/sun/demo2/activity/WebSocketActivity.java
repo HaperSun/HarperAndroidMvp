@@ -105,9 +105,9 @@ public class WebSocketActivity extends BaseMvpActivity<ActivityWebSocketBinding>
 
     @Override
     public void initData() {
-        bind.tvSuper.setOnClickListener(this);
-        bind.tvShort.setOnClickListener(this);
-        bind.tvFeed.setOnClickListener(this);
+        vdb.tvSuper.setOnClickListener(this);
+        vdb.tvShort.setOnClickListener(this);
+        vdb.tvFeed.setOnClickListener(this);
         startTimer(getSocketRequestStr(AddressBook1Bean.getData()));
     }
 
