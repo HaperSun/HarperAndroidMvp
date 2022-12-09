@@ -68,28 +68,27 @@ dependencies {
     //中文转为拼音
     api files('libs/pinyin4j-2.5.0.jar')
 
-    api target.status_bar_compat
-    api target.rxjava
-    api target.rxandroid
-    api target.converter_gson
-    api target.logger
-    api target.adapter_rxjava2
-    api target.tbs
-    api target.glide
-    api target.zxing
-    api target.commons_lang
-    api target.appcompat
-    api target.material
-    api target.constraintlayout
-    api target.smart_refresh
-    api target.annotation
-    api target.eventbus
-    api target.rxpermissions
-    api target.preference
+    api ver.status_bar_compat
+    api ver.rxjava
+    api ver.rxandroid
+    api ver.converter_gson
+    api ver.logger
+    api ver.adapter_rxjava2
+    api ver.tbs
+    api ver.glide
+    api ver.zxing
+    api ver.commons_lang
+    api ver.appcompat
+    api ver.material
+    api ver.constraintlayout
+    api ver.smart_refresh
+    api ver.annotation
+    api ver.eventbus
+    api ver.rxpermissions
+    api ver.preference
     //数据库
-    api target.greendao
-    api target.generator
-//    api target.qcloud
+    api ver.greendao
+    api ver.generator
     //腾讯云cos存储
     implementation('com.tencent.qcloud:cosxml:5.4.26') {
         exclude group: 'com.tencent.qcloud', module: 'mtaUtils' //关闭 mta 上报功能

@@ -36,8 +36,8 @@ dependencies {
     // 2、在Library的dependencies中添加compileOnly fileTree(include: ['*.jar', '*.aar'], dir: 'libs')。
     // 3、在主项目的libs文件夹下也加入该.aar文件，并在主项目的dependencies中添加implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     compileOnly fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
-    implementation target.photoView
-    api target.ffmpeg
+    implementation ver.photoView
+    api ver.ffmpeg
     implementation project(':LibDanmaku')
     implementation project(':LibBase')
 }

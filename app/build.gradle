@@ -104,35 +104,31 @@ dependencies {
     //引入libs中的aar文件(下拉菜单MaterialSpinner)
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
 
-    implementation target.constraintlayout
-    implementation target.multidex
-    implementation target.palette
-    implementation target.xUtil
-    implementation target.lifecycle_extensions
+    implementation ver.constraintlayout
+    implementation ver.multidex
+    implementation ver.palette
+    implementation ver.xUtil
+    implementation ver.lifecycle_extensions
 
     //分享
-    implementation target.umsdk_common
-    implementation target.umsdk_asms
-    implementation target.umsdk_link
-    implementation target.umsdk_share_core
-    implementation target.umsdk_share_board
-    implementation target.umsdk_share_wx
-    implementation target.wechat_opensdk
+    implementation ver.umsdk_common
+    implementation ver.umsdk_asms
+    implementation ver.umsdk_link
+    implementation ver.umsdk_share_core
+    implementation ver.umsdk_share_board
+    implementation ver.umsdk_share_wx
+    implementation ver.wechat_opensdk
     //腾讯地图
-    implementation target.tencentLocationSdk
-    implementation target.tencent_map_vector
+    implementation ver.tencentLocationSdk
+    implementation ver.tencent_map_vector
 
     //webSocket
-    implementation target.webSocket
-    implementation target.slidinguppanel
+    implementation ver.webSocket
+    implementation ver.slidinguppanel
 
     implementation project(':LibBase')
     implementation project(':LibChart')
-//    implementation project(':LibRichText')
     implementation project(':LibBdFace')
     implementation project(':LibMedia')
     implementation project(':Libraries')
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-//    implementation project(':LibLuckDraw')
 }

@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    implementation target.annotation
+    implementation ver.annotation
     testImplementation 'junit:junit:4.12'
 }
 

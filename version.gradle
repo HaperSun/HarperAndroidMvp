@@ -1,107 +1,76 @@
-ext.target = [:]
+ext.ver = [:]
 
 def version = [:]
 version.appcompat = "1.2.0"
-version.material = "1.2.1"
-version.constraintlayout = "2.0.1"
-version.greendao = "3.3.0"
-version.generator = "3.3.0"
-version.recyclerview = "1.2.1"
-version.annotation = "1.1.0"
-version.multitype = "3.4.4" // me.drakeet.multitype:multitype 复杂列表实现，对RecyclerView的在封装
-version.rxjava = "2.1.7"
-version.rxandroid = "2.0.2"
-version.converter_gson = "2.9.0"
-version.logger = "2.2.0"
-version.adapter_rxjava2 = "2.9.0"
-version.status_bar_compat = "0.7"
-version.glide = "4.9.0"
-version.multidex = "2.0.1"
-version.photoView = "2.1.4" //com.github.chrisbanes:PhotoView   支持缩放的ImageView库
-version.eventbus = "3.1.1"
-version.andpermission = "2.0.1" //com.yanzhenjie.permission:support AndPermission 运行时权限处理库
-version.rxpermissions = "0.10.2" //https://github.com/tbruyelle/RxPermissions 权限处理库
-version.palette = "1.0.0" //Android L SDK 中的新特性，可以使用 Palette 从图像中提取出突出的颜色（主色调），获取到颜色之后我们再将这个颜色值赋给 ActionBar、状态栏等。从而达到界面色调的统一，使界面美观协调
-version.tbs ="sdk:43903"//腾讯 TBS X5内核
+
+def ver = [:]
+ver.appcompat = "androidx.appcompat:appcompat:$version.appcompat"
+ver.material = "com.google.android.material:material:1.2.1"
+ver.constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.1"
+ver.greendao = "org.greenrobot:greendao:3.3.0"
+ver.generator = "org.greenrobot:greendao-generator:3.3.0"
+ver.recyclerview = "androidx.recyclerview:recyclerview:1.2.1"
+ver.annotation = "androidx.annotation:annotation:1.1.0"
+// me.drakeet.multitype:multitype 复杂列表实现，对RecyclerView的在封装
+ver.multitype = "me.drakeet.multitype:multitype:3.4.4"
+ver.status_bar_compat = "com.githang:status-bar-compat:0.7"
+ver.glide = "com.github.bumptech.glide:glide:4.9.0"
+ver.multidex = "androidx.multidex:multidex:2.0.1"
+//com.github.chrisbanes:PhotoView   支持缩放的ImageView库
+ver.photoView = "com.github.chrisbanes:PhotoView:2.1.4"
+ver.eventbus = "org.greenrobot:eventbus:3.1.1"
+//com.yanzhenjie.permission:support AndPermission 运行时权限处理库
+ver.andpermission = "com.yanzhenjie.permission:support:2.0.1"
+//https://github.com/tbruyelle/RxPermissions 权限处理库
+ver.rxpermissions = "com.github.tbruyelle:rxpermissions:0.10.2"
+//Android L SDK 中的新特性，可以使用 Palette 从图像中提取出突出的颜色（主色调），获取到颜色之后我们再将这个颜色值赋给 ActionBar、状态栏等。从而达到界面色调的统一，使界面美观协调
+ver.palette = "androidx.palette:palette:1.0.0"
+//一些工具类
+ver.commons_lang = "org.apache.commons:commons-lang3:3.7"
+ver.xUtil = "org.xutils:xutils:3.5.1"
+ver.zxing = "com.google.zxing:core:3.3.0"
+ver.lifecycle_extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
+ver.smart_refresh = "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-31"
 //友盟
-version.umsdk_common = "9.4.4"  //必选
-version.umsdk_asms = "1.4.1"   //必选
-version.umsdk_link = "1.1.0"    //集成U-Link，可选，如要统计分享回流次数和分享新增用户指标则必选
-version.umsdk_share_core = "7.1.6"  //分享核心库，必选
-version.umsdk_share_board = "7.1.6" //分享面板功能，可选
-version.umsdk_share_wx = "7.1.6"    //微信完整版
-version.wechat_opensdk = "6.8.0"    //微信官方依赖库，必选
-version.commons_lang = "3.7"    //一些工具类
-version.xUtil = "3.5.1"    //xUtil
-version.zxing = "3.3.0" //zxing
-version.lifecycle_extensions = "2.2.0" //lifecycle-extensions
-version.smart_refresh = "1.1.0-alpha-31" //smartRefresh
+ver.umsdk_common = "com.umeng.umsdk:common:9.4.4"
+ver.umsdk_asms = "com.umeng.umsdk:asms:1.4.1"
+//集成U-Link，可选，如要统计分享回流次数和分享新增用户指标则必选
+ver.umsdk_link = "com.umeng.umsdk:link:1.1.0"
+//分享核心库，必选
+ver.umsdk_share_core = "com.umeng.umsdk:share-core:7.1.6"
+//分享面板功能，可选
+ver.umsdk_share_board = "com.umeng.umsdk:share-board:7.1.6"
+//微信完整版
+ver.umsdk_share_wx = "com.umeng.umsdk:share-wx:7.1.6"
+
+ver.rxjava = "io.reactivex.rxjava2:rxjava:2.1.7"
+ver.rxandroid = "io.reactivex.rxjava2:rxandroid:2.0.2"
+ver.converter_gson = "com.squareup.retrofit2:converter-gson:2.9.0"
+ver.logger = "com.orhanobut:logger:2.2.0"
+ver.adapter_rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
 //腾讯地图
-version.tencentLocationSdk ="7.2.6"
-version.tencent_map_vector ="4.4.7"
-version.easypermissions ="3.0.0" // 使用 Android X 的应用添加该依赖3.0.0,使用 Android Support Library 支持库 , 添加该依赖2.0.1
-version.webSocket ="1.5.1"  //webSocket
-version.imageCropper = "2.8.+" //图片裁剪
-version.ffmpeg = "1.1.5" //视频裁剪
-version.slidinguppanel = "3.4.0" //android 开源库 AndroidSlidingUpPanel可向上拖动的view
-version.qcloud= "5.9.+" //腾讯cos
-version.preference= "1.1.1"
-
-
-def target = [:]
-target.appcompat = "androidx.appcompat:appcompat:$version.appcompat"
-target.material = "com.google.android.material:material:$version.material"
-target.constraintlayout = "androidx.constraintlayout:constraintlayout:$version.constraintlayout"
-target.greendao = "org.greenrobot:greendao:$version.greendao"
-target.generator = "org.greenrobot:greendao-generator:$version.generator"
-target.recyclerview = "androidx.recyclerview:recyclerview:$version.recyclerview"
-target.annotation = "androidx.annotation:annotation:$version.annotation"
-target.multitype = "me.drakeet.multitype:multitype:$version.multitype"
-target.status_bar_compat = "com.githang:status-bar-compat:$version.status_bar_compat"
-target.glide = "com.github.bumptech.glide:glide:$version.glide"
-target.multidex = "androidx.multidex:multidex:$version.multidex"
-target.photoView = "com.github.chrisbanes:PhotoView:$version.photoView"
-target.eventbus = "org.greenrobot:eventbus:$version.eventbus"
-target.andpermission = "com.yanzhenjie.permission:support:$version.andpermission"
-target.rxpermissions = "com.github.tbruyelle:rxpermissions:$version.rxpermissions"
-target.palette = "androidx.palette:palette:$version.palette"
-target.commons_lang = "org.apache.commons:commons-lang3:$version.commons_lang"
-target.xUtil = "org.xutils:xutils:$version.xUtil"
-target.zxing = "com.google.zxing:core:$version.zxing"
-target.lifecycle_extensions = "androidx.lifecycle:lifecycle-extensions:$version.lifecycle_extensions"
-target.smart_refresh = "com.scwang.smartrefresh:SmartRefreshLayout:$version.smart_refresh"
-//友盟
-target.umsdk_common = "com.umeng.umsdk:common:$version.umsdk_common"
-target.umsdk_asms = "com.umeng.umsdk:asms:$version.umsdk_asms"
-target.umsdk_link = "com.umeng.umsdk:link:$version.umsdk_link"
-target.umsdk_share_core = "com.umeng.umsdk:share-core:$version.umsdk_share_core"
-target.umsdk_share_board = "com.umeng.umsdk:share-board:$version.umsdk_share_board"
-target.umsdk_share_wx = "com.umeng.umsdk:share-wx:$version.umsdk_share_wx"
-
-target.rxjava = "io.reactivex.rxjava2:rxjava:$version.rxjava"
-target.rxandroid = "io.reactivex.rxjava2:rxandroid:$version.rxandroid"
-target.converter_gson = "com.squareup.retrofit2:converter-gson:$version.converter_gson"
-target.logger = "com.orhanobut:logger:$version.logger"
-target.adapter_rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$version.adapter_rxjava2"
-//腾讯地图
-target.tencentLocationSdk = "com.tencent.map.geolocation:TencentLocationSdk-openplatform:$version.tencentLocationSdk"
-target.tencent_map_vector = "com.tencent.map:tencent-map-vector-sdk:$version.tencent_map_vector"
-target.qcloud = "com.qcloud.cos:cos-android:$version.qcloud"
-target.wechat_opensdk = "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:$version.wechat_opensdk"
-target.tbs = "com.tencent.tbs.tbssdk:$version.tbs"
-target.easypermissions = "pub.devrel:easypermissions:$version.easypermissions"
+ver.tencentLocationSdk = "com.tencent.map.geolocation:TencentLocationSdk-openplatform:7.2.6"
+ver.tencent_map_vector = "com.tencent.map:tencent-map-vector-sdk:4.4.7"
+//腾讯cos
+ver.qcloud = "com.qcloud.cos:cos-android:5.9.+"
+//微信官方依赖库，必选
+ver.wechat_opensdk = "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.8.0"
+//腾讯 TBS X5内核
+ver.tbs = "com.tencent.tbs.tbssdk:sdk:43903"
+// 使用 Android X 的应用添加该依赖3.0.0,使用 Android Support Library 支持库 , 添加该依赖2.0.1
+ver.easypermissions = "pub.devrel:easypermissions:3.0.0"
 //webSocket
-target.webSocket = "org.java-websocket:Java-WebSocket:$version.webSocket"
+ver.webSocket = "org.java-websocket:Java-WebSocket:1.5.1"
 //图片裁剪框
-target.imageCropper = "com.theartofdev.edmodo:android-image-cropper:$version.imageCropper"
+ver.imageCropper = "com.theartofdev.edmodo:android-image-cropper:2.8.+"
 //视频裁剪
-target.ffmpeg = "nl.bravobit:android-ffmpeg:$version.ffmpeg"
-target.slidinguppanel = "com.sothree.slidinguppanel:library:$version.slidinguppanel"
+ver.ffmpeg = "nl.bravobit:android-ffmpeg:1.1.5"
+//android 开源库 AndroidSlidingUpPanel可向上拖动的view
+ver.slidinguppanel = "com.sothree.slidinguppanel:library:3.4.0"
 //android.preference.PreferenceManager过时了，替换成androidx.preference.PreferenceManager
-target.preference = "androidx.preference:preference:$version.preference"
+ver.preference = "androidx.preference:preference:1.1.1"
 
-
-ext.target = target
+ext.ver = ver
 
 def build_version = [:]
 build_version.compile_sdk = 30
