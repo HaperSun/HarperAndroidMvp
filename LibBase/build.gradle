@@ -5,12 +5,12 @@ plugins {
 apply plugin: 'org.greenrobot.greendao'
 
 android {
-    compileSdkVersion build_version.compile_sdk
-    buildToolsVersion build_version.build_tools
+    compileSdkVersion ver.compileSdk
+    buildToolsVersion ver.buildTools
 
     defaultConfig {
-        minSdkVersion build_version.min_sdk
-        targetSdkVersion build_version.target_sdk
+        minSdkVersion ver.minSdk
+        targetSdkVersion ver.targetSdk
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -23,7 +23,7 @@ android {
 
     /*读取config.gradle中的配置文件，在build后生成xml的资源文件*/
     buildTypes.all { buildType ->
-        resValue("string", "version_name", config.app.versionName)
+        resValue("string", "version_name", ver.versionName)
         //友盟appKey
         resValue("string", "um_app_key", config.app.umeng_app_key)
         //百度人脸识别
@@ -37,14 +37,14 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility build_version.version_java
-        targetCompatibility build_version.version_java
+        sourceCompatibility ver.version_java
+        targetCompatibility ver.version_java
     }
 
     greendao {
         //指定数据库schema版本号，迁移等操作会用到
         //新增观测数据升级数据库版本 <原schemaVersion 1>
-        schemaVersion config.dao_version
+        schemaVersion ver.greenDaoVersion
         //DaoSession、DaoMaster以及所有实体类的dao生成的目录,默认为你的entity所在的包名
         //daoPackage 包名
         daoPackage 'com.sun.base.db.greendao'

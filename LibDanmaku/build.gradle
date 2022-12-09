@@ -19,12 +19,12 @@ apply plugin: 'com.android.library'
 def SourcePath = 'src/main/'
 
 android {
-    compileSdkVersion build_version.compile_sdk
-    buildToolsVersion build_version.build_tools
+    compileSdkVersion ver.compileSdk
+    buildToolsVersion ver.buildTools
 
     defaultConfig {
-        minSdkVersion build_version.min_sdk
-        targetSdkVersion build_version.target_sdk
+        minSdkVersion ver.minSdk
+        targetSdkVersion ver.targetSdk
     }
 
     sourceSets {
@@ -36,8 +36,8 @@ android {
         androidTest.setRoot("${SourcePath}../androidTest")
     }
     compileOptions {
-        sourceCompatibility build_version.version_java
-        targetCompatibility build_version.version_java
+        sourceCompatibility ver.version_java
+        targetCompatibility ver.version_java
     }
 }
 if (rootProject.file('gradle/gradle-mvn-push.gradle').exists()) {

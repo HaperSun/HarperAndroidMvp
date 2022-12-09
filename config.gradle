@@ -3,11 +3,6 @@ ext.config = [:]
 def config = [:]
 
 def app = [:]
-app.package = "com.sun.demo2"
-app.versionCode = 1
-app.versionName = "v0.0.1"
-
-
 //友盟的 app_key
 app.umeng_app_key = "6193821ce014255fcb7d1395"
 //百度人脸识别
@@ -44,8 +39,5 @@ server.urlH5Test = "\"https://H5测试环境地址前缀\""
 server.urlH5Release = "\"https://H5现网环境地址前缀\""
 
 config.server = server
-
-//GreenDao版本
-config.dao_version = 1
 
 ext.config = config

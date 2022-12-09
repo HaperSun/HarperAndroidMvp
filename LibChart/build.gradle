@@ -4,12 +4,12 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.philjay'
 
 android {
-    compileSdkVersion build_version.compile_sdk
-    buildToolsVersion build_version.build_tools
+    compileSdkVersion ver.compileSdk
+    buildToolsVersion ver.buildTools
 
     defaultConfig {
-        minSdkVersion build_version.min_sdk
-        targetSdkVersion build_version.target_sdk
+        minSdkVersion ver.minSdk
+        targetSdkVersion ver.targetSdk
     }
     
     buildTypes {

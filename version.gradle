@@ -1,5 +1,6 @@
 ext.ver = [:]
 
+//------------------------------------------------importSdk-----------------------------------------
 def version = [:]
 version.appcompat = "1.2.0"
 
@@ -70,12 +71,19 @@ ver.slidinguppanel = "com.sothree.slidinguppanel:library:3.4.0"
 //android.preference.PreferenceManager过时了，替换成androidx.preference.PreferenceManager
 ver.preference = "androidx.preference:preference:1.1.1"
 
-ext.ver = ver
+//-------------------------------------------------build相关-----------------------------------------
+ver.compileSdk = 30
+ver.buildTools = "30.0.3"
+ver.packageName = "com.sun.demo2"
+ver.minSdk = 21
+ver.targetSdk = 30
+ver.version_java = JavaVersion.VERSION_1_8
+ver.appName = "Harper"
 
-def build_version = [:]
-build_version.compile_sdk = 30
-build_version.build_tools = "30.0.3"
-build_version.min_sdk = 21
-build_version.target_sdk = 30
-build_version.version_java = JavaVersion.VERSION_1_8
-ext.build_version = build_version
+//--------------------------------------------apk升级时需要改动的东西-----------------------------------
+ver.versionCode = 1
+ver.versionName = "v0.0.1"
+//GreenDao版本
+ver.greenDaoVersion = 1
+
+ext.ver = ver

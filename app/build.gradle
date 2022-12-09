@@ -3,22 +3,28 @@ plugins {
 }
 
 android {
-    compileSdkVersion build_version.compile_sdk
-    buildToolsVersion build_version.build_tools
+    compileSdkVersion ver.compileSdk
+    buildToolsVersion ver.buildTools
     defaultConfig {
         multiDexEnabled true
-        applicationId config.app.package
-        minSdkVersion build_version.min_sdk
-        targetSdkVersion build_version.target_sdk
-        versionCode config.app.versionCode
-        versionName config.app.versionName
+        applicationId ver.packageName
+        minSdkVersion ver.minSdk
+        targetSdkVersion ver.targetSdk
+        versionCode ver.versionCode
+        versionName ver.versionName
 
         //版本名后面添加一句话，意思就是flavor dimension 它的维度就是该版本号，这样维度就是都是统一的了
         //用来解决All flavors must now belong to a named flavor dimension问题
         flavorDimensions "versionCode"
-//        ndk {
+        ndk {
+//            //编译32位的apk
+//            abiFilters 'armeabi-v7a'
+//            //编译64位的apk
+//            abiFilters 'arm64-v8a'
+            //编译32和64的兼容版apk
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
 //            abiFilters "armeabi","armeabi-v7a","x86","mips"
-//        }
+        }
     }
 
     signingConfigs {
@@ -39,9 +45,9 @@ android {
     productFlavors {
         //多渠道打包
         dev {
-            applicationId "com.sun.demo2"
+            applicationId ver.packageName
             manifestPlaceholders = [
-                    APP_NAME     : "Harper测试",
+                    APP_NAME     : "${ver.appName}测试",
                     UMENG_APP_KEY: config.app.umeng_app_key //友盟
             ]
             buildConfigField "String", "Base_URL", config.server.urlTest
@@ -50,9 +56,9 @@ android {
             buildConfigField "String", "VAR_STRING", '"我是String"'
         }
         pro {
-            applicationId "com.sun.demo2"
+            applicationId ver.packageName
             manifestPlaceholders = [
-                    APP_NAME     : "Harper",
+                    APP_NAME     : ver.appName,
                     UMENG_APP_KEY: config.app.umeng_app_key //友盟
             ]
             buildConfigField "String", "Base_URL", config.server.urlRelease
@@ -67,10 +73,9 @@ android {
         variant.outputs.all {
             def date = new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+08"))
             if (variant.buildType.name == 'debug') {
-                outputFileName = "harper_${date}.apk"
-            }
-            if (variant.buildType.name == 'release') {
-                outputFileName = "harper_${versionName}_${date}.apk"
+                outputFileName = "${ver.appName}_${date}.apk"
+            } else if (variant.buildType.name == 'release') {
+                outputFileName = "${ver.appName}_${versionName}_${date}.apk"
             }
         }
     }
@@ -88,8 +93,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility build_version.version_java
-        targetCompatibility build_version.version_java
+        sourceCompatibility ver.version_java
+        targetCompatibility ver.version_java
     }
 
     //老的dataBinding启动方式报警告：DSL element 'android.dataBinding.enabled' is obsolete and has been replaced with 'android.buildFeatu
