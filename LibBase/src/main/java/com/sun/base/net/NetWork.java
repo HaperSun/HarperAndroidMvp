@@ -24,7 +24,7 @@ public class NetWork extends RetrofitUtil {
 
     public static void init() {
         instance = new NetWork();
-        RetrofitUtil.initRetrofit(AppUtil.getServerUrl());
+        RetrofitUtil.initRetrofit(AppUtil.mBaseUrl);
     }
 
     public static NetWork getInstance() {

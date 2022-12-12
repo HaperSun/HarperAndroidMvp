@@ -28,7 +28,7 @@ public class LoginInfoSp extends AbstractSharePreferenceOperate<String> {
 
     @Override
     protected SharedPreferences getSharedPreferences() {
-        return SpHelper.getAppSharedPreferences(AppUtil.getCtx());
+        return SpHelper.getAppSharedPreferences(AppUtil.ctx);
     }
 
     @Override

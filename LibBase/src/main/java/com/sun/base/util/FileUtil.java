@@ -48,7 +48,7 @@ public class FileUtil {
      * @return File
      */
     public static File getExternalFileDir(String dir) {
-        Context context= AppUtil.getCtx();
+        Context context= AppUtil.ctx;
         if (context == null) {
             return null;
         }
@@ -609,7 +609,7 @@ public class FileUtil {
 
     public static String getMediaFileName(){
         String name = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath()
-                + "/" + AppUtil.getCtx().getString(R.string.app_name);
+                + "/" + AppUtil.ctx.getString(R.string.app_name);
         File mediaDir = new File(name);
         if (!mediaDir.exists()) {
             mediaDir.mkdirs();

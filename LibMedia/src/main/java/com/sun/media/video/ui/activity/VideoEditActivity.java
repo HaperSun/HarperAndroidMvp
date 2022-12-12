@@ -17,10 +17,10 @@ import androidx.annotation.Nullable;
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.bean.MediaFile;
 import com.sun.base.bean.Parameter;
-import com.sun.base.bean.TDevice;
 import com.sun.base.toast.ToastHelper;
 import com.sun.base.util.CollectionUtil;
 import com.sun.base.util.DataUtil;
+import com.sun.base.util.ScreenUtil;
 import com.sun.media.R;
 import com.sun.media.databinding.ActivityVideoEditBinding;
 import com.sun.media.img.ImageLoader;
@@ -134,7 +134,7 @@ public class VideoEditActivity extends BaseMvpActivity<ActivityVideoEditBinding>
             public void onLoadingComplete(Bitmap bitmap) {
                 float ra = bitmap.getWidth() * 1f / bitmap.getHeight();
                 ViewGroup.LayoutParams layoutParams = vdb.textureView.getLayoutParams();
-                layoutParams.width = TDevice.getScreenWidth();
+                layoutParams.width = ScreenUtil.getScreenWidth();
                 layoutParams.height = (int) (layoutParams.width / ra);
                 vdb.textureView.setLayoutParams(layoutParams);
             }

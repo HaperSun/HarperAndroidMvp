@@ -1,8 +1,9 @@
-package com.sun.base.bean;
+package com.sun.base.util;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -46,9 +47,6 @@ import androidx.core.content.FileProvider;
 
 import com.sun.base.R;
 import com.sun.base.toast.ToastHelper;
-import com.sun.base.util.AppUtil;
-import com.sun.base.util.LogHelper;
-import com.sun.base.util.StringUtil;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -66,13 +64,13 @@ import java.util.List;
  * @note: 设备相关工具类
  */
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-public class TDevice {
+public class DeviceUtil {
 
-    private static final String TAG = "TDevice";
+    private static final String TAG = DeviceUtil.class.getSimpleName();
     // 手机网络类型
-    public static final int NETTYPE_WIFI = 0x01;
-    public static final int NETTYPE_CMWAP = 0x02;
-    public static final int NETTYPE_CMNET = 0x03;
+    public static final int NET_TYPE_WIFI = 0x01;
+    public static final int NET_TYPE_CMWAP = 0x02;
+    public static final int NET_TYPE_CMNET = 0x03;
     private static Boolean _hasBigScreen = null;
     private static Boolean _hasCamera = null;
     private static Boolean _isTablet = null;
@@ -80,14 +78,15 @@ public class TDevice {
     private static float displayDensity = 0.0F;
 
 
-    private TDevice() {
+    private DeviceUtil() {
+        throw new RuntimeException("you cannot new DeviceUtil!");
     }
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
     public static int dip2px(float dpValue) {
-        final float scale = AppUtil.getCtx().getResources().getDisplayMetrics().density;
+        final float scale = AppUtil.ctx.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -95,13 +94,13 @@ public class TDevice {
      * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
      */
     public static int px2dip(float pxValue) {
-        final float scale = AppUtil.getCtx().getResources().getDisplayMetrics().density;
+        final float scale = AppUtil.ctx.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
     public static int getDefaultLoadFactor() {
         if (_loadFactor == null) {
-            Integer integer = Integer.valueOf(0xf & AppUtil.getCtx().getResources().getConfiguration().screenLayout);
+            Integer integer = Integer.valueOf(0xf & AppUtil.ctx.getResources().getConfiguration().screenLayout);
             _loadFactor = integer;
             _loadFactor = Integer.valueOf(Math.max(integer.intValue(), 1));
         }
@@ -117,16 +116,8 @@ public class TDevice {
 
     public static DisplayMetrics getDisplayMetrics() {
         DisplayMetrics displaymetrics = new DisplayMetrics();
-        ((WindowManager) AppUtil.getCtx().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
+        ((WindowManager) AppUtil.ctx.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
         return displaymetrics;
-    }
-
-    public static int getScreenHeight() {
-        return getDisplayMetrics().heightPixels;
-    }
-
-    public static int getScreenWidth() {
-        return getDisplayMetrics().widthPixels;
     }
 
     public static int[] getRealScreenSize(Activity activity) {
@@ -142,10 +133,8 @@ public class TDevice {
         // includes window decorations (statusbar bar/menu bar)
         if (Build.VERSION.SDK_INT < 17) {
             try {
-                screenWidth = (Integer) Display.class.getMethod("getRawWidth")
-                        .invoke(d);
-                screenHeight = (Integer) Display.class
-                        .getMethod("getRawHeight").invoke(d);
+                screenWidth = (Integer) Display.class.getMethod("getRawWidth").invoke(d);
+                screenHeight = (Integer) Display.class.getMethod("getRawHeight").invoke(d);
             } catch (Exception ignored) {
                 LogHelper.e(TAG, "getRawWidth or getRawHeight exception", ignored);
             }
@@ -171,8 +160,7 @@ public class TDevice {
         boolean flag = true;
         if (_hasBigScreen == null) {
             boolean flag1;
-            flag1 = (0xf & AppUtil.getCtx().getResources()
-                    .getConfiguration().screenLayout) >= 3;
+            flag1 = (0xf & AppUtil.ctx.getResources().getConfiguration().screenLayout) >= 3;
             Boolean boolean1 = Boolean.valueOf(flag1);
             _hasBigScreen = boolean1;
             if (!boolean1.booleanValue()) {
@@ -187,10 +175,8 @@ public class TDevice {
 
     public static boolean hasCamera() {
         if (_hasCamera == null) {
-            PackageManager pckMgr = AppUtil.getCtx()
-                    .getPackageManager();
-            boolean flag = pckMgr
-                    .hasSystemFeature("android.hardware.camera.front");
+            PackageManager pckMgr = AppUtil.ctx.getPackageManager();
+            boolean flag = pckMgr.hasSystemFeature("android.hardware.camera.front");
             boolean flag1 = pckMgr.hasSystemFeature("android.hardware.camera");
             boolean flag2 = flag || flag1;
             _hasCamera = Boolean.valueOf(flag2);
@@ -204,7 +190,7 @@ public class TDevice {
      * @return boolean
      */
     public static boolean isSupportFlash() {
-        PackageManager pm = AppUtil.getCtx().getPackageManager();
+        PackageManager pm = AppUtil.ctx.getPackageManager();
         FeatureInfo[] features = pm.getSystemAvailableFeatures();
         for (FeatureInfo f : features) {
             // 判断设备是否支持闪光灯
@@ -216,7 +202,7 @@ public class TDevice {
     }
 
     public static boolean hasInternet() {
-        return ((ConnectivityManager) AppUtil.getCtx().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null;
+        return ((ConnectivityManager) AppUtil.ctx.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null;
     }
 
     public static boolean gotoGoogleMarket(Activity activity, String pck) {
@@ -235,8 +221,7 @@ public class TDevice {
 
     public static boolean isPackageExist(String pckName) {
         try {
-            PackageInfo pckInfo = AppUtil.getCtx().getPackageManager()
-                    .getPackageInfo(pckName, 0);
+            PackageInfo pckInfo = AppUtil.ctx.getPackageManager().getPackageInfo(pckName, 0);
             if (pckInfo != null) {
                 return true;
             }
@@ -247,24 +232,18 @@ public class TDevice {
     }
 
     public static void hideSoftKeyboard(View view) {
-        if (view == null) {
-            return;
+        if (view != null) {
+            ((InputMethodManager) AppUtil.ctx.getSystemService(Context.INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
-        ((InputMethodManager) AppUtil.getCtx().getSystemService(
-                Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
-                view.getWindowToken(), 0);
     }
 
     public static boolean isLandscape() {
-        return AppUtil.getCtx().getResources().getConfiguration().orientation == 2;
+        return AppUtil.ctx.getResources().getConfiguration().orientation == 2;
     }
 
     public static boolean isPortrait() {
-        boolean flag = true;
-        if (AppUtil.getCtx().getResources().getConfiguration().orientation != 1) {
-            flag = false;
-        }
-        return flag;
+        return AppUtil.ctx.getResources().getConfiguration().orientation == 1;
     }
 
     /**
@@ -274,16 +253,11 @@ public class TDevice {
      */
     public static boolean isTablet() {
         if (_isTablet == null) {
-            boolean flag = (AppUtil.getCtx().getResources().getConfiguration().screenLayout
-                    & Configuration.SCREENLAYOUT_SIZE_MASK)
-                    >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+            boolean flag = (AppUtil.ctx.getResources().getConfiguration().screenLayout
+                    & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
             _isTablet = Boolean.valueOf(flag);
         }
         return _isTablet.booleanValue();
-    }
-
-    public static float pixelsToDp(float f) {
-        return f / (getDisplayMetrics().densityDpi / 160F);
     }
 
     public static void showSoftKeyboard(Dialog dialog) {
@@ -296,15 +270,13 @@ public class TDevice {
     }
 
     public static void showSoftKeyboard(View view) {
-        ((InputMethodManager) AppUtil.getCtx().getSystemService(
-                Context.INPUT_METHOD_SERVICE)).showSoftInput(view,
-                InputMethodManager.RESULT_UNCHANGED_SHOWN);
+        ((InputMethodManager) AppUtil.ctx.getSystemService(Context.INPUT_METHOD_SERVICE))
+                .showSoftInput(view, InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
 
-    public static void toogleSoftKeyboard(View view) {
-        ((InputMethodManager) AppUtil.getCtx().getSystemService(
-                Context.INPUT_METHOD_SERVICE)).toggleSoftInput(0,
-                InputMethodManager.HIDE_NOT_ALWAYS);
+    public static void toggleSoftKeyboard() {
+        ((InputMethodManager) AppUtil.ctx.getSystemService(Context.INPUT_METHOD_SERVICE))
+                .toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     /**
@@ -375,10 +347,8 @@ public class TDevice {
                 gotoMarket(context, pckName);
             } catch (Exception ex) {
                 try {
-                    String otherMarketUri = "http://market.android.com/details?id="
-                            + pckName;
-                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse(otherMarketUri));
+                    String otherMarketUri = "http://market.android.com/details?id=" + pckName;
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(otherMarketUri));
                     context.startActivity(intent);
                 } catch (Exception e) {
                     LogHelper.e(TAG, "openAppInMarket exception", e);
@@ -403,7 +373,7 @@ public class TDevice {
 
     public static PackageInfo getPackageInfo(String pckName) {
         try {
-            return AppUtil.getCtx().getPackageManager()
+            return AppUtil.ctx.getPackageManager()
                     .getPackageInfo(pckName, 0);
         } catch (NameNotFoundException e) {
             LogHelper.e(e.getMessage());
@@ -414,8 +384,7 @@ public class TDevice {
     public static String getAppName(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            PackageInfo packageInfo = packageManager.getPackageInfo(
-                    context.getPackageName(), 0);
+            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
             int labelRes = packageInfo.applicationInfo.labelRes;
             return context.getResources().getString(labelRes);
         } catch (NameNotFoundException e) {
@@ -427,21 +396,7 @@ public class TDevice {
     public static int getVersionCode() {
         int versionCode;
         try {
-            versionCode = AppUtil.getCtx()
-                    .getPackageManager()
-                    .getPackageInfo(AppUtil.getPackageName(),
-                            0).versionCode;
-        } catch (NameNotFoundException ex) {
-            versionCode = 0;
-        }
-        return versionCode;
-    }
-
-    public static int getVersionCode(String packageName) {
-        int versionCode;
-        try {
-            versionCode = AppUtil.getCtx().getPackageManager()
-                    .getPackageInfo(packageName, 0).versionCode;
+            versionCode = AppUtil.ctx.getPackageManager().getPackageInfo(AppUtil.mVersionName, 0).versionCode;
         } catch (NameNotFoundException ex) {
             versionCode = 0;
         }
@@ -451,9 +406,7 @@ public class TDevice {
     public static String getVersionName() {
         String name;
         try {
-            name = AppUtil.getCtx()
-                    .getPackageManager()
-                    .getPackageInfo(AppUtil.getPackageName(),
+            name = AppUtil.ctx.getPackageManager().getPackageInfo(AppUtil.mVersionName,
                             0).versionName;
         } catch (NameNotFoundException ex) {
             name = "";
@@ -540,8 +493,7 @@ public class TDevice {
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file),
-                "application/vnd.android.package-archive");
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
         return intent;
     }
 
@@ -573,7 +525,8 @@ public class TDevice {
 
     @SuppressLint("WrongConstant")
     public static void openCamera(Context context) {
-        Intent intent = new Intent(); // 调用照相机
+        // 调用照相机
+        Intent intent = new Intent();
         intent.setAction("android.media.action.STILL_IMAGE_CAMERA");
         intent.setFlags(0x34c40000);
         context.startActivity(intent);
@@ -586,7 +539,7 @@ public class TDevice {
      * @return
      */
     public static String getIMEI() {
-        TelephonyManager tel = (TelephonyManager) AppUtil.getCtx().getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tel = (TelephonyManager) AppUtil.ctx.getSystemService(Context.TELEPHONY_SERVICE);
         if (tel == null) {
             return null;
         }
@@ -601,7 +554,7 @@ public class TDevice {
      */
     public static String getWlanMacAddress() {
         @SuppressLint("WifiManagerLeak")
-        WifiManager wm = (WifiManager) AppUtil.getCtx().getSystemService(Context.WIFI_SERVICE);
+        WifiManager wm = (WifiManager) AppUtil.ctx.getSystemService(Context.WIFI_SERVICE);
         if (wm == null) {
             return null;
         }
@@ -726,7 +679,7 @@ public class TDevice {
      * @return
      */
     public static String getPesudoUniqueID() {
-        String pesudoUniqueID = "35" + //we make this look like a valid IMEI
+        return  "35" + //we make this look like a valid IMEI
                 Build.BOARD.length() % 10 +
                 Build.BRAND.length() % 10 +
                 Build.CPU_ABI.length() % 10 +
@@ -740,7 +693,6 @@ public class TDevice {
                 Build.TAGS.length() % 10 +
                 Build.TYPE.length() % 10 +
                 Build.USER.length() % 10; //13 digits
-        return pesudoUniqueID;
     }
 
     private static String sUniqueDeviceID;//唯一的设备ID
@@ -781,8 +733,7 @@ public class TDevice {
     }
 
     public static void openApp(Context context, String packageName) {
-        Intent mainIntent = AppUtil.getCtx().getPackageManager()
-                .getLaunchIntentForPackage(packageName);
+        Intent mainIntent = AppUtil.ctx.getPackageManager().getLaunchIntentForPackage(packageName);
         if (mainIntent == null) {
             mainIntent = new Intent(packageName);
         } else {
@@ -791,8 +742,7 @@ public class TDevice {
         context.startActivity(mainIntent);
     }
 
-    public static boolean openAppActivity(Context context, String packageName,
-                                          String activityName) {
+    public static boolean openAppActivity(Context context, String packageName, String activityName) {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         ComponentName cn = new ComponentName(packageName, activityName);
@@ -807,21 +757,18 @@ public class TDevice {
 
     public static void uninstallApk(Context context, String packageName) {
         if (isPackageExist(packageName)) {
-            Uri packageURI = Uri.parse("package:" + packageName);
-            Intent uninstallIntent = new Intent(Intent.ACTION_DELETE,
-                    packageURI);
+            Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + packageName));
             context.startActivity(uninstallIntent);
         }
     }
 
     @SuppressWarnings("deprecation")
     public static void copyTextToBoard(Context context, String string) {
-        if (TextUtils.isEmpty(string)) {
-            return;
+        if (!TextUtils.isEmpty(string)) {
+            ClipboardManager clip = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            clip.setText(string);
+            ToastHelper.showToast(AppUtil.ctx.getResources().getString(R.string.copied_to_pasteboard));
         }
-        ClipboardManager clip = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-        clip.setText(string);
-        ToastHelper.showToast(AppUtil.getCtx().getResources().getString(R.string.copied_to_pasteboard));
     }
 
     /**
@@ -832,8 +779,7 @@ public class TDevice {
      * @param content 内容
      * @param emails  邮件地址
      */
-    public static void sendEmail(Context context, String subject,
-                                 String content, String... emails) {
+    public static void sendEmail(Context context, String subject, String content, String... emails) {
         try {
             Intent intent = new Intent(Intent.ACTION_SEND);
             // 模拟器
@@ -860,8 +806,7 @@ public class TDevice {
      * @param title
      * @param url
      */
-    public static void showSystemShareOption(Activity context,
-                                             final String title, final String url) {
+    public static void showSystemShareOption(Activity context, final String title, final String url) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, "分享：" + title);
@@ -876,7 +821,7 @@ public class TDevice {
      */
     public static int getNetworkType() {
         int netType = 0;
-        ConnectivityManager connectivityManager = (ConnectivityManager) AppUtil.getCtx()
+        ConnectivityManager connectivityManager = (ConnectivityManager) AppUtil.ctx
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo == null) {
@@ -887,20 +832,20 @@ public class TDevice {
             String extraInfo = networkInfo.getExtraInfo();
             if (!StringUtil.isEmpty(extraInfo)) {
                 if (extraInfo.toLowerCase().equals("cmnet")) {
-                    netType = NETTYPE_CMNET;
+                    netType = NET_TYPE_CMNET;
                 } else {
-                    netType = NETTYPE_CMWAP;
+                    netType = NET_TYPE_CMWAP;
                 }
             }
         } else if (nType == ConnectivityManager.TYPE_WIFI) {
-            netType = NETTYPE_WIFI;
+            netType = NET_TYPE_WIFI;
         }
         return netType;
     }
 
     public static int getStatusBarHeight() {
         int result = 0;
-        Resources resources = AppUtil.getCtx().getResources();
+        Resources resources = AppUtil.ctx.getResources();
         int resId = resources.getIdentifier("status_bar_height", "dimen", "android");
         if (resId > 0) {
             result = resources.getDimensionPixelOffset(resId);
@@ -942,12 +887,12 @@ public class TDevice {
     /**
      * 判断安装的版本是不是debug版本 <br/>
      */
-    public static boolean isApkDebugable() {
+    public static boolean isApkDebug() {
         try {
-            ApplicationInfo info = AppUtil.getCtx().getApplicationInfo();
+            ApplicationInfo info = AppUtil.ctx.getApplicationInfo();
             return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return false;
     }
@@ -1027,38 +972,17 @@ public class TDevice {
             }
         } catch (NameNotFoundException e) {
             Log.e(TAG, e.getMessage(), e);
-        } finally {
-            return result;
         }
+        return result;
     }
 
     /**
      * 当前app是否开启通知权限
      *
-     * @param context
-     * @return
+     * @return boolean
      */
-    public static boolean isNotificationEnabled(Context context) {
-        /*String CHECK_OP_NO_THROW = "checkOpNoThrow";
-        String OP_POST_NOTIFICATION = "OP_POST_NOTIFICATION";
-        AppOpsManager mAppOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
-        ApplicationInfo appInfo = context.getApplicationInfo();
-        String pkg = context.getPackageName();
-        int uid = appInfo.uid;
-        Class appOpsClass = null;
-        *//* Context.APP_OPS_MANAGER *//*
-        try {
-            appOpsClass = Class.forName(AppOpsManager.class.getName());
-            Method checkOpNoThrowMethod = appOpsClass.getMethod(CHECK_OP_NO_THROW, Integer.TYPE, Integer.TYPE,
-                    String.class);
-            Field opPostNotificationValue = appOpsClass.getDeclaredField(OP_POST_NOTIFICATION);
-            int value = (Integer) opPostNotificationValue.get(Integer.class);
-            return ((Integer) checkOpNoThrowMethod.invoke(mAppOps, value, uid, pkg) == AppOpsManager.MODE_ALLOWED);
-        } catch (Exception e) {
-            MyLogUtil.e(TAG, "AppOpsManager exception", e);
-        }
-        return true;*/
-        return NotificationManagerCompat.from(context).areNotificationsEnabled();
+    public static boolean isNotificationEnabled() {
+        return NotificationManagerCompat.from(AppUtil.ctx).areNotificationsEnabled();
     }
 
     /**
@@ -1093,11 +1017,9 @@ public class TDevice {
      * @return
      */
     public static boolean hasFrontCamera(Context context) {
-        boolean hasCamera = false;
         PackageManager pm = context.getPackageManager();
-        hasCamera = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT) ||
+        return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT) ||
                 Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD || Camera.getNumberOfCameras() > 0;
-        return hasCamera;
     }
 
     /**
@@ -1131,10 +1053,56 @@ public class TDevice {
             try {
                 int result = manager.checkOp(AppOpsManager.OPSTR_SYSTEM_ALERT_WINDOW, Binder.getCallingUid(), context.getPackageName());
                 hasPermission = result == AppOpsManager.MODE_ALLOWED;
-            } catch (Exception ignore) {
-                ignore.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return hasPermission && Settings.canDrawOverlays(context);
+    }
+
+    @SuppressLint("WrongConstant")
+    public static boolean hasAppInstalled(String pkgName) {
+        try {
+            AppUtil.ctx.getPackageManager().getPackageInfo(pkgName, PackageManager.PERMISSION_GRANTED);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    public static boolean isAppRunInBackground() {
+        ActivityManager activityManager = (ActivityManager) AppUtil.ctx.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(AppUtil.mVersionName)) {
+                // return true -> Run in background
+                // return false - > Run in foreground
+                return appProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+            }
+        }
+        return false;
+    }
+
+    private static final String[] huaweiRongYao = {
+            "hwH60",    //荣耀6
+            "hwPE",     //荣耀6 plus
+            "hwH30",    //3c
+            "hwHol",    //3c畅玩版
+            "hwG750",   //3x
+            "hw7D",      //x1
+            "hwChe2",      //x1
+    };
+
+    public static String getDeviceModel() {
+        return Build.DEVICE;
+    }
+
+    public static boolean isHuaWeiRongYao() {
+        for (String s : huaweiRongYao) {
+            if (s.equals(getDeviceModel())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

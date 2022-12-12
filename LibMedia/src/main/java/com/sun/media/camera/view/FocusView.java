@@ -34,7 +34,7 @@ public class FocusView extends View {
 
     public FocusView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.size = ScreenUtil.getScreenWidth(context) / 3;
+        this.size = ScreenUtil.getScreenWidth() / 3;
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);

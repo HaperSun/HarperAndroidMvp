@@ -96,7 +96,7 @@ public class UpLoadFileHelper {
 
 
     public UpLoadFileHelper(String module, String destPath) {
-        mContext = AppUtil.getCtx();
+        mContext = AppUtil.ctx;
         this.module = module;
         this.destPath = destPath;
         initUploadService();

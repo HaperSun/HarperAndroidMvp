@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.sun.base.base.widget.BaseMvpService;
 import com.sun.base.bean.Constant;
-import com.sun.base.bean.TDevice;
+import com.sun.base.util.DeviceUtil;
 import com.sun.base.net.exception.ApiException;
 import com.sun.base.util.CollectionUtil;
 import com.sun.base.util.FileUtil;
@@ -135,7 +135,7 @@ public class UpdateService extends BaseMvpService implements IGetUpdateInfoView 
                     isCancelDownloading = true;
                     break;
                 case CMD_INSTALL:
-                    TDevice.installAPK(getApplicationContext(),
+                    DeviceUtil.installAPK(getApplicationContext(),
                             new File(downloadDir, downloadFileName));
                     break;
                 case CMD_MANUAL_UPDATE:

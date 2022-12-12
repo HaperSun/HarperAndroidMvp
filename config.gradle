@@ -5,6 +5,7 @@ def config = [:]
 def app = [:]
 //友盟的 app_key
 app.umeng_app_key = "6193821ce014255fcb7d1395"
+app.umeng_sha= "5cbad65a570df39ea70012b8"
 //百度人脸识别
 /*
 * <p>
@@ -23,7 +24,9 @@ app.qClound_secret_id = "AKIDf6GAlwopWv4KKoRQXOzJM8h7F5hzDjRr"//永久密钥 sec
 app.qClound_secret_key = "H1UfhTzEDvLTKwHKfnhKgmb9PN32knal"//永久密钥 secretKey
 app.qClound_region = "ap-nanjing"// 存储桶所在地域简称，例如广州地区是 ap-guangzhou
 app.qClound_bucket = "xsx-1252375120"//存储桶，格式：BucketName-APPID
-
+//微信
+app.wei_xin_sha = "wx18719ce4d83c714a"
+app.wei_xin_sha1 = "c766c2b5d6151ccf926dd03cbc8e56a5"
 
 config.app = app
 

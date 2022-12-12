@@ -32,14 +32,14 @@ public class StorageUtil {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
           sDataDir = Environment.getExternalStorageDirectory().getPath() + APP_DATA_PATH;
           if (TextUtils.isEmpty(sDataDir)) {
-            sDataDir = AppUtil.getCtx().getFilesDir().getAbsolutePath();
+            sDataDir = AppUtil.ctx.getFilesDir().getAbsolutePath();
           }
         } else {
-          sDataDir = AppUtil.getCtx().getFilesDir().getAbsolutePath();
+          sDataDir = AppUtil.ctx.getFilesDir().getAbsolutePath();
         }
       } catch (Throwable e) {
         e.printStackTrace();
-        sDataDir = AppUtil.getCtx().getFilesDir().getAbsolutePath();
+        sDataDir = AppUtil.ctx.getFilesDir().getAbsolutePath();
       }
       File file = new File(sDataDir);
       if (!file.exists()) {//判断文件目录是否存在
@@ -52,7 +52,7 @@ public class StorageUtil {
   public static String getCacheDir() {
     if (TextUtils.isEmpty(sCacheDir)) {
       File file = null;
-      Context context = AppUtil.getCtx();
+      Context context = AppUtil.ctx;
       try {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
           file = context.getExternalCacheDir();

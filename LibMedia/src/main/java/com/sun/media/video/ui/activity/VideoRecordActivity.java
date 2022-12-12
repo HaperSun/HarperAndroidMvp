@@ -12,7 +12,7 @@ import android.view.View;
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.bean.MediaFile;
 import com.sun.base.bean.Parameter;
-import com.sun.base.bean.TDevice;
+import com.sun.base.util.DeviceUtil;
 import com.sun.base.util.DataUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogHelper;
@@ -83,7 +83,7 @@ public class VideoRecordActivity extends BaseMvpActivity<ActivityVideoRecordBind
         vdb.videoRecordPhoto.setOnClickListener(this);
         vdb.videoRecordSelect.setOnClickListener(this);
         vdb.videoRecordStart.setOnClickListener(this);
-        vdb.videoRecordStart.setVisibility(TDevice.hasFrontCamera(mContext) ? View.VISIBLE : View.GONE);
+        vdb.videoRecordStart.setVisibility(DeviceUtil.hasFrontCamera(mContext) ? View.VISIBLE : View.GONE);
         if (!PermissionUtil.checkCamera()) {
             PermissionUtil.requestCamera(this, state -> {
 

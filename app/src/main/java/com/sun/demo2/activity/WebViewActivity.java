@@ -29,7 +29,7 @@ public class WebViewActivity extends BaseMvpActivity<ActivityWebViewBinding> {
 
     @Override
     public void initView() {
-        vdb.tvUrl.setText(AppUtil.getServerUrl());
+        vdb.tvUrl.setText(AppUtil.mBaseUrl);
         vdb.tvH5Url.setText(BuildConfig.Base_URL_H5);
     }
 

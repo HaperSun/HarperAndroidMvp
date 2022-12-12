@@ -16,8 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sun.base.bean.MediaFile;
-import com.sun.base.bean.TDevice;
 import com.sun.base.util.CollectionUtil;
+import com.sun.base.util.ScreenUtil;
 import com.sun.base.widget.SpacesItemDecoration;
 import com.sun.media.R;
 import com.sun.media.img.ImageLoader;
@@ -165,7 +165,7 @@ public class MediaDisplayWidget extends FrameLayout {
      * 获取最大宽度
      */
     private int getMaxWidth() {
-        return TDevice.getScreenWidth() - getResources().getDimensionPixelSize(R.dimen.dp30);
+        return ScreenUtil.getScreenWidth() - getResources().getDimensionPixelSize(R.dimen.dp30);
     }
 
     static class Adapter extends RecyclerView.Adapter<Adapter.Holder> {

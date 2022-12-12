@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.sun.base.base.activity.BaseMvpActivity;
 import com.sun.base.bean.Parameter;
-import com.sun.base.bean.TDevice;
+import com.sun.base.util.DeviceUtil;
 import com.sun.media.R;
 import com.sun.media.databinding.ActivityVidoPalyBinding;
 import com.sun.media.video.model.SuperPlayerDef;
@@ -114,7 +114,7 @@ public class VideoPlayActivity extends BaseMvpActivity<ActivityVidoPalyBinding> 
             vdb.superPlayerView.switchPlayMode(SuperPlayerDef.PlayerMode.WINDOW);
             //当从全屏模式返回窗口模式时，SuperPlayerView会clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
             //导致窗口模式的全屏失效，需要重新设置下
-            TDevice.setFullScreen(this);
+            DeviceUtil.setFullScreen(this);
         } else {
             close();
         }

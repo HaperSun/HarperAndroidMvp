@@ -27,7 +27,6 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
-import com.sun.base.bean.TDevice;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -468,7 +467,7 @@ public class CommonUtil {
     public static String getVendor() {
         String vendor = null;
         try {
-            ApplicationInfo appInfo = AppUtil.getCtx().getPackageManager().getApplicationInfo(AppUtil.getPackageName(),
+            ApplicationInfo appInfo = AppUtil.ctx.getPackageManager().getApplicationInfo(AppUtil.mVersionName,
                     PackageManager.GET_META_DATA);
             vendor = appInfo.metaData.getString("UMENG_CHANNEL");
         } catch (PackageManager.NameNotFoundException e) {
@@ -488,7 +487,7 @@ public class CommonUtil {
         if (TextUtils.isEmpty(filePath)) {
             return null;
         }
-        return AppUtil.getCtx().getResources().getAssets().open(filePath);
+        return AppUtil.ctx.getResources().getAssets().open(filePath);
     }
 
     /**
@@ -524,7 +523,7 @@ public class CommonUtil {
      * @return boolean
      */
     public static boolean isScreenOrientationVertical() {
-        return AppUtil.getCtx().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        return AppUtil.ctx.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
     /**
@@ -543,8 +542,8 @@ public class CommonUtil {
     public static final String PHONE_TYPE_10 = "FDR-A01w";//型号
 
     public static boolean isHuaWeiC5() {
-        String deviceBrand = TDevice.getDeviceBrand();
-        String phoneType = TDevice.getPhoneType();
+        String deviceBrand = DeviceUtil.getDeviceBrand();
+        String phoneType = DeviceUtil.getPhoneType();
         return (TextUtils.equals(deviceBrand, PHONE_BRAND) && (TextUtils.equals(phoneType, PHONE_TYPE_01)
                 || TextUtils.equals(phoneType, PHONE_TYPE_02))) || TextUtils.equals(phoneType, PHONE_TYPE_03)
                 || TextUtils.equals(phoneType, PHONE_TYPE_04)
@@ -554,7 +553,7 @@ public class CommonUtil {
     }
 
     public static boolean isTeacherHuaWeiC5() {
-        String phoneType = TDevice.getPhoneType();
+        String phoneType = DeviceUtil.getPhoneType();
         return TextUtils.equals(phoneType, PHONE_TYPE_01)
                 || TextUtils.equals(phoneType, PHONE_TYPE_02)
                 || TextUtils.equals(phoneType, PHONE_TYPE_08)

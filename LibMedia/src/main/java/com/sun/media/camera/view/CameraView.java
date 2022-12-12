@@ -134,7 +134,7 @@ public class CameraView extends FrameLayout implements CameraInterface.CameraOpe
     }
 
     private void initData() {
-        layoutWidth = ScreenUtil.getScreenWidth(mContext);
+        layoutWidth = ScreenUtil.getScreenWidth();
         //缩放梯度
         zoomGradient = (int) (layoutWidth / 16f);
         LogHelper.i("zoom = " + zoomGradient);

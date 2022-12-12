@@ -28,7 +28,7 @@ public class IJsConfig {
      */
     @JavascriptInterface
     public String getAppVersion() {
-        return AppUtil.getVersionName();
+        return AppUtil.mVersionName;
     }
 
     /**

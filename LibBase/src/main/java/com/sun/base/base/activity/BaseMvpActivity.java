@@ -65,6 +65,17 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
         }
     }
 
+    private void initBinding() {
+        //获取ViewDataBinding
+        baseBind = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_base, null, false);
+        vdb = DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        vdb.getRoot().setLayoutParams(params);
+        FrameLayout container = (FrameLayout) baseBind.getRoot().findViewById(R.id.container);
+        container.addView(vdb.getRoot());
+        getWindow().setContentView(baseBind.getRoot());
+    }
+
     private void initStatusBarColor() {
         if (!enableDarkStatusBarAndSetTitle()) {
             if (StatusBarUtil.isSupportLightStatusBar()) {
@@ -84,17 +95,6 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
             }
         }
         initTitleTheme();
-    }
-
-    private void initBinding() {
-        //获取ViewDataBinding
-        baseBind = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_base, null, false);
-        vdb = DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        vdb.getRoot().setLayoutParams(params);
-        FrameLayout container = (FrameLayout) baseBind.getRoot().findViewById(R.id.container);
-        container.addView(vdb.getRoot());
-        getWindow().setContentView(baseBind.getRoot());
     }
 
     private void initTitleTheme() {
@@ -117,9 +117,7 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
         if (mPresenters == null) {
             mPresenters = new HashSet<>();
         }
-        if (!mPresenters.contains(presenter)) {
-            mPresenters.add(presenter);
-        }
+        mPresenters.add(presenter);
     }
 
     protected void initIntent() {

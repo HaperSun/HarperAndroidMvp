@@ -23,6 +23,7 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.widget.ImageView;
 
+import com.sun.base.util.DeviceUtil;
 import com.sun.base.util.FileUtil;
 import com.sun.base.util.LogHelper;
 import com.sun.base.util.ScreenUtil;
@@ -30,7 +31,6 @@ import com.sun.media.camera.i.IErrorListener;
 import com.sun.media.camera.util.AngleUtil;
 import com.sun.media.camera.util.CameraParamUtil;
 import com.sun.media.camera.util.CheckPermission;
-import com.sun.media.video.util.DeviceUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -559,7 +559,7 @@ public class CameraInterface implements Camera.PreviewCallback {
         } else {
             mediaRecorder.setOrientationHint(nowAngle);
         }
-        if (DeviceUtil.isHuaWeiRongyao()) {
+        if (DeviceUtil.isHuaWeiRongYao()) {
             mediaRecorder.setVideoEncodingBitRate(4 * 100000);
         } else {
             mediaRecorder.setVideoEncodingBitRate(mediaQuality);
@@ -684,8 +684,8 @@ public class CameraInterface implements Camera.PreviewCallback {
     private static Rect calculateTapArea(float x, float y, float coefficient, Context context) {
         float focusAreaSize = 300;
         int areaSize = Float.valueOf(focusAreaSize * coefficient).intValue();
-        int centerX = (int) (x / ScreenUtil.getScreenWidth(context) * 2000 - 1000);
-        int centerY = (int) (y / ScreenUtil.getScreenHeight(context) * 2000 - 1000);
+        int centerX = (int) (x / ScreenUtil.getScreenWidth() * 2000 - 1000);
+        int centerY = (int) (y / ScreenUtil.getScreenHeight() * 2000 - 1000);
         int left = clamp(centerX - areaSize / 2, -1000, 1000);
         int top = clamp(centerY - areaSize / 2, -1000, 1000);
         RectF rectF = new RectF(left, top, left + areaSize, top + areaSize);

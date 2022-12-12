@@ -19,7 +19,7 @@ import static com.sun.face.util.Base64RequestBody.readFile;
 
 public class APIService {
 
-    private static final String BASE_URL = AppUtil.getServerUrl();
+    private static final String BASE_URL = AppUtil.mBaseUrl;
     private static final String RECORD_URL = BASE_URL+"/deviceInspectAPPController/insertUserFace";
     private static final String COMPARE_URL = BASE_URL+"/deviceInspectAPPController/compareUserFace";
 

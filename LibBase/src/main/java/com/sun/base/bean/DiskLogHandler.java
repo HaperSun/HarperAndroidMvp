@@ -8,6 +8,7 @@ import android.os.Message;
 import android.text.TextUtils;
 
 import com.sun.base.util.CollectionUtil;
+import com.sun.base.util.DeviceUtil;
 import com.sun.base.util.FileUtil;
 
 import java.io.File;
@@ -180,8 +181,8 @@ public class DiskLogHandler extends Handler {
      * @return String
      */
     private String getExtraInfo() {
-        return "这里开始记录一些额外信息---------------\n" + "versionName:" + TDevice.getVersionName() + "\n" +
-                "versionCode:" + TDevice.getVersionCode() + "\n" + "MANUFACTURER:" + Build.MANUFACTURER + "\n" +
+        return "这里开始记录一些额外信息---------------\n" + "versionName:" + DeviceUtil.getVersionName() + "\n" +
+                "versionCode:" + DeviceUtil.getVersionCode() + "\n" + "MANUFACTURER:" + Build.MANUFACTURER + "\n" +
                 "BRAND:" + Build.BRAND + "\n" + "MODEL:" + Build.MODEL + "\n" +
                 "PRODUCT:" + Build.PRODUCT + "\n" + "Android Version:" + Build.VERSION.RELEASE + "\n" +
                 "API:" + Build.VERSION.SDK_INT + "\n" + "额外信息记录结束---------------\n";

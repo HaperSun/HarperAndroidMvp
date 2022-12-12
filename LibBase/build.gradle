@@ -25,7 +25,8 @@ android {
     buildTypes.all { buildType ->
         resValue("string", "version_name", ver.versionName)
         //友盟appKey
-        resValue("string", "um_app_key", config.app.umeng_app_key)
+        resValue("string", "umeng_app_key", config.app.umeng_app_key)
+        resValue("string", "umeng_sha", config.app.umeng_sha)
         //百度人脸识别
         resValue("string", "bd_license_id", config.app.bd_license_id)
         resValue("string", "bd_license_file_name", config.app.bd_license_file_name)
@@ -34,6 +35,9 @@ android {
         resValue("string", "qClound_secret_key", config.app.qClound_secret_key)
         resValue("string", "qClound_region", config.app.qClound_region)
         resValue("string", "qClound_bucket", config.app.qClound_bucket)
+        //微信
+        resValue("string", "wei_xin_sha", config.app.wei_xin_sha)
+        resValue("string", "wei_xin_sha1", config.app.wei_xin_sha1)
     }
 
     compileOptions {

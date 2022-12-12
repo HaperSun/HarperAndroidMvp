@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.ProcessLifecycleOwner;
 
-import com.sun.base.bean.AppConfig;
+import com.sun.base.bean.BaseEvent;
 import com.sun.base.db.entity.UserInfo;
 import com.sun.base.db.manager.UserInfoManager;
 import com.sun.base.disk.CacheFileRule;
@@ -13,7 +13,6 @@ import com.sun.base.disk.DiskCacheManager;
 import com.sun.base.net.NetWork;
 import com.sun.base.net.NetWorks;
 import com.sun.base.net.exception.ERROR;
-import com.sun.base.bean.BaseEvent;
 import com.sun.base.service.IAccountService;
 import com.sun.base.service.ServiceFactory;
 import com.sun.base.toast.ToastHelper;
@@ -44,7 +43,7 @@ import nl.bravobit.ffmpeg.FFmpeg;
 public class MainApplication extends Application implements UserInfoManager.OnUpdateUserInfoListener,
         UserInfoManager.OnGetCurrentUserInfoListener {
 
-    private static MainApplication ctx;
+    private MainApplication ctx;
     private UserInfo mUserInfo;
 
     @Override
@@ -52,7 +51,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         super.onCreate();
         EventBus.getDefault().register(this);
         ctx = this;
-        AppUtil.init(getBaseConfig());
+        initAppUtil();
         //初始化LogUtil,默认debug模式可打印所有级别的log
         LogHelper.init();
         NetWorks.init();
@@ -72,6 +71,11 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         FFmpeg.getInstance(ctx).isSupported();
     }
 
+    private void initAppUtil() {
+        AppUtil.init(ctx, BuildConfig.APPLICATION_ID, BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME,
+                BuildConfig.Base_URL, BuildConfig.Base_URL_H5);
+    }
+
     /**
      * 初始化xUtil
      */
@@ -83,15 +87,10 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
     }
 
     private void initUmSdk() {
-        UMConfigure.init(ctx, "5cbad65a570df39ea70012b8", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
+        UMConfigure.init(ctx, ctx.getString(R.string.umeng_sha), "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
         MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
-        PlatformConfig.setWeixin("wx18719ce4d83c714a", "c766c2b5d6151ccf926dd03cbc8e56a5");
+        PlatformConfig.setWeixin(ctx.getString(R.string.wei_xin_sha), ctx.getString(R.string.wei_xin_sha1));
         PlatformConfig.setWXFileProvider("com.sun.demo2.fileprovider");
-    }
-
-    private AppConfig getBaseConfig() {
-        return new AppConfig(ctx, BuildConfig.APPLICATION_ID, BuildConfig.VERSION_CODE,
-                BuildConfig.VERSION_NAME, BuildConfig.Base_URL);
     }
 
     @Override
@@ -162,10 +161,6 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         QbSdk.initX5Environment(ctx, cb);
     }
 
-    public static MainApplication getContext() {
-        return ctx;
-    }
-
     /**
      * 处理 Token 失效
      */
@@ -174,7 +169,7 @@ public class MainApplication extends Application implements UserInfoManager.OnUp
         if (event.getCode() == ERROR.WRONG_TOKEN && getCurrentUserInfo() != null) {
             UserInfoManager.getInstance(this).clear();
             LoginActivity.start(ctx);
-            ToastHelper.showToast( R.string.token_invalid);
+            ToastHelper.showToast(R.string.token_invalid);
         }
     }
 }

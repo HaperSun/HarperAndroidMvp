@@ -38,19 +38,19 @@ public abstract class RetrofitUtil {
     }
 
     public static void initRetrofit() {
-        initRetrofit(AppUtil.getCtx(), null);
+        initRetrofit(AppUtil.ctx, null);
     }
 
     public static void initRetrofit(String serverUrl) {
         API_SERVER = serverUrl;
-        initRetrofit(AppUtil.getCtx(), null);
+        initRetrofit(AppUtil.ctx, null);
     }
 
     public static void initRetrofit(Context context, Interceptor interceptor) {
         if (null == mOkHttpClient) {
             mOkHttpClient = OkHttpUtil.getOkHttpClient(context, interceptor);
         }
-        API_SERVER = AppUtil.getServerUrl();
+        API_SERVER = AppUtil.mBaseUrl;
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(API_SERVER)
                 .addConverterFactory(ResponseConverterFactory.create(initGson()))

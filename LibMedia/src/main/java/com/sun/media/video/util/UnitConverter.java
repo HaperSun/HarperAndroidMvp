@@ -13,7 +13,7 @@ public class UnitConverter {
 
     public static DisplayMetrics getDisplayMetrics() {
 
-        return AppUtil.getCtx().getResources().getDisplayMetrics();
+        return AppUtil.ctx.getResources().getDisplayMetrics();
     }
 
     public static float dpToPx(float dp) {

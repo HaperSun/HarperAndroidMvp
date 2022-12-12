@@ -41,7 +41,7 @@ public class PermissionUtil {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()) {
             return true;
         } else if (Build.VERSION.SDK_INT >= 23) {
-            Context context = AppUtil.getCtx();
+            Context context = AppUtil.ctx;
             return ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
         } else {
             return true;
@@ -83,7 +83,7 @@ public class PermissionUtil {
      */
     public static boolean checkCamera() {
         if (Build.VERSION.SDK_INT >= 23) {
-            Context context = AppUtil.getCtx();
+            Context context = AppUtil.ctx;
             return ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
@@ -132,7 +132,7 @@ public class PermissionUtil {
      */
     public static boolean checkLocation() {
         if (Build.VERSION.SDK_INT >= 23) {
-            Context context = AppUtil.getCtx();
+            Context context = AppUtil.ctx;
             return ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
         } else {

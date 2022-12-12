@@ -1,4 +1,5 @@
 package com.sun.base.bean;
+
 /**
  * @author: Harper
  * @date: 2021/11/12
@@ -15,8 +16,9 @@ public class StrongReference<T> {
     public T get() {
         return view;
     }
+
     public void clear() {
-        view=null;
+        view = null;
     }
 
 }

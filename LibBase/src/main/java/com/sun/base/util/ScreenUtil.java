@@ -19,7 +19,7 @@ public class ScreenUtil {
      * @return int
      */
     public static int dp2px(float dp) {
-        return (int) (dp * AppUtil.getCtx().getResources().getDisplayMetrics().density);
+        return (int) (dp * AppUtil.ctx.getResources().getDisplayMetrics().density);
     }
 
     /**
@@ -29,7 +29,7 @@ public class ScreenUtil {
      * @return int
      */
     public static int dp2px(int dp) {
-        return (int) (dp * AppUtil.getCtx().getResources().getDisplayMetrics().density + 0.5f);
+        return (int) (dp * AppUtil.ctx.getResources().getDisplayMetrics().density + 0.5f);
     }
 
     /**
@@ -39,7 +39,7 @@ public class ScreenUtil {
      * @return int
      */
     public static int dip2px(double dip) {
-        return (int) (dip * AppUtil.getCtx().getResources().getDisplayMetrics().density + 0.5f);
+        return (int) (dip * AppUtil.ctx.getResources().getDisplayMetrics().density + 0.5f);
     }
 
     /**
@@ -49,19 +49,11 @@ public class ScreenUtil {
      * @return int
      */
     public static int px2dp(int px) {
-        return (int) (px / AppUtil.getCtx().getResources().getDisplayMetrics().density + 0.5f);
+        return (int) (px / AppUtil.ctx.getResources().getDisplayMetrics().density + 0.5f);
     }
 
-    /**
-     * 获得屏幕宽度
-     *
-     * @return int
-     */
-    public static int getScreenWidth() {
-        WindowManager wm = (WindowManager) AppUtil.getCtx().getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(outMetrics);
-        return outMetrics.widthPixels;
+    public static float px2dp(float f) {
+        return f / (AppUtil.ctx.getResources().getDisplayMetrics().densityDpi / 160F);
     }
 
     /**
@@ -70,22 +62,40 @@ public class ScreenUtil {
      * @return true:平板,false:手机
      */
     public static boolean isTabletDevice() {
-        return (AppUtil.getCtx().getResources().getConfiguration().screenLayout &
+        return (AppUtil.ctx.getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
-    public static int getScreenHeight(Context context) {
-        DisplayMetrics metric = new DisplayMetrics();
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        wm.getDefaultDisplay().getMetrics(metric);
-        return metric.heightPixels;
+    public static DisplayMetrics getDisplayMetrics() {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        ((WindowManager) AppUtil.ctx.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
+                .getMetrics(displaymetrics);
+        return displaymetrics;
     }
 
-    public static int getScreenWidth(Context context) {
-        DisplayMetrics metric = new DisplayMetrics();
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        wm.getDefaultDisplay().getMetrics(metric);
-        return metric.widthPixels;
+    /**
+     * 获得屏幕宽度
+     *
+     * @return int
+     */
+    public static int getScreenWidth() {
+        //方法1
+        DisplayMetrics displayMetrics = AppUtil.ctx.getResources().getDisplayMetrics();
+        return displayMetrics == null ? 0 : displayMetrics.widthPixels;
+//        //方法2
+//        return getDisplayMetrics().widthPixels;
     }
 
+    /**
+     * 获得屏幕高度
+     *
+     * @return int
+     */
+    public static int getScreenHeight() {
+        //方法1
+        DisplayMetrics displayMetrics = AppUtil.ctx.getResources().getDisplayMetrics();
+        return displayMetrics == null ? 0 : displayMetrics.heightPixels;
+//        //方法2
+//        return getDisplayMetrics().heightPixels;
+    }
 }

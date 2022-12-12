@@ -40,7 +40,7 @@ public class HeaderInterceptor implements Interceptor {
                 .addHeader("authorization", authorization)
                 .addHeader("client", "android")
                 .addHeader("deviceType", "android")
-                .addHeader("appVersion", AppUtil.getVersionName());
+                .addHeader("appVersion", AppUtil.mVersionName);
         return chain.proceed(requestBuilder.build());
 
     }

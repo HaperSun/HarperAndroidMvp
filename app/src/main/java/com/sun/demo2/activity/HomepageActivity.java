@@ -63,7 +63,7 @@ public class HomepageActivity extends BaseMvpActivity<ActivityHomepageBinding> {
         baseBind.title.setOnTitleClickListener(view -> onBackPressed());
         LinearLayout layout = baseBind.title.getTitleLeftContainer();
         if (layout != null){
-            View view = LayoutInflater.from(this).inflate(R.layout.view_homepage_left_title,null);
+            View view = LayoutInflater.from(this).inflate(R.layout.view_left_title,null);
             view.findViewById(R.id.ll_menu).setOnClickListener(v -> onBackPressed());
             layout.addView(view);
         }

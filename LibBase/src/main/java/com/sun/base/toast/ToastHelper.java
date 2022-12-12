@@ -29,7 +29,7 @@ public class ToastHelper {
 
     public static void showToast(@StringRes int resId, int duration) {
         try {
-            showToast(AppUtil.getCtx().getString(resId), duration);
+            showToast(AppUtil.ctx.getString(resId), duration);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -41,14 +41,14 @@ public class ToastHelper {
 
     public static void showToast(@StringRes int resId) {
         try {
-            showToast(AppUtil.getCtx().getString(resId), Toast.LENGTH_SHORT);
+            showToast(AppUtil.ctx.getString(resId), Toast.LENGTH_SHORT);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void showToast(String msg, int duration) {
-        Context applicationContext = AppUtil.getCtx();
+        Context applicationContext = AppUtil.ctx;
         if (applicationContext == null || TextUtils.isEmpty(msg)) {
             return;
         }
@@ -72,7 +72,7 @@ public class ToastHelper {
 
     public static void showCustomToast(@StringRes int resId) {
         try {
-            showCustomToast(AppUtil.getCtx().getString(resId), CustomToast.WARNING, Toast.LENGTH_SHORT);
+            showCustomToast(AppUtil.ctx.getString(resId), CustomToast.WARNING, Toast.LENGTH_SHORT);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,7 +84,7 @@ public class ToastHelper {
 
     public static void showCustomToast(@StringRes int resId, @CustomToast.TOAST_TYPE int type) {
         try {
-            showCustomToast(AppUtil.getCtx().getString(resId), type, Toast.LENGTH_SHORT);
+            showCustomToast(AppUtil.ctx.getString(resId), type, Toast.LENGTH_SHORT);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,12 +112,12 @@ public class ToastHelper {
     private static CustomToast getCustomToast() {
         try {
             if (sCustomToast == null) {
-                Context applicationContext = AppUtil.getCtx();
+                Context applicationContext = AppUtil.ctx;
                 sCustomToast = new CustomToast.Builder(applicationContext)
                         .build();
             } else {
                 sCustomToast.cancel();
-                Context applicationContext = AppUtil.getCtx();
+                Context applicationContext = AppUtil.ctx;
                 sCustomToast = new CustomToast.Builder(applicationContext)
                         .build();
             }
