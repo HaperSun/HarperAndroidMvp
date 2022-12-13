@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp4"
-                    android:text="网络异常，请检查网络后重试～"
+                    android:text="@string/net_error_tips"
                     android:textColor="#838ea0"
                     android:textSize="@dimen/sp14" />
             </LinearLayout>

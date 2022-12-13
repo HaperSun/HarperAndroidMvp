@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.webkit.JavascriptInterface;
 
 import com.sun.base.base.fragment.WebViewFragment;
+import com.sun.base.base.widget.WebViewX;
 import com.sun.media.img.ui.activity.ImagePreviewActivity;
 
 /**
@@ -15,6 +16,7 @@ import com.sun.media.img.ui.activity.ImagePreviewActivity;
 public class TestWebViewFragment extends WebViewFragment {
 
     private static final String ANSWER_LIST_URL = "/answersDetail";
+    public WebViewX mWebViewX;
 
     public static TestWebViewFragment newInstance() {
         TestWebViewFragment fragment = new TestWebViewFragment();
@@ -24,7 +26,7 @@ public class TestWebViewFragment extends WebViewFragment {
     }
 
     @Override
-    public void loadUrl() {
+    public void initLoadUrl() {
 //        mUrl = BuildConfig.Base_URL_H5 + ANSWER_LIST_URL + "?quesId=" + "quesId";
         mUrl = "https://www.baidu.com";
         mNeedSupportZoom = true;
@@ -34,6 +36,7 @@ public class TestWebViewFragment extends WebViewFragment {
     @Override
     protected void initWebView() {
         super.initWebView();
+        mWebViewX = vdb.webView;
         //开启LocalStorage
         vdb.webView.getSettings().setDomStorageEnabled(true);
         //Js调我

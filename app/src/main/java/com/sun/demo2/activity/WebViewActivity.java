@@ -17,6 +17,8 @@ import com.sun.demo2.fragment.TestWebViewFragment;
  */
 public class WebViewActivity extends BaseMvpActivity<ActivityWebViewBinding> {
 
+    private TestWebViewFragment mWebViewFragment;
+
     public static void start(Context context) {
         Intent intent = new Intent(context, WebViewActivity.class);
         context.startActivity(intent);
@@ -35,7 +37,17 @@ public class WebViewActivity extends BaseMvpActivity<ActivityWebViewBinding> {
 
     @Override
     public void initData() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, TestWebViewFragment.newInstance())
+        mWebViewFragment = TestWebViewFragment.newInstance();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mWebViewFragment)
                 .commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (null != mWebViewFragment && null != mWebViewFragment.mWebViewX && mWebViewFragment.mWebViewX.canGoBack()) {
+            mWebViewFragment.mWebViewX.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

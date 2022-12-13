@@ -20,5 +20,4 @@ public class StrongReference<T> {
     public void clear() {
         view = null;
     }
-
 }

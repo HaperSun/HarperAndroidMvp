@@ -18,7 +18,7 @@ import java.io.File;
 /**
  * @author: Harper
  * @date: 2021/12/31
- * @note: 数据磁盘缓存管理类(缓存统一放置到/sdcard/Android/data/{包名}/files/cache/文件夹下)
+ * @note: 数据磁盘缓存管理类(缓存统一放置到 / sdcard / Android / data / { 包名 } / files / cache / 文件夹下)
  */
 public class DiskCacheManager {
 
@@ -84,16 +84,9 @@ public class DiskCacheManager {
 
     /**
      * 构建缓存头信息，用于写在缓存文件的头部标识用
-     * <p>
-     * 大概类似于下面这样
-     * <p>
-     * com.iflytek.icola.lib_utils.disk_cache.DiskCacheManager
-     * 1
-     * <p>
-     * </p>
      *
-     * @param cacheFileRule
-     * @return
+     * @param cacheFileRule cacheFileRule
+     * @return String
      */
     private String buildCacheHeaderStr(CacheFileRule cacheFileRule) {
         return DiskCacheManager.class.getName() + "\n"

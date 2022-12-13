@@ -312,7 +312,7 @@ public class EmojiFilter implements InputFilter {
                 destTest = "";
             }
         }
-        //modify by xfchen 2019/1/16 修复特殊机型语音输入时重复的问题
+        //修复特殊机型语音输入时重复的问题
         //返回charsequene就不会重复，返回string就会重复
         return TextUtils.equals(source, destTest) ? source : destTest;
     }

@@ -12,7 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.sun.base.base.iview.IAddPresenterView;
+import com.sun.base.base.iview.IBaseView;
+import com.sun.base.base.iview.IPresenterView;
 import com.sun.base.presenter.BasePresenter;
 import com.sun.base.util.CommonUtil;
 
@@ -27,16 +28,12 @@ import java.util.Set;
  * @date: 2022/5/18
  * @note: 基于MVP模式对BaseFragment进行封装
  */
-public abstract class BaseMvpFragment<VDB extends ViewDataBinding> extends BaseFragment implements IAddPresenterView {
+public abstract class BaseMvpFragment<VDB extends ViewDataBinding> extends BaseFragment implements IPresenterView {
 
     protected final String TAG = getClass().getSimpleName();
-    private Set<BasePresenter> mPresenters;
+    private Set<BasePresenter<? extends IBaseView>> mPresenters;
     protected View mRootView;
     protected VDB vdb;
-
-    public BaseMvpFragment() {
-        // Required empty public constructor
-    }
 
     @Nullable
     @Override
@@ -64,13 +61,11 @@ public abstract class BaseMvpFragment<VDB extends ViewDataBinding> extends BaseF
      * 子类每次new一个presenter的时候，请调用此方法
      */
     @Override
-    public void addPresenter(BasePresenter presenter) {
+    public void addPresenter(BasePresenter<? extends IBaseView> presenter) {
         if (mPresenters == null) {
             mPresenters = new HashSet<>();
         }
-        if (!mPresenters.contains(presenter)) {
-            mPresenters.add(presenter);
-        }
+        mPresenters.add(presenter);
     }
 
     public void initBundle() {
@@ -110,7 +105,7 @@ public abstract class BaseMvpFragment<VDB extends ViewDataBinding> extends BaseF
             EventBus.getDefault().unregister(this);
         }
         if (mPresenters != null) {
-            for (BasePresenter presenter : mPresenters) {
+            for (BasePresenter<? extends IBaseView> presenter : mPresenters) {
                 presenter.clearView();
             }
             mPresenters = null;

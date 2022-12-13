@@ -2,7 +2,7 @@ package com.sun.demo2.iview;
 
 
 import com.sun.base.net.exception.ApiException;
-import com.sun.base.base.iview.IAddPresenterView;
+import com.sun.base.base.iview.IPresenterView;
 import com.sun.base.net.response.Response;
 import com.sun.demo2.model.response.LoginResponse;
 
@@ -12,7 +12,7 @@ import com.sun.demo2.model.response.LoginResponse;
  * @note: 登陆
  */
 
-public interface ILoginView extends IAddPresenterView {
+public interface ILoginView extends IPresenterView {
 
     /**
      * 登录成功

@@ -76,10 +76,10 @@ public class BarChartBasicActivity extends BaseMvpActivity<ActivityBarChartBasic
                 Canvas c = new Canvas(bitmap);
                 vdb.flContent.draw(c);
                 //bitmap文件
-                UMImage image = new UMImage(mContext(), bitmap);
-                UMImage thumb = new UMImage(mContext(), ThumbnailUtils.extractThumbnail(bitmap, 200, 200));
+                UMImage image = new UMImage(getActivity(), bitmap);
+                UMImage thumb = new UMImage(getActivity(), ThumbnailUtils.extractThumbnail(bitmap, 200, 200));
                 image.setThumb(thumb);
-                new ShareAction(mContext()).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(image).share();
+                new ShareAction(getActivity()).setPlatform(SHARE_MEDIA.WEIXIN).withMedia(image).share();
             } catch (Exception e) {
                 e.printStackTrace();
                 showToast(R.string.share_failed);

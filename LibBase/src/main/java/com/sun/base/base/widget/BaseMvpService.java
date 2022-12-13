@@ -7,8 +7,10 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
-import com.sun.base.base.iview.IAddPresenterView;
+import com.sun.base.base.iview.IBaseView;
+import com.sun.base.base.iview.IPresenterView;
 import com.sun.base.presenter.BasePresenter;
+import com.sun.base.toast.ToastHelper;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,9 +22,9 @@ import io.reactivex.disposables.Disposable;
  * @date: 2021/12/30
  * @note: 基础MVP Service
  */
-public class BaseMvpService extends Service implements IAddPresenterView {
+public class BaseMvpService extends Service implements IPresenterView {
 
-    private Set<BasePresenter> mPresenters;
+    private Set<BasePresenter<? extends IBaseView>> mPresenters;
 
     @Nullable
     @Override
@@ -31,19 +33,17 @@ public class BaseMvpService extends Service implements IAddPresenterView {
     }
 
     @Override
-    public void addPresenter(BasePresenter presenter) {
+    public void addPresenter(BasePresenter<? extends IBaseView> presenter) {
         if (mPresenters == null) {
             mPresenters = new HashSet<>();
         }
-        if (!mPresenters.contains(presenter)) {
-            mPresenters.add(presenter);
-        }
+        mPresenters.add(presenter);
     }
 
     @Override
     public void onDestroy() {
         if (mPresenters != null) {
-            for (BasePresenter presenter : mPresenters) {
+            for (BasePresenter<? extends IBaseView> presenter : mPresenters) {
                 presenter.clearView();
             }
             mPresenters = null;
@@ -62,22 +62,17 @@ public class BaseMvpService extends Service implements IAddPresenterView {
     }
 
     @Override
-    public void showToast(int resId) {
+    public void showToast(String s) {
+        ToastHelper.showToast(s);
+    }
+
+    @Override
+    public void showLoadingDialog(CharSequence title) {
 
     }
 
     @Override
-    public void showToast(String msg) {
-
-    }
-
-    @Override
-    public void showLongToast(String msg) {
-
-    }
-
-    @Override
-    public void close() {
+    public void dismissLoadingDialog() {
 
     }
 }

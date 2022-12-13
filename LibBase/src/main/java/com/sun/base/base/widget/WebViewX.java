@@ -3,22 +3,16 @@ package com.sun.base.base.widget;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.net.http.SslError;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -29,13 +23,16 @@ import androidx.annotation.Nullable;
 @SuppressLint("SetJavaScriptEnabled")
 public class WebViewX extends WebView {
 
-    public WebViewX(Context context) {
-        super(context);
-        loadParams();
+    public WebViewX(@NonNull Context context) {
+        this(context, null);
     }
 
-    public WebViewX(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public WebViewX(@NonNull Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public WebViewX(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         loadParams();
     }
 
@@ -44,127 +41,33 @@ public class WebViewX extends WebView {
      */
     private void loadParams() {
         WebSettings s = getSettings();
-        if (null == s) {
-            return;
+        if (null != s) {
+            s.setCacheMode(WebSettings.LOAD_NO_CACHE);
+            s.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
+            s.setUseWideViewPort(true);
+            s.setLoadWithOverviewMode(true);
+            s.setSavePassword(false);
+            s.setSaveFormData(false);
+            s.setJavaScriptEnabled(true);
+            s.setBuiltInZoomControls(false);
+            s.setSupportZoom(false);
+            /*解决混合模式下（https网址中有http图片请求）图片不显示*/
+            //不阻塞网络图片
+            s.setBlockNetworkImage(false);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                //允许混合（http，https）
+                s.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+            }
+//            setInitialScale(100);
+            setVerticalScrollBarEnabled(mScrollBar);
+            setScrollBarStyle(SCROLLBARS_INSIDE_OVERLAY);
+            setWebChromeClient(mWcc);
         }
-        s.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        s.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
-        s.setUseWideViewPort(true);
-        s.setLoadWithOverviewMode(true);
-        s.setSavePassword(false);
-        s.setSaveFormData(false);
-        s.setJavaScriptEnabled(true);
-        s.setBuiltInZoomControls(false);
-        s.setSupportZoom(false);
-        /*解决混合模式下（https网址中有http图片请求）图片不显示 add by xfchen 2019/6/6 */
-        s.setBlockNetworkImage(false);//不阻塞网络图片
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            //允许混合（http，https）
-            s.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-        }
-        // s.setUserAgentString(s.getUserAgentString() + "iflytek_mobile");
-//		setInitialScale(100);
-        setVerticalScrollBarEnabled(mScrollBar);
-        setScrollBarStyle(SCROLLBARS_INSIDE_OVERLAY);
-
-        setWebViewClient(mWvc);
-        setWebChromeClient(mWvcc);
     }
 
-    /**
-     * 解决WebView第一次进来会自动调用一个onPageChange方法的bug
-     */
-    private boolean isFirstLoad;
     private boolean mScrollBar = false;
-    private WebViewClient mWebViewClientExt;
 
-    public void setWebViewClientExt(WebViewClient client) {
-        mWebViewClientExt = client;
-    }
-
-    WebViewClient mWvc = new WebViewClient() {
-
-        @Nullable
-        @Override
-        public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-            if (mWebViewClientExt != null) {
-                return mWebViewClientExt.shouldInterceptRequest(view, url);
-            }
-            return super.shouldInterceptRequest(view, url);
-        }
-
-        @Nullable
-        @Override
-        public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-            if (mWebViewClientExt != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    return mWebViewClientExt.shouldInterceptRequest(view, request);
-                }
-            }
-            return super.shouldInterceptRequest(view, request);
-        }
-
-        @Override
-        public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
-            super.doUpdateVisitedHistory(view, url, isReload);
-            if (mWebViewClientExt != null) {
-                mWebViewClientExt.doUpdateVisitedHistory(view, url, isReload);
-            }
-        }
-
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            Log.d("WebViewClient", "shouldOverrideUrlLoading");
-            view.loadUrl(url);
-            if (mWebViewClientExt != null) {
-                mWebViewClientExt.shouldOverrideUrlLoading(view, url);
-            }
-            return true;
-        }
-
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            view.setBackgroundColor(Color.TRANSPARENT);
-            //显示的移除accessibility、accessibilityTraversal
-            view.removeJavascriptInterface("accessibility");
-            view.removeJavascriptInterface("accessibilityTraversal");
-            view.removeJavascriptInterface("searchBoxJavaBridge_");
-            super.onPageStarted(view, url, favicon);
-            if (null != mWebViewClientExt) {
-                mWebViewClientExt.onPageStarted(view, url, favicon);
-            }
-        }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-            if (null != mWebViewClientExt) {
-                mWebViewClientExt.onPageFinished(view, url);
-                isFirstLoad = true;
-            }
-        }
-
-        @Override
-        public void onLoadResource(WebView view, String url) {
-            super.onLoadResource(view, url);
-        }
-
-        @Override
-        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-            super.onReceivedError(view, errorCode, description, failingUrl);
-            if (null != mWebViewClientExt) {
-                mWebViewClientExt.onReceivedError(view, errorCode, description, failingUrl);
-            }
-        }
-
-        @Override
-        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-            // 接受所有网站的证书
-            handler.proceed();
-        }
-    };
-
-    WebChromeClient mWvcc = new WebChromeClient() {
+    WebChromeClient mWcc = new WebChromeClient() {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             if (mWebViewListener != null) {
@@ -181,7 +84,6 @@ public class WebViewX extends WebView {
             builder.setCancelable(false);
             builder.create();
             builder.show();
-
             return true;
         }
 
@@ -210,9 +112,7 @@ public class WebViewX extends WebView {
 
         @Override
         public void onConsoleMessage(String message, int lineNumber, String sourceID) {
-            Log.d("MyApplication", message + " -- From line " + lineNumber
-                    + " of " + sourceID);
-
+            Log.d("MyApplication", message + " -- From line " + lineNumber + " of " + sourceID);
         }
     };
 

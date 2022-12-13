@@ -84,9 +84,10 @@ public class FlowLayout extends ViewGroup {
                 height += lineHeight;
             }
         }
-        // add by xfchen 2017/05/03 当高度小于最小高度时，使用最小高度
-        if(height < getMinimumHeight())
+        //当高度小于最小高度时，使用最小高度
+        if(height < getMinimumHeight()) {
             height = getMinimumHeight();
+        }
         setMeasuredDimension(
                 modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width + getPaddingLeft() + getPaddingRight(),
                 modeHeight == MeasureSpec.EXACTLY ? sizeHeight : height + getPaddingTop() + getPaddingBottom()//
@@ -177,7 +178,7 @@ public class FlowLayout extends ViewGroup {
                 int rc = lc + child.getMeasuredWidth();
                 int bc = tc + child.getMeasuredHeight();
 
-                //add by xfchen 2017/05/03当行数只有1行的，有最小高度时并且最小高度大于子view的高度时，将view靠底部显示
+                //当行数只有1行的，有最小高度时并且最小高度大于子view的高度时，将view靠底部显示
                 if(lineNum == 1) {
                     int minHeight = getMinimumHeight();
                     if (minHeight > 0 && minHeight > bc) {

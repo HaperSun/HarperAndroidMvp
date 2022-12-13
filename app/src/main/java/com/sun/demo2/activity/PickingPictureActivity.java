@@ -48,11 +48,9 @@ public class PickingPictureActivity extends BaseMvpActivity<ActivityPickingPictu
     public void initView() {
         vdb.btnMethod1.setOnClickListener(this);
         vdb.btnMethod2.setOnClickListener(this);
-        vdb.ivShare.setOnClickListener(v -> {
-            new BottomShareDialog.Builder(mContext())
-                    .setConfig("","","","")
-                    .build().show();
-        });
+        vdb.ivShare.setOnClickListener(v -> new BottomShareDialog.Builder(getActivity())
+                .setConfig("","","","")
+                .build().show());
     }
 
     @Override

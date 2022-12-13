@@ -8,8 +8,7 @@ import io.reactivex.disposables.Disposable;
  * @author: Harper
  * @date: 2021/11/12
  * @note: 公共View接口
- * IBaseView中封装了常用的View操作,如Toast,进度条等等,并通过BaseActivity实现,
- * 所以建议所有Activity都继承自BaseActivity以便更好的使用本框架
+ * IBaseView中封装了常用的View操作,如Toast,进度条等等
  */
 public interface IBaseView {
 
@@ -28,29 +27,21 @@ public interface IBaseView {
     void addDisposable(Disposable disposable);
 
     /**
-     * 根据资源文件id弹出toast
-     *
-     * @param resId 资源文件id
-     */
-    void showToast(int resId);
-
-    /**
      * 根据字符串弹出toast
      *
-     * @param msg 提示内容
+     * @param s 提示内容
      */
-    void showToast(String msg);
+    void showToast(String s);
 
     /**
-     * 根据字符串弹出toast
+     * 展示加载框
      *
-     * @param msg 提示内容
+     * @param c c
      */
-    void showLongToast(String msg);
+    void showLoadingDialog(CharSequence c);
 
     /**
-     * 结束当前页面
+     * 隐藏加载框
      */
-    void close();
-
+    void dismissLoadingDialog();
 }

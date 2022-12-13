@@ -25,10 +25,10 @@ public class MarqueeTextView extends androidx.appcompat.widget.AppCompatTextView
     }
 
     private void init() {
-        // 跑马灯效果
+        //跑马灯效果
         setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        //            // ...结束
-//            setEllipsize(TextUtils.TruncateAt.END);
+//        //...结束
+//        setEllipsize(TextUtils.TruncateAt.END);
         setMarqueeRepeatLimit(-1);
         setSingleLine(true);
     }

@@ -1,7 +1,7 @@
 package com.sun.base.presenter;
 
 import com.sun.base.bean.StrongReference;
-import com.sun.base.base.iview.IAddPresenterView;
+import com.sun.base.base.iview.IPresenterView;
 
 import java.util.Objects;
 
@@ -10,13 +10,13 @@ import java.util.Objects;
  * @date: 2021/11/12
  * @note:
  */
-public class BasePresenter<T extends IAddPresenterView> {
+public class BasePresenter<T extends IPresenterView> {
 
     protected StrongReference<T> mView;
 
     public BasePresenter(T view) {
         mView = new StrongReference<>(view);
-        if (view != null) {
+        if (null != view) {
             view.addPresenter(this);
         }
     }
@@ -36,7 +36,7 @@ public class BasePresenter<T extends IAddPresenterView> {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (null == o || getClass() != o.getClass()) {
             return false;
         }
         BasePresenter<?> that = (BasePresenter<?>) o;

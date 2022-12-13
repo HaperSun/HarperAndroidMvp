@@ -279,8 +279,6 @@ public class MovieRecorderView extends LinearLayout implements OnErrorListener, 
     }
 
     private void createRecordDir() {
-//        File sampleDir = FileUtil.getExternalFilesDir(mContext, "iflytek" + File.separator + "Video" + File.separator);
-//        File sampleDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File sampleDir = new File(Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_DCIM + File.separator + "Camera" + File.separator);
         if (!sampleDir.exists()) {
             sampleDir.mkdirs();

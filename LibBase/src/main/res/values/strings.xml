@@ -18,4 +18,5 @@
     <string name="copy">复制</string>
     <string name="finish">完成</string>
     <string name="Harper_SP">Harper_SP</string>
+    <string name="net_error_tips">网络异常，请检查网络后重试～</string>
 </resources>

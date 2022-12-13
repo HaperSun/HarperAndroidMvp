@@ -42,7 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      * 一次性对象容器
      */
     private CompositeDisposable mCompositeDisposable;
-    protected LoadingDialog mLoadingDialog;
+    private LoadingDialog mLoadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,13 +76,13 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     /**
      * 判定是否需要隐藏
      *
-     * @param v View
+     * @param v  View
      * @param ev MotionEvent
      * @return boolean
      */
     private boolean isHideInput(View v, MotionEvent ev) {
         //如果不需要 则立即返回
-        if (needClickHideSoftInput){
+        if (needClickHideSoftInput) {
             if (v instanceof EditText) {
                 int[] l = {0, 0};
                 v.getLocationInWindow(l);
@@ -105,8 +105,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         }
     }
 
-    @Override
-    public void showToast(int resId) {
+    protected void showToast(int resId) {
         if (!isFinishing()) {
             ToastHelper.showToast(getString(resId));
         }
@@ -119,8 +118,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         }
     }
 
-    @Override
-    public void showLongToast(String s) {
+    protected void showLongToast(String s) {
         if (!isFinishing()) {
             ToastHelper.showToast(s, Toast.LENGTH_LONG);
         }
@@ -192,8 +190,10 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         }
     }
 
-    @Override
-    public void close() {
+    /**
+     * 统一的关闭当前activity方法
+     */
+    protected void close() {
         ActivityCompat.finishAfterTransition(this);
     }
 
@@ -223,13 +223,15 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         return true;
     }
 
-    protected void dismissLoadingDialog() {
+    @Override
+    public void dismissLoadingDialog() {
         if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
     }
 
-    protected void showLoadingDialog(CharSequence title) {
+    @Override
+    public void showLoadingDialog(CharSequence title) {
         if (mLoadingDialog == null) {
             mLoadingDialog = new LoadingDialog.Builder(this)
                     .setCanceledOnTouchOutside(false)
@@ -237,14 +239,16 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
                     .build();
         }
         mLoadingDialog.setTitle(title);
-        mLoadingDialog.show();
+        if (!mLoadingDialog.isShowing()) {
+            mLoadingDialog.show();
+        }
     }
 
     protected void showLoadingDialog(@StringRes int titleResId) {
         showLoadingDialog(getString(titleResId));
     }
 
-    protected BaseActivity mContext() {
+    protected BaseActivity getActivity() {
         return this;
     }
 

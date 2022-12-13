@@ -1,15 +1,18 @@
 package com.sun.base.base.fragment;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.fragment.app.FragmentActivity;
 
-import com.sun.base.base.activity.BaseActivity;
 import com.sun.base.base.iview.IBaseFragment;
 import com.sun.base.base.iview.IBaseView;
 import com.sun.base.base.widget.LoadingDialog;
 import com.sun.base.dialog.BaseDialogFragment;
+import com.sun.base.toast.CustomToast;
+import com.sun.base.toast.ToastHelper;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -21,19 +24,17 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class BaseFragment extends BaseDialogFragment implements IBaseView, IBaseFragment {
 
-    protected BaseActivity mActivity;
-    // 一次性对象容器
+    /**
+     * 一次性对象容器
+     */
+    protected FragmentActivity mActivity;
     private CompositeDisposable mCompositeDisposable;
-    protected LoadingDialog mLoadingDialog;
-
-    public BaseFragment() {
-        // Required empty public constructor
-    }
+    private LoadingDialog mLoadingDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivity = getBaseActivity();
+        mActivity = getActivity();
     }
 
     /**
@@ -45,24 +46,22 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
         return (isAdded() && !isRemoving());
     }
 
-    @Override
-    public void showToast(int resId) {
+    protected void showToast(int resId) {
         if (getStatus()) {
-            mActivity.showToast(resId);
+            ToastHelper.showToast(getString(resId));
         }
     }
 
     @Override
     public void showToast(String s) {
         if (getStatus()) {
-            mActivity.showToast(s);
+            ToastHelper.showToast(s);
         }
     }
 
-    @Override
-    public void showLongToast(String s) {
+    protected void showLongToast(String s) {
         if (getStatus()) {
-            mActivity.showLongToast(s);
+            ToastHelper.showToast(s, Toast.LENGTH_LONG);
         }
     }
 
@@ -73,7 +72,7 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
      */
     protected void showSuccessToast(int resId) {
         if (getStatus()) {
-            mActivity.showSuccessToast(resId);
+            ToastHelper.showCustomToast(resId, CustomToast.CORRECT);
         }
     }
 
@@ -84,7 +83,7 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
      */
     protected void showSuccessToast(String s) {
         if (getStatus()) {
-            mActivity.showSuccessToast(s);
+            ToastHelper.showCustomToast(s, CustomToast.CORRECT);
         }
     }
 
@@ -95,10 +94,9 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
      */
     protected void showLongSuccessToast(String s) {
         if (getStatus()) {
-            mActivity.showLongSuccessToast(s);
+            ToastHelper.showCustomToast(s, CustomToast.CORRECT, Toast.LENGTH_LONG);
         }
     }
-
 
     /**
      * 显示Toast，感叹号类型
@@ -107,7 +105,7 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
      */
     protected void showFailToast(int resId) {
         if (getStatus()) {
-            mActivity.showFailToast(resId);
+            ToastHelper.showCustomToast(resId, CustomToast.WARNING);
         }
     }
 
@@ -118,7 +116,7 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
      */
     protected void showFailToast(String s) {
         if (getStatus()) {
-            mActivity.showFailToast(s);
+            ToastHelper.showCustomToast(s, CustomToast.WARNING);
         }
     }
 
@@ -129,34 +127,23 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
      */
     protected void showLongFailToast(String s) {
         if (getStatus()) {
-            mActivity.showLongFailToast(s);
+            ToastHelper.showCustomToast(s, CustomToast.WARNING, Toast.LENGTH_LONG);
         }
     }
 
-    /**
-     * 获取Activity
-     *
-     * @return BaseActivity
-     */
-    public BaseActivity getBaseActivity() {
-        if (mActivity == null) {
-            mActivity = (BaseActivity) getActivity();
-        }
-        return mActivity;
+    protected void close() {
+        mActivity.finish();
     }
 
     @Override
-    public void close() {
-        mActivity.close();
-    }
-
-    protected void dismissLoadingDialog() {
+    public void dismissLoadingDialog() {
         if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
     }
 
-    protected void showLoadingDialog(CharSequence title) {
+    @Override
+    public void showLoadingDialog(CharSequence title) {
         if (mLoadingDialog == null) {
             mLoadingDialog = new LoadingDialog.Builder(getActivity())
                     .setCanceledOnTouchOutside(false)
@@ -164,7 +151,9 @@ public abstract class BaseFragment extends BaseDialogFragment implements IBaseVi
                     .build();
         }
         mLoadingDialog.setTitle(title);
-        mLoadingDialog.show();
+        if (!mLoadingDialog.isShowing()) {
+            mLoadingDialog.show();
+        }
     }
 
     protected void showLoadingDialog(@StringRes int titleResId) {

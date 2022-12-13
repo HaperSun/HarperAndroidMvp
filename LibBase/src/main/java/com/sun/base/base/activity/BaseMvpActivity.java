@@ -14,7 +14,8 @@ import androidx.databinding.ViewDataBinding;
 
 import com.githang.statusbar.StatusBarCompat;
 import com.sun.base.R;
-import com.sun.base.base.iview.IAddPresenterView;
+import com.sun.base.base.iview.IPresenterView;
+import com.sun.base.base.iview.IBaseView;
 import com.sun.base.databinding.ActivityBaseBinding;
 import com.sun.base.presenter.BasePresenter;
 import com.sun.base.status.StatusBarUtil;
@@ -31,10 +32,10 @@ import java.util.Set;
  * @date: 2021/11/12
  * @note: 基于MVP模式对BaseActivity进行封装
  */
-public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseActivity implements IAddPresenterView {
+public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseActivity implements IPresenterView {
 
     protected final String TAG = this.getClass().getSimpleName();
-    private Set<BasePresenter> mPresenters;
+    private Set<BasePresenter<? extends IBaseView>> mPresenters;
     protected ActivityBaseBinding baseBind;
     protected VDB vdb;
     protected int mStatusBarColor;
@@ -71,7 +72,7 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
         vdb = DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         vdb.getRoot().setLayoutParams(params);
-        FrameLayout container = (FrameLayout) baseBind.getRoot().findViewById(R.id.container);
+        FrameLayout container = baseBind.getRoot().findViewById(R.id.container);
         container.addView(vdb.getRoot());
         getWindow().setContentView(baseBind.getRoot());
     }
@@ -113,7 +114,7 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
      * @param presenter presenter
      */
     @Override
-    public void addPresenter(BasePresenter presenter) {
+    public void addPresenter(BasePresenter<? extends IBaseView> presenter) {
         if (mPresenters == null) {
             mPresenters = new HashSet<>();
         }
@@ -178,7 +179,7 @@ public abstract class BaseMvpActivity<VDB extends ViewDataBinding> extends BaseA
             EventBus.getDefault().unregister(this);
         }
         if (mPresenters != null) {
-            for (BasePresenter presenter : mPresenters) {
+            for (BasePresenter<? extends IBaseView> presenter : mPresenters) {
                 presenter.clearView();
             }
             mPresenters = null;
