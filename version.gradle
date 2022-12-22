@@ -54,6 +54,7 @@ ver.tencentLocationSdk = "com.tencent.map.geolocation:TencentLocationSdk-openpla
 ver.tencent_map_vector = "com.tencent.map:tencent-map-vector-sdk:4.4.7"
 //腾讯cos
 ver.qcloud = "com.qcloud.cos:cos-android:5.9.+"
+ver.qcloud_cosxml = "com.tencent.qcloud:cosxml:5.5.3"
 //微信官方依赖库，必选
 ver.wechat_opensdk = "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.8.0"
 //腾讯 TBS X5内核

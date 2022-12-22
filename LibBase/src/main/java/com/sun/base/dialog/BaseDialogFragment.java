@@ -12,6 +12,9 @@ import androidx.fragment.app.FragmentTransaction;
  */
 public class BaseDialogFragment extends DialogFragment {
 
+    private boolean mIsStateAlreadySaved = false;
+    private boolean mPendingShowDialog = false;
+
     @Override
     public void show(FragmentManager manager, String tag) {
         try {
@@ -22,9 +25,6 @@ public class BaseDialogFragment extends DialogFragment {
             e.printStackTrace();
         }
     }
-
-    boolean mIsStateAlreadySaved = false;
-    boolean mPendingShowDialog = false;
 
     @Override
     public void onResume() {

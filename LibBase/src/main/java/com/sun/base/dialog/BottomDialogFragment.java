@@ -2,7 +2,6 @@ package com.sun.base.dialog;
 
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -36,7 +35,6 @@ import java.util.List;
 public class BottomDialogFragment extends DialogFragment {
 
     private static final String EXTRA_BUILDER = "builder";
-    private Context mContext;
     private Window mWindow;
     //自定义的布局ID
     private int mLayoutResId;
@@ -80,7 +78,6 @@ public class BottomDialogFragment extends DialogFragment {
         Dialog dialog = new Dialog(getActivity(), R.style.transparentFrameWindowStyle);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCanceledOnTouchOutside(true);
-        mContext = getContext();
         boolean isCustom = false;
         if (mLayoutResId > 0) {
             isCustom = true;

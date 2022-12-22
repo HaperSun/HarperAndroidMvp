@@ -5,12 +5,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.sun.base.base.iview.IBaseFragment;
 import com.sun.base.base.iview.IBaseView;
 import com.sun.base.base.widget.LoadingDialog;
-import com.sun.base.dialog.BaseDialogFragment;
 import com.sun.base.toast.CustomToast;
 import com.sun.base.toast.ToastHelper;
 
@@ -22,7 +22,7 @@ import io.reactivex.disposables.Disposable;
  * @date: 2022/5/18
  * @note: fragment 基类
  */
-public abstract class BaseFragment extends BaseDialogFragment implements IBaseView, IBaseFragment {
+public abstract class BaseFragment extends Fragment implements IBaseView, IBaseFragment {
 
     /**
      * 一次性对象容器

@@ -94,7 +94,7 @@ dependencies {
     api ver.greendao
     api ver.generator
     //腾讯云cos存储
-    implementation('com.tencent.qcloud:cosxml:5.4.26') {
+    implementation(ver.qcloud_cosxml) {
         exclude group: 'com.tencent.qcloud', module: 'mtaUtils' //关闭 mta 上报功能
     }
 }
