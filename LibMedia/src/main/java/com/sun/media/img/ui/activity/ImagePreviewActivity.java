@@ -293,15 +293,16 @@ public class ImagePreviewActivity extends BaseMvpActivity<ActivityImagePreviewBi
         outState.putInt(Parameter.STATE_POSITION, vdb.pager.getCurrentItem());
     }
 
-    private class ImagePagerAdapter extends FragmentStatePagerAdapter {
+    private static class ImagePagerAdapter extends FragmentStatePagerAdapter {
 
-        private ArrayList<ImageItem> mImgItems;
+        private final ArrayList<ImageItem> mImgItems;
 
         public ImagePagerAdapter(FragmentManager fm, ArrayList<ImageItem> imgItems) {
             super(fm);
             this.mImgItems = imgItems;
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             ImageItem imgItem = mImgItems.get(position);

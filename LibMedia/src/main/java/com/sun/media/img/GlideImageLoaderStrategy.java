@@ -298,21 +298,14 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
             FileUtil.close(fromStream);
             FileUtil.close(toStream);
         }
-
     }
-
 
     @Override
     public void clearImageDiskCache(final Context context) {
         try {
             //只能在主线程执行
             if (Looper.myLooper() == Looper.getMainLooper()) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Glide.get(context.getApplicationContext()).clearDiskCache();
-                    }
-                }).start();
+                new Thread(() -> Glide.get(context.getApplicationContext()).clearDiskCache()).start();
             } else {
                 Glide.get(context.getApplicationContext()).clearDiskCache();
             }

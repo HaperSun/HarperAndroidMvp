@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.sun.base.base.fragment.BaseFragment;
 import com.sun.demo2.R;
@@ -21,7 +21,7 @@ import java.util.List;
  * @date 2022/5/27
  * note:
  */
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private final Context mContext;
     private final List<String> mTitles;

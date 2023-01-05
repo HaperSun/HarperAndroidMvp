@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.sun.base.base.fragment.BaseMvpFragment;
+import com.sun.base.base.fragment.BaseFragment;
 import com.sun.demo2.R;
 
 import java.util.List;
@@ -25,19 +25,20 @@ public class AddressBookPagerAdapter extends FragmentStatePagerAdapter {
 
     private final Context mContext;
     private final List<String> mTitles;
-    private final List<BaseMvpFragment> mFragments;
+    private final List<BaseFragment> mFragments;
 
-    public AddressBookPagerAdapter(FragmentManager fm, Context context, List<String> titles, List<BaseMvpFragment> fragments) {
+    public AddressBookPagerAdapter(FragmentManager fm, Context context, List<String> titles, List<BaseFragment> fragments) {
         super(fm);
         mContext = context;
         mFragments = fragments;
         mTitles = titles;
     }
 
-    public static AddressBookPagerAdapter create(FragmentManager fm, Context context, List<String> titles, List<BaseMvpFragment> fragments) {
+    public static AddressBookPagerAdapter create(FragmentManager fm, Context context, List<String> titles, List<BaseFragment> fragments) {
         return new AddressBookPagerAdapter(fm, context, titles, fragments);
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         return mFragments.get(position);

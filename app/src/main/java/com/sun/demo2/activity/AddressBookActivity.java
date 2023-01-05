@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.tabs.TabLayout;
 import com.sun.base.base.activity.BaseMvpActivity;
-import com.sun.base.base.fragment.BaseMvpFragment;
+import com.sun.base.base.fragment.BaseFragment;
 import com.sun.base.bean.MagicInt;
 import com.sun.demo2.R;
 import com.sun.demo2.adapter.AddressBookPagerAdapter;
@@ -54,7 +54,7 @@ public class AddressBookActivity extends BaseMvpActivity<ActivityAddressBookBind
         List<String> titles = new ArrayList<>();
         titles.add("仿微信通讯录");
         titles.add("仿其他通讯录");
-        List<BaseMvpFragment> fragments = new ArrayList<>();
+        List<BaseFragment> fragments = new ArrayList<>();
         fragments.add(WechatAddressBookFragment.getInstance());
         fragments.add(OtherAddressBookFragment.getInstance());
         AddressBookPagerAdapter adapter = AddressBookPagerAdapter.create(getSupportFragmentManager(), mContext, titles, fragments);
